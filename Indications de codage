@@ -1,0 +1,19 @@
+Suivez ce tuto pour l'insatallation de tomcat:
+    https://openclassrooms.com/courses/creez-votre-application-web-avec-java-ee/outils-et-environnement-de-developpement. 
+Téléchargez la version 8.5 et non celle du tuto.
+
+﻿Les possibles fichiers html que vous allez créer 
+ne peuvent qu'être des morceaux de page qui serviront à compléter des pages générées
+
+Pour chaque fichier jsp, il faut créer la servlet associé.
+ Tout cela afin que les fichiers jsp soient inacessibles 
+ 
+ associez un nom d'url à chaque page jsp afin que l'extension ne se voit
+  pas dans le navigateur et ainsi qu'il ny'ait pas de chemein visible
+  
+ Tous les fichiers jsp doivent être crées sous le repertoire WEB-INF
+ Les css, html et autres types web doivent être créés sous WebContent
+ 
+ Les objets Java sous les packages de Java Resources
+ Vue doit contenir les servlets
+ et Beans les objets permettant la manipulation de données
