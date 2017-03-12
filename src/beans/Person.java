@@ -2,6 +2,7 @@ package beans;
 
 import java.awt.Image;
 import java.io.Serializable;
+import java.sql.Date;
 
 public class Person implements Serializable {
 	/**
@@ -28,6 +29,7 @@ public class Person implements Serializable {
 	private String cityName;
 	private String countryName;
 	private String postalCode;
+	private Date lastConnexion;
 
 	protected Boolean Connexion(String Id, String Password) {
 		return null;
@@ -192,6 +194,14 @@ public class Person implements Serializable {
 
 	public void setPostalCode(String postalCode, Boolean sqlornot) {
 		this.postalCode = postalCode;
+	}
+
+	public Date getLastConnexion() {
+		return lastConnexion;
+	}
+
+	public void setLastConnexion(Date lastConnexion) {
+		this.lastConnexion = lastConnexion;
 	}
 
 	

@@ -11,7 +11,7 @@
   </servlet>
   <servlet>
     <servlet-name>ServletInscription</servlet-name>
-    <servlet-class>vue.ServletInscription</servlet-class>   
+    <servlet-class>vue.ServletInscription</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ServletAccueil</servlet-name>
@@ -20,5 +20,13 @@
   <servlet-mapping>
     <servlet-name>ServletInscription</servlet-name>
     <url-pattern>/inscription</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GestionTestJDBC</servlet-name>
+    <servlet-class>vue.GestionTestJDBC</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GestionTestJDBC</servlet-name>
+    <url-pattern>/testjdbc</url-pattern>
   </servlet-mapping>
 </web-app>
