@@ -16,7 +16,11 @@ import forms.FormulaireConnexion;
  */
 @WebServlet("/Connect")
 public class Connect extends HttpServlet {
-    public static final String ATT_USER         = "utilisateur";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -823867703158698451L;
+	public static final String ATT_USER         = "utilisateur";
     public static final String ATT_FORM         = "form";
     public static final String ATT_SESSION_USER = "sessionUtilisateur";
     public static final String VUE              = "/WEB-INF/connexion.jsp";
