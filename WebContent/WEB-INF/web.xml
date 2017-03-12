@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <session-config> 
+		<session-timeout>1</session-timeout>
+	</session-config>
   <servlet>
     <servlet-name>ServletAccueil</servlet-name>
     <servlet-class>vue.ServletAccueil</servlet-class>
@@ -29,4 +32,50 @@
     <servlet-name>GestionTestJDBC</servlet-name>
     <url-pattern>/testjdbc</url-pattern>
   </servlet-mapping>
+  <listener>
+    <listener-class>com.sdzee.config.InitialisationDaoFactory</listener-class>
+</listener>
+<servlet>
+	<servlet-name>Connect</servlet-name>
+	<servlet-class>vue.Connect</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>Connect</servlet-name>
+	<url-pattern>/connexion</url-pattern>
+</servlet-mapping>
+<servlet>
+	<servlet-name>Disconnect</servlet-name>
+	<servlet-class>vue.Disconnect</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>Disconnect</servlet-name>
+	<url-pattern>/deconnexion</url-pattern>
+</servlet-mapping>
+<filter>
+	<filter-name>RestrictionFilter</filter-name>
+	<filter-class>filters.RestrictionFilter</filter-class>
+</filter>
+<filter-mapping>
+	<filter-name>RestrictionFilter</filter-name>
+	<url-pattern>/*</url-pattern>
+	<dispatcher>REQUEST</dispatcher>    
+    <dispatcher>FORWARD</dispatcher> 
+    <dispatcher>INCLUDE</dispatcher>
+</filter-mapping>
+<filter>
+    <filter-name>Set Character Encoding</filter-name>
+    <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+    <init-param>
+        <param-name>encoding</param-name>
+        <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+        <param-name>ignore</param-name>
+        <param-value>false</param-value>
+    </init-param>
+</filter>
+<filter-mapping>
+    <filter-name>Set Character Encoding</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
 </web-app>

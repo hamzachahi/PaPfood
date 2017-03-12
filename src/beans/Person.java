@@ -3,6 +3,7 @@ package beans;
 import java.awt.Image;
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Person implements Serializable {
 	/**
@@ -14,6 +15,7 @@ public class Person implements Serializable {
 	private String Surname;
 	private String secondSurname;
 	private String Profession;
+	private Timestamp dateInscription;
 	private String Id;
 	private String Password;
 	private String email;
@@ -202,6 +204,14 @@ public class Person implements Serializable {
 
 	public void setLastConnexion(Date lastConnexion) {
 		this.lastConnexion = lastConnexion;
+	}
+
+	public Timestamp getDateInscription() {
+		return dateInscription;
+	}
+
+	public void setDateInscription(Timestamp dateInscription, Boolean sqlornot) {
+		this.dateInscription = dateInscription;
 	}
 
 	

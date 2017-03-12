@@ -17,5 +17,6 @@
 	<classpathentry kind="lib" path="librairie/mysql-connector-java-5.1.41-bin.jar"/>
 	<classpathentry kind="lib" path="librairie/ojdbc6.jar"/>
 	<classpathentry kind="lib" path="librairie/eclipselink.jar"/>
+	<classpathentry kind="lib" path="librairie/jasypt-1.9.0.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>
