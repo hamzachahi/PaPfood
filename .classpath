@@ -13,9 +13,9 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/Program Files/eclipselink/jlib/eclipselink.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/eclipselink/eclipselink-javadocs.zip"/>
-	<classpathentry kind="lib" path="C:/Program Files/Java/javax.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Java/javadoc-6.0.1.jar"/>
+	<classpathentry kind="lib" path="librairie/javax.jar"/>
+	<classpathentry kind="lib" path="librairie/mysql-connector-java-5.1.41-bin.jar"/>
+	<classpathentry kind="lib" path="librairie/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="librairie/eclipselink.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>
