@@ -17,7 +17,7 @@ public final class FormContact {
 	private String resultat;
 	private Map<String, String> erreurs = new HashMap<String, String>();
 
-	public boolean validerFormulaire(HttpServletRequest request) {
+	public String validerFormulaire(HttpServletRequest request) {
 
 		/* Récupération des champs du formulaire */
 		String email = getValeurChamp(request, CHAMP_EMAIL);
@@ -51,11 +51,11 @@ public final class FormContact {
 
 		if (erreurs.isEmpty()) {
 			resultat = "Message envoyé";
-			return true;
+			return resultat;
 
 		} else {
 			resultat = "Echec de l'envoi du message";
-			return false;
+			return resultat;
 		}
 
 	}

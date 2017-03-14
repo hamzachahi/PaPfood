@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import forms.FormContact;
 
@@ -27,10 +28,13 @@ public class ServletContact extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		FormContact form = new FormContact();
-		
-		boolean valid = form.validerFormulaire(request);
-		
-		
+
+		String valid = form.validerFormulaire(request);
+
+		HttpSession session = request.getSession();
+
+		request.setAttribute(ATT_FORM, form);
+		session.getAttribute(ATT_EMAIL);
 
 		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 
