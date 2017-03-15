@@ -15,6 +15,10 @@ import forms.FormContact;
 
 public class ServletContact extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final String ATT_EMAIL = "email";
 	public static final String ATT_FORM = "form";
 	public static final String ATT_SESSION_USER = "sessionUtilisateur";
