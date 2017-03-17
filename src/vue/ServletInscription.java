@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beans.Person;
+import dao.DaoPersonImpl;
 import dao.PersonDao;
 import dao.UsineDao;
 import forms.FormInscription;
@@ -18,12 +19,13 @@ public class ServletInscription extends HttpServlet {
 	public static final String ATT_USER = "utilisateur";
 	public static final String ATT_FORM = "form";
 	public static final String VUE = "/WEB-INF/inscription.jsp";
-
 	private PersonDao utilisateurDao;
 
-	public void init() throws ServletException {
-		/* Récupération d'une instance de notre DAO Utilisateur */
-		this.utilisateurDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getUtilisateurDao();
+
+	public ServletInscription() {
+		super();
+		this.utilisateurDao = new DaoPersonImpl(new UsineDao("jdbc:mysql://localhost:3306/papfood", "root", "0000"));
+
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,6 +35,8 @@ public class ServletInscription extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/* Préparation de l'objet formulaire */
+		this.utilisateurDao = new DaoPersonImpl(new UsineDao("jdbc:mysql://localhost:3306/papfood", "root", "0000"));
+
 		FormInscription form = new FormInscription(utilisateurDao);
 
 		/* Traitement de la requête et récupération du bean en résultant */

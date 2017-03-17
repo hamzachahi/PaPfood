@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import beans.Command;
 import beans.Person;
 import beans.Product;
@@ -16,7 +15,6 @@ import beans.ResultConnexion;
 
 public class DaoPersonImpl implements PersonDao {
 
-	
 	private UsineDao daoFactory;
 
 	public DaoPersonImpl(UsineDao daoFactory) {
@@ -38,8 +36,8 @@ public class DaoPersonImpl implements PersonDao {
 
 		try {
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getSqlInsertUser(), true, utilisateur.getEmail(),
-					utilisateur.getPassword(), utilisateur.getName());
+			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getSqlInsertUser(), true,
+					utilisateur.getEmail(), utilisateur.getPassword(), utilisateur.getName());
 			int statut = preparedStatement.executeUpdate();
 			if (statut == 0) {
 				throw new ExceptionDao("Échec de la création de l'utilisateur, aucune ligne ajoutée dans la table.");

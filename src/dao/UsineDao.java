@@ -19,7 +19,7 @@ public class UsineDao {
     private String              username;
     private String              password;
 
-     UsineDao( String url, String username, String password ) {
+     public UsineDao( String url, String username, String password ) {
         this.url = url;
         this.username = username;
         this.password = password;

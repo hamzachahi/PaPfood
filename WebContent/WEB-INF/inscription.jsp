@@ -36,7 +36,7 @@
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="http://localhost:8080/PaPfood/accueil">
+				<a class="navbar-brand" href="http://localhost:2020/PaPfood/accueil">
 
 					<img src="assets/img/logo.png" />
 				</a>
@@ -48,7 +48,7 @@
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="http://localhost:8080/PaPfood/accueil">
+				<a class="navbar-brand" href="http://localhost:2020/PaPfood/accueil">
 
 					<strong>Connexion</strong>
 				</a>
@@ -60,7 +60,7 @@
 						class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand"
-					href="http://localhost:8080/PaPfood/inscription"> <strong>Inscription</strong>
+					href="http://localhost:2020/PaPfood/inscription"> <strong>Inscription</strong>
 				</a>
 			</div>
 
@@ -73,7 +73,7 @@
 				<div class="col-md-12">
 					<div class="navbar-collapse collapse ">
 						<ul id="menu-top" class="nav navbar-nav navbar-right">
-							<li><a href="http://localhost:8080/PaPfood/accueil"
+							<li><a href="http://localhost:2020/PaPfood/accueil"
 								class="menu-top-active">HOME</a></li>
 
 							<li><a href="about.html">ABOUT US</a></li>
