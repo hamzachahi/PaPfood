@@ -5,6 +5,11 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import dao.DaoPersonImpl;
+import dao.UsineDao;
+
+import java.sql.Connection;
+
 public class Person implements Serializable {
 	/**
 	 * 
@@ -32,6 +37,9 @@ public class Person implements Serializable {
 	private String countryName;
 	private String postalCode;
 	private Date lastConnexion;
+	private Connection maConnexion;
+	private ResultConnexion resultConnexion;
+	private DaoPersonImpl daopi=new DaoPersonImpl(UsineDao.getInstance());
 
 	protected Boolean Connexion(String Id, String Password) {
 		return null;
@@ -212,6 +220,30 @@ public class Person implements Serializable {
 
 	public void setDateInscription(Timestamp dateInscription, Boolean sqlornot) {
 		this.dateInscription = dateInscription;
+	}
+
+	public Connection getMaConnexion() {
+		return maConnexion;
+	}
+
+	public void setMaConnexion(Connection maConnexion) {
+		this.maConnexion = maConnexion;
+	}
+
+	public DaoPersonImpl getDaopi() {
+		return daopi;
+	}
+
+	public void setDaopi(DaoPersonImpl daopi) {
+		this.daopi = daopi;
+	}
+
+	public ResultConnexion getResultConnexion() {
+		return resultConnexion;
+	}
+
+	public void setResultConnexion(ResultConnexion resultConnexion) {
+		this.resultConnexion = resultConnexion;
 	}
 
 	

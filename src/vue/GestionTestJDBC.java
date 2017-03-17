@@ -11,7 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import bdd.TestJDBC;
 
 public class GestionTestJDBC extends HttpServlet {
-    public static final String ATT_MESSAGES = "messages";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public static final String ATT_MESSAGES = "messages";
     public static final String VUE          = "/WEB-INF/test_jdbc.jsp";
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {

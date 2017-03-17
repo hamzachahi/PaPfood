@@ -30,7 +30,7 @@
 				<div class="form-group">
 					<label for="email")>Votre adresse mail: </label> <input
 						class="form-control" type="text" id="email" name="email"
-						value="<c:out value="${sessionScope.email}"/>" /><span
+						value="Insérez votre adresse email" /><span
 						class="erreur">${form.erreurs['email']}</span>
 				</div>
 

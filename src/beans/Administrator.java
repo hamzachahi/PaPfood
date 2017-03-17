@@ -9,10 +9,11 @@ public class Administrator extends Person implements ActionPerson {
 	 */
 	private static final long serialVersionUID = 8172344454082890306L;
 
+	@SuppressWarnings("static-access")
 	@Override
 	public Boolean seConnecter(String Id, String Password) {
-		// TODO Auto-generated method stub
-		return null;
+		this.setResultConnexion(this.getDaopi().seConnecter(Id, Password));
+		return this.getResultConnexion().isSucceed();
 	}
 
 	@Override
