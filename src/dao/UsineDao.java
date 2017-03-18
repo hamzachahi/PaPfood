@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class UsineDao {
 
-    private static final String FICHIER_PROPERTIES       = "/com/sdzee/dao/dao.properties";
+    private static final String FICHIER_PROPERTIES       = "/dao/dao.properties";
     private static final String PROPERTY_URL             = "url";
     private static final String PROPERTY_DRIVER          = "driver";
     private static final String PROPERTY_NOM_UTILISATEUR = "nomutilisateur";
@@ -49,6 +49,16 @@ public class UsineDao {
             driver = properties.getProperty( PROPERTY_DRIVER );
             nomUtilisateur = properties.getProperty( PROPERTY_NOM_UTILISATEUR );
             motDePasse = properties.getProperty( PROPERTY_MOT_DE_PASSE );
+            url="jdbc:mysql://localhost:3306/papfood";
+            driver="com.mysql.jdbc.Driver";
+            nomUtilisateur="root";
+            motDePasse="0000";
+            System.out.println("Url du dao.properties"+url);
+            System.out.println("driver du dao.properties"+driver);
+            System.out.println("NomUtilisateur dao.properties"+nomUtilisateur);
+            System.out.println("Password du dao.properties"+motDePasse);
+         
+
         } catch ( IOException e ) {
             throw new ConfigDaoException( "Impossible de charger le fichier properties " + FICHIER_PROPERTIES, e );
         }

@@ -15,7 +15,7 @@ import forms.FormInscription;
 
 @SuppressWarnings("serial")
 public class ServletInscription extends HttpServlet {
-	public static final String CONF_DAO_FACTORY = "usinedao";
+	public static final String CONF_DAO_FACTORY = "daofactory";
 	public static final String ATT_USER = "utilisateur";
 	public static final String ATT_FORM = "form";
 	public static final String VUE = "/WEB-INF/inscription.jsp";

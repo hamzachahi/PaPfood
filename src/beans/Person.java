@@ -4,7 +4,6 @@ import java.awt.Image;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
-
 import dao.DaoPersonImpl;
 import dao.UsineDao;
 
@@ -15,31 +14,31 @@ public class Person implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -2973296045996724571L;
-	private String Name;
-	private String secondName;
-	private String Surname;
-	private String secondSurname;
-	private String Profession;
-	private Timestamp dateInscription;
-	private String Id;
-	private String Password;
-	private String email;
-	private String phoneNumber;
-	private String telNumber;
-	private String facebookId;
-	private String twitterId;
-	private String instagramId;
-	private String linkedinId;
-	private Image accountPicture;
-	private Integer streetNumber;
-	private String streetName;
-	private String cityName;
-	private String countryName;
-	private String postalCode;
-	private Date lastConnexion;
-	private Connection maConnexion;
-	private ResultConnexion resultConnexion;
-	private DaoPersonImpl daopi=new DaoPersonImpl(UsineDao.getInstance());
+	private String Name = "";
+	private String secondName = "";
+	private String Surname = "";
+	private String secondSurname = "";
+	private String Profession = "";
+	private Timestamp dateInscription = null;
+	private String Id = "";
+	private String Password = "";
+	private String email = "";
+	private String phoneNumber = "";
+	private String telNumber = "";
+	private String facebookId = "";
+	private String twitterId = "";
+	private String instagramId = "";
+	private String linkedinId = "";
+	private Image accountPicture = null;
+	private Integer streetNumber = 0;
+	private String streetName = "";
+	private String cityName = "";
+	private String countryName = "";
+	private String postalCode = "";
+	private Date lastConnexion = null;
+	private Connection maConnexion = null;
+	private ResultConnexion resultConnexion = null;
+	private DaoPersonImpl daopi = new DaoPersonImpl(UsineDao.getInstance());
 
 	protected Boolean Connexion(String Id, String Password) {
 		return null;
@@ -246,5 +245,4 @@ public class Person implements Serializable {
 		this.resultConnexion = resultConnexion;
 	}
 
-	
 }

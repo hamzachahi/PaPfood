@@ -2,7 +2,7 @@ package dao;
 
 public class RequestRepository {
 
-	private static final String SQL_SE_TROUVER_PAR_EMAIL = "SELECT Id, name, surname, profession, email FROM Utilisateur WHERE email = ?";
+	private static final String SQL_SE_TROUVER_PAR_EMAIL = "SELECT Id, name, surname, profession, email FROM registered_client WHERE email = ?";
 	private static final String SQL_INSERT_ADMINISTRATOR = "INSERT INTO administrator (email, password, name, date_inscription) VALUES (?, ?, ?, NOW())";
 	private static final String SQL_INSERT_VISITOR = "INSERT INTO visitor (email, password, name, date_inscription) VALUES (?, ?, ?, NOW())";
 	private static final String SQL_INSERT_USER = "INSERT INTO registered_client (email, password, name, date_inscription) VALUES (?, ?, ?, NOW())";

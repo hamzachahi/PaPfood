@@ -1,4 +1,4 @@
-package beans;
+package dao;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -47,21 +47,19 @@ public class GestionProprietes {
 		GestionProprietes demo = new GestionProprietes();
 
 		//Emplacement où sera stocké le fichier
-		String propertiesFileLocation = "d:/myProperties.properties";
+		String propertiesFileLocation = "dao.properties";
 		
 		//On instancie un nouvel objet Properties
 		Properties myProps = new Properties();
 		//On y insère des paires [clé,valeur]
-		myProps.setProperty("user.name","HackTrack");
-		myProps.setProperty("os.name","Linux");
-		myProps.setProperty("java.ide","Eclipse3.2");
-		myProps.setProperty("java.applicationserver.name","JBoss AS");
-		myProps.setProperty("java.applicationserver.version","4.0.5");
-		myProps.setProperty("user.function","Developer");
-		myProps.setProperty("user.age","You are too curious!");
+		myProps.setProperty("url","jdbc:mysql://localhost:3306/papfood");
+		myProps.setProperty("driver","com.mysql.jdbc.Driver");
+		myProps.setProperty("nomutilisateur","root");
+		myProps.setProperty("motdepasse","0000");
+
 		
 		try {
-			demo.saveProperties(myProps, propertiesFileLocation, "This is a demo on Properties by HackTrack");
+		//	demo.saveProperties(myProps, propertiesFileLocation, "This is a demo on Properties by HackTrack");
 			Properties loadedProps = demo.loadProperties(propertiesFileLocation);
 			demo.displayProperties(loadedProps);
 		} catch (FileNotFoundException e) {
