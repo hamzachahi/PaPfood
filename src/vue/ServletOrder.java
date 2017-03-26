@@ -12,10 +12,14 @@ import javax.servlet.http.HttpSession;
 import beans.Command;
 import forms.FormOrder;
 
-@WebServlet("/Order")
+@WebServlet("/ServletOrder")
 
 public class ServletOrder extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2268529311014243749L;
 	public static final String ATT_USER = "utilisateur";
 	public static final String ATT_FORM = "form";
 	public static final String VUE = "/WEB-INF/order.jsp";

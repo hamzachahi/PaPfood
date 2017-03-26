@@ -28,6 +28,10 @@
     <servlet-name>ServletContact</servlet-name>
     <servlet-class>vue.ServletContact</servlet-class>
   </servlet>
+   <servlet>
+    <servlet-name>ServletOrder</servlet-name>
+    <servlet-class>vue.ServletOrder</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>ServletAccueil</servlet-name>
     <url-pattern>/accueil</url-pattern>
@@ -56,12 +60,8 @@
     <servlet-name>ServletContact</servlet-name>
     <url-pattern>/contact</url-pattern>
   </servlet-mapping>
-  <servlet>
-	<servlet-name>ServletOrder</servlet-name>
-	<servlet-class>vue.ServletOrder</servlet-class>
-  </servlet>
-  <servlet-mapping>
-	<servlet-name>ServletOrder</servlet-name>
-	<url-pattern>/Order</url-pattern>
+    <servlet-mapping>
+    <servlet-name>ServletOrder</servlet-name>
+    <url-pattern>/Order</url-pattern>
   </servlet-mapping>
  </web-app>
