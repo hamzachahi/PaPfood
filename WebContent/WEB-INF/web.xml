@@ -7,7 +7,7 @@
   <servlet>
     <servlet-name>ServletInscription</servlet-name>
     <servlet-class>vue.ServletInscription</servlet-class>
-  </servlet> 
+  </servlet>
   <servlet>
     <servlet-name>GestionTestJDBC</servlet-name>
     <servlet-class>vue.GestionTestJDBC</servlet-class>
@@ -28,7 +28,7 @@
     <servlet-name>ServletContact</servlet-name>
     <servlet-class>vue.ServletContact</servlet-class>
   </servlet>
-   <servlet>
+  <servlet>
     <servlet-name>ServletOrder</servlet-name>
     <servlet-class>vue.ServletOrder</servlet-class>
   </servlet>
@@ -39,7 +39,7 @@
   <servlet-mapping>
     <servlet-name>ServletInscription</servlet-name>
     <url-pattern>/inscription</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>GestionTestJDBC</servlet-name>
     <url-pattern>/testjdbc</url-pattern>
@@ -60,8 +60,8 @@
     <servlet-name>ServletContact</servlet-name>
     <url-pattern>/contact</url-pattern>
   </servlet-mapping>
-    <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>ServletOrder</servlet-name>
     <url-pattern>/Order</url-pattern>
   </servlet-mapping>
- </web-app>
+</web-app>
