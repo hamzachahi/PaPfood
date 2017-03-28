@@ -8,11 +8,6 @@ import java.io.OutputStream;
 import java.util.Iterator;
 import java.util.Properties;
 
-/*
- * Created on Jan 24, 2007
- *
- */
-
 public class GestionProprietes {
 
 	public GestionProprietes() {
