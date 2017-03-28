@@ -19,6 +19,6 @@
 	<classpathentry kind="lib" path="librairie/eclipselink.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jsf-api.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jasypt-1.9.0.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_25"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_121"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

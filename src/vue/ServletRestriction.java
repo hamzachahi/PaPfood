@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class Restriction extends HttpServlet {
+public class ServletRestriction extends HttpServlet {
 	/**
 	 * 
 	 */

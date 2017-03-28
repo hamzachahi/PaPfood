@@ -5,8 +5,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import dao.PersonDao;
-
 public final class FormContact {
 
 	private static final String CHAMP_EMAIL = "email";

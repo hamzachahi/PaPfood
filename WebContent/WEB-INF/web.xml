@@ -13,16 +13,16 @@
     <servlet-class>vue.GestionTestJDBC</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>Connect</servlet-name>
-    <servlet-class>vue.Connect</servlet-class>
+    <servlet-name>ServletConnect</servlet-name>
+    <servlet-class>vue.ServletConnect</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>Disconnect</servlet-name>
-    <servlet-class>vue.Disconnect</servlet-class>
+    <servlet-name>ServletDisconnect</servlet-name>
+    <servlet-class>vue.ServletDisconnect</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>Restriction</servlet-name>
-    <servlet-class>vue.Restriction</servlet-class>
+    <servlet-name>ServletRestriction</servlet-name>
+    <servlet-class>vue.ServletRestriction</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>ServletContact</servlet-name>
@@ -45,15 +45,15 @@
     <url-pattern>/testjdbc</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>Connect</servlet-name>
+    <servlet-name>ServletConnect</servlet-name>
     <url-pattern>/connexion</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>Disconnect</servlet-name>
+    <servlet-name>ServletDisconnect</servlet-name>
     <url-pattern>/deconnexion</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>Restriction</servlet-name>
+    <servlet-name>ServletRestriction</servlet-name>
     <url-pattern>/restriction</url-pattern>
   </servlet-mapping>
   <servlet-mapping>

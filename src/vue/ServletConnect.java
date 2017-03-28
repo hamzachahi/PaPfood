@@ -15,7 +15,7 @@ import forms.FormulaireConnexion;
  * Servlet implementation class Connect
  */
 @WebServlet("/Connect")
-public class Connect extends HttpServlet {
+public class ServletConnect extends HttpServlet {
     /**
 	 * 
 	 */

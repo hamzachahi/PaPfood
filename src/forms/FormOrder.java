@@ -46,6 +46,7 @@ public class FormOrder {
 	/*
 	 * Ajoute un message correspondant au champ spécifié à la map des erreurs.
 	 */
+	@SuppressWarnings("unused")
 	private void setErreur(String champ, String message) {
 		erreurs.put(champ, message);
 	}

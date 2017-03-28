@@ -33,6 +33,7 @@ public class ServletContact extends HttpServlet {
 
 		FormContact form = new FormContact();
 
+		@SuppressWarnings("unused")
 		String valid = form.validerFormulaire(request);
 
 		HttpSession session = request.getSession();

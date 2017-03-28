@@ -33,8 +33,10 @@ public class ServletOrder extends HttpServlet {
 
 		FormOrder formulaire = new FormOrder();
 
+		@SuppressWarnings("unused")
 		Command commande = formulaire.order(request);
 
+		@SuppressWarnings("unused")
 		HttpSession maSession = request.getSession();
 
 		// A TERMINER
