@@ -5,19 +5,17 @@
 <head>
 <meta charset="utf-8" />
 <title>Connexion</title>
-<link type="text/css" rel="stylesheet" href="form.css" />
-<link href="assets/css/bootstrap.css" rel="stylesheet" />
-<!-- FONT AWESOME STYLE  -->
-<link href="assets/css/font-awesome.css" rel="stylesheet" />
-<!-- ANIMATE STYLE  -->
-<link href="assets/css/animate.css" rel="stylesheet" />
-<!-- FLEXSLIDER STYLE  -->
-<link href="assets/css/flexslider.css" rel="stylesheet" />
-<!-- CUSTOM STYLE  -->
-<link href="assets/css/style.css" rel="stylesheet" />
-<link href="assets/css/inscriptionbase.css" rel="stylesheet" />
 </head>
 <body>
+
+	<script type="text/javascript"
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+
+	<script type="text/javascript" src="assets/js/facebook.js"></script>
+
+	<div id="fb-root"></div>
+
+	<!--  formulaire de connexion -->
 	<form method="post" action="connexion">
 		<fieldset>
 			<legend>Connexion</legend>
@@ -47,4 +45,31 @@
 			</c:if>
 		</fieldset>
 	</form>
+
+
+	<div class="fb-login-button" data-max-rows="1" data-size="xlarge"
+		data-show-faces="true" onlogin="renderData();" data-scope=""
+		data-auto-logout-link="true"></div>
+
+
+	<div id="status"></div>
+
+
+	<p id="fb_login_button_1">
+		<fb:login-button size="medium" scope="user_about_me">Sign in using Facebook</fb:login-button>
+	</p>
+
+	<script type="text/javascript">
+		function renderData() {
+			$.ajax({
+				type : "POST",
+				contentType : "application/json",
+				url : "ServletConnect",
+				dataType : "json",
+				success : function() {
+					console.log('VOOOOOIIIIIILAAAAA');
+				}
+			});
+		}
+	</script>
 </body>
