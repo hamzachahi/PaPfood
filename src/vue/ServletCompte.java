@@ -43,4 +43,12 @@ public class ServletCompte extends HttpServlet {
 		doGet(request, response);
 	}
 
+	public PersonDao getUtilisateurDao() {
+		return utilisateurDao;
+	}
+
+	public void setUtilisateurDao(PersonDao utilisateurDao) {
+		this.utilisateurDao = utilisateurDao;
+	}
+
 }

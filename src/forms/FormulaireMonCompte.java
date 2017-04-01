@@ -28,6 +28,7 @@ public class FormulaireMonCompte {
 	private String postalCode = "";
 	
 
+	@SuppressWarnings("unused")
 	private void validationEmail(String email) throws Exception {
 		/**
 		 * Valide l'adresse email saisie.
@@ -37,6 +38,7 @@ public class FormulaireMonCompte {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void validationMotDePasse(String motDePasse) throws Exception {
 		/**
 		 * Valide le mot de passe saisi.
@@ -50,13 +52,182 @@ public class FormulaireMonCompte {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private void validationTel(String numeroTel) throws Exception {
 		/**
-		 * Valide le numéro de telephone saisi
+		 * Valide le numï¿½ro de telephone saisi
 		 */
 		if (numeroTel.length() < 10 || !(numeroTel.startsWith("0"))) {
-			throw new Exception("Le numéro de telephone n'est pas valide.");
+			throw new Exception("Le numï¿½ro de telephone n'est pas valide.");
 		}
+	}
+
+	public String getName() {
+		return Name;
+	}
+
+	public void setName(String name) {
+		Name = name;
+	}
+
+	public String getSecondName() {
+		return secondName;
+	}
+
+	public void setSecondName(String secondName) {
+		this.secondName = secondName;
+	}
+
+	public String getSurname() {
+		return Surname;
+	}
+
+	public void setSurname(String surname) {
+		Surname = surname;
+	}
+
+	public String getSecondSurname() {
+		return secondSurname;
+	}
+
+	public void setSecondSurname(String secondSurname) {
+		this.secondSurname = secondSurname;
+	}
+
+	public String getProfession() {
+		return Profession;
+	}
+
+	public void setProfession(String profession) {
+		Profession = profession;
+	}
+
+	public Timestamp getDateInscription() {
+		return dateInscription;
+	}
+
+	public void setDateInscription(Timestamp dateInscription) {
+		this.dateInscription = dateInscription;
+	}
+
+	public String getId() {
+		return Id;
+	}
+
+	public void setId(String id) {
+		Id = id;
+	}
+
+	public String getPassword() {
+		return Password;
+	}
+
+	public void setPassword(String password) {
+		Password = password;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getTelNumber() {
+		return telNumber;
+	}
+
+	public void setTelNumber(String telNumber) {
+		this.telNumber = telNumber;
+	}
+
+	public String getFacebookId() {
+		return facebookId;
+	}
+
+	public void setFacebookId(String facebookId) {
+		this.facebookId = facebookId;
+	}
+
+	public String getTwitterId() {
+		return twitterId;
+	}
+
+	public void setTwitterId(String twitterId) {
+		this.twitterId = twitterId;
+	}
+
+	public String getInstagramId() {
+		return instagramId;
+	}
+
+	public void setInstagramId(String instagramId) {
+		this.instagramId = instagramId;
+	}
+
+	public String getLinkedinId() {
+		return linkedinId;
+	}
+
+	public void setLinkedinId(String linkedinId) {
+		this.linkedinId = linkedinId;
+	}
+
+	public Image getAccountPicture() {
+		return accountPicture;
+	}
+
+	public void setAccountPicture(Image accountPicture) {
+		this.accountPicture = accountPicture;
+	}
+
+	public Integer getStreetNumber() {
+		return streetNumber;
+	}
+
+	public void setStreetNumber(Integer streetNumber) {
+		this.streetNumber = streetNumber;
+	}
+
+	public String getStreetName() {
+		return streetName;
+	}
+
+	public void setStreetName(String streetName) {
+		this.streetName = streetName;
+	}
+
+	public String getCityName() {
+		return cityName;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
+
+	public String getCountryName() {
+		return countryName;
+	}
+
+	public void setCountryName(String countryName) {
+		this.countryName = countryName;
+	}
+
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
 
 }
