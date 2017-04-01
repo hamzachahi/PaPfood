@@ -12,6 +12,8 @@ import dao.DaoPersonImpl;
 import dao.PersonDao;
 import dao.UsineDao;
 import forms.FormInscription;
+import geolocation.Geolocalization;
+import geolocation.LocationInformation;
 
 @SuppressWarnings("serial")
 public class ServletInscription extends HttpServlet {
@@ -20,7 +22,6 @@ public class ServletInscription extends HttpServlet {
 	public static final String ATT_FORM = "form";
 	public static final String VUE = "/WEB-INF/inscription.jsp";
 	private PersonDao utilisateurDao;
-
 
 	public ServletInscription() {
 		super();
@@ -31,6 +32,9 @@ public class ServletInscription extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/* Affichage de la page d'inscription */
 		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+		@SuppressWarnings("unused")
+		LocationInformation location = Geolocalization.getGeoLocationInformation(request);
+
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
