@@ -3,8 +3,8 @@ package beans;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public class Command {
-	private int Id;
+public class Commande {
+	private Long Id;
 	private String Code;
 	private String idCustomer;
 	private String idCart;
@@ -16,11 +16,11 @@ public class Command {
 	private Date dateCommande;
 	private Date dateLivraison;
 
-	public int getId() {
+	public Long getId() {
 		return Id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		Id = id;
 	}
 

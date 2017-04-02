@@ -20,7 +20,7 @@ public class Person implements Serializable {
 	private String secondSurname = "";
 	private String Profession = "";
 	private Timestamp dateInscription = null;
-	private String Id = "";
+	private Long Id ;
 	private String Password = "";
 	private String email = "";
 	private String phoneNumber = "";
@@ -85,11 +85,11 @@ public class Person implements Serializable {
 		Profession = profession;
 	}
 
-	public String getId() {
+	public Long getId() {
 		return Id;
 	}
 
-	public void setId(String id, Boolean sqlornot) {
+	public void setId(Long id, Boolean sqlornot) {
 		Id = id;
 	}
 

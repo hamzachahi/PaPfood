@@ -89,4 +89,10 @@ public class Meal extends MotherProduct implements Product{
 		return null;
 	}
 
+	@Override
+	public Boolean setId(Long newId, Boolean sqlornot) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

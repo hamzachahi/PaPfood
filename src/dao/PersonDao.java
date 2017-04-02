@@ -2,7 +2,7 @@ package dao;
 
 import java.util.ArrayList;
 
-import beans.Command;
+import beans.Commande;
 import beans.Person;
 import beans.Product;
 import beans.ResultConnexion;
@@ -15,7 +15,7 @@ public interface PersonDao {
 
 	public ResultConnexion seConnecter(String Id, String Password);
 
-	public Boolean Commander(Command commande,String Id);
+	public Boolean Commander(Commande commande,String Id);
 
 	public ArrayList<String> acceptCommand(ArrayList<String> listCommand);
 

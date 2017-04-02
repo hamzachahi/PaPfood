@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import beans.Command;
+import beans.Commande;
 import beans.Person;
 import beans.Product;
 import beans.ResultConnexion;
@@ -24,7 +24,7 @@ public class DaoPersonImpl implements PersonDao {
 	/* Implémentation de la méthode définie dans l'interface UtilisateurDao */
 	@Override
 	public Person trouver(String email) throws ExceptionDao {
-		return trouver(RequestRepository.getSqlSeTrouverParEmail(), email);
+		return trouver(RequestRepository.getOraclesqlSeTrouverParEmail(), email);
 	}
 
 	/* Implémentation de la méthode définie dans l'interface UtilisateurDao */
@@ -36,7 +36,7 @@ public class DaoPersonImpl implements PersonDao {
 
 		try {
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getSqlInsertUser(), true,
+			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlInsertPerson(), true,
 					utilisateur.getEmail(), utilisateur.getPassword(), utilisateur.getName());
 			int statut = preparedStatement.executeUpdate();
 			if (statut == 0) {
@@ -44,7 +44,7 @@ public class DaoPersonImpl implements PersonDao {
 			}
 			valeursAutoGenerees = preparedStatement.getGeneratedKeys();
 			if (valeursAutoGenerees.next()) {
-				utilisateur.setId(String.valueOf(valeursAutoGenerees.getLong(1)), false);
+				utilisateur.setId(valeursAutoGenerees.getLong(1), false);
 			} else {
 				throw new ExceptionDao("Échec de la création de l'utilisateur en base, aucun ID auto-généré retourné.");
 			}
@@ -90,7 +90,7 @@ public class DaoPersonImpl implements PersonDao {
 
 	private static Person map(ResultSet resultSet) throws SQLException {
 		Person utilisateur = new Person();
-		utilisateur.setId(resultSet.getString("id"), false);
+		utilisateur.setId(resultSet.getLong("id"), false);
 		utilisateur.setEmail(resultSet.getString("email"), false);
 		utilisateur.setPassword(resultSet.getString("mot_de_passe"), false);
 		utilisateur.setName(resultSet.getString("nom"), false);
@@ -119,7 +119,7 @@ public class DaoPersonImpl implements PersonDao {
 	}
 
 	@Override
-	public Boolean Commander(Command commande, String Id) {
+	public Boolean Commander(Commande commande, String Id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

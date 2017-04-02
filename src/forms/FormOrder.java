@@ -3,7 +3,7 @@ package forms;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-import beans.Command;
+import beans.Commande;
 
 public class FormOrder {
 
@@ -14,14 +14,14 @@ public class FormOrder {
 	private Map<String, String> erreurs = new HashMap<String, String>();
 	private String resultat;
 
-	public Command order(HttpServletRequest request) {
+	public Commande order(HttpServletRequest request) {
 
 		/* Récupération des champs du formulaire */
 		String adresseFacturation = getValeurChamp(request, CHAMP_ADR_FAC);
 		String adresseExped = getValeurChamp(request, CHAMP_ADR_EXPED);
 		String modePaiement = getValeurChamp(request, CHAMP_MODE_PAY);
 
-		Command commande = new Command();
+		Commande commande = new Commande();
 
 		try {
 			validationAdrExp(adresseExped);

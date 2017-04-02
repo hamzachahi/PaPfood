@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import beans.Command;
+import beans.Commande;
 import forms.FormOrder;
 
 @WebServlet("/ServletOrder")
@@ -34,7 +34,7 @@ public class ServletOrder extends HttpServlet {
 		FormOrder formulaire = new FormOrder();
 
 		@SuppressWarnings("unused")
-		Command commande = formulaire.order(request);
+		Commande commande = formulaire.order(request);
 
 		@SuppressWarnings("unused")
 		HttpSession maSession = request.getSession();

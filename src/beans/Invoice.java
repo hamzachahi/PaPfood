@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Invoice {
-	private String idInvoice;
+	private Long Id;
 	private String codeInvoice;
 	private ArrayList<Product> listProduct;
 	private Date creationDate;
@@ -23,12 +23,12 @@ public class Invoice {
 	private String personAddress;
 	private String destinatorAddress;
 
-	public String getIdInvoice() {
-		return idInvoice;
+	public Long getId() {
+		return Id;
 	}
 
-	public void setIdInvoice(String idInvoice, Boolean sqlornot) {
-		this.idInvoice = idInvoice;
+	public void setId(Long id) {
+		Id = id;
 	}
 
 	public String getCodeInvoice() {

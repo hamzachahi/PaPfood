@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class FoodDish extends MotherProduct implements Product {
 
 	@Override
-	public String getCode() {
+	public Boolean setId(Long newId,Boolean sqlornot) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -18,31 +18,13 @@ public class FoodDish extends MotherProduct implements Product {
 	}
 
 	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Boolean setName(String newName, Boolean sqlornot) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Double getPrice() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Boolean setPrice(Integer newPrice, Boolean sqlornot) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getDescription() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -78,15 +60,11 @@ public class FoodDish extends MotherProduct implements Product {
 	}
 
 	@Override
-	public ArrayList<Product> getListSubProduct() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Boolean setListProduct(ArrayList<Product> listSubProduct, Boolean sqlornot) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }

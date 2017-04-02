@@ -4,6 +4,10 @@ import java.awt.Image;
 import java.util.ArrayList;
 
 public interface Product {
+	public Long getId();
+
+	public Boolean setId(Long newId, Boolean sqlornot);
+
 	public String getCode();
 
 	public Boolean setCode(String newCode, Boolean sqlornot);

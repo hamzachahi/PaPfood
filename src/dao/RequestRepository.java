@@ -1,214 +1,574 @@
 package dao;
 
 public class RequestRepository {
+	// Début requête select
+	private static final String MySQL_SE_TROUVER_PAR_EMAIL = "SELECT Id, name, surname, profession, email FROM person WHERE email = ?";
+	private static final String OracleSQL_SE_TROUVER_PAR_EMAIL = "SELECT Id, name, surname, profession, email FROM person WHERE email = ?";
 
-	private static final String SQL_SE_TROUVER_PAR_EMAIL = "SELECT Id, name, surname, profession, email FROM registered_client WHERE email = ?";
-	private static final String SQL_INSERT_ADMINISTRATOR = "INSERT INTO administrator (email, password, name, date_inscription) VALUES (?, ?, ?, NOW())";
-	private static final String SQL_INSERT_VISITOR = "INSERT INTO visitor (email, password, name, date_inscription) VALUES (?, ?, ?, NOW())";
-	private static final String SQL_INSERT_USER = "INSERT INTO registered_client (email, password, name, date_inscription) VALUES (?, ?, ?, NOW())";
-	private static final String SQL_INSERT_COMMAND = "INSERT INTO command (code,id_customer,date_commande) VALUES(?,?,NOW())";
-	private static final String SQL_INSERT_ARTISAN = "INSERT INTO artisan (email, password, name, date_inscription) VALUES (?, ?, ?, NOW())";
-	private static final String SQL_INSERT_CONNEXION = "INSERT INTO connexion (login_time, user_id, user_id_ip_address, user_type) VALUES (?, ?, ?, ?)";
-	private static final String SQL_INSERT_COOKING_RECIPE = "INSERT INTO cooking_recipe (code, name, description, price, main_image) VALUES (?, ?, ?, ?, ?)";
-	private static final String SQL_INSERT_FOOD_DISH = "INSERT INTO food_dish (code, name, description, price, main_image) VALUES (?, ?, ?, ?, ?)";
-	private static final String SQL_INSERT_INVOICE = "INSERT INTO invoice (code_invoice, creation_date, type, total_price, person_name, society_name, phone_number, website, header_message, footer_message, legal_message, person_address, destination_address) VALUES (?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String SQL_INSERT_MEAL = "INSERT INTO meal (code, name, description, price, main_image) VALUES (?, ?, ?, ?, ?)";
-	private static final String SQL_INSERT_PRODUCT_COMPONENT = "INSERT INTO product_component (id_componed, id_component) VALUES (?, ?)";
-	private static final String SQL_INSERT_SERVICE = "INSERT INTO service (code, name, description, price, main_image) VALUES (?, ?, ?, ?, ?)";
+	private static final String MySQL_SELECT_ALL = "SELECT * FROM ? WHERE Id > ?";
+	private static final String OracleSQL_SELECT_ALL = "SELECT * FROM ? WHERE Id > ?";
 
-	private static final String SQL_SELECT_ALL = "SELECT * FROM ? WHERE Id > ?";
-	private static final String SQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id > ?";
-	
-	private static final String SQL_INSERT_COMMAND_PRODUCT = "INSERT INTO command_product (id_command,id_product,quantity) VALUES(?,?,?))";
-	private static final String SQL_UPDATE_ADMINISTRATOR = "UPDATE administrator SET name = ?, second_name=?, surname=?, second_surname=?, profession=?, date_inscription=?, password=?, email=?, phone_number=?, tel_number=?, facebook_id=?, twitter_id=?, instagram_id=?, linkedin_id=?, account_picture=?, street_number=?, street_name=?, city_name=?, country_name=?, postal_code=?, last_connexion=?  WHERE ID = ?";
-    private static final String SQL_UPDATE_USER="UPDATE registered_client SET name = ?, second_name=?, surname=?, second_surname=?, profession=?, date_inscription=?, password=?, email=?, phone_number=?, tel_number=?, facebook_id=?, twitter_id=?, instagram_id=?, linkedin_id=?, account_picture=?, street_number=?, street_name=?, city_name=?, country_name=?, postal_code=?, last_connexion=?  WHERE ID = ?";
-    private static final String SQL_UPDATE_VISITOR="UPDATE visitor SET name = ?, second_name=?, surname=?, second_surname=?, profession=?, date_inscription=?, password=?, email=?, phone_number=?, tel_number=?, facebook_id=?, twitter_id=?, instagram_id=?, linkedin_id=?, account_picture=?, street_number=?, street_name=?, city_name=?, country_name=?, postal_code=?, last_connexion=?  WHERE ID = ?";
-    private static final String SQL_UPDATE_ARTISAN="UPDATE artisan SET name = ?, second_name=?, surname=?, second_surname=?, profession=?, date_inscription=?, password=?, email=?, phone_number=?, tel_number=?, facebook_id=?, twitter_id=?, instagram_id=?, linkedin_id=?, account_picture=?, street_number=?, street_name=?, city_name=?, country_name=?, postal_code=?, last_connexion=?  WHERE ID = ?";
-	private static final String SQL_UPDATE_COMMAND = "UPDATE command SET code=?, id_customer = ?, date_commande=?, date_livraison=? WHERE ID = ?";
-	private static final String SQL_UPDATE_COMMAND_PRODUCT = "UPDATE command_product SET id_command = ?, id_product=?, quantity=? WHERE ID = ?";
-	private static final String SQL_UPDATE_CONNEXION = "UPDATE connexion SET logout_time = ? WHERE ID = ?";
-	private static final String SQL_UPDATE_COOKING_RECIPE = "UPDATE cooking_recipe SET code = ?, name=?, description=?, price=?, main_image=? WHERE ID = ?";
-	private static final String SQL_UPDATE_FOOD_DISH = "UPDATE food_dish SET code = ?, name=?, description=?, price=?, main_image=? WHERE ID = ?";
-	private static final String SQL_UPDATE_INVOICE = "UPDATE invoice SET code_invoice = ?, delivered_date=?, type=?, total_price=?, person_name=?, society_name=?, phone_number=?, website=?, header_message=?, footer_message=?, legal_message=?, person_address=?, destinator_address=? WHERE ID = ?";
-	private static final String SQL_UPDATE_MEAL = "UPDATE meal SET code = ?, name=?, description=?, price=?, main_image=? WHERE ID = ?";
-	private static final String SQL_UPDATE_PRODUCT_COMPONENT = "UPDATE product_component SET id_componed = ?, id_component=? WHERE ID = ?";
-	private static final String SQL_UPDATE_SERVICE = "UPDATE service SET code = ?, name=?, description=?, price=?, main_image=? WHERE ID = ?";
+	private static final String MySQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id > ?";
+	private static final String OracleSQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id > ?";
+	// fin select
+	// début insert
 
-	private static final String SQL_DELETE_ADMINISTRATOR = "DELETE FROM administrator WHERE ID = ?";
-	private static final String SQL_DELETE_VISITOR = "DELETE FROM visitor WHERE ID = ?";
-	private static final String SQL_DELETE_USER = "DELETE FROM registered_client WHERE ID = ?";
-	private static final String SQL_DELETE_COMMAND = "DELETE FROM command WHERE ID = ?";
-	private static final String SQL_DELETE_ARTISAN = "DELETE FROM artisan WHERE ID = ?";
-	private static final String SQL_DELETE_CONNEXION = "DELETE FROM connexion WHERE ID = ?";
-	private static final String SQL_DELETE_COOKING_RECIPE = "DELETE FROM cooking_recipe WHERE ID = ?";
-	private static final String SQL_DELETE_FOOD_DISH = "DELETE FROM food_dish WHERE ID = ?";
-	private static final String SQL_DELETE_INVOICE = "DELETE FROM invoice WHERE ID = ?";
-	private static final String SQL_DELETE_MEAL = "DELETE FROM meal WHERE ID = ?";
-	private static final String SQL_DELETE_PRODUCT_COMPONENT = "DELETE FROM product_component WHERE ID = ?";
-	private static final String SQL_DELETE_SERVICE = "DELETE FROM service WHERE ID = ?";
+	private static final String MySQL_INSERT_PERSON = "INSERT INTO person (email, password, name, function, date_inscription) VALUES (?, ?, ?, ?, NOW())";
+	private static final String OracleSQL_INSERT_PERSON = "INSERT INTO person (email, password, name, function, date_inscription) VALUES (?, ?, ?, ?, SYSTIMESTAMP)";
 
-	public static String getSqlSeTrouverParEmail() {
-		return SQL_SE_TROUVER_PAR_EMAIL;
+	private static final String MySQL_INSERT_EVALUATION = "INSERT INTO evaluation (id_person, id_jury, note, comments) VALUES (?, ?, ?, ?)";
+	private static final String OracleSQL_INSERT_EVALUATION = "INSERT INTO evaluation (id_person, id_jury, note, comments) VALUES (?, ?, ?, ?)";
+
+	private static final String MySQL_INSERT_COMMANDE = "INSERT INTO commande (code,id_customer,date_ordering) VALUES(?,?,NOW())";
+	private static final String OracleSQL_INSERT_COMMANDE = "INSERT INTO commande (code,id_customer,date_ordering) VALUES(?,?,SYSTIMESTAMP)";
+
+	private static final String MySQL_INSERT_CONNECTION = "INSERT INTO connexion (login_time, person_id, person_id_ip_address, person_type) VALUES (?, ?, ?, ?)";
+	private static final String OracleSQL_INSERT_CONNECTION = "INSERT INTO connexion (login_time, person_id, person_id_ip_address, person_type) VALUES (?, ?, ?, ?)";
+
+	private static final String MySQL_INSERT_PRODUCT = "INSERT INTO food_dish (code, name, description, price, main_image) VALUES (?, ?, ?, ?, ?)";
+	private static final String OracleSQL_INSERT_FOOD_DISH = "INSERT INTO food_dish (code, name, description, price, main_image) VALUES (?, ?, ?, ?, ?)";
+
+	private static final String MySQL_INSERT_INVOICE = "INSERT INTO invoice (code_invoice, creation_date, delivered_date, type, total_price, header_message, footer_message, legal_message) VALUES (?, NOW(), ?, ?, ?, ?, ?, ?)";
+	private static final String OracleSQL_INSERT_INVOICE = "INSERT INTO invoice (code_invoice, creation_date, delivered_date, type, total_price, header_message, footer_message, legal_message) VALUES (?, SYSTIMESTAMP, ?, ?, ?, ?, ?, ?)";
+
+	private static final String MySQL_INSERT_PRODUCT_COMPONENT = "INSERT INTO product_component (id_componed, id_component) VALUES (?, ?)";
+	private static final String OracleSQL_INSERT_PRODUCT_COMPONENT = "INSERT INTO product_component (id_componed, id_component) VALUES (?, ?)";
+
+	private static final String MySQL_INSERT_PRODUCT_SERVICE = "INSERT INTO product_service (id_product, id_service) VALUES (?, ?)";
+	private static final String OracleSQL_INSERT_PRODUCT_SERVICE = "INSERT INTO product_service (id_product, id_service) VALUES (?, ?)";
+
+	private static final String MySQL_INSERT_INVOICE_PERSON = "INSERT INTO invoice_person (id_invoice, id_person, person_name, person_address, person_surname) VALUES (?, ?, ?, ?, ?)";
+	private static final String OracleSQL_INSERT_INVOICE_PERSON = "INSERT INTO invoice_person (id_invoice, id_person, person_name, person_address, person_surname) VALUES (?, ?, ?, ?, ?)";
+
+	private static final String MySQL_INSERT_INVOICE_PRODUCT = "INSERT INTO invoice_product (id_invoice, id_product) VALUES (?, ?)";
+	private static final String OracleSQL_INSERT_INVOICE_PRODUCT = "INSERT INTO invoice_product (id_invoice, id_product) VALUES (?, ?)";
+
+	private static final String MySQL_INSERT_INVOICE_SERVICE = "INSERT INTO invoice_service (id_invoice, id_service) VALUES (?, ?)";
+	private static final String OracleSQL_INSERT_INVOICE_SERVICE = "INSERT INTO invoice_service (id_invoice, id_service) VALUES (?, ?)";
+
+	private static final String MySQL_INSERT_SERVICE = "INSERT INTO service (code, name, description, price, main_image) VALUES (?, ?, ?, ?, ?)";
+	private static final String OracleSQL_INSERT_SERVICE = "INSERT INTO service (code, name, description, price, main_image) VALUES (?, ?, ?, ?, ?)";
+
+	private static final String MySQL_INSERT_SERVICE_PRODUCT = "INSERT INTO service_product (id_service, id_product) VALUES (?, ?)";
+	private static final String OracleSQL_INSERT_SERVICE_PRODUCT = "INSERT INTO service_product (id_service, id_product) VALUES (?, ?)";
+
+	private static final String MySQL_INSERT_SERVICE_COMPONENT = "INSERT INTO service_component (id_service, id_component) VALUES (?, ?)";
+	private static final String OracleSQL_INSERT_SERVICE_COMPONENT = "INSERT INTO service_component (id_service, id_component) VALUES (?, ?)";
+
+	private static final String MySQL_INSERT_COMMANDE_PRODUCT = "INSERT INTO commande_product (id_commande,id_product,quantity) VALUES(?,?,?))";
+	private static final String OracleSQL_INSERT_COMMANDE_PRODUCT = "INSERT INTO commande_product (id_commande,id_product,quantity) VALUES(?,?,?))";
+
+	private static final String MySQL_INSERT_COMMANDE_SERVICE = "INSERT INTO commande_service (id_commande,id_service,quantity) VALUES(?,?,?))";
+	private static final String OracleSQL_INSERT_COMMANDE_SERVICE = "INSERT INTO commande_service (id_commande,id_service,quantity) VALUES(?,?,?))";
+
+	// fin insert
+	// début update
+	private static final String MySQL_UPDATE_PERSON = "UPDATE person SET name = ?, second_name=?, surname=?, second_surname=?, profession=?, date_inscription=?, password=?, email=?, phone_number=?, tel_number=?, facebook_id=?, twitter_id=?, instagram_id=?, linkedin_id=?, account_picture=?, street_number=?, street_name=?, city_name=?, country_name=?, postal_code=?, last_connection=?, function=?  WHERE ID = ?";
+	private static final String OracleSQL_UPDATE_PERSON = "UPDATE person SET name = ?, second_name=?, surname=?, second_surname=?, profession=?, date_inscription=?, password=?, email=?, phone_number=?, tel_number=?, facebook_id=?, twitter_id=?, instagram_id=?, linkedin_id=?, account_picture=?, street_number=?, street_name=?, city_name=?, country_name=?, postal_code=?, last_connection=?, function=?  WHERE ID = ?";
+
+	private static final String MySQL_UPDATE_COMMANDE = "UPDATE commande SET code=?, id_customer = ?, date_ordering=?, date_livraison=? WHERE ID = ?";
+	private static final String OracleSQL_UPDATE_COMMANDE = "UPDATE commande SET code=?, id_customer = ?, date_ordering=?, date_livraison=? WHERE ID = ?";
+
+	private static final String MySQL_UPDATE_EVALUATION = "UPDATE evaluation SET id_person=?, id_jury = ?, note=?, comments=? WHERE ID = ?";
+	private static final String OracleSQL_UPDATE_EVALUATION = "UPDATE evaluation SET id_person=?, id_jury = ?, note=?, comments=? WHERE ID = ?";
+
+	private static final String MySQL_UPDATE_COMMANDE_PRODUCT = "UPDATE commande_product SET id_commande = ?, id_product=?, quantity=? WHERE ID = ?";
+	private static final String OracleSQL_UPDATE_COMMANDE_PRODUCT = "UPDATE commande_product SET id_commande = ?, id_product=?, quantity=? WHERE ID = ?";
+
+	private static final String MySQL_UPDATE_COMMANDE_SERVICE = "UPDATE commande_service SET id_commande = ?, id_service=?, quantity=? WHERE ID = ?";
+	private static final String OracleSQL_UPDATE_COMMANDE_SERVICE = "UPDATE commande_service SET id_commande = ?, id_service=?, quantity=? WHERE ID = ?";
+
+	private static final String MySQL_UPDATE_SERVICE_PRODUCT = "UPDATE service_product SET id_service = ?, id_product=? WHERE ID = ?";
+	private static final String OracleSQL_SERVICE_COMMANDE_PRODUCT = "UPDATE service_product SET id_service = ?, id_product=? WHERE ID = ?";
+
+	private static final String MySQL_UPDATE_SERVICE_COMPONENT = "UPDATE service_component SET id_service = ?, id_component=? WHERE ID = ?";
+	private static final String OracleSQL_SERVICE_COMMANDE_COMPONENT = "UPDATE service_component SET id_service = ?, id_component=? WHERE ID = ?";
+
+	private static final String MySQL_UPDATE_CONNECTION = "UPDATE connection SET logout_time = ? WHERE ID = ?";
+	private static final String OracleSQL_UPDATE_CONNECTION = "UPDATE connection SET logout_time = ? WHERE ID = ?";
+
+	private static final String MySQL_UPDATE_PRODUCT = "UPDATE product SET code = ?, name=?, description=?, price=?, main_image=? WHERE ID = ?";
+	private static final String OracleSQL_UPDATE_PRODUCT = "UPDATE product SET code = ?, name=?, description=?, price=?, main_image=? WHERE ID = ?";
+
+	private static final String MySQL_UPDATE_INVOICE = "UPDATE invoice SET code_invoice = ?, date_ordering=?, delivered_date=?, type=?, total_price=?, header_message=?, footer_message=?, legal_message=? WHERE ID = ?";
+	private static final String OracleSQL_UPDATE_INVOICE = "UPDATE invoice SET code_invoice = ?, date_ordering=?, delivered_date=?, type=?, total_price=?, header_message=?, footer_message=?, legal_message=? WHERE ID = ?";
+
+	private static final String MySQL_UPDATE_PRODUCT_COMPONENT = "UPDATE product_component SET id_componed = ?, id_component=? WHERE ID = ?";
+	private static final String OracleSQL_UPDATE_PRODUCT_COMPONENT = "UPDATE product_component SET id_componed = ?, id_component=? WHERE ID = ?";
+
+	private static final String MySQL_UPDATE_PRODUCT_SERVICE = "UPDATE product_service SET id_product = ?, id_service=? WHERE ID = ?";
+	private static final String OracleSQL_UPDATE_PRODUCT_SERVICE = "UPDATE product_service SET id_product = ?, id_service=? WHERE ID = ?";
+
+	private static final String MySQL_UPDATE_SERVICE = "UPDATE service SET code = ?, name=?, description=?, price=?, main_image=? WHERE ID = ?";
+	private static final String OracleSQL_UPDATE_SERVICE = "UPDATE service SET code = ?, name=?, description=?, price=?, main_image=? WHERE ID = ?";
+
+	private static final String MySQL_UPDATE_INVOICE_PERSON = "UPDATE invoice_person SET id_invoice = ?, id_person=?, person_name=?, person_address=?, person_surname=? WHERE ID = ?";
+	private static final String OracleSQL_UPDATE_INVOICE_PERSON = "UPDATE invoice_person SET id_invoice = ?, id_person=?, person_name=?, person_address=?, person_surname=? WHERE ID = ?";
+
+	private static final String MySQL_UPDATE_INVOICE_PRODUCT = "UPDATE invoice_product SET id_invoice = ?, id_product=? WHERE ID = ?";
+	private static final String OracleSQL_UPDATE_INVOICE_PRODUCT = "UPDATE invoice_product SET id_invoice = ?, id_product=? WHERE ID = ?";
+
+	private static final String MySQL_UPDATE_INVOICE_SERVICE = "UPDATE invoice_person SET id_invoice = ?, id_service=? WHERE ID = ?";
+	private static final String OracleSQL_UPDATE_INVOICE_SERVICE = "UPDATE invoice_person SET id_invoice = ?, id_service=? WHERE ID = ?";
+
+	// fin update
+	// début update
+
+	private static final String MySQL_DELETE_PERSON = "DELETE FROM person WHERE ID = ?";
+	private static final String OracleSQL_DELETE_PERSON = "DELETE FROM person WHERE ID = ?";
+
+	private static final String MySQL_DELETE_COMMANDE = "DELETE FROM commande WHERE ID = ?";
+	private static final String OracleSQL_DELETE_COMMANDE = "DELETE FROM commande WHERE ID = ?";
+
+	private static final String MySQL_DELETE_CONNECTION = "DELETE FROM connection WHERE ID = ?";
+	private static final String OracleSQL_DELETE_CONNECTION = "DELETE FROM connection WHERE ID = ?";
+
+	private static final String MySQL_DELETE_PRODUCT = "DELETE FROM product WHERE ID = ?";
+	private static final String OracleSQL_DELETE_PRODUCT = "DELETE FROM product WHERE ID = ?";
+
+	private static final String MySQL_DELETE_INVOICE = "DELETE FROM invoice WHERE ID = ?";
+	private static final String OracleSQL_DELETE_INVOICE = "DELETE FROM invoice WHERE ID = ?";
+
+	private static final String MySQL_DELETE_PRODUCT_COMPONENT = "DELETE FROM product_component WHERE ID = ?";
+	private static final String OracleSQL_DELETE_PRODUCT_COMPONENT = "DELETE FROM product_component WHERE ID = ?";
+
+	private static final String MySQL_DELETE_PRODUCT_SERVICE = "DELETE FROM product_service WHERE ID = ?";
+	private static final String OracleSQL_DELETE_PRODUCT_SERVICE = "DELETE FROM product_service WHERE ID = ?";
+
+	private static final String MySQL_DELETE_COMMANDE_PRODUCT = "DELETE FROM commande_product WHERE ID = ?";
+	private static final String OracleSQL_DELETE_COMMANDE_PRODUCT = "DELETE FROM commande_product WHERE ID = ?";
+
+	private static final String MySQL_DELETE_SERVICE_PRODUCT = "DELETE FROM service_product WHERE ID = ?";
+	private static final String OracleSQL_DELETE_SERVICE_PRODUCT = "DELETE FROM service_product WHERE ID = ?";
+
+	private static final String MySQL_DELETE_SERVICE_COMPONENT = "DELETE FROM service_component WHERE ID = ?";
+	private static final String OracleSQL_DELETE_SERVICE_COMPONENT = "DELETE FROM service_component WHERE ID = ?";
+
+	private static final String MySQL_DELETE_COMMANDE_SERVICE = "DELETE FROM commande_service WHERE ID = ?";
+	private static final String OracleSQL_DELETE_COMMANDE_SERVICE = "DELETE FROM commande_service WHERE ID = ?";
+
+	private static final String MySQL_DELETE_INVOICE_SERVICE = "DELETE FROM invoice_service WHERE ID = ?";
+	private static final String OracleSQL_DELETE_INVOICE_SERVICE = "DELETE FROM invoice_service WHERE ID = ?";
+
+	private static final String MySQL_DELETE_INVOICE_PRODUCT = "DELETE FROM invoice_product WHERE ID = ?";
+	private static final String OracleSQL_DELETE_INVOICE_PRODUCT = "DELETE FROM invoice_product WHERE ID = ?";
+
+	private static final String MySQL_DELETE_INVOICE_PERSON = "DELETE FROM invoice_person WHERE ID = ?";
+	private static final String OracleSQL_DELETE_INVOICE_PERSON = "DELETE FROM invoice_person WHERE ID = ?";
+
+	private static final String MySQL_DELETE_SERVICE = "DELETE FROM service WHERE ID = ?";
+	private static final String OracleSQL_DELETE_SERVICE = "DELETE FROM service WHERE ID = ?";
+
+	private static final String MySQL_DELETE_EVALUATION = "DELETE FROM evaluation WHERE ID = ?";
+	private static final String OracleSQL_DELETE_EVALUATION = "DELETE FROM evaluation WHERE ID = ?";
+
+	// fin update
+	public static String getMysqlSeTrouverParEmail() {
+		return MySQL_SE_TROUVER_PAR_EMAIL;
 	}
 
-	public static String getSqlInsertAdministrator() {
-		return SQL_INSERT_ADMINISTRATOR;
+	public static String getOraclesqlSeTrouverParEmail() {
+		return OracleSQL_SE_TROUVER_PAR_EMAIL;
 	}
 
-	public static String getSqlInsertVisitor() {
-		return SQL_INSERT_VISITOR;
+	public static String getMysqlSelectAll() {
+		return MySQL_SELECT_ALL;
 	}
 
-	public static String getSqlInsertUser() {
-		return SQL_INSERT_USER;
+	public static String getOraclesqlSelectAll() {
+		return OracleSQL_SELECT_ALL;
 	}
 
-	public static String getSqlInsertCommand() {
-		return SQL_INSERT_COMMAND;
+	public static String getMysqlSelectAllImportant() {
+		return MySQL_SELECT_ALL_IMPORTANT;
 	}
 
-	public static String getSqlInsertArtisan() {
-		return SQL_INSERT_ARTISAN;
+	public static String getOraclesqlSelectAllImportant() {
+		return OracleSQL_SELECT_ALL_IMPORTANT;
 	}
 
-	public static String getSqlSelectAll() {
-		return SQL_SELECT_ALL;
+	public static String getMysqlInsertPerson() {
+		return MySQL_INSERT_PERSON;
 	}
 
-	public static String getSqlInsertCommandProduct() {
-		return SQL_INSERT_COMMAND_PRODUCT;
+	public static String getOraclesqlInsertPerson() {
+		return OracleSQL_INSERT_PERSON;
 	}
 
-	public static String getSqlInsertConnexion() {
-		return SQL_INSERT_CONNEXION;
+	public static String getMysqlInsertEvaluation() {
+		return MySQL_INSERT_EVALUATION;
 	}
 
-	public static String getSqlInsertCookingRecipe() {
-		return SQL_INSERT_COOKING_RECIPE;
+	public static String getOraclesqlInsertEvaluation() {
+		return OracleSQL_INSERT_EVALUATION;
 	}
 
-	public static String getSqlInsertFoodDish() {
-		return SQL_INSERT_FOOD_DISH;
+	public static String getMysqlInsertCommande() {
+		return MySQL_INSERT_COMMANDE;
 	}
 
-	public static String getSqlInsertInvoice() {
-		return SQL_INSERT_INVOICE;
+	public static String getOraclesqlInsertCommande() {
+		return OracleSQL_INSERT_COMMANDE;
 	}
 
-	public static String getSqlInsertMeal() {
-		return SQL_INSERT_MEAL;
+	public static String getMysqlInsertConnection() {
+		return MySQL_INSERT_CONNECTION;
 	}
 
-	public static String getSqlInsertProductComponent() {
-		return SQL_INSERT_PRODUCT_COMPONENT;
+	public static String getOraclesqlInsertConnection() {
+		return OracleSQL_INSERT_CONNECTION;
 	}
 
-	public static String getSqlInsertService() {
-		return SQL_INSERT_SERVICE;
+	public static String getMysqlInsertProduct() {
+		return MySQL_INSERT_PRODUCT;
 	}
 
-	public static String getSqlSelectAllImportant() {
-		return SQL_SELECT_ALL_IMPORTANT;
+	public static String getOraclesqlInsertFoodDish() {
+		return OracleSQL_INSERT_FOOD_DISH;
 	}
 
-	public static String getSqlUpdateAdministrator() {
-		return SQL_UPDATE_ADMINISTRATOR;
+	public static String getMysqlInsertInvoice() {
+		return MySQL_INSERT_INVOICE;
 	}
 
-	public static String getSqlUpdateUser() {
-		return SQL_UPDATE_USER;
+	public static String getOraclesqlInsertInvoice() {
+		return OracleSQL_INSERT_INVOICE;
 	}
 
-	public static String getSqlUpdateVisitor() {
-		return SQL_UPDATE_VISITOR;
+	public static String getMysqlInsertProductComponent() {
+		return MySQL_INSERT_PRODUCT_COMPONENT;
 	}
 
-	public static String getSqlUpdateArtisan() {
-		return SQL_UPDATE_ARTISAN;
+	public static String getOraclesqlInsertProductComponent() {
+		return OracleSQL_INSERT_PRODUCT_COMPONENT;
 	}
 
-	public static String getSqlUpdateCommand() {
-		return SQL_UPDATE_COMMAND;
+	public static String getMysqlInsertProductService() {
+		return MySQL_INSERT_PRODUCT_SERVICE;
 	}
 
-	public static String getSqlUpdateCommandProduct() {
-		return SQL_UPDATE_COMMAND_PRODUCT;
+	public static String getOraclesqlInsertProductService() {
+		return OracleSQL_INSERT_PRODUCT_SERVICE;
 	}
 
-	public static String getSqlUpdateConnexion() {
-		return SQL_UPDATE_CONNEXION;
+	public static String getMysqlInsertInvoicePerson() {
+		return MySQL_INSERT_INVOICE_PERSON;
 	}
 
-	public static String getSqlUpdateCookingRecipe() {
-		return SQL_UPDATE_COOKING_RECIPE;
+	public static String getOraclesqlInsertInvoicePerson() {
+		return OracleSQL_INSERT_INVOICE_PERSON;
 	}
 
-	public static String getSqlUpdateFoodDish() {
-		return SQL_UPDATE_FOOD_DISH;
+	public static String getMysqlInsertInvoiceProduct() {
+		return MySQL_INSERT_INVOICE_PRODUCT;
 	}
 
-	public static String getSqlUpdateInvoice() {
-		return SQL_UPDATE_INVOICE;
+	public static String getOraclesqlInsertInvoiceProduct() {
+		return OracleSQL_INSERT_INVOICE_PRODUCT;
 	}
 
-	public static String getSqlUpdateMeal() {
-		return SQL_UPDATE_MEAL;
+	public static String getMysqlInsertInvoiceService() {
+		return MySQL_INSERT_INVOICE_SERVICE;
 	}
 
-	public static String getSqlUpdateProductComponent() {
-		return SQL_UPDATE_PRODUCT_COMPONENT;
+	public static String getOraclesqlInsertInvoiceService() {
+		return OracleSQL_INSERT_INVOICE_SERVICE;
 	}
 
-	public static String getSqlUpdateService() {
-		return SQL_UPDATE_SERVICE;
+	public static String getMysqlInsertService() {
+		return MySQL_INSERT_SERVICE;
 	}
 
-	public static String getSqlDeleteAdministrator() {
-		return SQL_DELETE_ADMINISTRATOR;
+	public static String getOraclesqlInsertService() {
+		return OracleSQL_INSERT_SERVICE;
 	}
 
-	public static String getSqlDeleteVisitor() {
-		return SQL_DELETE_VISITOR;
+	public static String getMysqlInsertServiceProduct() {
+		return MySQL_INSERT_SERVICE_PRODUCT;
 	}
 
-	public static String getSqlDeleteUser() {
-		return SQL_DELETE_USER;
+	public static String getOraclesqlInsertServiceProduct() {
+		return OracleSQL_INSERT_SERVICE_PRODUCT;
 	}
 
-	public static String getSqlDeleteCommand() {
-		return SQL_DELETE_COMMAND;
+	public static String getMysqlInsertServiceComponent() {
+		return MySQL_INSERT_SERVICE_COMPONENT;
 	}
 
-	public static String getSqlDeleteArtisan() {
-		return SQL_DELETE_ARTISAN;
+	public static String getOraclesqlInsertServiceComponent() {
+		return OracleSQL_INSERT_SERVICE_COMPONENT;
 	}
 
-	public static String getSqlDeleteConnexion() {
-		return SQL_DELETE_CONNEXION;
+	public static String getMysqlInsertCommandeProduct() {
+		return MySQL_INSERT_COMMANDE_PRODUCT;
 	}
 
-	public static String getSqlDeleteCookingRecipe() {
-		return SQL_DELETE_COOKING_RECIPE;
+	public static String getOraclesqlInsertCommandeProduct() {
+		return OracleSQL_INSERT_COMMANDE_PRODUCT;
 	}
 
-	public static String getSqlDeleteFoodDish() {
-		return SQL_DELETE_FOOD_DISH;
+	public static String getMysqlInsertCommandeService() {
+		return MySQL_INSERT_COMMANDE_SERVICE;
 	}
 
-	public static String getSqlDeleteInvoice() {
-		return SQL_DELETE_INVOICE;
+	public static String getOraclesqlInsertCommandeService() {
+		return OracleSQL_INSERT_COMMANDE_SERVICE;
 	}
 
-	public static String getSqlDeleteMeal() {
-		return SQL_DELETE_MEAL;
+	public static String getMysqlUpdatePerson() {
+		return MySQL_UPDATE_PERSON;
 	}
 
-	public static String getSqlDeleteProductComponent() {
-		return SQL_DELETE_PRODUCT_COMPONENT;
+	public static String getOraclesqlUpdatePerson() {
+		return OracleSQL_UPDATE_PERSON;
 	}
 
-	public static String getSqlDeleteService() {
-		return SQL_DELETE_SERVICE;
+	public static String getMysqlUpdateCommande() {
+		return MySQL_UPDATE_COMMANDE;
+	}
+
+	public static String getOraclesqlUpdateCommande() {
+		return OracleSQL_UPDATE_COMMANDE;
+	}
+
+	public static String getMysqlUpdateEvaluation() {
+		return MySQL_UPDATE_EVALUATION;
+	}
+
+	public static String getOraclesqlUpdateEvaluation() {
+		return OracleSQL_UPDATE_EVALUATION;
+	}
+
+	public static String getMysqlUpdateCommandeProduct() {
+		return MySQL_UPDATE_COMMANDE_PRODUCT;
+	}
+
+	public static String getOraclesqlUpdateCommandeProduct() {
+		return OracleSQL_UPDATE_COMMANDE_PRODUCT;
+	}
+
+	public static String getMysqlUpdateCommandeService() {
+		return MySQL_UPDATE_COMMANDE_SERVICE;
+	}
+
+	public static String getOraclesqlUpdateCommandeService() {
+		return OracleSQL_UPDATE_COMMANDE_SERVICE;
+	}
+
+	public static String getMysqlUpdateServiceProduct() {
+		return MySQL_UPDATE_SERVICE_PRODUCT;
+	}
+
+	public static String getOraclesqlServiceCommandeProduct() {
+		return OracleSQL_SERVICE_COMMANDE_PRODUCT;
+	}
+
+	public static String getMysqlUpdateServiceComponent() {
+		return MySQL_UPDATE_SERVICE_COMPONENT;
+	}
+
+	public static String getOraclesqlServiceCommandeComponent() {
+		return OracleSQL_SERVICE_COMMANDE_COMPONENT;
+	}
+
+	public static String getMysqlUpdateConnection() {
+		return MySQL_UPDATE_CONNECTION;
+	}
+
+	public static String getOraclesqlUpdateConnection() {
+		return OracleSQL_UPDATE_CONNECTION;
+	}
+
+	public static String getMysqlUpdateProduct() {
+		return MySQL_UPDATE_PRODUCT;
+	}
+
+	public static String getOraclesqlUpdateProduct() {
+		return OracleSQL_UPDATE_PRODUCT;
+	}
+
+	public static String getMysqlUpdateInvoice() {
+		return MySQL_UPDATE_INVOICE;
+	}
+
+	public static String getOraclesqlUpdateInvoice() {
+		return OracleSQL_UPDATE_INVOICE;
+	}
+
+	public static String getMysqlUpdateProductComponent() {
+		return MySQL_UPDATE_PRODUCT_COMPONENT;
+	}
+
+	public static String getOraclesqlUpdateProductComponent() {
+		return OracleSQL_UPDATE_PRODUCT_COMPONENT;
+	}
+
+	public static String getMysqlUpdateProductService() {
+		return MySQL_UPDATE_PRODUCT_SERVICE;
+	}
+
+	public static String getOraclesqlUpdateProductService() {
+		return OracleSQL_UPDATE_PRODUCT_SERVICE;
+	}
+
+	public static String getMysqlUpdateService() {
+		return MySQL_UPDATE_SERVICE;
+	}
+
+	public static String getOraclesqlUpdateService() {
+		return OracleSQL_UPDATE_SERVICE;
+	}
+
+	public static String getMysqlUpdateInvoicePerson() {
+		return MySQL_UPDATE_INVOICE_PERSON;
+	}
+
+	public static String getOraclesqlUpdateInvoicePerson() {
+		return OracleSQL_UPDATE_INVOICE_PERSON;
+	}
+
+	public static String getMysqlUpdateInvoiceProduct() {
+		return MySQL_UPDATE_INVOICE_PRODUCT;
+	}
+
+	public static String getOraclesqlUpdateInvoiceProduct() {
+		return OracleSQL_UPDATE_INVOICE_PRODUCT;
+	}
+
+	public static String getMysqlUpdateInvoiceService() {
+		return MySQL_UPDATE_INVOICE_SERVICE;
+	}
+
+	public static String getOraclesqlUpdateInvoiceService() {
+		return OracleSQL_UPDATE_INVOICE_SERVICE;
+	}
+
+	public static String getMysqlDeletePerson() {
+		return MySQL_DELETE_PERSON;
+	}
+
+	public static String getOraclesqlDeletePerson() {
+		return OracleSQL_DELETE_PERSON;
+	}
+
+	public static String getMysqlDeleteCommande() {
+		return MySQL_DELETE_COMMANDE;
+	}
+
+	public static String getOraclesqlDeleteCommande() {
+		return OracleSQL_DELETE_COMMANDE;
+	}
+
+	public static String getMysqlDeleteConnection() {
+		return MySQL_DELETE_CONNECTION;
+	}
+
+	public static String getOraclesqlDeleteConnection() {
+		return OracleSQL_DELETE_CONNECTION;
+	}
+
+	public static String getMysqlDeleteProduct() {
+		return MySQL_DELETE_PRODUCT;
+	}
+
+	public static String getOraclesqlDeleteProduct() {
+		return OracleSQL_DELETE_PRODUCT;
+	}
+
+	public static String getMysqlDeleteInvoice() {
+		return MySQL_DELETE_INVOICE;
+	}
+
+	public static String getOraclesqlDeleteInvoice() {
+		return OracleSQL_DELETE_INVOICE;
+	}
+
+	public static String getMysqlDeleteProductComponent() {
+		return MySQL_DELETE_PRODUCT_COMPONENT;
+	}
+
+	public static String getOraclesqlDeleteProductComponent() {
+		return OracleSQL_DELETE_PRODUCT_COMPONENT;
+	}
+
+	public static String getMysqlDeleteProductService() {
+		return MySQL_DELETE_PRODUCT_SERVICE;
+	}
+
+	public static String getOraclesqlDeleteProductService() {
+		return OracleSQL_DELETE_PRODUCT_SERVICE;
+	}
+
+	public static String getMysqlDeleteCommandeProduct() {
+		return MySQL_DELETE_COMMANDE_PRODUCT;
+	}
+
+	public static String getOraclesqlDeleteCommandeProduct() {
+		return OracleSQL_DELETE_COMMANDE_PRODUCT;
+	}
+
+	public static String getMysqlDeleteServiceProduct() {
+		return MySQL_DELETE_SERVICE_PRODUCT;
+	}
+
+	public static String getOraclesqlDeleteServiceProduct() {
+		return OracleSQL_DELETE_SERVICE_PRODUCT;
+	}
+
+	public static String getMysqlDeleteServiceComponent() {
+		return MySQL_DELETE_SERVICE_COMPONENT;
+	}
+
+	public static String getOraclesqlDeleteServiceComponent() {
+		return OracleSQL_DELETE_SERVICE_COMPONENT;
+	}
+
+	public static String getMysqlDeleteCommandeService() {
+		return MySQL_DELETE_COMMANDE_SERVICE;
+	}
+
+	public static String getOraclesqlDeleteCommandeService() {
+		return OracleSQL_DELETE_COMMANDE_SERVICE;
+	}
+
+	public static String getMysqlDeleteInvoiceService() {
+		return MySQL_DELETE_INVOICE_SERVICE;
+	}
+
+	public static String getOraclesqlDeleteInvoiceService() {
+		return OracleSQL_DELETE_INVOICE_SERVICE;
+	}
+
+	public static String getMysqlDeleteInvoiceProduct() {
+		return MySQL_DELETE_INVOICE_PRODUCT;
+	}
+
+	public static String getOraclesqlDeleteInvoiceProduct() {
+		return OracleSQL_DELETE_INVOICE_PRODUCT;
+	}
+
+	public static String getMysqlDeleteInvoicePerson() {
+		return MySQL_DELETE_INVOICE_PERSON;
+	}
+
+	public static String getOraclesqlDeleteInvoicePerson() {
+		return OracleSQL_DELETE_INVOICE_PERSON;
+	}
+
+	public static String getMysqlDeleteService() {
+		return MySQL_DELETE_SERVICE;
+	}
+
+	public static String getOraclesqlDeleteService() {
+		return OracleSQL_DELETE_SERVICE;
+	}
+
+	public static String getMysqlDeleteEvaluation() {
+		return MySQL_DELETE_EVALUATION;
+	}
+
+	public static String getOraclesqlDeleteEvaluation() {
+		return OracleSQL_DELETE_EVALUATION;
 	}
 
 }
