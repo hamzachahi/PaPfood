@@ -1,448 +1,337 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1" />
-<meta name="description" content="" />
-<meta name="author" content="" />
-<!--[if IE]>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <![endif]-->
-<title>Accueil PaPfood</title>
-
-<!-- BOOTSTRAP CORE STYLE  -->
-<link href="assets/css/bootstrap.css" rel="stylesheet" />
-<!-- FONT AWESOME STYLE  -->
-<link href="assets/css/font-awesome.css" rel="stylesheet" />
-<!-- ANIMATE STYLE  -->
-<link href="assets/css/animate.css" rel="stylesheet" />
-<!-- FLEXSLIDER STYLE  -->
-<link href="assets/css/flexslider.css" rel="stylesheet" />
-<!-- CUSTOM STYLE  -->
-<link href="assets/css/style.css" rel="stylesheet" />
-<!-- GOOGLE FONTS  -->
-<link
-	href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300'
-	rel='stylesheet' type='text/css' />
-<link href='http://fonts.googleapis.com/css?family=Open+Sans'
-	rel='stylesheet' type='text/css' />
-<link href='http://fonts.googleapis.com/css?family=Lobster'
-	rel='stylesheet' type='text/css' />
-
-</head>
-<body>
-
-	<div class="navbar navbar-inverse set-radius-zero">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-collapse">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="http://localhost:2020/PaPfood/accueil">
-
-					<img src="assets/img/logo.png" />
-				</a>
-
-			</div>
-			<div class="right-div">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-collapse">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="http://localhost:2020/PaPfood/accueil">
-
-					<strong>Connexion</strong>
-				</a>
-			</div>
-			<div class="right-div">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-collapse">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="http://localhost:2020/PaPfood/inscription">
-
-					<strong>Inscription</strong>
-				</a>
-			</div>
-
-		</div>
-	</div>
-	<!-- LOGO HEADER END-->
-	<section class="menu-section">
-	<div class="container">
-		<div class="row ">
-			<div class="col-md-12">
-				<div class="navbar-collapse collapse ">
-					<ul id="menu-top" class="nav navbar-nav navbar-right">
-						<li><a href="http://localhost:2020/PaPfood/accueil" class="menu-top-active">HOME</a></li>
-
-						<li><a href="about.html">ABOUT US</a></li>
-						<li><a href="gallery.html">GALLERY</a></li>
-						<li><a href="features.html">FEATURES</a></li>
-						<li><a href="contact.html">CONTACT</a></li>
-						<li><a href="blank.html">BLANK PAGE</a></li>
+<div class="banner">
+		<div class="matter-banner">
+			<div class="slider">
+				<div class="callbacks_container">
+					<ul class="rslides" id="slider">
+						<li><img src="images/background.jpg" alt="">
+							<div class="tes animated wow fadeInUp animated"
+								data-wow-delay=".5s"
+								style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+								<h2>Echange de nourriture entre particuliers</h2>
+								<h3>Vous avez une petite faim ?</h3>
+								<h4>Des cuisiniers près de chez vous !</h4>
+								<p>Il suffit de demander</p>
+							</div></li>
+						<li><img src="images/3.jpg" alt="">
+							<div class="tes animated wow fadeInUp animated"
+								data-wow-delay=".5s"
+								style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+								<h2>MEN & WOMEN</h2>
+								<h3>Trousers & Chinos</h3>
+								<h4>UPTO 50%</h4>
+								<p>OFFER</p>
+							</div></li>
+						<li><img src="images/2.jpg" alt="">
+							<div class="tes animated wow fadeInUp animated"
+								data-wow-delay=".5s"
+								style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+								<h2>MEN & WOMEN</h2>
+								<h3>Trousers & Chinos</h3>
+								<h4>UPTO 50%</h4>
+								<p>OFFER</p>
+							</div></li>
 					</ul>
 				</div>
 			</div>
-
 		</div>
+		<div class="clearfix"></div>
 	</div>
-	</section>
-	<!-- MENU SECTION END-->
-	<div id="slideshow-sec">
-		<div id="carousel-div" class="carousel slide" data-ride="carousel">
-
-			<div class="carousel-inner">
-				<div class="item active">
-
-					<img src="assets/img/1.jpg" alt="" />
-					<div class="carousel-caption">
-						<h1 class="wow slideInLeft" data-wow-duration="2s">Multi
-							Pager Template</h1>
-						<h2 class="wow slideInRight" data-wow-duration="2s">Muti
-							Purpose Use</h2>
-					</div>
-
-				</div>
-				<div class="item">
-					<img src="assets/img/2.jpg" alt="" />
-					<div class="carousel-caption">
-						<h1 class="wow slideInLeft" data-wow-duration="2s">Awesome
-							Usage</h1>
-						<h2 class="wow slideInRight" data-wow-duration="2s">Bootstrap
-							3.2</h2>
-					</div>
-				</div>
-				<div class="item">
-					<img src="assets/img/3.jpg" alt="" />
-					<div class="carousel-caption">
-						<h1 class="wow slideInLeft" data-wow-duration="2s">Easy To
-							Customize</h1>
-						<h2 class="wow slideInRight" data-wow-duration="2s">Free To
-							Download</h2>
-					</div>
-
-				</div>
-			</div>
-			<!--INDICATORS-->
-			<ol class="carousel-indicators">
-				<li data-target="#carousel-div" data-slide-to="0" class="active"></li>
-				<li data-target="#carousel-div" data-slide-to="1"></li>
-				<li data-target="#carousel-div" data-slide-to="2"></li>
-			</ol>
-			<!--PREVIUS-NEXT BUTTONS-->
-			<a class="left carousel-control" href="#carousel-div"
-				data-slide="prev"> <span
-				class="glyphicon glyphicon-chevron-left"></span>
-			</a> <a class="right carousel-control" href="#carousel-div"
-				data-slide="next"> <span
-				class="glyphicon glyphicon-chevron-right"></span>
-			</a>
-		</div>
-	</div>
-	<!-- SLIDESHOW SECTION END-->
-	<div class="below-slideshow">
+	<!--//banner-->
+	<!--content-->
+	<div class="content">
 		<div class="container">
-			<div class="row">
-				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-					<div class="txt-block">
-
-
-						<i class="fa fa-lastfm fa-4x"></i>
-						<h4>Responsive Design</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Mauris sagittis felis dolor vitae.</p>
+			<div class="content-top">
+				<div class="content-top1">
+					<div class="col-md-3 col-md2 animated wow fadeInLeft"
+						data-wow-delay=".5s">
+						<div class="col-md1 simpleCart_shelfItem">
+							<a href="single.html"> <img class="img-responsive"
+								src="images/pi5.png" alt="" />
+							</a>
+							<h3>
+								<a href="single.html">Palazzo</a>
+							</h3>
+							<div class="price">
+								<h5 class="item_price">$450</h5>
+								<a href="#" class="item_add">Add To Cart</a>
+								<div class="clearfix"></div>
+							</div>
+						</div>
 					</div>
+					<div class="col-md-6 animated wow fadeInDown animated"
+						data-wow-delay=".5s"
+						style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDown;">
+						<div class="col-md3">
+							<div class="up-t">
+								<h3>Flat 50% Offer</h3>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-md2 animated wow fadeInRight"
+						data-wow-delay=".5s">
+						<div class="col-md1 simpleCart_shelfItem">
+							<a href="single.html"> <img class="img-responsive"
+								src="images/pi4.png" alt="" />
+							</a>
+							<h3>
+								<a href="single.html">Pant</a>
+							</h3>
+							<div class="price">
+								<h5 class="item_price">$300</h5>
+								<a href="#" class="item_add">Add To Cart</a>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix"></div>
 				</div>
-				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-					<div class="txt-block">
-
-
-						<i class="fa fa-yelp fa-4x"></i>
-						<h4>Free To Download</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Mauris sagittis felis dolor vitae.</p>
+				<div class="content-top1">
+					<div class="col-md-3 col-md2 animated wow fadeInLeft"
+						data-wow-delay=".5s">
+						<div class="col-md1 simpleCart_shelfItem">
+							<a href="single.html"> <img class="img-responsive"
+								src="images/pi3.png" alt="" />
+							</a>
+							<h3>
+								<a href="single.html">Palazoo</a>
+							</h3>
+							<div class="price">
+								<h5 class="item_price">$300</h5>
+								<a href="#" class="item_add">Add To Cart</a>
+								<div class="clearfix"></div>
+							</div>
+						</div>
 					</div>
-				</div>
-				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-					<div class="txt-block">
-
-
-						<i class="fa fa-ioxhost fa-4x"></i>
-						<h4>Multipurpose & Multipager</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Mauris sagittis felis dolor vitae.</p>
+					<div class="col-md-3 col-md2 animated wow fadeInLeft"
+						data-wow-delay=".5s">
+						<div class="col-md1 simpleCart_shelfItem">
+							<a href="single.html"> <img class="img-responsive"
+								src="images/pi2.png" alt="" />
+							</a>
+							<h3>
+								<a href="single.html">Trouser</a>
+							</h3>
+							<div class="price">
+								<h5 class="item_price">$300</h5>
+								<a href="#" class="item_add">Add To Cart</a>
+								<div class="clearfix"></div>
+							</div>
+						</div>
 					</div>
+					<div class="col-md-3 col-md2 animated wow fadeInRight"
+						data-wow-delay=".5s">
+						<div class="col-md1 simpleCart_shelfItem">
+							<a href="single.html"> <img class="img-responsive"
+								src="images/pi6.png" alt="" />
+							</a>
+							<h3>
+								<a href="single.html">Trouser</a>
+							</h3>
+							<div class="price">
+								<h5 class="item_price">$300</h5>
+								<a href="#" class="item_add">Add To Cart</a>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-md2 cmn animated wow fadeInRight"
+						data-wow-delay=".5s">
+						<div class="col-md1 simpleCart_shelfItem">
+							<a href="single.html"> <img class="img-responsive"
+								src="images/pi8.png" alt="" />
+							</a>
+							<h3>
+								<a href="single.html">Palazoo</a>
+							</h3>
+							<div class="price">
+								<h5 class="item_price">$300</h5>
+								<a href="#" class="item_add">Add To Cart</a>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix"></div>
 				</div>
 			</div>
-
 		</div>
 	</div>
-	<!-- BELOW SLIDESHOW SECTION END-->
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<h1 class="tag-home">
-					Lorem ipsum dolor sit amet, <strong>consectetur adipiscing
-						elit</strong>. Mauris sagittis felis dolor vitae. Mauris sagittis felis
-					dolor vitae Mauris sagittis felis dolor vitae.
-				</h1>
-				<hr />
+	<!--//content-->
+	<div class="con-tp">
+		<div class="container">
+			<div class="col-md-4 con-tp-lft animated wow fadeInLeft"
+				data-wow-delay=".5s">
+				<a href="products.html">
+					<div class="content-grid-effect slow-zoom vertical">
+						<div class="img-box">
+							<img src="images/6.jpg" alt="image"
+								class="img-responsive zoom-img">
+						</div>
+						<div class="info-box">
+							<div class="info-content simpleCart_shelfItem">
+								<h4>30%offer</h4>
+							</div>
+						</div>
+					</div>
+				</a>
 			</div>
+			<div class="col-md-4 con-tp-lft animated wow fadeInDown animated"
+				data-wow-delay=".5s"
+				style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDown;">
+				<a href="products.html">
+					<div class="content-grid-effect slow-zoom vertical">
+						<div class="img-box">
+							<img src="images/10.jpg" alt="image"
+								class="img-responsive zoom-img">
+						</div>
+						<div class="info-box">
+							<div class="info-content simpleCart_shelfItem">
+								<h4>45%offer</h4>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="col-md-4 con-tp-lft animated wow fadeInRight"
+				data-wow-delay=".5s">
+				<a href="products.html">
+					<div class="content-grid-effect slow-zoom vertical">
+						<div class="img-box">
+							<img src="images/9.jpg" alt="image"
+								class="img-responsive zoom-img">
+						</div>
+						<div class="info-box">
+							<div class="info-content simpleCart_shelfItem">
+								<h4>50%offer</h4>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="clearfix"></div>
+			<div class="col-md-4 con-tp-lft animated wow fadeInLeft"
+				data-wow-delay=".5s">
+				<a href="products.html">
+					<div class="content-grid-effect slow-zoom vertical">
+						<div class="img-box">
+							<img src="images/12.jpg" alt="image"
+								class="img-responsive zoom-img">
+						</div>
+						<div class="info-box">
+							<div class="info-content simpleCart_shelfItem">
+								<h4>25%offer</h4>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="col-md-4 con-tp-lft animated wow fadeInUp animated"
+				data-wow-delay=".5s"
+				style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+				<a href="products.html">
+					<div class="content-grid-effect slow-zoom vertical">
+						<div class="img-box">
+							<img src="images/13.jpg" alt="image"
+								class="img-responsive zoom-img">
+						</div>
+						<div class="info-box">
+							<div class="info-content simpleCart_shelfItem">
+								<h4>50%offer</h4>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="col-md-4 con-tp-lft animated wow fadeInRight"
+				data-wow-delay=".5s">
+				<a href="products.html">
+					<div class="content-grid-effect slow-zoom vertical">
+						<div class="img-box">
+							<img src="images/14.jpg" alt="image"
+								class="img-responsive zoom-img">
+						</div>
+						<div class="info-box">
+							<div class="info-content simpleCart_shelfItem">
+								<h4>35%offer</h4>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="clearfix"></div>
 		</div>
 	</div>
-	<!-- TAG HOME SECTION END-->
-
-	<div class="container">
-
-		<div class="row pad-set">
-			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-				<div class="just-txt-div">
-					<h2>JUST A CREATIVE THOUGHT</h2>
-					<br />
-					<p>
-						Lorem ipsum dolor sit amet, <strong>consectetur
-							adipiscing elit</strong>. Mauris sagittis felis dolor vitae. Mauris
-						sagittis felis dolor vitae Mauris sagittis felis dolor vitae.
-					</p>
-					<p>
-						Lorem ipsum dolor sit amet, <strong>consectetur
-							adipiscing elit</strong>. Mauris sagittis felis dolor vitae. Mauris
-						sagittis felis dolor vitae Mauris sagittis felis dolor vitae.
-					</p>
-					<p>
-						Lorem ipsum dolor sit amet, <strong>consectetur
-							adipiscing elit</strong>. Mauris sagittis felis dolor vitae. Mauris
-						sagittis felis dolor vitae Mauris sagittis felis dolor vitae.
-					</p>
-				</div>
-
-			</div>
-			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-				<div class="just-txt-div">
-					<br />
-					<iframe class="vedio-style"
-						src="http://www.youtube.com/embed/VpZmIiIXuZ0"></iframe>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!--VEDIO SECTION END-->
-	<div class="parallax-like">
-		<div class="overlay">
-
-
+	<div class="c-btm">
+		<div class="content-top1">
 			<div class="container">
-				<div class="row">
-					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-						<div class="just-txt-div">
-							<strong> 300+</strong>
-							<p>Clients</p>
+				<div class="col-md-3 col-md2 animated wow fadeInLeft"
+					data-wow-delay=".5s">
+					<div class="col-md1 simpleCart_shelfItem">
+						<a href="single.html"> <img class="img-responsive"
+							src="images/pi9.png" alt="" />
+						</a>
+						<h3>
+							<a href="single.html">Trousers</a>
+						</h3>
+						<div class="price">
+							<h5 class="item_price">$300</h5>
+							<a href="#" class="item_add">Add To Cart</a>
+							<div class="clearfix"></div>
 						</div>
+
 					</div>
-					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-						<div class="just-txt-div">
-							<strong> 100+</strong>
-							<p>Offices</p>
+				</div>
+				<div class="col-md-3 col-md2 animated wow fadeInLeft"
+					data-wow-delay=".5s">
+					<div class="col-md1 simpleCart_shelfItem">
+						<a href="single.html"> <img class="img-responsive"
+							src="images/pi10.png" alt="" />
+						</a>
+						<h3>
+							<a href="single.html">Formal</a>
+						</h3>
+						<div class="price">
+							<h5 class="item_price">$450</h5>
+							<a href="#" class="item_add">Add To Cart</a>
+							<div class="clearfix"></div>
 						</div>
+
 					</div>
-					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-						<div class="just-txt-div">
-							<strong> 50000+</strong>
-							<p>Employees</p>
+				</div>
+				<div class="col-md-3 col-md2 animated wow fadeInRight"
+					data-wow-delay=".5s">
+					<div class="col-md1 simpleCart_shelfItem">
+						<a href="single.html"> <img class="img-responsive"
+							src="images/pi11.png" alt="" />
+						</a>
+						<h3>
+							<a href="single.html">Trousers</a>
+						</h3>
+						<div class="price">
+							<h5 class="item_price">$350</h5>
+							<a href="#" class="item_add">Add To Cart</a>
+							<div class="clearfix"></div>
 						</div>
+
 					</div>
-					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-						<div class="just-txt-div">
-							<strong> 500+</strong>
-							<p>Projects</p>
+				</div>
+				<div class="col-md-3 col-md2 animated wow fadeInRight"
+					data-wow-delay=".5s">
+					<div class="col-md1 simpleCart_shelfItem">
+						<a href="single.html"> <img class="img-responsive"
+							src="images/pi12.png" alt="" />
+						</a>
+						<h3>
+							<a href="single.html">Formal</a>
+						</h3>
+						<div class="price">
+							<h5 class="item_price">$400</h5>
+							<a href="#" class="item_add">Add To Cart</a>
+							<div class="clearfix"></div>
 						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- PARALLAX LIKE SECTION END-->
-	<div class="just-sec">
-
-
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<h1 class="head-line">Feature List</h1>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-					<div class="just-txt-div">
-
-
-						<i class="fa fa-exchange fa-3x"></i>
-						<h4>Hand Crafted</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Mauris sagittis felis dolor vitae.</p>
 
 					</div>
 				</div>
-				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-					<div class="just-txt-div">
-
-
-						<i class="fa fa-key fa-3x"></i>
-						<h4>Easy To Customize</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Mauris sagittis felis dolor vitae.</p>
-
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-					<div class="just-txt-div">
-
-
-						<i class="fa fa-legal fa-3x"></i>
-						<h4>Light Weight</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Mauris sagittis felis dolor vitae.</p>
-
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</div>
-	<!--JUST SECTION END-->
-	<div class="container ">
-		<div class="row ">
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<h1 class="head-line">Our Clients</h1>
-				<br />
-			</div>
-		</div>
-		<div class="row ">
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<hr />
-				<div class="flexslider carousel">
-					<ul class="slides">
-						<li><img src="assets/img/client.jpg" /></li>
-						<li><img src="assets/img/client.jpg" /></li>
-						<li><img src="assets/img/client.jpg" /></li>
-						<li><img src="assets/img/client.jpg" /></li>
-						<li><img src="assets/img/client.jpg" /></li>
-						<li><img src="assets/img/client.jpg" /></li>
-						<li><img src="assets/img/client.jpg" /></li>
-						<li><img src="assets/img/client.jpg" /></li>
-						<li><img src="assets/img/client.jpg" /></li>
-						<li><img src="assets/img/client.jpg" /></li>
-						<li><img src="assets/img/client.jpg" /></li>
-						<li><img src="assets/img/client.jpg" /></li>
-						<li><img src="assets/img/client.jpg" /></li>
-						<li><img src="assets/img/client.jpg" /></li>
-						<li><img src="assets/img/client.jpg" /></li>
-						<li><img src="assets/img/client.jpg" /></li>
-						<li><img src="assets/img/client.jpg" /></li>
-						<li><img src="assets/img/client.jpg" /></li>
-						<li><img src="assets/img/client.jpg" /></li>
-						<li><img src="assets/img/client.jpg" /></li>
-					</ul>
-				</div>
-				<hr />
-				<br />
+				<div class="clearfix"></div>
 			</div>
 		</div>
 	</div>
-	<!--CLIENT SECTION END-->
-	<div class="container ">
-		<div class="row">
-			<div
-				class="col-lg-10 col-md-10 col-sm-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-12 set-div">
-				<div class="just-txt-div text-center">
-					<h3>
-						<strong>-- Lorem ipsum dolor sit --</strong>
-					</h3>
-					<p>
-						Lorem Lorem ipsum dolor sit amet <strong> Lorem ipsum
-							dolor sit ametLorem </strong> ipsum dolor sit ametLorem ipsum dolor sit
-						ametLorem ipsum dolor <br />
-						<br />
-					</p>
-					<a class="btn btn-info btn-lg" href="#">Read More Here</a>
-					&nbsp;&nbsp; <a class="btn btn-success btn-lg" href="#">Download
-						Now </a>
-				</div>
-
-			</div>
-		</div>
-	</div>
-	<!--SET-DIV SECTION END-->
-
-	<div class="footer-sec">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-
-
-					<h3>
-						<strong>ABOUT COMPANY</strong>
-					</h3>
-					<p style="padding-right: 50px;">Lorem ipsum dolor sit amet,
-						consectetur adipiscing elit. Mauris sagittis felis dolor vitae.
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-						sagittis felis dolor vitae.</p>
-				</div>
-				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 social-div">
-
-
-
-					<h3>
-						<strong>SOCIAL PRESENCE</strong>
-					</h3>
-					We love to be social,Catch Us On <a href="#"><h4>FACEBOOK
-						</h4></a> <a href="#"><h4>TWITTER</h4></a> <a href="#"><h4>LINKEDIN
-						</h4></a>
-
-
-				</div>
-				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-					<h3>
-						<strong>PHYSICAL LOCATION</strong>
-					</h3>
-					Reach Us Below: <br />
-					<h4>90/567, Raw Street Lane,</h4>
-					<h4>United States of America,</h4>
-					<h4>Pin: 309987-09</h4>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<hr />
-					<div style="text-align: right; padding: 5px;">
-						&copy;2014 yourdomain.com | <a href="http://www.binarytheme.com/"
-							style="color: #fff;" target="_blank">Designed By:
-							Binarytheme.com</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!--FOOTER SECTION END-->
-	<!-- WE PUT SCRIPTS AT THE END TO LOAD PAGE FASTER-->
-	<!--CORE SCRIPTS PLUGIN-->
-	<script src="assets/js/jquery-1.11.1.min.js"></script>
-	<!--BOOTSTRAP SCRIPTS PLUGIN-->
-	<script src="assets/js/bootstrap.js"></script>
-	<!--WOW SCRIPTS PLUGIN-->
-	<script src="assets/js/wow.js"></script>
-	<!--FLEXSLIDER SCRIPTS PLUGIN-->
-	<script src="assets/js/jquery.flexslider.js"></script>
-	<!--CUSTOM SCRIPTS -->
-	<script src="assets/js/custom.js"></script>
-</body>
-</html>
