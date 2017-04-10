@@ -9,11 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import beans.Person;
 import dao.DaoPersonImpl;
-import dao.PersonDao;
 import dao.UsineDao;
 import forms.FormInscription;
-import geolocation.Geolocalization;
-import geolocation.LocationInformation;
 
 @SuppressWarnings("serial")
 public class ServletInscription extends HttpServlet {
@@ -21,30 +18,33 @@ public class ServletInscription extends HttpServlet {
 	public static final String ATT_USER = "utilisateur";
 	public static final String ATT_FORM = "form";
 	public static final String VUE = "/WEB-INF/inscription.jsp";
-	private PersonDao utilisateurDao;
+	private DaoPersonImpl utilisateurDao;
 
 	public ServletInscription() {
 		super();
-		this.utilisateurDao = new DaoPersonImpl(new UsineDao("jdbc:mysql://localhost:3306/papfood", "root", "0000"));
+		//this.utilisateurDao = new DaoPersonImpl(new UsineDao("jdbc:mysql://localhost:3306/papfood", "root", "0000"));
 
+		this.utilisateurDao = new DaoPersonImpl(new UsineDao("jdbc:oracle:thin:@localhost:1521:orcl", "papfood", "yummyshop"));
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/* Affichage de la page d'inscription */
 		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
-		@SuppressWarnings("unused")
-		LocationInformation location = Geolocalization.getGeoLocationInformation(request);
+		//@SuppressWarnings("unused")
+		//LocationInformation location = Geolocalization.getGeoLocationInformation(request);
 
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/* Préparation de l'objet formulaire */
-		this.utilisateurDao = new DaoPersonImpl(new UsineDao("jdbc:mysql://localhost:3306/papfood", "root", "0000"));
+		//this.utilisateurDao = new DaoPersonImpl(new UsineDao("jdbc:mysql://localhost:3306/papfood", "root", "0000"));
+		this.utilisateurDao = new DaoPersonImpl(new UsineDao("jdbc:oracle:thin:@localhost:1521:orcl", "papfood", "yummyshop"));
 
 		FormInscription form = new FormInscription(utilisateurDao);
 
 		/* Traitement de la requête et récupération du bean en résultant */
 		Person utilisateur = form.inscrireUtilisateur(request);
+		System.out.println("Utilisateur inscrit");
 
 		/* Stockage du formulaire et du bean dans l'objet request */
 		request.setAttribute(ATT_FORM, form);

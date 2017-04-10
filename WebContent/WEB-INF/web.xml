@@ -32,6 +32,14 @@
     <servlet-name>ServletOrder</servlet-name>
     <servlet-class>vue.ServletOrder</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ServletMap</servlet-name>
+    <servlet-class>vue.ServletMap</servlet-class>
+  </servlet>
+   <servlet>
+    <servlet-name>ServletLayout</servlet-name>
+    <servlet-class>vue.ServletLayout</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>ServletAccueil</servlet-name>
     <url-pattern>/accueil</url-pattern>
@@ -64,12 +72,12 @@
     <servlet-name>ServletOrder</servlet-name>
     <url-pattern>/Order</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>ServletLayout</servlet-name>
-    <servlet-class>vue.ServletLayout</servlet-class>
-  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletMap</servlet-name>
+    <url-pattern>/map</url-pattern>
+  </servlet-mapping> 
   <servlet-mapping>
     <servlet-name>ServletLayout</servlet-name>
-    <url-pattern>/Layout</url-pattern>
+    <url-pattern>/layout</url-pattern>
   </servlet-mapping>
 </web-app>

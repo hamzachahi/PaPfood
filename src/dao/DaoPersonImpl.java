@@ -3,11 +3,14 @@ package dao;
 import static dao.UtilitaireDao.fermeturesSilencieuses;
 import static dao.UtilitaireDao.initialisationRequetePreparee;
 
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+
 import beans.Commande;
 import beans.Person;
 import beans.Product;
@@ -23,11 +26,12 @@ public class DaoPersonImpl implements PersonDao {
 
 	/* Implémentation de la méthode définie dans l'interface UtilisateurDao */
 	@Override
-	public Person trouver(String email) throws ExceptionDao {
-		return trouver(RequestRepository.getOraclesqlSeTrouverParEmail(), email);
+	public Person trouver(String email, boolean succeed) throws ExceptionDao {
+		return trouver(RequestRepository.getOraclesqlSeTrouverTotalementParEmail(), succeed, email);
 	}
 
 	/* Implémentation de la méthode définie dans l'interface UtilisateurDao */
+	@SuppressWarnings("deprecation")
 	@Override
 	public void creer(Person utilisateur) throws ExceptionDao {
 		Connection connexion = null;
@@ -36,15 +40,22 @@ public class DaoPersonImpl implements PersonDao {
 
 		try {
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlInsertPerson(), true,
-					utilisateur.getEmail(), utilisateur.getPassword(), utilisateur.getName());
+			Calendar cal = Calendar.getInstance();
+			utilisateur.setFunction("User");
+			utilisateur.setPrivateKey(cal.getTime().getYear() + "" + cal.getTime().getMonth() + ""
+					+ cal.getTime().getDay() + "" + cal.getTime().getHours() + "" + cal.getTime().getMinutes()
+					+ utilisateur.getName().subSequence(0, 0) + utilisateur.getSurname().substring(0, 0));
+			System.out.println("connexion réussie. Création de personne...");
+			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlInsertPerson(),
+					true, utilisateur.getEmail(), utilisateur.getPassword(), utilisateur.getName(),
+					utilisateur.getFunction(), utilisateur.getPrivateKey());
 			int statut = preparedStatement.executeUpdate();
 			if (statut == 0) {
 				throw new ExceptionDao("Échec de la création de l'utilisateur, aucune ligne ajoutée dans la table.");
 			}
 			valeursAutoGenerees = preparedStatement.getGeneratedKeys();
 			if (valeursAutoGenerees.next()) {
-				utilisateur.setId(valeursAutoGenerees.getLong(1), false);
+				// utilisateur.setId(valeursAutoGenerees.getInt(1), false);
 			} else {
 				throw new ExceptionDao("Échec de la création de l'utilisateur en base, aucun ID auto-généré retourné.");
 			}
@@ -60,7 +71,7 @@ public class DaoPersonImpl implements PersonDao {
 	 * de données, correspondant à la requête SQL donnée prenant en paramètres
 	 * les objets passés en argument.
 	 */
-	private Person trouver(String sql, Object... objets) throws ExceptionDao {
+	private Person trouver(String sql, boolean succeed, Object... objets) throws ExceptionDao {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -77,6 +88,7 @@ public class DaoPersonImpl implements PersonDao {
 			resultSet = preparedStatement.executeQuery();
 			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (resultSet.next()) {
+				succeed = true;
 				utilisateur = map(resultSet);
 			}
 		} catch (SQLException e) {
@@ -90,11 +102,31 @@ public class DaoPersonImpl implements PersonDao {
 
 	private static Person map(ResultSet resultSet) throws SQLException {
 		Person utilisateur = new Person();
-		utilisateur.setId(resultSet.getLong("id"), false);
+		utilisateur.setId(resultSet.getInt("id"), false);
 		utilisateur.setEmail(resultSet.getString("email"), false);
-		utilisateur.setPassword(resultSet.getString("mot_de_passe"), false);
-		utilisateur.setName(resultSet.getString("nom"), false);
+		utilisateur.setPassword(resultSet.getString("password"), false);
+		utilisateur.setName(resultSet.getString("name"), false);
+		utilisateur.setAccountPicture(Toolkit.getDefaultToolkit().createImage(resultSet.getBytes("account_picture")),
+				false);
 		utilisateur.setDateInscription(resultSet.getTimestamp("date_inscription"), false);
+		utilisateur.setSecondName(resultSet.getString("second_name"), false);
+		utilisateur.setSurname(resultSet.getString("surname"), false);
+		utilisateur.setSecondSurname(resultSet.getString("second_surname"), false);
+		utilisateur.setProfession(resultSet.getString("profession"), false);
+		utilisateur.setPhoneNumber(resultSet.getString("phone_number"), false);
+		utilisateur.setTelNumber(resultSet.getString("tel_number"), false);
+		utilisateur.setFacebookId(resultSet.getString("facebook_id"), false);
+		utilisateur.setTwitterId(resultSet.getString("twitter_id"), false);
+		utilisateur.setInstagramId(resultSet.getString("instagram_id"), false);
+		utilisateur.setLinkedinId(resultSet.getString("linkedin_id"), false);
+		utilisateur.setStreetNumber(resultSet.getInt("street_number"), false);
+		utilisateur.setStreetName(resultSet.getString("street_name"), false);
+		utilisateur.setCityName(resultSet.getString("city_name"), false);
+		utilisateur.setCountryName(resultSet.getString("country_name"), false);
+		utilisateur.setPostalCode(resultSet.getString("postal_code"), false);
+		// utilisateur.setLastConnexion(resultSet.getInt("last_connection"));
+		utilisateur.setFunction(resultSet.getString("function"));
+		utilisateur.setPrivateKey(resultSet.getString("private_key"));
 		return utilisateur;
 	}
 

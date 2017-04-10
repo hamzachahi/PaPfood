@@ -2,17 +2,20 @@ package vue;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+@WebServlet("/Restriction")
 
 public class ServletRestriction extends HttpServlet {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -626491743397342586L;
-	public static final String ACCES_PUBLIC = "/accesPublic.jsp";
+	public static final String ACCES_PUBLIC = "/WEB-INF/accessPublic.jsp";
 	public static final String ACCES_RESTREINT = "/WEB-INF/accesRestreint.jsp";
 	public static final String ATT_SESSION_USER = "sessionUtilisateur";
 
@@ -26,7 +29,9 @@ public class ServletRestriction extends HttpServlet {
 		 */
 		if (session.getAttribute(ATT_SESSION_USER) == null) {
 			/* Redirection vers la page publique */
-			response.sendRedirect(request.getContextPath() + ACCES_PUBLIC);
+			//response.sendRedirect(request.getContextPath() + ACCES_PUBLIC);
+			this.getServletContext().getRequestDispatcher(ACCES_PUBLIC).forward(request, response);
+
 		} else {
 			/* Affichage de la page restreinte */
 			this.getServletContext().getRequestDispatcher(ACCES_RESTREINT).forward(request, response);

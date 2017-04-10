@@ -49,10 +49,18 @@ public class UsineDao {
             driver = properties.getProperty( PROPERTY_DRIVER );
             nomUtilisateur = properties.getProperty( PROPERTY_NOM_UTILISATEUR );
             motDePasse = properties.getProperty( PROPERTY_MOT_DE_PASSE );
-            url="jdbc:mysql://localhost:3306/papfood";
-            driver="com.mysql.jdbc.Driver";
-            nomUtilisateur="root";
-            motDePasse="0000";
+           // url="jdbc:mysql://localhost:3306/papfood";
+            url="jdbc:oracle:thin:@localhost:1521:orcl";
+
+           // driver="com.mysql.jdbc.Driver";
+            driver="oracle.jdbc.OracleDriver";
+
+           // nomUtilisateur="root";
+            nomUtilisateur="papfood";
+
+            //motDePasse="0000";
+            motDePasse="yummyshop";
+
             System.out.println("Url du dao.properties"+url);
             System.out.println("driver du dao.properties"+driver);
             System.out.println("NomUtilisateur dao.properties"+nomUtilisateur);
@@ -74,7 +82,10 @@ public class UsineDao {
     }
 
     /* Méthode chargée de fournir une connexion à la base de données */
-     /* package */ Connection getConnection() throws SQLException {
+     /* package */ Connection getConnection() throws SQLException {    	 
+         System.out.println("Récupération de connexion");
+			System.out.println("Driver O.K.");
+
         return DriverManager.getConnection( url, username, password );
     }
 

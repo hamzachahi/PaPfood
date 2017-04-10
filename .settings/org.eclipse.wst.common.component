@@ -2,6 +2,7 @@
     <wb-module deploy-name="PaPfood">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/librairie"/>
         <property name="context-root" value="PaPfood"/>
         <property name="java-output-path" value="/PaPfood/build/classes"/>
     </wb-module>

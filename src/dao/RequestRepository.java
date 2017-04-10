@@ -3,18 +3,21 @@ package dao;
 public class RequestRepository {
 	// Début requête select
 	private static final String MySQL_SE_TROUVER_PAR_EMAIL = "SELECT Id, name, surname, profession, email FROM person WHERE email = ?";
-	private static final String OracleSQL_SE_TROUVER_PAR_EMAIL = "SELECT Id, name, surname, profession, email FROM person WHERE email = ?";
+	private static final String OracleSQL_SE_TROUVER_PAR_EMAIL = "SELECT id, name, surname, profession, email FROM person WHERE email = ?";
+	private static final String OracleSQL_SE_TROUVER_TOTALEMENT_PAR_EMAIL = "SELECT * FROM person WHERE email = ?";
+
 
 	private static final String MySQL_SELECT_ALL = "SELECT * FROM ? WHERE Id > ?";
 	private static final String OracleSQL_SELECT_ALL = "SELECT * FROM ? WHERE Id > ?";
 
 	private static final String MySQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id > ?";
 	private static final String OracleSQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id > ?";
+	private static final String Oracle_SELECT_LAST_ROW="SELECT CAST (Max(Id) AS LONG) as Id FROM person";
 	// fin select
 	// début insert
 
-	private static final String MySQL_INSERT_PERSON = "INSERT INTO person (email, password, name, function, date_inscription) VALUES (?, ?, ?, ?, NOW())";
-	private static final String OracleSQL_INSERT_PERSON = "INSERT INTO person (email, password, name, function, date_inscription) VALUES (?, ?, ?, ?, SYSTIMESTAMP)";
+	private static final String MySQL_INSERT_PERSON = "INSERT INTO person (email, password, name, function, date_inscription, private_key) VALUES (?, ?, ?, ?, NOW(),?)";
+	private static final String OracleSQL_INSERT_PERSON = "INSERT INTO person (email, password, name, function, date_inscription, private_key) VALUES (?, ?, ?, ?, SYSTIMESTAMP, ?)";
 
 	private static final String MySQL_INSERT_EVALUATION = "INSERT INTO evaluation (id_person, id_jury, note, comments) VALUES (?, ?, ?, ?)";
 	private static final String OracleSQL_INSERT_EVALUATION = "INSERT INTO evaluation (id_person, id_jury, note, comments) VALUES (?, ?, ?, ?)";
@@ -569,6 +572,14 @@ public class RequestRepository {
 
 	public static String getOraclesqlDeleteEvaluation() {
 		return OracleSQL_DELETE_EVALUATION;
+	}
+
+	public static String getOracleSelectLastRow() {
+		return Oracle_SELECT_LAST_ROW;
+	}
+
+	public static String getOraclesqlSeTrouverTotalementParEmail() {
+		return OracleSQL_SE_TROUVER_TOTALEMENT_PAR_EMAIL;
 	}
 
 }

@@ -4,7 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.jasypt.util.password.ConfigurablePasswordEncryptor;
+
 import beans.Person;
+import dao.PersonDao;
 
 public final class FormulaireConnexion {
 	private static final String CHAMP_EMAIL = "email";
@@ -12,6 +16,12 @@ public final class FormulaireConnexion {
 
 	private String resultat;
 	private Map<String, String> erreurs = new HashMap<String, String>();
+	PersonDao utilisateurDao;
+	private static final String ALGO_CHIFFREMENT = "SHA-256";
+
+	public FormulaireConnexion(PersonDao utilisateurDao) {
+		this.utilisateurDao = utilisateurDao;
+	}
 
 	public String getResultat() {
 		return resultat;
@@ -21,13 +31,13 @@ public final class FormulaireConnexion {
 		return erreurs;
 	}
 
-	public Person connecterUtilisateur(HttpServletRequest request) {
+	public Person connecterUtilisateur(HttpServletRequest request) throws Exception {
 		/* Récupération des champs du formulaire */
 		String email = getValeurChamp(request, CHAMP_EMAIL);
 		String motDePasse = getValeurChamp(request, CHAMP_PASS);
 
 		Person utilisateur = new Person();
-
+		Person passage = new Person();
 		/* Validation du champ email. */
 		try {
 			validationEmail(email);
@@ -35,7 +45,7 @@ public final class FormulaireConnexion {
 			setErreur(CHAMP_EMAIL, e.getMessage());
 		}
 		utilisateur.setEmail(email, false);
-
+		passage.setEmail(email, false);
 		/* Validation du champ mot de passe. */
 		try {
 			validationMotDePasse(motDePasse);
@@ -43,11 +53,30 @@ public final class FormulaireConnexion {
 			setErreur(CHAMP_PASS, e.getMessage());
 		}
 		utilisateur.setPassword(motDePasse, false);
+		passage.setPassword(motDePasse, false);
 
 		/* Initialisation du résultat global de la validation. */
 		if (erreurs.isEmpty()) {
-			resultat = "Succès de la connexion.";
+			utilisateur = utilisateurDao.trouver(email, false);
+			ConfigurablePasswordEncryptor passwordEncryptor = new ConfigurablePasswordEncryptor();
+			passwordEncryptor.setAlgorithm(ALGO_CHIFFREMENT);
+			passwordEncryptor.setPlainDigest(false);
+			boolean test = passwordEncryptor.checkPassword(motDePasse, utilisateur.getPassword());
+			if (test == true) {
+				System.out.println("mot de passe correspondant");
+				System.out.println("personne connectée : " + utilisateur.toString());
+				resultat = "Succès de la connexion.";
+				System.out.println(resultat);
+			} else {
+				utilisateur=passage;
+				resultat = "Échec de la connexion. Vérifiez votre mot de passe!";
+				System.out.println("Mot de passe incorrect");
+				throw new Exception("mot de passe incorrect");
+
+			}
+
 		} else {
+			utilisateur=passage;
 			resultat = "Échec de la connexion.";
 		}
 

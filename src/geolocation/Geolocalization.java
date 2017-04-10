@@ -13,7 +13,7 @@ public class Geolocalization {
 			ipAddress = request.getRemoteAddr();
 		}
 		GeoLocation $gl = javaQueryBundle.createGeoLocation();
-		$gl.MAPTargetByIP("117.204.232.104", "This is Demo. You can set even NULL");
+		$gl.MAPTargetByIP("10.181.97.145", "This is Demo. You can set even NULL");
 		location.setCity(GeoLocation.City);
 		location.setCountry(GeoLocation.Country);
 		location.setGoogleMapUrL(GeoLocation.GoogleMap_URL);

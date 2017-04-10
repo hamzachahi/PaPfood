@@ -45,6 +45,7 @@ public class FormInscription {
             traiterNom( nom, utilisateur );
 
             if ( erreurs.isEmpty() ) {
+        		System.out.println("Test formulaire réussi");
                 utilisateurDao.creer( utilisateur );
                 resultat = "Succès de l'inscription.";
             } else {
@@ -118,7 +119,7 @@ public class FormInscription {
         if ( email != null ) {
             if ( !email.matches( "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" ) ) {
                 throw new ValidExceptionForm( "Merci de saisir une adresse mail valide." );
-            } else if ( utilisateurDao.trouver( email ) != null ) {
+            } else if ( utilisateurDao.trouver( email,false ) != null ) {
                 throw new ValidExceptionForm( "Cette adresse email est déjà utilisée, merci d'en choisir une autre." );
             }
         } else {

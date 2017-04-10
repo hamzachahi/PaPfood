@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import beans.Person;
+import dao.DaoPersonImpl;
+import dao.PersonDao;
+import dao.UsineDao;
 import forms.FormulaireConnexion;
 
 /**
@@ -24,6 +26,9 @@ public class ServletConnect extends HttpServlet {
     public static final String ATT_FORM         = "form";
     public static final String ATT_SESSION_USER = "sessionUtilisateur";
     public static final String VUE              = "/WEB-INF/connexion.jsp";
+    private PersonDao utilisateurDao ;
+    
+    
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         /* Affichage de la page de connexion */
@@ -31,11 +36,20 @@ public class ServletConnect extends HttpServlet {
     }
 
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-        /* Préparation de l'objet formulaire */
-        FormulaireConnexion form = new FormulaireConnexion();
+		this.utilisateurDao = new DaoPersonImpl(new UsineDao("jdbc:oracle:thin:@localhost:1521:orcl", "papfood", "yummyshop"));
+
+    	/* Préparation de l'objet formulaire */
+        FormulaireConnexion form = new FormulaireConnexion(utilisateurDao);
 
         /* Traitement de la requête et récupération du bean en résultant */
-        Person utilisateur = form.connecterUtilisateur( request );
+        Person utilisateur = null;
+		try {
+			utilisateur = form.connecterUtilisateur( request );
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
 
         /* Récupération de la session depuis la requête */
         HttpSession session = request.getSession();

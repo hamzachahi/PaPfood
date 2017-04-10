@@ -11,7 +11,7 @@ public interface PersonDao {
 
 	public void creer(Person utilisateur) throws ExceptionDao;
 
-	public Person trouver(String email) throws ExceptionDao;
+	public Person trouver(String email,boolean succeed) throws ExceptionDao;
 
 	public ResultConnexion seConnecter(String Id, String Password);
 

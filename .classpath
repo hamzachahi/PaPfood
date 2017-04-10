@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="librairie"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_121">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>
@@ -15,11 +16,12 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="librairie/javax.jar"/>
 	<classpathentry kind="lib" path="librairie/mysql-connector-java-5.1.41-bin.jar"/>
-	<classpathentry kind="lib" path="librairie/ojdbc6.jar"/>
 	<classpathentry kind="lib" path="librairie/eclipselink.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jsf-api.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jasypt-1.9.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_121"/>
 	<classpathentry kind="lib" path="C:/Users/TOSHIBA PC/Desktop/eclipse2/eclipse/workspace/PaPfood/librairie/javaQuery 8.2.jar"/>
+	<classpathentry kind="lib" path="librairie/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="librairie/javadoc.zip"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

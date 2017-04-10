@@ -6,7 +6,6 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import dao.DaoPersonImpl;
 import dao.UsineDao;
-
 import java.sql.Connection;
 
 public class Person implements Serializable {
@@ -21,6 +20,7 @@ public class Person implements Serializable {
 	private String Profession = "";
 	private Timestamp dateInscription = null;
 	private Long Id ;
+	private String privateKey="";
 	private String Password = "";
 	private String email = "";
 	private String phoneNumber = "";
@@ -36,6 +36,7 @@ public class Person implements Serializable {
 	private String countryName = "";
 	private String postalCode = "";
 	private Date lastConnexion = null;
+	private String function="";
 	private Connection maConnexion = null;
 	private ResultConnexion resultConnexion = null;
 	private DaoPersonImpl daopi = new DaoPersonImpl(UsineDao.getInstance());
@@ -89,8 +90,8 @@ public class Person implements Serializable {
 		return Id;
 	}
 
-	public void setId(Long id, Boolean sqlornot) {
-		Id = id;
+	public void setId(long l, Boolean sqlornot) {
+		Id = l;
 	}
 
 	public String getPassword() {
@@ -221,6 +222,14 @@ public class Person implements Serializable {
 		this.dateInscription = dateInscription;
 	}
 
+	public String getFunction() {
+		return function;
+	}
+
+	public void setFunction(String function) {
+		this.function = function;
+	}
+
 	public Connection getMaConnexion() {
 		return maConnexion;
 	}
@@ -237,12 +246,32 @@ public class Person implements Serializable {
 		this.daopi = daopi;
 	}
 
+	public String getPrivateKey() {
+		return privateKey;
+	}
+
+	public void setPrivateKey(String privateKey) {
+		this.privateKey = privateKey;
+	}
+
 	public ResultConnexion getResultConnexion() {
 		return resultConnexion;
 	}
 
 	public void setResultConnexion(ResultConnexion resultConnexion) {
 		this.resultConnexion = resultConnexion;
+	}
+
+	@Override
+	public String toString() {
+		return "Person [Name=" + Name + ", secondName=" + secondName + ", Surname=" + Surname + ", secondSurname="
+				+ secondSurname + ", Profession=" + Profession + ", dateInscription=" + dateInscription + ", Id=" + Id
+				+ ", privateKey=" + privateKey + ", Password=" + Password + ", email=" + email + ", phoneNumber="
+				+ phoneNumber + ", telNumber=" + telNumber + ", facebookId=" + facebookId + ", twitterId=" + twitterId
+				+ ", instagramId=" + instagramId + ", linkedinId=" + linkedinId + ", accountPicture=" + accountPicture
+				+ ", streetNumber=" + streetNumber + ", streetName=" + streetName + ", cityName=" + cityName
+				+ ", countryName=" + countryName + ", postalCode=" + postalCode + ", lastConnexion=" + lastConnexion
+				+ ", function=" + function + "]";
 	}
 
 }
