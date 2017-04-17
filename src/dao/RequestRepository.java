@@ -6,13 +6,13 @@ public class RequestRepository {
 	private static final String OracleSQL_SE_TROUVER_PAR_EMAIL = "SELECT id, name, surname, profession, email FROM person WHERE email = ?";
 	private static final String OracleSQL_SE_TROUVER_TOTALEMENT_PAR_EMAIL = "SELECT * FROM person WHERE email = ?";
 
-
 	private static final String MySQL_SELECT_ALL = "SELECT * FROM ? WHERE Id > ?";
 	private static final String OracleSQL_SELECT_ALL = "SELECT * FROM ? WHERE Id > ?";
 
+	private static final String OracleSQL_LAST_ELEMENT = "SELECT *  FROM person where id=(select Max(id) person ?)";
+
 	private static final String MySQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id > ?";
 	private static final String OracleSQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id > ?";
-	private static final String Oracle_SELECT_LAST_ROW="SELECT CAST (Max(Id) AS LONG) as Id FROM person";
 	// fin select
 	// début insert
 
@@ -64,6 +64,11 @@ public class RequestRepository {
 	private static final String MySQL_INSERT_COMMANDE_SERVICE = "INSERT INTO commande_service (id_commande,id_service,quantity) VALUES(?,?,?))";
 	private static final String OracleSQL_INSERT_COMMANDE_SERVICE = "INSERT INTO commande_service (id_commande,id_service,quantity) VALUES(?,?,?))";
 
+	private static final String OracleSQL_INSERT_MESSAGE = "INSERT INTO message (id_sender, id_receiver, content, sent_date) VALUES ( ?, ?, ?, SYSTIMESTAMP)";
+	private static final String OracleSQL_INSERT_COMMENTS = "INSERT INTO comments (id_author, date_posted, content) VALUES (?, SYSTIMESTAMP, ?)";
+	private static final String OracleSQL_INSERT_COMMENTS_PRODUCT = "INSERT INTO comments_product (id_comment, id_product) VALUES ( ?, ?)";
+	private static final String OracleSQL_INSERT_COMMENTS_SERVICE = "INSERT INTO comments_service (id_comment, id_service) VALUES ( ?, ?)";
+
 	// fin insert
 	// début update
 	private static final String MySQL_UPDATE_PERSON = "UPDATE person SET name = ?, second_name=?, surname=?, second_surname=?, profession=?, date_inscription=?, password=?, email=?, phone_number=?, tel_number=?, facebook_id=?, twitter_id=?, instagram_id=?, linkedin_id=?, account_picture=?, street_number=?, street_name=?, city_name=?, country_name=?, postal_code=?, last_connection=?, function=?  WHERE ID = ?";
@@ -114,8 +119,25 @@ public class RequestRepository {
 	private static final String MySQL_UPDATE_INVOICE_SERVICE = "UPDATE invoice_person SET id_invoice = ?, id_service=? WHERE ID = ?";
 	private static final String OracleSQL_UPDATE_INVOICE_SERVICE = "UPDATE invoice_person SET id_invoice = ?, id_service=? WHERE ID = ?";
 
+	private static final String OracleSQL_UPDATE_MESSAGE_RECEIVE_DATE = "UPDATE message set receive_date=SYSTIMESTAMP where receive_date is null";
+	private static final String OracleSQL_UPDATE_MESSAGE_READ_DATE = "UPDATE message set read_date=SYSTIMESTAMP where read_date is null";
+
+	private static final String OracleSQL_UPDATE_COMMANDE_STATE = "UPDATE commande SET state=1 WHERE ID= ?";
+	private static final String OracleSQL_UPDATE_COMMENTS = "UPDATE comments SET content = ?, date_posted=SYSTIMESTAMP WHERE ID= ?";
 	// fin update
 	// début update
+
+	public static String getOraclesqlInsertMessage() {
+		return OracleSQL_INSERT_MESSAGE;
+	}
+
+	public static String getOraclesqlUpdateMessageReceiveDate() {
+		return OracleSQL_UPDATE_MESSAGE_RECEIVE_DATE;
+	}
+
+	public static String getOraclesqlUpdateMessageReadDate() {
+		return OracleSQL_UPDATE_MESSAGE_READ_DATE;
+	}
 
 	private static final String MySQL_DELETE_PERSON = "DELETE FROM person WHERE ID = ?";
 	private static final String OracleSQL_DELETE_PERSON = "DELETE FROM person WHERE ID = ?";
@@ -138,8 +160,8 @@ public class RequestRepository {
 	private static final String MySQL_DELETE_PRODUCT_SERVICE = "DELETE FROM product_service WHERE ID = ?";
 	private static final String OracleSQL_DELETE_PRODUCT_SERVICE = "DELETE FROM product_service WHERE ID = ?";
 
-	private static final String MySQL_DELETE_COMMANDE_PRODUCT = "DELETE FROM commande_product WHERE ID = ?";
-	private static final String OracleSQL_DELETE_COMMANDE_PRODUCT = "DELETE FROM commande_product WHERE ID = ?";
+	private static final String MySQL_DELETE_COMMANDE_PRODUCT = "DELETE FROM commande_product WHERE id_commande = ? and id_product= ?";
+	private static final String OracleSQL_DELETE_COMMANDE_PRODUCT = "DELETE FROM commande_product WHERE id_commande = ? and id_product= ?";
 
 	private static final String MySQL_DELETE_SERVICE_PRODUCT = "DELETE FROM service_product WHERE ID = ?";
 	private static final String OracleSQL_DELETE_SERVICE_PRODUCT = "DELETE FROM service_product WHERE ID = ?";
@@ -147,8 +169,8 @@ public class RequestRepository {
 	private static final String MySQL_DELETE_SERVICE_COMPONENT = "DELETE FROM service_component WHERE ID = ?";
 	private static final String OracleSQL_DELETE_SERVICE_COMPONENT = "DELETE FROM service_component WHERE ID = ?";
 
-	private static final String MySQL_DELETE_COMMANDE_SERVICE = "DELETE FROM commande_service WHERE ID = ?";
-	private static final String OracleSQL_DELETE_COMMANDE_SERVICE = "DELETE FROM commande_service WHERE ID = ?";
+	private static final String MySQL_DELETE_COMMANDE_SERVICE = "DELETE FROM commande_service WHERE id_commande = ? and id_service= ?";
+	private static final String OracleSQL_DELETE_COMMANDE_SERVICE = "DELETE FROM commande_service WHERE id_commande = ? and id_service= ?";
 
 	private static final String MySQL_DELETE_INVOICE_SERVICE = "DELETE FROM invoice_service WHERE ID = ?";
 	private static final String OracleSQL_DELETE_INVOICE_SERVICE = "DELETE FROM invoice_service WHERE ID = ?";
@@ -164,6 +186,9 @@ public class RequestRepository {
 
 	private static final String MySQL_DELETE_EVALUATION = "DELETE FROM evaluation WHERE ID = ?";
 	private static final String OracleSQL_DELETE_EVALUATION = "DELETE FROM evaluation WHERE ID = ?";
+	private static final String OracleSQL_DELETE_COMMENTS = "DELETE FROM comments WHERE ID = ?";
+	private static final String OracleSQL_DELETE_COMMENTS_PRODUCT = "DELETE FROM comments_product WHERE ID = ?";
+	private static final String OracleSQL_DELETE_COMMENTS_SERVICE = "DELETE FROM comments_service WHERE ID = ?";
 
 	// fin update
 	public static String getMysqlSeTrouverParEmail() {
@@ -574,12 +599,44 @@ public class RequestRepository {
 		return OracleSQL_DELETE_EVALUATION;
 	}
 
-	public static String getOracleSelectLastRow() {
-		return Oracle_SELECT_LAST_ROW;
-	}
-
 	public static String getOraclesqlSeTrouverTotalementParEmail() {
 		return OracleSQL_SE_TROUVER_TOTALEMENT_PAR_EMAIL;
+	}
+
+	public static String getOraclesqlLastElement() {
+		return OracleSQL_LAST_ELEMENT;
+	}
+
+	public static String getOraclesqlUpdateCommandeState() {
+		return OracleSQL_UPDATE_COMMANDE_STATE;
+	}
+
+	public static String getOraclesqlInsertComments() {
+		return OracleSQL_INSERT_COMMENTS;
+	}
+
+	public static String getOraclesqlInsertCommentsProduct() {
+		return OracleSQL_INSERT_COMMENTS_PRODUCT;
+	}
+
+	public static String getOraclesqlInsertCommentsService() {
+		return OracleSQL_INSERT_COMMENTS_SERVICE;
+	}
+
+	public static String getOraclesqlUpdateComments() {
+		return OracleSQL_UPDATE_COMMENTS;
+	}
+
+	public static String getOraclesqlDeleteComments() {
+		return OracleSQL_DELETE_COMMENTS;
+	}
+
+	public static String getOraclesqlDeleteCommentsProduct() {
+		return OracleSQL_DELETE_COMMENTS_PRODUCT;
+	}
+
+	public static String getOraclesqlDeleteCommentsService() {
+		return OracleSQL_DELETE_COMMENTS_SERVICE;
 	}
 
 }

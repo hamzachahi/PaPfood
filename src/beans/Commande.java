@@ -6,15 +6,17 @@ import java.util.ArrayList;
 public class Commande {
 	private Long Id;
 	private String Code;
-	private String idCustomer;
+	private Person Customer;
 	private String idCart;
 	private String adresseFacturation;
 	private String adresseExpedition;
-	private String modePaiement;
+	private Double Price;
 	private ArrayList<ElementCommand> elements;
-	private ArrayList<String> listIdFournisseurs;
+	private ArrayList<ElementCommand> toAddElements;
+	private ArrayList<ElementCommand> toDeleteElements;
 	private Date dateCommande;
 	private Date dateLivraison;
+	private Integer State;
 
 	public Long getId() {
 		return Id;
@@ -32,12 +34,12 @@ public class Commande {
 		Code = code;
 	}
 
-	public String getIdCustomer() {
-		return idCustomer;
+	public Person getCustomer() {
+		return Customer;
 	}
 
-	public void setIdCustomer(String idCustomer) {
-		this.idCustomer = idCustomer;
+	public void setCustomer(Person Customer) {
+		this.Customer = Customer;
 	}
 
 	public String getIdCart() {
@@ -64,12 +66,19 @@ public class Commande {
 		this.adresseExpedition = adresseExpedition;
 	}
 
-	public String getModePaiement() {
-		return modePaiement;
+	public Double getPrice() {
+		Price = 0.0;
+		for (int i = 0; i < elements.size(); i++) {
+			Price=Price+(elements.get(i).getmProduct().getPrice()*elements.get(i).getQuantity());
+		}
+		return Price;
 	}
 
-	public void setModePaiement(String modePaiement) {
-		this.modePaiement = modePaiement;
+	public void setPrice() {
+		Price = 0.0;
+		for (int i = 0; i < elements.size(); i++) {
+			Price=Price+(elements.get(i).getmProduct().getPrice()*elements.get(i).getQuantity());
+		}
 	}
 
 	public ArrayList<ElementCommand> getElements() {
@@ -78,14 +87,6 @@ public class Commande {
 
 	public void setElements(ArrayList<ElementCommand> elements) {
 		this.elements = elements;
-	}
-
-	public ArrayList<String> getListIdFournisseurs() {
-		return listIdFournisseurs;
-	}
-
-	public void setListIdFournisseurs(ArrayList<String> listIdFournisseurs) {
-		this.listIdFournisseurs = listIdFournisseurs;
 	}
 
 	public Date getDateCommande() {
@@ -102,6 +103,34 @@ public class Commande {
 
 	public void setDateLivraison(Date dateLivraison) {
 		this.dateLivraison = dateLivraison;
+	}
+
+	public Integer getState() {
+		return State;
+	}
+
+	public void setState(Integer state) {
+		State = state;
+	}
+
+	public ArrayList<ElementCommand> getToAddElements() {
+		return toAddElements;
+	}
+
+	public void setToAddElements(ArrayList<ElementCommand> toAddElements) {
+		this.toAddElements = toAddElements;
+	}
+
+	public ArrayList<ElementCommand> getToDeleteElements() {
+		return toDeleteElements;
+	}
+
+	public void setToDeleteElements(ArrayList<ElementCommand> toDeleteElements) {
+		this.toDeleteElements = toDeleteElements;
+	}	
+
+	public void setPrice(Double price) {
+		Price = price;
 	}
 
 }

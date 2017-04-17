@@ -2,19 +2,19 @@ package dao;
 
 import static dao.UtilitaireDao.fermeturesSilencieuses;
 import static dao.UtilitaireDao.initialisationRequetePreparee;
-
 import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
-
+import java.util.Map;
 import beans.Commande;
 import beans.Person;
-import beans.Product;
 import beans.ResultConnexion;
+import config.UseMail;
 
 public class DaoPersonImpl implements PersonDao {
 
@@ -31,7 +31,7 @@ public class DaoPersonImpl implements PersonDao {
 	}
 
 	/* Implémentation de la méthode définie dans l'interface UtilisateurDao */
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings({ "deprecation" })
 	@Override
 	public void creer(Person utilisateur) throws ExceptionDao {
 		Connection connexion = null;
@@ -55,7 +55,13 @@ public class DaoPersonImpl implements PersonDao {
 			}
 			valeursAutoGenerees = preparedStatement.getGeneratedKeys();
 			if (valeursAutoGenerees.next()) {
-				// utilisateur.setId(valeursAutoGenerees.getInt(1), false);
+				Statement Statement2 = connexion.createStatement();
+				ResultSet resultSet2 = null;
+				resultSet2 = Statement2.executeQuery("SELECT *  FROM person where id=(select Max(id) from person)");
+				if (resultSet2.next()) {
+					utilisateur = map(resultSet2);
+					System.out.println("Nouvel(le) utilisateur(rice) récupéré(e) : " + utilisateur.toString());
+				}
 			} else {
 				throw new ExceptionDao("Échec de la création de l'utilisateur en base, aucun ID auto-généré retourné.");
 			}
@@ -102,7 +108,7 @@ public class DaoPersonImpl implements PersonDao {
 
 	private static Person map(ResultSet resultSet) throws SQLException {
 		Person utilisateur = new Person();
-		utilisateur.setId(resultSet.getInt("id"), false);
+		utilisateur.setId(resultSet.getLong("id"), false);
 		utilisateur.setEmail(resultSet.getString("email"), false);
 		utilisateur.setPassword(resultSet.getString("password"), false);
 		utilisateur.setName(resultSet.getString("name"), false);
@@ -124,7 +130,7 @@ public class DaoPersonImpl implements PersonDao {
 		utilisateur.setCityName(resultSet.getString("city_name"), false);
 		utilisateur.setCountryName(resultSet.getString("country_name"), false);
 		utilisateur.setPostalCode(resultSet.getString("postal_code"), false);
-		// utilisateur.setLastConnexion(resultSet.getInt("last_connection"));
+		utilisateur.setLastConnexion(resultSet.getInt("last_connection"));
 		utilisateur.setFunction(resultSet.getString("function"));
 		utilisateur.setPrivateKey(resultSet.getString("private_key"));
 		return utilisateur;
@@ -150,46 +156,115 @@ public class DaoPersonImpl implements PersonDao {
 		return result;
 	}
 
-	@Override
-	public Boolean Commander(Commande commande, String Id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
-	public ArrayList<String> acceptCommand(ArrayList<String> listCommand) {
+	public Boolean acceptCommand(ArrayList<Commande> listCommand) {
 		// TODO Auto-generated method stub
-		return null;
+		boolean succeed = true;
+		boolean test = true;
+		for (int i = 0; i < listCommand.size(); i++) {
+			test = acceptCommand(listCommand.get(i));
+			if (test == false) {
+				succeed = false;
+			}
+		}
+		return succeed;
 	}
 
-	@Override
-	public String[] Payment(ArrayList<String> listCommand) {
-		// TODO Auto-generated method stub
-		return null;
+	private Boolean acceptCommand(Commande commande) {
+		Boolean isSucceed = false;
+		Connection connexion = null;
+		Statement Statement = null;
+		try {
+			/* Récupération d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			/*
+			 * Préparation de la requête avec les objets passés en arguments
+			 * (ici, uniquement une adresse email) et exécution.
+			 */
+			Statement = connexion.createStatement();
+			int statut = Statement.executeUpdate(RequestRepository.getOraclesqlUpdateCommandeState());
+			/* Parcours de la ligne de données retournée dans le ResultSet */
+			if (statut != 0) {
+				isSucceed = true;
+			} else {
+				throw new ExceptionDao("erreur dans la validation de la commande!");
+
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(Statement, connexion);
+		}
+
+		return isSucceed;
 	}
 
 	@Override
 	public Boolean modifyPersonalInformation(Person pers) {
 		// TODO Auto-generated method stub
-		return null;
+		boolean isSucceed = false;
+		return modifyPersonalInformation(pers, isSucceed);
+	}
+
+	private Boolean modifyPersonalInformation(Person utilisateur, Boolean isSucceed) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connexion = daoFactory.getConnection();
+			System.out.println("connexion réussie. mise à jour de personne...");
+			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlUpdatePerson(),
+					true, utilisateur.getEmail(), utilisateur.getPassword(), utilisateur.getName(),
+					utilisateur.getFunction(), utilisateur.getPrivateKey());
+			int statut = preparedStatement.executeUpdate();
+			if (statut == 0) {
+				throw new ExceptionDao(
+						"Échec de la mise à jour des informations de l'utilisateur, aucune ligne modifiée dans la table.");
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(preparedStatement, connexion);
+		}
+		return isSucceed;
 	}
 
 	@Override
 	public Boolean deleteAccount(Person pers) {
 		// TODO Auto-generated method stub
-		return null;
+		boolean isSucceed = false;
+		return deletePersonalInformation(pers, isSucceed);
 	}
 
-	@Override
-	public Boolean Comment(Person pers, String comment) {
-		// TODO Auto-generated method stub
-		return null;
+	private Boolean deletePersonalInformation(Person utilisateur, Boolean isSucceed) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+
+		try {
+			connexion = daoFactory.getConnection();
+			System.out.println("connexion réussie. suppression du compte...");
+			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlDeletePerson(),
+					true, utilisateur.getId());
+			int statut = preparedStatement.executeUpdate();
+			if (statut == 0) {
+				throw new ExceptionDao(
+						"Échec de la suppression du compte de l'utilisateur, aucune ligne modifiée dans la table.");
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(preparedStatement, connexion);
+		}
+		return isSucceed;
 	}
 
+	
+
 	@Override
-	public Boolean Claim(String claiming) {
+	public Boolean Claim(Person pers, String claiming, String subject, String emailDest) {
 		// TODO Auto-generated method stub
-		return null;
+		return Invitation(pers, subject, claiming, emailDest, "maildereclamation");
 	}
 
 	@Override
@@ -198,46 +273,71 @@ public class DaoPersonImpl implements PersonDao {
 		return null;
 	}
 
+	
+
 	@Override
-	public Boolean addToPanel(ArrayList<Product> listProducts) {
+	public Map<ArrayList<String>, ArrayList<String>> Historique(Person utilisateur, Boolean isSucceed,
+			Integer nbreConnexions) {
+
 		// TODO Auto-generated method stub
-		return null;
+		return Historique(utilisateur, isSucceed, "");
+
+	}
+
+	@SuppressWarnings("null")
+	private Map<ArrayList<String>, ArrayList<String>> Historique(Person utilisateur, Boolean isSucceed,
+			Object... objects) {
+		Connection connexion = null;
+		Statement Statement = null;
+		ResultSet resultSet = null;
+		ArrayList<String> listeConnexion = new ArrayList<String>();
+		ArrayList<String> listeDeconnexion = new ArrayList<String>();
+
+		try {
+			/* Récupération d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			/*
+			 * Préparation de la requête avec les objets passés en arguments
+			 * (ici, uniquement une adresse email) et exécution.
+			 */
+			Statement = connexion.createStatement();
+			resultSet = Statement.executeQuery(
+					"SELECT login_time, logout_time from connection where person_id=" + utilisateur.getId() + " ");
+			/* Parcours de la ligne de données retournée dans le ResultSet */
+			if (resultSet != null) {
+				while (resultSet.next()) {
+					isSucceed = true;
+					listeConnexion.add(resultSet.getTimestamp("login_time").toString());
+					listeDeconnexion.add(resultSet.getTimestamp("logout_time").toString());
+				}
+			} else {
+				throw new ExceptionDao("Pas d'enregistrement!");
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, Statement, connexion);
+		}
+		Map<ArrayList<String>, ArrayList<String>> map = null;
+		map.put(listeConnexion, listeDeconnexion);
+		return map;
 	}
 
 	@Override
-	public Boolean removeToPanel(ArrayList<Product> listProducts, Boolean allornot) {
+	public Boolean Invite(Person utilisateur, String e_mailAddress) {
 		// TODO Auto-generated method stub
-		return null;
+		String i = "";
+		String c = "";
+		return Invitation(utilisateur, i, c, e_mailAddress, "");
 	}
 
-	@Override
-	public Boolean Reservation(Product product) {
-		// TODO Auto-generated method stub
-		return null;
+	private Boolean Invitation(Person utilisateur, String subject, String content, String e_mailAddress,
+			String copyDest) {
+		subject = "Invitation à utiliser PaPfood";
+		copyDest = utilisateur.getEmail();
+		content = utilisateur.getSurname() + " " + utilisateur.getName()
+				+ " vous invite à utiliser la plate_forme de partage communautaire PaPfood ";
+		boolean isSucceed = UseMail.sendMessage(utilisateur.getEmail(), subject, content, e_mailAddress, copyDest);
+		return isSucceed;
 	}
-
-	@Override
-	public Boolean sendMessage(Person pers, String Message) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Boolean receiveMessage(Person pers, String Message) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<String> Historique(Integer nbreJours) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Boolean Invite(String e_mailAddress) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

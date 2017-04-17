@@ -2,7 +2,6 @@ package beans;
 
 import java.awt.Image;
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 import dao.DaoPersonImpl;
 import dao.UsineDao;
@@ -35,7 +34,7 @@ public class Person implements Serializable {
 	private String cityName = "";
 	private String countryName = "";
 	private String postalCode = "";
-	private Date lastConnexion = null;
+	private Integer lastConnexion = null;
 	private String function="";
 	private Connection maConnexion = null;
 	private ResultConnexion resultConnexion = null;
@@ -206,12 +205,12 @@ public class Person implements Serializable {
 		this.postalCode = postalCode;
 	}
 
-	public Date getLastConnexion() {
+	public Integer getLastConnexion() {
 		return lastConnexion;
 	}
 
-	public void setLastConnexion(Date lastConnexion) {
-		this.lastConnexion = lastConnexion;
+	public void setLastConnexion(int i) {
+		this.lastConnexion = i;
 	}
 
 	public Timestamp getDateInscription() {
@@ -271,7 +270,10 @@ public class Person implements Serializable {
 				+ ", instagramId=" + instagramId + ", linkedinId=" + linkedinId + ", accountPicture=" + accountPicture
 				+ ", streetNumber=" + streetNumber + ", streetName=" + streetName + ", cityName=" + cityName
 				+ ", countryName=" + countryName + ", postalCode=" + postalCode + ", lastConnexion=" + lastConnexion
-				+ ", function=" + function + "]";
+				+ ", function=" + function + ", maConnexion=" + maConnexion + ", resultConnexion=" + resultConnexion
+				+ ", daopi=" + daopi + "]";
 	}
+
+	
 
 }

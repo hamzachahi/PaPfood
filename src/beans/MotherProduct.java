@@ -3,7 +3,7 @@ package beans;
 import java.awt.Image;
 import java.util.ArrayList;
 
-public class MotherProduct {
+public abstract class MotherProduct {
 	protected Long Id;
 	protected String Code;
 	protected String Name;
@@ -12,6 +12,8 @@ public class MotherProduct {
 	protected Image mainImage;
 	protected ArrayList<Image> listImage;
 	protected ArrayList<Product> listSubProduct;
+	protected ArrayList<Comment> Comments;
+	protected Long idProvider;
 
 	public Long getId() {
 		return Id;
@@ -75,6 +77,22 @@ public class MotherProduct {
 
 	public void setListSubProduct(ArrayList<Product> listSubProduct) {
 		this.listSubProduct = listSubProduct;
+	}
+
+	public ArrayList<Comment> getComments() {
+		return Comments;
+	}
+
+	public void setComments(ArrayList<Comment> comments) {
+		Comments = comments;
+	}
+
+	public Long getIdProvider() {
+		return idProvider;
+	}
+
+	public void setIdProvider(Long idProvider) {
+		this.idProvider = idProvider;
 	}
 
 }

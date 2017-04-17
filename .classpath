@@ -23,5 +23,6 @@
 	<classpathentry kind="lib" path="C:/Users/TOSHIBA PC/Desktop/eclipse2/eclipse/workspace/PaPfood/librairie/javaQuery 8.2.jar"/>
 	<classpathentry kind="lib" path="librairie/ojdbc6.jar"/>
 	<classpathentry kind="lib" path="librairie/javadoc.zip"/>
+	<classpathentry kind="lib" path="librairie/javax.mail.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

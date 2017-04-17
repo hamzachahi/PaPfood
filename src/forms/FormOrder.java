@@ -9,8 +9,6 @@ public class FormOrder {
 
 	private static final String CHAMP_ADR_FAC = "billingaddress";
 	private static final String CHAMP_ADR_EXPED = "shippingaddress";
-	private static final String CHAMP_MODE_PAY = "paymentmode";
-
 	private Map<String, String> erreurs = new HashMap<String, String>();
 	private String resultat;
 
@@ -19,7 +17,6 @@ public class FormOrder {
 		/* Récupération des champs du formulaire */
 		String adresseFacturation = getValeurChamp(request, CHAMP_ADR_FAC);
 		String adresseExped = getValeurChamp(request, CHAMP_ADR_EXPED);
-		String modePaiement = getValeurChamp(request, CHAMP_MODE_PAY);
 
 		Commande commande = new Commande();
 
@@ -37,7 +34,6 @@ public class FormOrder {
 
 		commande.setAdresseExpedition(adresseExped);
 		commande.setAdresseFacturation(adresseFacturation);
-		commande.setModePaiement(modePaiement);
 
 		return commande;
 

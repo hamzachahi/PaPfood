@@ -2,18 +2,19 @@ package beans;
 
 public class ElementCommand {
 	private int Quantity;
-	private String Code;
+	private MotherProduct mProduct;
 	public int getQuantity() {
 		return Quantity;
 	}
 	public void setQuantity(int quantity) {
 		Quantity = quantity;
 	}
-	public String getCode() {
-		return Code;
+	public MotherProduct getmProduct() {
+		return mProduct;
 	}
-	public void setCode(String code) {
-		Code = code;
+	public void setmProduct(MotherProduct mProduct) {
+		this.mProduct = mProduct;
 	}
+	
 	
 }
