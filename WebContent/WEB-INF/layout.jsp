@@ -1,14 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
+<title>YummySHOP : Plateforme d'échange de nourriture entre
+	particuliers</title>
+<link href="css/bootstrap-3.1.1.min.css" rel='stylesheet'
+	type='text/css' />
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="assets/js/jquery.min.js"></script>
+<script src="js/jquery.min.js"></script>
 <!-- Custom Theme files -->
 <!--theme-style-->
-<link href="assets/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <!--//theme-style-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -23,13 +27,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href='//fonts.googleapis.com/css?family=Poiret+One'
 	rel='stylesheet' type='text/css'>
 <!-- start menu -->
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/simpleCart.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/simpleCart.min.js">
 	
-
+</script>
 <!-- slide -->
-<script src="assets/js/responsiveslides.min.js"></script>
+<script src="js/responsiveslides.min.js"></script>
 <script>
 	$(function() {
 		$("#slider").responsiveSlides({
@@ -41,23 +44,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	});
 </script>
 <!-- animation-effect -->
-<link href="assets/css/animate.min.css" rel="stylesheet">
-<script src="assets/js/wow.min.js"></script>
+<link href="css/animate.min.css" rel="stylesheet">
+<script src="js/wow.min.js"></script>
 <script>
 	new WOW().init();
 </script>
 <!-- //animation-effect -->
 </head>
 <body>
-	<%@ include file="/WEB-INF/header.jsp" %>
-
+	<jsp:include page="/WEB-INF/header.jsp" />
 
 	<h1>${param.title}</h1>
 
-	<!--  <%@ include file="/WEB-INF/${param.content}.jsp" %>  -->
+	<jsp:include page="/WE-INF/${param.content}.jsp" />
 
-	<%@ include file="/WEB-INF/footer.jsp" %>
-
+	<jsp:include page="/WEB-INF/footer.jsp" />
 
 </body>
 </html>
