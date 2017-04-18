@@ -5,24 +5,24 @@ import static dao.UtilitaireDao.initialisationRequetePreparee;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import beans.Product;
 
-public class DaoProductImpl implements ProductDao {
+import beans.Evaluation;
+
+public class DaoEvaluationImpl implements EvaluationDao {
 	private UsineDao daoFactory;
 
-	public DaoProductImpl(UsineDao daoFactory) {
+	public DaoEvaluationImpl(UsineDao daoFactory) {
 		this.daoFactory = daoFactory;
 	}
 
 	@Override
-	public Boolean addProduct(Product product) {
+	public Boolean Evaluate(Evaluation evaluation) {
 		// TODO Auto-generated method stub
 		Boolean isSucceed = false;
-		return addProduct(product, isSucceed);
+		return Evaluate(evaluation, isSucceed);
 	}
 
-	private Boolean addProduct(Product product, Boolean isSucceed) {
-		// TODO Auto-generated method stub
+	private Boolean Evaluate(Evaluation evaluation, Boolean isSucceed) {
 		Connection connexion = null;
 		PreparedStatement Statement = null;
 		try {
@@ -32,15 +32,15 @@ public class DaoProductImpl implements ProductDao {
 			 * Préparation de la requête avec les objets passés en arguments
 			 * (ici, uniquement une adresse email) et exécution.
 			 */
-			Statement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlInsertProduct(), false,
-					product.getCode(), product.getName(), product.getDescription(), product.getPrice(),
-					product.getMainImage(), product.getIdProvider());
+			Statement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlInsertEvaluation(),
+					false, evaluation.getIdPerson(), evaluation.getIdJury(), evaluation.getNote(),
+					evaluation.getComments());
 			int statut = Statement.executeUpdate();
 			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
 				isSucceed = true;
 			} else {
-				throw new ExceptionDao("échec de l'enregistrement du product!");
+				throw new ExceptionDao("échec de l'enregistrement de l'évaluation");
 
 			}
 		} catch (SQLException e) {
@@ -52,14 +52,14 @@ public class DaoProductImpl implements ProductDao {
 	}
 
 	@Override
-	public Boolean modifyProduct(Product product) {
+	public Boolean modifyEvaluation(Evaluation evaluation) {
 		// TODO Auto-generated method stub
 		Boolean isSucceed = false;
-		return modifyProduct(product, isSucceed);
+
+		return modifyEvaluation(evaluation, isSucceed);
 	}
 
-	private Boolean modifyProduct(Product product, Boolean isSucceed) {
-		// TODO Auto-generated method stub
+	private Boolean modifyEvaluation(Evaluation evaluation, Boolean isSucceed) {
 		Connection connexion = null;
 		PreparedStatement Statement = null;
 		try {
@@ -69,15 +69,15 @@ public class DaoProductImpl implements ProductDao {
 			 * Préparation de la requête avec les objets passés en arguments
 			 * (ici, uniquement une adresse email) et exécution.
 			 */
-			Statement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlUpdateProduct(), false,
-					product.getCode(), product.getName(), product.getDescription(), product.getPrice(),
-					product.getMainImage(), product.getIdProvider(), product.getId());
+			Statement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlUpdateEvaluation(),
+					false, evaluation.getIdPerson(), evaluation.getIdJury(), evaluation.getNote(),
+					evaluation.getComments(), evaluation.getId());
 			int statut = Statement.executeUpdate();
 			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
 				isSucceed = true;
 			} else {
-				throw new ExceptionDao("échec de la modification du product!");
+				throw new ExceptionDao("échec de la modification de l'évaluation");
 
 			}
 		} catch (SQLException e) {
@@ -89,14 +89,14 @@ public class DaoProductImpl implements ProductDao {
 	}
 
 	@Override
-	public Boolean removeProduct(Product product) {
+	public Boolean deleteEvaluation(Evaluation evaluation) {
 		// TODO Auto-generated method stub
 		Boolean isSucceed = false;
-		return removeProduct(product, isSucceed);
+
+		return deleteEvaluation(evaluation, isSucceed);
 	}
 
-	private Boolean removeProduct(Product product, Boolean isSucceed) {
-		// TODO Auto-generated method stub
+	private Boolean deleteEvaluation(Evaluation evaluation, Boolean isSucceed) {
 		Connection connexion = null;
 		PreparedStatement Statement = null;
 		try {
@@ -106,14 +106,14 @@ public class DaoProductImpl implements ProductDao {
 			 * Préparation de la requête avec les objets passés en arguments
 			 * (ici, uniquement une adresse email) et exécution.
 			 */
-			Statement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlDeleteProduct(), false,
-					product.getId());
+			Statement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlDeleteEvaluation(),
+					false, evaluation.getId());
 			int statut = Statement.executeUpdate();
 			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
 				isSucceed = true;
 			} else {
-				throw new ExceptionDao("échec de la suppression du produit!");
+				throw new ExceptionDao("échec de la suppression de l'évaluation");
 
 			}
 		} catch (SQLException e) {
@@ -124,5 +124,4 @@ public class DaoProductImpl implements ProductDao {
 
 		return isSucceed;
 	}
-
 }

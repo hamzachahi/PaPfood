@@ -36,13 +36,13 @@ public class FoodDish extends MotherProduct implements Product {
 	}
 
 	@Override
-	public Image getProductMainImage() {
+	public Image getMainImage() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Boolean setProductMainImage(Image newImage, Boolean sqlornot) {
+	public Boolean setMainImage(Image newImage, Boolean sqlornot) {
 		// TODO Auto-generated method stub
 		return null;
 	}

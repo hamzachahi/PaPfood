@@ -24,9 +24,9 @@ public interface Product {
 
 	public Boolean setDescription(String newDescription, Boolean sqlornot);
 
-	public Image getProductMainImage();
+	public Image getMainImage();
 
-	public Boolean setProductMainImage(Image newImage, Boolean sqlornot);
+	public Boolean setMainImage(Image newImage, Boolean sqlornot);
 
 	public ArrayList<Image> getProductListImage();
 
@@ -35,4 +35,8 @@ public interface Product {
 	public ArrayList<Product> getListSubProduct();
 
 	public Boolean setListProduct(ArrayList<Product> listSubProduct, Boolean sqlornot);
+
+	public Long getIdProvider();
+
+	public void setIdProvider(Long Id);
 }

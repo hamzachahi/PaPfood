@@ -2,15 +2,13 @@ package dao;
 
 import static dao.UtilitaireDao.fermeturesSilencieuses;
 import static dao.UtilitaireDao.initialisationRequetePreparee;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
-
+import beans.Message;
 import beans.Person;
 
-public class DaoMessageImpl implements MessageDao{
+public class DaoMessageImpl implements MessageDao {
 	private UsineDao daoFactory;
 
 	public DaoMessageImpl(UsineDao daoFactory) {
@@ -56,15 +54,15 @@ public class DaoMessageImpl implements MessageDao{
 	}
 
 	@Override
-	public Boolean receiveMessage() {
+	public Boolean receiveMessage(Message message) {
 		// TODO Auto-generated method stub
 		Boolean isSucceed = false;
-		return receiveMessage(isSucceed);
+		return receiveMessage(message, isSucceed);
 	}
 
-	private Boolean receiveMessage(Boolean isSucceed) {
+	private Boolean receiveMessage(Message message, Boolean isSucceed) {
 		Connection connexion = null;
-		Statement Statement = null;
+		PreparedStatement preparedStatement = null;
 		try {
 			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
@@ -72,8 +70,10 @@ public class DaoMessageImpl implements MessageDao{
 			 * Préparation de la requête avec les objets passés en arguments
 			 * (ici, uniquement une adresse email) et exécution.
 			 */
-			Statement = connexion.createStatement();
-			int statut = Statement.executeUpdate(RequestRepository.getOraclesqlUpdateMessageReceiveDate());
+			preparedStatement = initialisationRequetePreparee(connexion,
+					RequestRepository.getOraclesqlUpdateMessageReceiveDate(), true, message.getId());
+			int statut = preparedStatement.executeUpdate();
+
 			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
 				isSucceed = true;
@@ -84,23 +84,23 @@ public class DaoMessageImpl implements MessageDao{
 		} catch (SQLException e) {
 			throw new ExceptionDao(e);
 		} finally {
-			fermeturesSilencieuses(Statement, connexion);
+			fermeturesSilencieuses(preparedStatement, connexion);
 		}
 
 		return isSucceed;
 	}
 
 	@Override
-	public Boolean readMessage() {
+	public Boolean readMessage(Message message) {
 		// TODO Auto-generated method stub
 		boolean isSucceed = false;
-		return readMessage(isSucceed);
+		return readMessage(message, isSucceed);
 	}
 
-	private Boolean readMessage(Boolean isSucceed) {
+	private Boolean readMessage(Message message, Boolean isSucceed) {
 		// TODO Auto-generated method stub
 		Connection connexion = null;
-		Statement Statement = null;
+		PreparedStatement preparedStatement = null;
 		try {
 			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
@@ -108,8 +108,9 @@ public class DaoMessageImpl implements MessageDao{
 			 * Préparation de la requête avec les objets passés en arguments
 			 * (ici, uniquement une adresse email) et exécution.
 			 */
-			Statement = connexion.createStatement();
-			int statut = Statement.executeUpdate(RequestRepository.getOraclesqlUpdateMessageReadDate());
+			preparedStatement = initialisationRequetePreparee(connexion,
+					RequestRepository.getOraclesqlUpdateMessageReadDate(), true, message.getId());
+			int statut = preparedStatement.executeUpdate();
 			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
 				isSucceed = true;
@@ -120,15 +121,43 @@ public class DaoMessageImpl implements MessageDao{
 		} catch (SQLException e) {
 			throw new ExceptionDao(e);
 		} finally {
-			fermeturesSilencieuses(Statement, connexion);
+			fermeturesSilencieuses(preparedStatement, connexion);
 		}
 
 		return isSucceed;
 	}
 
 	@Override
-	public Boolean deleteMessage() {
+	public Boolean deleteMessage(Message message) {
 		// TODO Auto-generated method stub
-		return null;
+		Boolean isSucceed=false;
+		return deleteMessage(message, isSucceed);
+	}
+	private Boolean deleteMessage(Message message, Boolean isSucceed){
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			/* Récupération d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			/*
+			 * Préparation de la requête avec les objets passés en arguments
+			 * (ici, uniquement une adresse email) et exécution.
+			 */
+			preparedStatement = initialisationRequetePreparee(connexion,
+					RequestRepository.getOraclesqlDeleteMessage(), true, message.getId());
+			int statut = preparedStatement.executeUpdate();
+			/* Parcours de la ligne de données retournée dans le ResultSet */
+			if (statut != 0) {
+				isSucceed = true;
+			} else {
+				throw new ExceptionDao("La suppression du message est incomplète!");
+
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(preparedStatement, connexion);
+		}
+		return isSucceed;
 	}
 }

@@ -172,7 +172,7 @@ public class DaoCommandeImpl implements CommandeDao {
 						throw new ExceptionDao("l'enregistrement est incomplet");
 
 					}
-				} else if (elementCommand.getmProduct().getClass().getName().equals(Product.class.getName())) {
+				} else if (elementCommand.getmProduct().getClass().getInterfaces()[0].getName().equals(Product.class.getName())) {
 					Statement = initialisationRequetePreparee(connexion,
 							RequestRepository.getOraclesqlInsertCommandeProduct(), false, Id,
 							elementCommand.getmProduct().getId(), elementCommand.getQuantity());
@@ -241,7 +241,7 @@ public class DaoCommandeImpl implements CommandeDao {
 							throw new ExceptionDao("la suppression est incomplète");
 
 						}
-					} else if (elementCommand.getmProduct().getClass().getName().equals(Product.class.getName())) {
+					} else if (elementCommand.getmProduct().getClass().getInterfaces()[0].getName().equals(Product.class.getName())) {
 						Statement = initialisationRequetePreparee(connexion,
 								RequestRepository.getOraclesqlDeleteCommandeProduct(), false, Id,
 								elementCommand.getmProduct().getId());

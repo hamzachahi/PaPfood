@@ -6,8 +6,8 @@ public class RequestRepository {
 	private static final String OracleSQL_SE_TROUVER_PAR_EMAIL = "SELECT id, name, surname, profession, email FROM person WHERE email = ?";
 	private static final String OracleSQL_SE_TROUVER_TOTALEMENT_PAR_EMAIL = "SELECT * FROM person WHERE email = ?";
 
-	private static final String MySQL_SELECT_ALL = "SELECT * FROM ? WHERE Id > ?";
-	private static final String OracleSQL_SELECT_ALL = "SELECT * FROM ? WHERE Id > ?";
+	private static final String MySQL_SELECT_ALL = "SELECT * FROM ?";
+	private static final String OracleSQL_SELECT_ALL = "SELECT * FROM ?";
 
 	private static final String OracleSQL_LAST_ELEMENT = "SELECT *  FROM person where id=(select Max(id) person ?)";
 
@@ -28,8 +28,8 @@ public class RequestRepository {
 	private static final String MySQL_INSERT_CONNECTION = "INSERT INTO connexion (login_time, person_id, person_id_ip_address, person_type) VALUES (?, ?, ?, ?)";
 	private static final String OracleSQL_INSERT_CONNECTION = "INSERT INTO connexion (login_time, person_id, person_id_ip_address, person_type) VALUES (?, ?, ?, ?)";
 
-	private static final String MySQL_INSERT_PRODUCT = "INSERT INTO food_dish (code, name, description, price, main_image) VALUES (?, ?, ?, ?, ?)";
-	private static final String OracleSQL_INSERT_FOOD_DISH = "INSERT INTO food_dish (code, name, description, price, main_image) VALUES (?, ?, ?, ?, ?)";
+	private static final String MySQL_INSERT_PRODUCT = "INSERT INTO food_dish (code, name, description, price, main_image, id_provider) VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String OracleSQL_INSERT_PRODUCT = "INSERT INTO food_dish (code, name, description, price, main_image, id_provider) VALUES (?, ?, ?, ?, ?, ?)";
 
 	private static final String MySQL_INSERT_INVOICE = "INSERT INTO invoice (code_invoice, creation_date, delivered_date, type, total_price, header_message, footer_message, legal_message) VALUES (?, NOW(), ?, ?, ?, ?, ?, ?)";
 	private static final String OracleSQL_INSERT_INVOICE = "INSERT INTO invoice (code_invoice, creation_date, delivered_date, type, total_price, header_message, footer_message, legal_message) VALUES (?, SYSTIMESTAMP, ?, ?, ?, ?, ?, ?)";
@@ -49,8 +49,8 @@ public class RequestRepository {
 	private static final String MySQL_INSERT_INVOICE_SERVICE = "INSERT INTO invoice_service (id_invoice, id_service) VALUES (?, ?)";
 	private static final String OracleSQL_INSERT_INVOICE_SERVICE = "INSERT INTO invoice_service (id_invoice, id_service) VALUES (?, ?)";
 
-	private static final String MySQL_INSERT_SERVICE = "INSERT INTO service (code, name, description, price, main_image) VALUES (?, ?, ?, ?, ?)";
-	private static final String OracleSQL_INSERT_SERVICE = "INSERT INTO service (code, name, description, price, main_image) VALUES (?, ?, ?, ?, ?)";
+	private static final String MySQL_INSERT_SERVICE = "INSERT INTO service (code, name, description, price, main_image, id_provider) VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String OracleSQL_INSERT_SERVICE = "INSERT INTO service (code, name, description, price, main_image, id_provider) VALUES (?, ?, ?, ?, ?, ?)";
 
 	private static final String MySQL_INSERT_SERVICE_PRODUCT = "INSERT INTO service_product (id_service, id_product) VALUES (?, ?)";
 	private static final String OracleSQL_INSERT_SERVICE_PRODUCT = "INSERT INTO service_product (id_service, id_product) VALUES (?, ?)";
@@ -95,8 +95,8 @@ public class RequestRepository {
 	private static final String MySQL_UPDATE_CONNECTION = "UPDATE connection SET logout_time = ? WHERE ID = ?";
 	private static final String OracleSQL_UPDATE_CONNECTION = "UPDATE connection SET logout_time = ? WHERE ID = ?";
 
-	private static final String MySQL_UPDATE_PRODUCT = "UPDATE product SET code = ?, name=?, description=?, price=?, main_image=? WHERE ID = ?";
-	private static final String OracleSQL_UPDATE_PRODUCT = "UPDATE product SET code = ?, name=?, description=?, price=?, main_image=? WHERE ID = ?";
+	private static final String MySQL_UPDATE_PRODUCT = "UPDATE product SET code = ?, name=?, description=?, price=?, main_image=?, id_provider= ? WHERE ID = ?";
+	private static final String OracleSQL_UPDATE_PRODUCT = "UPDATE product SET code = ?, name=?, description=?, price=?, main_image=?, id_provider= ? WHERE ID = ?";
 
 	private static final String MySQL_UPDATE_INVOICE = "UPDATE invoice SET code_invoice = ?, date_ordering=?, delivered_date=?, type=?, total_price=?, header_message=?, footer_message=?, legal_message=? WHERE ID = ?";
 	private static final String OracleSQL_UPDATE_INVOICE = "UPDATE invoice SET code_invoice = ?, date_ordering=?, delivered_date=?, type=?, total_price=?, header_message=?, footer_message=?, legal_message=? WHERE ID = ?";
@@ -107,8 +107,8 @@ public class RequestRepository {
 	private static final String MySQL_UPDATE_PRODUCT_SERVICE = "UPDATE product_service SET id_product = ?, id_service=? WHERE ID = ?";
 	private static final String OracleSQL_UPDATE_PRODUCT_SERVICE = "UPDATE product_service SET id_product = ?, id_service=? WHERE ID = ?";
 
-	private static final String MySQL_UPDATE_SERVICE = "UPDATE service SET code = ?, name=?, description=?, price=?, main_image=? WHERE ID = ?";
-	private static final String OracleSQL_UPDATE_SERVICE = "UPDATE service SET code = ?, name=?, description=?, price=?, main_image=? WHERE ID = ?";
+	private static final String MySQL_UPDATE_SERVICE = "UPDATE service SET code = ?, name=?, description=?, price=?, main_image=?, id_provider= ? WHERE ID = ?";
+	private static final String OracleSQL_UPDATE_SERVICE = "UPDATE service SET code = ?, name=?, description=?, price=?, main_image=?, id_provider = ? WHERE ID = ?";
 
 	private static final String MySQL_UPDATE_INVOICE_PERSON = "UPDATE invoice_person SET id_invoice = ?, id_person=?, person_name=?, person_address=?, person_surname=? WHERE ID = ?";
 	private static final String OracleSQL_UPDATE_INVOICE_PERSON = "UPDATE invoice_person SET id_invoice = ?, id_person=?, person_name=?, person_address=?, person_surname=? WHERE ID = ?";
@@ -119,25 +119,13 @@ public class RequestRepository {
 	private static final String MySQL_UPDATE_INVOICE_SERVICE = "UPDATE invoice_person SET id_invoice = ?, id_service=? WHERE ID = ?";
 	private static final String OracleSQL_UPDATE_INVOICE_SERVICE = "UPDATE invoice_person SET id_invoice = ?, id_service=? WHERE ID = ?";
 
-	private static final String OracleSQL_UPDATE_MESSAGE_RECEIVE_DATE = "UPDATE message set receive_date=SYSTIMESTAMP where receive_date is null";
-	private static final String OracleSQL_UPDATE_MESSAGE_READ_DATE = "UPDATE message set read_date=SYSTIMESTAMP where read_date is null";
+	private static final String OracleSQL_UPDATE_MESSAGE_RECEIVE_DATE = "UPDATE message set receive_date=SYSTIMESTAMP WHERE ID = ?";
+	private static final String OracleSQL_UPDATE_MESSAGE_READ_DATE = "UPDATE message set read_date=SYSTIMESTAMP WHERE ID = ? ";
 
 	private static final String OracleSQL_UPDATE_COMMANDE_STATE = "UPDATE commande SET state=1 WHERE ID= ?";
 	private static final String OracleSQL_UPDATE_COMMENTS = "UPDATE comments SET content = ?, date_posted=SYSTIMESTAMP WHERE ID= ?";
 	// fin update
-	// début update
-
-	public static String getOraclesqlInsertMessage() {
-		return OracleSQL_INSERT_MESSAGE;
-	}
-
-	public static String getOraclesqlUpdateMessageReceiveDate() {
-		return OracleSQL_UPDATE_MESSAGE_RECEIVE_DATE;
-	}
-
-	public static String getOraclesqlUpdateMessageReadDate() {
-		return OracleSQL_UPDATE_MESSAGE_READ_DATE;
-	}
+	// début update	
 
 	private static final String MySQL_DELETE_PERSON = "DELETE FROM person WHERE ID = ?";
 	private static final String OracleSQL_DELETE_PERSON = "DELETE FROM person WHERE ID = ?";
@@ -189,6 +177,7 @@ public class RequestRepository {
 	private static final String OracleSQL_DELETE_COMMENTS = "DELETE FROM comments WHERE ID = ?";
 	private static final String OracleSQL_DELETE_COMMENTS_PRODUCT = "DELETE FROM comments_product WHERE ID = ?";
 	private static final String OracleSQL_DELETE_COMMENTS_SERVICE = "DELETE FROM comments_service WHERE ID = ?";
+	private static final String OracleSQL_DELETE_MESSAGE = "DELETE FROM message WHERE ID = ?";
 
 	// fin update
 	public static String getMysqlSeTrouverParEmail() {
@@ -251,8 +240,8 @@ public class RequestRepository {
 		return MySQL_INSERT_PRODUCT;
 	}
 
-	public static String getOraclesqlInsertFoodDish() {
-		return OracleSQL_INSERT_FOOD_DISH;
+	public static String getOraclesqlInsertProduct() {
+		return OracleSQL_INSERT_PRODUCT;
 	}
 
 	public static String getMysqlInsertInvoice() {
@@ -638,5 +627,20 @@ public class RequestRepository {
 	public static String getOraclesqlDeleteCommentsService() {
 		return OracleSQL_DELETE_COMMENTS_SERVICE;
 	}
+	public static String getOraclesqlInsertMessage() {
+		return OracleSQL_INSERT_MESSAGE;
+	}
 
+	public static String getOraclesqlUpdateMessageReceiveDate() {
+		return OracleSQL_UPDATE_MESSAGE_RECEIVE_DATE;
+	}
+
+	public static String getOraclesqlUpdateMessageReadDate() {
+		return OracleSQL_UPDATE_MESSAGE_READ_DATE;
+	}
+
+	public static String getOraclesqlDeleteMessage() {
+		return OracleSQL_DELETE_MESSAGE;
+	}
+	
 }
