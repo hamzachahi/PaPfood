@@ -29,6 +29,11 @@ public class DaoPersonImpl implements PersonDao {
 	public Person trouver(String email, boolean succeed) throws ExceptionDao {
 		return trouver(RequestRepository.getOraclesqlSeTrouverTotalementParEmail(), succeed, email);
 	}
+	@Override
+	public Person trouverParId(Long id, boolean succeed) throws ExceptionDao {
+		return trouverParId(RequestRepository.getOraclesqlSeTrouverParId(), succeed, id);
+	}
+	
 
 	/* Implémentation de la méthode définie dans l'interface UtilisateurDao */
 	@SuppressWarnings({ "deprecation" })
@@ -78,6 +83,34 @@ public class DaoPersonImpl implements PersonDao {
 	 * les objets passés en argument.
 	 */
 	private Person trouver(String sql, boolean succeed, Object... objets) throws ExceptionDao {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Person utilisateur = null;
+
+		try {
+			/* Récupération d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			/*
+			 * Préparation de la requête avec les objets passés en arguments
+			 * (ici, uniquement une adresse email) et exécution.
+			 */
+			preparedStatement = initialisationRequetePreparee(connexion, sql, false, objets);
+			resultSet = preparedStatement.executeQuery();
+			/* Parcours de la ligne de données retournée dans le ResultSet */
+			if (resultSet.next()) {
+				succeed = true;
+				utilisateur = map(resultSet);
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+
+		return utilisateur;
+	}
+	private Person trouverParId(String sql, boolean succeed, Object... objets) throws ExceptionDao {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;

@@ -5,8 +5,9 @@ import static dao.UtilitaireDao.initialisationRequetePreparee;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
 import beans.Service;
 
 public class DaoServiceImpl implements ServiceDao {
@@ -125,6 +126,94 @@ public class DaoServiceImpl implements ServiceDao {
 		}
 
 		return isSucceed;
+	}
+
+	@SuppressWarnings("null")
+	public Service map(ResultSet result) throws SQLException {
+		Service service = null;
+		service.setId(result.getLong("id"), true);
+		service.setCode(result.getString("code"), true);
+		service.setDescription(result.getString("description"), true);
+		service.setIdProvider(result.getLong("id_provider"));
+		// service.setListService(listSubService, true);
+		// service.setMainImage(result.getBlob("main_image"), true);
+		service.setName(result.getString("name"), true);
+		service.setPrice(result.getDouble("price"), true);
+		// service.setServiceListImage(listImage, true);
+		return service;
+	}
+
+	@Override
+	public Service findServiceById(Long Id) {
+		// TODO Auto-generated method stub
+		Boolean isSucceed = false;
+		return findServiceById(RequestRepository.getOraclesqlSelectAll(), isSucceed, Id);
+	}
+
+	private Service findServiceById(String sql, Boolean isSucceed, Object... objets) {
+		// TODO Auto-generated method stub
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Service service = null;
+
+		try {
+			/* Récupération d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			/*
+			 * Préparation de la requête avec les objets passés en arguments
+			 * (ici, uniquement une adresse email) et exécution.
+			 */
+			preparedStatement = initialisationRequetePreparee(connexion, sql, false, objets);
+			resultSet = preparedStatement.executeQuery();
+			/* Parcours de la ligne de données retournée dans le ResultSet */
+			if (resultSet.next()) {
+				isSucceed = true;
+				service = map(resultSet);
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return service;
+	}
+
+	@Override
+	public ArrayList<Service> findAllService() {
+		// TODO Auto-generated method stub
+		Boolean isSucceed = false;
+		String p = "service";
+		return findAllService(RequestRepository.getOraclesqlSelectAll(), isSucceed, p);
+	}
+
+	private ArrayList<Service> findAllService(String sql, Boolean isSucceed, Object... objets) {
+		// TODO Auto-generated method stub
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<Service> service = new ArrayList<>();
+
+		try {
+			/* Récupération d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			/*
+			 * Préparation de la requête avec les objets passés en arguments
+			 * (ici, uniquement une adresse email) et exécution.
+			 */
+			preparedStatement = initialisationRequetePreparee(connexion, sql, false, objets);
+			resultSet = preparedStatement.executeQuery();
+			/* Parcours de la ligne de données retournée dans le ResultSet */
+			while (resultSet.next()) {
+				isSucceed = true;
+				service.add(map(resultSet));
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return service;
 	}
 
 }

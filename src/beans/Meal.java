@@ -36,7 +36,7 @@ public class Meal extends MotherProduct implements Product{
 	}
 
 	@Override
-	public Boolean setPrice(Integer newPrice, Boolean sqlornot) {
+	public Boolean setPrice(Double newPrice, Boolean sqlornot) {
 		// TODO Auto-generated method stub
 		return null;
 	}

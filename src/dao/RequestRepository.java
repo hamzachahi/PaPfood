@@ -2,6 +2,8 @@ package dao;
 
 public class RequestRepository {
 	// Début requête select
+	private static final String MySQL_SE_TROUVER_PAR_ID = "SELECT * FROM person WHERE id = ?";
+	private static final String Oracle_SE_TROUVER_PAR_ID = "SELECT * FROM person WHERE id = ?";
 	private static final String MySQL_SE_TROUVER_PAR_EMAIL = "SELECT Id, name, surname, profession, email FROM person WHERE email = ?";
 	private static final String OracleSQL_SE_TROUVER_PAR_EMAIL = "SELECT id, name, surname, profession, email FROM person WHERE email = ?";
 	private static final String OracleSQL_SE_TROUVER_TOTALEMENT_PAR_EMAIL = "SELECT * FROM person WHERE email = ?";
@@ -11,8 +13,8 @@ public class RequestRepository {
 
 	private static final String OracleSQL_LAST_ELEMENT = "SELECT *  FROM person where id=(select Max(id) person ?)";
 
-	private static final String MySQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id > ?";
-	private static final String OracleSQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id > ?";
+	private static final String MySQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id = ?";
+	private static final String OracleSQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id = ?";
 	// fin select
 	// début insert
 
@@ -178,6 +180,12 @@ public class RequestRepository {
 	private static final String OracleSQL_DELETE_COMMENTS_PRODUCT = "DELETE FROM comments_product WHERE ID = ?";
 	private static final String OracleSQL_DELETE_COMMENTS_SERVICE = "DELETE FROM comments_service WHERE ID = ?";
 	private static final String OracleSQL_DELETE_MESSAGE = "DELETE FROM message WHERE ID = ?";
+	
+	private static final String OracleSQL_SELECT_FROM_COMMANDE_SERVICE="SELECT * from commande_service where id_commande = ?";
+	private static final String OracleSQL_SELECT_FROM_COMMANDE_PRODUCT=" SELECT * from commande_product where id_commande = ?";
+	private static final String OracleSQL_SELECT_FROM_COMMANDE_BY_CUSTOMER="SELECT * from commande WHERE id_customer = ?";
+	private static final String OracleSQL_SELECT_FROM_COMMANDE_BY_ID="SELECT * from commande WHERE id = ?";
+
 
 	// fin update
 	public static String getMysqlSeTrouverParEmail() {
@@ -641,6 +649,33 @@ public class RequestRepository {
 
 	public static String getOraclesqlDeleteMessage() {
 		return OracleSQL_DELETE_MESSAGE;
+	}
+
+	public static String getMysqlSeTrouverParId() {
+		return MySQL_SE_TROUVER_PAR_ID;
+	}
+	public static String getOraclesqlSeTrouverParId() {
+		return Oracle_SE_TROUVER_PAR_ID;
+	}
+
+	public static String getOracleSeTrouverParId() {
+		return Oracle_SE_TROUVER_PAR_ID;
+	}
+
+	public static String getOraclesqlSelectFromCommandeService() {
+		return OracleSQL_SELECT_FROM_COMMANDE_SERVICE;
+	}
+
+	public static String getOraclesqlSelectFromCommandeProduct() {
+		return OracleSQL_SELECT_FROM_COMMANDE_PRODUCT;
+	}
+
+	public static String getOraclesqlSelectFromCommandeByCustomer() {
+		return OracleSQL_SELECT_FROM_COMMANDE_BY_CUSTOMER;
+	}
+
+	public static String getOraclesqlSelectFromCommandeById() {
+		return OracleSQL_SELECT_FROM_COMMANDE_BY_ID;
 	}
 	
 }

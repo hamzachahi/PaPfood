@@ -18,7 +18,7 @@ public interface Product {
 
 	public Double getPrice();
 
-	public Boolean setPrice(Integer newPrice, Boolean sqlornot);
+	public Boolean setPrice(Double d, Boolean sqlornot);
 
 	public String getDescription();
 

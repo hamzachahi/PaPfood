@@ -24,9 +24,10 @@ public interface PersonDao {
 
 	public Boolean Search(ArrayList<String> Params, String KeyWord);
 
-	
 	public Map<ArrayList<String>, ArrayList<String>> Historique(Person utilisateur, Boolean isSucceed,
 			Integer nbreJours);
 
 	public Boolean Invite(Person utilisateur, String e_mailAddress);
+
+	public Person trouverParId(Long id, boolean succeed) throws ExceptionDao;
 }
