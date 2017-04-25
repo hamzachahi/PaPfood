@@ -3,7 +3,7 @@ package beans;
 import java.awt.Image;
 import java.util.ArrayList;
 
-public class Service extends MotherProduct implements Product {
+public class Service extends MotherProduct implements Salable {
 
 	@Override
 	public String getCode() {
@@ -78,13 +78,13 @@ public class Service extends MotherProduct implements Product {
 	}
 
 	@Override
-	public ArrayList<Product> getListSubProduct() {
+	public ArrayList<Salable> getListSubProduct() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Boolean setListProduct(ArrayList<Product> listSubProduct, Boolean sqlornot) {
+	public Boolean setListProduct(ArrayList<Salable> listSubProduct, Boolean sqlornot) {
 		// TODO Auto-generated method stub
 		return null;
 	}

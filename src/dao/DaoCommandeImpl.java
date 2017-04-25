@@ -25,8 +25,8 @@ public class DaoCommandeImpl implements CommandeDao {
 	public DaoCommandeImpl(UsineDao daoFactory) {
 		this.daoFactory = daoFactory;
 		this.persImpl = new DaoPersonImpl(daoFactory);
-		this.servImpl=new DaoServiceImpl(daoFactory);
-		this.prodImpl=new DaoProductImpl(daoFactory);
+		this.servImpl = new DaoServiceImpl(daoFactory);
+		this.prodImpl = new DaoProductImpl(daoFactory);
 
 	}
 
@@ -180,7 +180,7 @@ public class DaoCommandeImpl implements CommandeDao {
 						throw new ExceptionDao("l'enregistrement est incomplet");
 
 					}
-				} else if (elementCommand.getmProduct().getClass().getInterfaces()[0].getName()
+				} else if (elementCommand.getmProduct().getClass().getSuperclass().getName()
 						.equals(Product.class.getName())) {
 					Statement = initialisationRequetePreparee(connexion,
 							RequestRepository.getOraclesqlInsertCommandeProduct(), false, Id,
@@ -250,7 +250,7 @@ public class DaoCommandeImpl implements CommandeDao {
 							throw new ExceptionDao("la suppression est incomplète");
 
 						}
-					} else if (elementCommand.getmProduct().getClass().getInterfaces()[0].getName()
+					} else if (elementCommand.getmProduct().getClass().getSuperclass().getName()
 							.equals(Product.class.getName())) {
 						Statement = initialisationRequetePreparee(connexion,
 								RequestRepository.getOraclesqlDeleteCommandeProduct(), false, Id,
@@ -292,23 +292,24 @@ public class DaoCommandeImpl implements CommandeDao {
 		commande.setState(result.getInt("state"));
 		commande.setAdresseFacturation(result.getString("billing_address"));
 		commande.setAdresseExpedition(result.getString("shipping_address"));
-		listCommandeProduct=this.findCommande_ProductParId(RequestRepository.getOraclesqlSelectFromCommandeProduct(), false, result.getLong("id"));
-		listCommandeService=this.findCommande_ServiceParId(RequestRepository.getOraclesqlSelectFromCommandeService(), false, result.getLong("id"));
-	for (int i = 0; i < listCommandeProduct.size(); i++) {	
-	
-		ElementCommand long1 = listCommandeProduct.get(i);		
-		commande.getElements().add(long1);
-	//	commande.getElements().get(i).setmProduct(prodImpl.findProductById(long1.getmProduct().getId()));
-	}	
-	
-	for (int i = 0; i < listCommandeService.size(); i++) {
-		
-		
-		ElementCommand long1 = listCommandeProduct.get(i);
-		
-		commande.getElements().add(long1);
-		commande.getElements().get(i).setmProduct(servImpl.findServiceById(long1.getmProduct().getId()));
-	}	
+		listCommandeProduct = this.findCommande_ProductParId(RequestRepository.getOraclesqlSelectFromCommandeProduct(),
+				false, result.getLong("id"));
+		listCommandeService = this.findCommande_ServiceParId(RequestRepository.getOraclesqlSelectFromCommandeService(),
+				false, result.getLong("id"));
+		for (int i = 0; i < listCommandeProduct.size(); i++) {
+
+			ElementCommand long1 = listCommandeProduct.get(i);
+			commande.getElements().add(long1);
+			commande.getElements().get(i).setmProduct(prodImpl.findProductById(long1.getmProduct().getId()));
+		}
+
+		for (int i = 0; i < listCommandeService.size(); i++) {
+
+			ElementCommand long1 = listCommandeProduct.get(i);
+
+			commande.getElements().add(long1);
+			commande.getElements().get(i).setmProduct(servImpl.findServiceById(long1.getmProduct().getId()));
+		}
 		commande.setCustomer(persImpl.trouverParId(result.getLong("id"), false));
 		return commande;
 	}
@@ -348,6 +349,7 @@ public class DaoCommandeImpl implements CommandeDao {
 		}
 		return commande;
 	}
+
 	@Override
 	public Commande findCommandeParId(Long id) {
 		// TODO Auto-generated method stub
@@ -383,7 +385,7 @@ public class DaoCommandeImpl implements CommandeDao {
 		}
 		return commande;
 	}
-	
+
 	@Override
 	public ArrayList<Commande> findAllCommande() {
 		// TODO Auto-generated method stub
@@ -419,6 +421,7 @@ public class DaoCommandeImpl implements CommandeDao {
 		}
 		return commande;
 	}
+
 	private ArrayList<ElementCommand> findCommande_ProductParId(String sql, Boolean isSucceed, Object... objets) {
 		// TODO Auto-generated method stub
 		Connection connexion = null;
@@ -436,12 +439,12 @@ public class DaoCommandeImpl implements CommandeDao {
 			preparedStatement = initialisationRequetePreparee(connexion, sql, false, objets);
 			resultSet = preparedStatement.executeQuery();
 			/* Parcours de la ligne de données retournée dans le ResultSet */
-			int i=0;
+			int i = 0;
 			while (resultSet.next()) {
-				
 				isSucceed = true;
 				commandeProduct.get(i).getmProduct().setId((resultSet.getLong("id_product")));
 				commandeProduct.get(i).setQuantity(resultSet.getInt("quantity"));
+				i = i + 1;
 			}
 		} catch (SQLException e) {
 			throw new ExceptionDao(e);
@@ -450,6 +453,7 @@ public class DaoCommandeImpl implements CommandeDao {
 		}
 		return commandeProduct;
 	}
+
 	private ArrayList<ElementCommand> findCommande_ServiceParId(String sql, Boolean isSucceed, Object... objets) {
 		// TODO Auto-generated method stub
 		Connection connexion = null;
@@ -467,11 +471,12 @@ public class DaoCommandeImpl implements CommandeDao {
 			preparedStatement = initialisationRequetePreparee(connexion, sql, false, objets);
 			resultSet = preparedStatement.executeQuery();
 			/* Parcours de la ligne de données retournée dans le ResultSet */
-			int i=0;
+			int i = 0;
 			while (resultSet.next()) {
 				isSucceed = true;
 				commandeProduct.get(i).getmProduct().setId((resultSet.getLong("id_service")));
 				commandeProduct.get(i).setQuantity(resultSet.getInt("quantity"));
+				i = i + 1;
 			}
 		} catch (SQLException e) {
 			throw new ExceptionDao(e);

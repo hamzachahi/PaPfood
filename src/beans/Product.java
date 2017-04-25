@@ -3,40 +3,60 @@ package beans;
 import java.awt.Image;
 import java.util.ArrayList;
 
-public interface Product {
-	public Long getId();
+public class Product extends MotherProduct implements Salable {
 
-	public Boolean setId(Long newId, Boolean sqlornot);
+	@Override
+	public Boolean setId(Long newId, Boolean sqlornot) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	public String getCode();
+	@Override
+	public Boolean setCode(String newCode, Boolean sqlornot) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	public Boolean setCode(String newCode, Boolean sqlornot);
+	@Override
+	public Boolean setName(String newName, Boolean sqlornot) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	public String getName();
+	@Override
+	public Boolean setPrice(Double d, Boolean sqlornot) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	public Boolean setName(String newName, Boolean sqlornot);
+	@Override
+	public Boolean setDescription(String newDescription, Boolean sqlornot) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	public Double getPrice();
+	@Override
+	public Boolean setMainImage(Image newImage, Boolean sqlornot) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	public Boolean setPrice(Double d, Boolean sqlornot);
+	@Override
+	public ArrayList<Image> getProductListImage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	public String getDescription();
+	@Override
+	public Boolean setProductListImage(ArrayList<Image> listImage, Boolean sqlornot) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	public Boolean setDescription(String newDescription, Boolean sqlornot);
+	@Override
+	public Boolean setListProduct(ArrayList<Salable> listSubProduct, Boolean sqlornot) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	public Image getMainImage();
-
-	public Boolean setMainImage(Image newImage, Boolean sqlornot);
-
-	public ArrayList<Image> getProductListImage();
-
-	public Boolean setProductListImage(ArrayList<Image> listImage, Boolean sqlornot);
-
-	public ArrayList<Product> getListSubProduct();
-
-	public Boolean setListProduct(ArrayList<Product> listSubProduct, Boolean sqlornot);
-
-	public Long getIdProvider();
-
-	public void setIdProvider(Long Id);
 }

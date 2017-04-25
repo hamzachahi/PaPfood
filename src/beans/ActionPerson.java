@@ -21,11 +21,11 @@ public interface ActionPerson {
 
 	public Boolean Search(ArrayList<String> Params, String KeyWord);
 
-	public Boolean addToPanel(ArrayList<Product> listProducts);
+	public Boolean addToPanel(ArrayList<Salable> listProducts);
 
-	public Boolean removeToPanel(ArrayList<Product> listProducts, Boolean allornot);
+	public Boolean removeToPanel(ArrayList<Salable> listProducts, Boolean allornot);
 
-	public Boolean Reservation(Product product);
+	public Boolean Reservation(Salable product);
 
 	public Boolean sendMessage(Person pers, String Message);
 

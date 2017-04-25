@@ -11,7 +11,7 @@ public abstract class MotherProduct {
 	protected Double Price;
 	protected Image mainImage;
 	protected ArrayList<Image> listImage;
-	protected ArrayList<Product> listSubProduct;
+	protected ArrayList<Salable> listSubProduct;
 	protected ArrayList<Comment> Comments;
 	protected Long idProvider;
 
@@ -71,11 +71,11 @@ public abstract class MotherProduct {
 		this.listImage = listImage;
 	}
 
-	public ArrayList<Product> getListSubProduct() {
+	public ArrayList<Salable> getListSubProduct() {
 		return listSubProduct;
 	}
 
-	public void setListSubProduct(ArrayList<Product> listSubProduct) {
+	public void setListSubProduct(ArrayList<Salable> listSubProduct) {
 		this.listSubProduct = listSubProduct;
 	}
 

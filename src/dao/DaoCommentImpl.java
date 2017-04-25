@@ -57,7 +57,7 @@ public class DaoCommentImpl implements CommentDao {
 				isSucceed = false;
 				throw new ExceptionDao("Échec de la création du commentaire en base, aucun ID auto-généré retourné.");
 			}
-			if (mProduct.getClass().getInterfaces()[0].getName().toString().equals(Service.class.getName().toString())) {
+			if (mProduct.getClass().getSuperclass().getName().toString().equals(Service.class.getName().toString())) {
 				preparedStatement = initialisationRequetePreparee(connexion,
 						RequestRepository.getOraclesqlInsertCommentsService(), true, id, mProduct.getId());
 				statut = preparedStatement.executeUpdate();
@@ -68,7 +68,7 @@ public class DaoCommentImpl implements CommentDao {
 
 				}
 			
-			} else if (mProduct.getClass().getInterfaces()[0].getName().toString().equals(Product.class.getName().toString())) {
+			} else if (mProduct.getClass().getSuperclass().getName().toString().equals(Product.class.getName().toString())) {
 				preparedStatement = initialisationRequetePreparee(connexion,
 						RequestRepository.getOraclesqlInsertCommentsProduct(), true, id, mProduct.getId());
 				statut = preparedStatement.executeUpdate();

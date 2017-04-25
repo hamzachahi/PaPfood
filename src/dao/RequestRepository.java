@@ -88,11 +88,11 @@ public class RequestRepository {
 	private static final String MySQL_UPDATE_COMMANDE_SERVICE = "UPDATE commande_service SET id_commande = ?, id_service=?, quantity=? WHERE ID = ?";
 	private static final String OracleSQL_UPDATE_COMMANDE_SERVICE = "UPDATE commande_service SET id_commande = ?, id_service=?, quantity=? WHERE ID = ?";
 
-	private static final String MySQL_UPDATE_SERVICE_PRODUCT = "UPDATE service_product SET id_service = ?, id_product=? WHERE ID = ?";
-	private static final String OracleSQL_SERVICE_COMMANDE_PRODUCT = "UPDATE service_product SET id_service = ?, id_product=? WHERE ID = ?";
+	private static final String MySQL_UPDATE_SERVICE_PRODUCT = "UPDATE service_product SET id_service = ?, id_product=? WHERE id_service = ? and id_product = ?";
+	private static final String OracleSQL_UPDATE_SERVICE_PRODUCT = "UPDATE service_product SET id_service = ?, id_product=? WHERE id_service = ? and id_product = ?";
 
-	private static final String MySQL_UPDATE_SERVICE_COMPONENT = "UPDATE service_component SET id_service = ?, id_component=? WHERE ID = ?";
-	private static final String OracleSQL_SERVICE_COMMANDE_COMPONENT = "UPDATE service_component SET id_service = ?, id_component=? WHERE ID = ?";
+	private static final String MySQL_UPDATE_SERVICE_COMPONENT = "UPDATE service_component SET id_service = ?, id_component=? WHERE id_service = ? and id_component = ?";
+	private static final String OracleSQL_UPDATE_SERVICE_COMPONENT = "UPDATE service_component SET id_service = ?, id_component=? WHERE id_service = ? and id_component = ?";
 
 	private static final String MySQL_UPDATE_CONNECTION = "UPDATE connection SET logout_time = ? WHERE ID = ?";
 	private static final String OracleSQL_UPDATE_CONNECTION = "UPDATE connection SET logout_time = ? WHERE ID = ?";
@@ -103,11 +103,11 @@ public class RequestRepository {
 	private static final String MySQL_UPDATE_INVOICE = "UPDATE invoice SET code_invoice = ?, date_ordering=?, delivered_date=?, type=?, total_price=?, header_message=?, footer_message=?, legal_message=? WHERE ID = ?";
 	private static final String OracleSQL_UPDATE_INVOICE = "UPDATE invoice SET code_invoice = ?, date_ordering=?, delivered_date=?, type=?, total_price=?, header_message=?, footer_message=?, legal_message=? WHERE ID = ?";
 
-	private static final String MySQL_UPDATE_PRODUCT_COMPONENT = "UPDATE product_component SET id_componed = ?, id_component=? WHERE ID = ?";
-	private static final String OracleSQL_UPDATE_PRODUCT_COMPONENT = "UPDATE product_component SET id_componed = ?, id_component=? WHERE ID = ?";
+	private static final String MySQL_UPDATE_PRODUCT_COMPONENT = "UPDATE product_component SET id_componed = ?, id_component=? WHERE id_componed = ? and id_component = ?";
+	private static final String OracleSQL_UPDATE_PRODUCT_COMPONENT = "UPDATE product_component SET id_componed = ?, id_component=? WHERE id_componed = ? and id_component = ?";
 
-	private static final String MySQL_UPDATE_PRODUCT_SERVICE = "UPDATE product_service SET id_product = ?, id_service=? WHERE ID = ?";
-	private static final String OracleSQL_UPDATE_PRODUCT_SERVICE = "UPDATE product_service SET id_product = ?, id_service=? WHERE ID = ?";
+	private static final String MySQL_UPDATE_PRODUCT_SERVICE = "UPDATE product_service SET id_product = ?, id_service=? WHERE id_product = ? and id_service = ?";
+	private static final String OracleSQL_UPDATE_PRODUCT_SERVICE = "UPDATE product_service SET id_product = ?, id_service=? WHERE id_product = ? and id_service = ?";
 
 	private static final String MySQL_UPDATE_SERVICE = "UPDATE service SET code = ?, name=?, description=?, price=?, main_image=?, id_provider= ? WHERE ID = ?";
 	private static final String OracleSQL_UPDATE_SERVICE = "UPDATE service SET code = ?, name=?, description=?, price=?, main_image=?, id_provider = ? WHERE ID = ?";
@@ -144,20 +144,20 @@ public class RequestRepository {
 	private static final String MySQL_DELETE_INVOICE = "DELETE FROM invoice WHERE ID = ?";
 	private static final String OracleSQL_DELETE_INVOICE = "DELETE FROM invoice WHERE ID = ?";
 
-	private static final String MySQL_DELETE_PRODUCT_COMPONENT = "DELETE FROM product_component WHERE ID = ?";
-	private static final String OracleSQL_DELETE_PRODUCT_COMPONENT = "DELETE FROM product_component WHERE ID = ?";
+	private static final String MySQL_DELETE_PRODUCT_COMPONENT = "DELETE FROM product_component WHERE id_componed = ? and id_component = ?";
+	private static final String OracleSQL_DELETE_PRODUCT_COMPONENT = "DELETE FROM product_component WHERE id_componed = ? and id_component = ?";
 
-	private static final String MySQL_DELETE_PRODUCT_SERVICE = "DELETE FROM product_service WHERE ID = ?";
-	private static final String OracleSQL_DELETE_PRODUCT_SERVICE = "DELETE FROM product_service WHERE ID = ?";
+	private static final String MySQL_DELETE_PRODUCT_SERVICE = "DELETE FROM product_service WHERE id_product = ? and id_service = ?";
+	private static final String OracleSQL_DELETE_PRODUCT_SERVICE = "DELETE FROM product_service WHERE id_product = ? and id_service = ?";
 
 	private static final String MySQL_DELETE_COMMANDE_PRODUCT = "DELETE FROM commande_product WHERE id_commande = ? and id_product= ?";
 	private static final String OracleSQL_DELETE_COMMANDE_PRODUCT = "DELETE FROM commande_product WHERE id_commande = ? and id_product= ?";
 
-	private static final String MySQL_DELETE_SERVICE_PRODUCT = "DELETE FROM service_product WHERE ID = ?";
-	private static final String OracleSQL_DELETE_SERVICE_PRODUCT = "DELETE FROM service_product WHERE ID = ?";
+	private static final String MySQL_DELETE_SERVICE_PRODUCT = "DELETE FROM service_product WHERE id_service = ? and id_product = ?";
+	private static final String OracleSQL_DELETE_SERVICE_PRODUCT = "DELETE FROM service_product WHERE id_service = ? and id_product = ?";
 
-	private static final String MySQL_DELETE_SERVICE_COMPONENT = "DELETE FROM service_component WHERE ID = ?";
-	private static final String OracleSQL_DELETE_SERVICE_COMPONENT = "DELETE FROM service_component WHERE ID = ?";
+	private static final String MySQL_DELETE_SERVICE_COMPONENT = "DELETE FROM service_component WHERE id_service = ? and id_component = ?";
+	private static final String OracleSQL_DELETE_SERVICE_COMPONENT = "DELETE FROM service_component WHERE id_service = ? and id_component = ?";
 
 	private static final String MySQL_DELETE_COMMANDE_SERVICE = "DELETE FROM commande_service WHERE id_commande = ? and id_service= ?";
 	private static final String OracleSQL_DELETE_COMMANDE_SERVICE = "DELETE FROM commande_service WHERE id_commande = ? and id_service= ?";
@@ -185,6 +185,12 @@ public class RequestRepository {
 	private static final String OracleSQL_SELECT_FROM_COMMANDE_PRODUCT=" SELECT * from commande_product where id_commande = ?";
 	private static final String OracleSQL_SELECT_FROM_COMMANDE_BY_CUSTOMER="SELECT * from commande WHERE id_customer = ?";
 	private static final String OracleSQL_SELECT_FROM_COMMANDE_BY_ID="SELECT * from commande WHERE id = ?";
+	private static final String OracleSQL_SELECT_FROM_PRODUCT_SERVICE="SELECT * from product_service where id_product = ?";
+	private static final String OracleSQL_SELECT_FROM_SERVICE_COMPONENT="SELECT * from service_component where id_service = ?";
+	private static final String OracleSQL_SELECT_FROM_SERVICE_PRODUCT="SELECT * from service_product where id_service = ?";
+	private static final String OracleSQL_SELECT_FROM_PRODUCT_COMPONENT="SELECT * from product_component where id_componed = ?";
+	private static final String OracleSQL_SELECT_SERVICE_BY_ID = "SELECT * FROM service WHERE ID = ?";
+	private static final String OracleSQL_SELECT_PRODUCT_BY_ID = "SELECT * FROM product WHERE ID = ?";
 
 
 	// fin update
@@ -384,16 +390,16 @@ public class RequestRepository {
 		return MySQL_UPDATE_SERVICE_PRODUCT;
 	}
 
-	public static String getOraclesqlServiceCommandeProduct() {
-		return OracleSQL_SERVICE_COMMANDE_PRODUCT;
+	public static String getOraclesqlUpdateServiceProduct() {
+		return OracleSQL_UPDATE_SERVICE_PRODUCT;
 	}
 
 	public static String getMysqlUpdateServiceComponent() {
 		return MySQL_UPDATE_SERVICE_COMPONENT;
 	}
 
-	public static String getOraclesqlServiceCommandeComponent() {
-		return OracleSQL_SERVICE_COMMANDE_COMPONENT;
+	public static String getOracleUpdatesqlServiceComponent() {
+		return OracleSQL_UPDATE_SERVICE_COMPONENT;
 	}
 
 	public static String getMysqlUpdateConnection() {
@@ -676,6 +682,34 @@ public class RequestRepository {
 
 	public static String getOraclesqlSelectFromCommandeById() {
 		return OracleSQL_SELECT_FROM_COMMANDE_BY_ID;
+	}
+
+	public static String getOraclesqlSelectFromProductService() {
+		return OracleSQL_SELECT_FROM_PRODUCT_SERVICE;
+	}
+
+	public static String getOraclesqlSelectFromServiceComponent() {
+		return OracleSQL_SELECT_FROM_SERVICE_COMPONENT;
+	}
+
+	public static String getOraclesqlSelectFromServiceProduct() {
+		return OracleSQL_SELECT_FROM_SERVICE_PRODUCT;
+	}
+
+	public static String getOraclesqlSelectFromProductComponent() {
+		return OracleSQL_SELECT_FROM_PRODUCT_COMPONENT;
+	}
+
+	public static String getOraclesqlUpdateServiceComponent() {
+		return OracleSQL_UPDATE_SERVICE_COMPONENT;
+	}
+
+	public static String getOraclesqlSelectServiceById() {
+		return OracleSQL_SELECT_SERVICE_BY_ID;
+	}
+
+	public static String getOraclesqlSelectProductById() {
+		return OracleSQL_SELECT_PRODUCT_BY_ID;
 	}
 	
 }

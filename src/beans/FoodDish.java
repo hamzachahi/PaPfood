@@ -3,7 +3,7 @@ package beans;
 import java.awt.Image;
 import java.util.ArrayList;
 
-public class FoodDish extends MotherProduct implements Product {
+public class FoodDish extends Product implements Salable {
 
 	@Override
 	public Boolean setId(Long newId,Boolean sqlornot) {
@@ -60,7 +60,7 @@ public class FoodDish extends MotherProduct implements Product {
 	}
 
 	@Override
-	public Boolean setListProduct(ArrayList<Product> listSubProduct, Boolean sqlornot) {
+	public Boolean setListProduct(ArrayList<Salable> listSubProduct, Boolean sqlornot) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -6,7 +6,7 @@ import java.util.Date;
 public class Invoice {
 	private Long Id;
 	private String codeInvoice;
-	private ArrayList<Product> listProduct;
+	private ArrayList<Salable> listProduct;
 	private Date creationDate;
 	private Date deliveredDate;
 	private java.sql.Date creationSqlDate;
@@ -39,11 +39,11 @@ public class Invoice {
 		this.codeInvoice = codeInvoice;
 	}
 
-	public ArrayList<Product> getListProduct() {
+	public ArrayList<Salable> getListProduct() {
 		return listProduct;
 	}
 
-	public void setListProduct(ArrayList<Product> listProduct, Boolean sqlornot) {
+	public void setListProduct(ArrayList<Salable> listProduct, Boolean sqlornot) {
 		this.listProduct = listProduct;
 	}
 

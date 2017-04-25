@@ -8,13 +8,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import beans.Association;
 import beans.Service;
 
 public class DaoServiceImpl implements ServiceDao {
 	private UsineDao daoFactory;
+	private DaoProductImpl prodImpl;
 
 	public DaoServiceImpl(UsineDao daoFactory) {
 		this.daoFactory = daoFactory;
+		this.prodImpl=new DaoProductImpl(daoFactory);
 	}
 
 	@Override
@@ -124,18 +128,25 @@ public class DaoServiceImpl implements ServiceDao {
 		} finally {
 			fermeturesSilencieuses(Statement, connexion);
 		}
-
 		return isSucceed;
 	}
 
-	@SuppressWarnings("null")
 	public Service map(ResultSet result) throws SQLException {
-		Service service = null;
+		Service service = new Service();
 		service.setId(result.getLong("id"), true);
 		service.setCode(result.getString("code"), true);
 		service.setDescription(result.getString("description"), true);
 		service.setIdProvider(result.getLong("id_provider"));
-		// service.setListService(listSubService, true);
+		ArrayList<Association> assoc = new ArrayList<>();
+		assoc.addAll(ProductComponent.findProductComponentById(daoFactory, result.getLong("id")));
+		for (int i = 0; i < assoc.size(); i++) {
+			service.getListSubProduct().add(this.findServiceById(assoc.get(i).getIdFirstKey()));
+		}
+		assoc.removeAll(assoc);
+		assoc.addAll(ProductService.findProductServiceById(daoFactory, result.getLong("id")));
+		for (int i = 0; i < assoc.size(); i++) {
+			service.getListSubProduct().add(prodImpl.findProductById(assoc.get(i).getIdFirstKey()));
+		}
 		// service.setMainImage(result.getBlob("main_image"), true);
 		service.setName(result.getString("name"), true);
 		service.setPrice(result.getDouble("price"), true);

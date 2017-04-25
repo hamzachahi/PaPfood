@@ -64,19 +64,19 @@ public class Artisan extends Person implements ActionPerson {
 	}
 
 	@Override
-	public Boolean addToPanel(ArrayList<Product> listProducts) {
+	public Boolean addToPanel(ArrayList<Salable> listProducts) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Boolean removeToPanel(ArrayList<Product> listProducts, Boolean allornot) {
+	public Boolean removeToPanel(ArrayList<Salable> listProducts, Boolean allornot) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Boolean Reservation(Product product) {
+	public Boolean Reservation(Salable product) {
 		// TODO Auto-generated method stub
 		return null;
 	}
