@@ -14,7 +14,6 @@ import dao.ExceptionDao;
 import dao.RequestRepository;
 
 public class ConnectOracle {
-	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
