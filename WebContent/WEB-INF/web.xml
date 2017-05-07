@@ -36,9 +36,13 @@
     <servlet-name>ServletMap</servlet-name>
     <servlet-class>vue.ServletMap</servlet-class>
   </servlet>
-   <servlet>
+  <servlet>
     <servlet-name>ServletLayout</servlet-name>
     <servlet-class>vue.ServletLayout</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ServletProfile</servlet-name>
+    <servlet-class>vue.ServletProfile</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ServletAccueil</servlet-name>
@@ -75,9 +79,13 @@
   <servlet-mapping>
     <servlet-name>ServletMap</servlet-name>
     <url-pattern>/map</url-pattern>
-  </servlet-mapping> 
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>ServletLayout</servlet-name>
     <url-pattern>/layout</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ServletProfile</servlet-name>
+    <url-pattern>/profile</url-pattern>
   </servlet-mapping>
 </web-app>
