@@ -44,6 +44,10 @@
     <servlet-name>ServletProfile</servlet-name>
     <servlet-class>vue.ServletProfile</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ServletPropose</servlet-name>
+    <servlet-class>vue.ServletPropose</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>ServletAccueil</servlet-name>
     <url-pattern>/accueil</url-pattern>
@@ -87,5 +91,9 @@
   <servlet-mapping>
     <servlet-name>ServletProfile</servlet-name>
     <url-pattern>/profile</url-pattern>
+  </servlet-mapping>
+   <servlet-mapping>
+    <servlet-name>ServletPropose</servlet-name>
+    <url-pattern>/proposer</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -95,4 +95,11 @@ public abstract class MotherProduct {
 		this.idProvider = idProvider;
 	}
 
+	@Override
+	public String toString() {
+		return "MotherProduct [Id=" + Id + ", Code=" + Code + ", Name=" + Name + ", Description=" + Description
+				+ ", Price=" + Price + ", listSubProduct=" + listSubProduct + ", Comments=" + Comments + ", idProvider="
+				+ idProvider + "]";
+	}
+
 }
