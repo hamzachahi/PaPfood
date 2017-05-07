@@ -31,17 +31,5 @@ public class ServletContact extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		FormContact form = new FormContact();
-
-		@SuppressWarnings("unused")
-		String valid = form.validerFormulaire(request);
-
-		HttpSession session = request.getSession();
-
-		request.setAttribute(ATT_FORM, form);
-		session.getAttribute(ATT_EMAIL);
-
-		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
-
 	}
 }
