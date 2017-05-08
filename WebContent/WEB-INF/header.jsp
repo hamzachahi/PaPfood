@@ -11,16 +11,15 @@
 			<div class="col-sm-4 world animated wow fadeInRight"
 				data-wow-delay=".5s">
 				<div class="cart box_1">
-					<a href="checkout.html">
-						<h3>
-							<div class="total">
-								<span class="simpleCart_total"></span>
-							</div>
-							<img src="images/cart.png" alt="" />
-						</h3>
-					</a>
+					<h3>
+						<div class="total">
+							<span class="simpleCart_total"></span>
+						</div>
+						<img src="assets/images/cart.png" alt="Mon Panier" />
+					</h3>
 					<p>
-						<a href="javascript:;" class="simpleCart_empty">Empty Cart</a>
+						<a href="\ServletPanier?action=showPanier"
+							class="simpleCart_empty">Empty Cart</a>
 					</p>
 
 				</div>

@@ -5,11 +5,15 @@ import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import beans.Product;
 import beans.Salable;
+import beans.Service;
 import dao.DaoProductImpl;
 import dao.DaoServiceImpl;
 import dao.UsineDao;
@@ -24,14 +28,22 @@ public class ServletAcheter extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		/*
-		 * DaoProductImpl productDao = null;
-		 * 
-		 * ArrayList<Product> tousLesProduits = new ArrayList<Product>();
-		 * tousLesProduits = productDao.findAllProduct();
-		 * 
-		 * request.setAttribute("allProducts", tousLesProduits);
-		 */
+		/*HttpSession session = request.getSession();
+
+		DaoServiceImpl serviceDao = new DaoServiceImpl(
+				new UsineDao("jdbc:oracle:thin:@localhost:1521:orcl", "papfood", "yummyshop"));
+		DaoProductImpl produitDao = new DaoProductImpl(
+				new UsineDao("jdbc:oracle:thin:@localhost:1521:orcl", "papfood", "yummyshop"));
+
+
+		ArrayList<Salable> tousLesArticles = new ArrayList<>();
+		
+		tousLesArticles.addAll(produitDao.findAllProduct());
+		tousLesArticles.addAll(serviceDao.findAllService());
+
+
+		request.setAttribute("allArticles", tousLesArticles);
+		session.setAttribute("allArticles", tousLesArticles);*/
 
 		this.getServletContext().getRequestDispatcher("/WEB-INF/plats.jsp").forward(request, response);
 
@@ -56,6 +68,17 @@ public class ServletAcheter extends HttpServlet {
 			salables.addAll(produitDao.findProductByKeyWord(motCle));
 
 			request.setAttribute("searchResults", salables);
+
+			Cookie[] mesCookies = request.getCookies();
+			if (mesCookies != null) {
+				for (Cookie cookie : mesCookies) {
+					if (cookie.getName().equals("keyWordSearch")) {
+						cookie.setValue(cookie.getValue() + "|" + motCle);
+					} else {
+						response.addCookie(new Cookie("keyWordSearch", motCle));
+					}
+				}
+			}
 
 		}
 

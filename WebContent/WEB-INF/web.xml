@@ -55,6 +55,10 @@
 		<servlet-name>ServletAcheter</servlet-name>
 		<servlet-class>vue.ServletAcheter</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ServletPanier</servlet-name>
+		<servlet-class>vue.ServletPanier</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>ServletAccueil</servlet-name>
 		<url-pattern>/accueil</url-pattern>
@@ -106,5 +110,9 @@
 	<servlet-mapping>
 		<servlet-name>ServletAcheter</servlet-name>
 		<url-pattern>/acheter</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ServletPanier</servlet-name>
+		<url-pattern>/panier</url-pattern>
 	</servlet-mapping>
 </web-app>

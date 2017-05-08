@@ -44,7 +44,7 @@
 								<div class="col-md-4 in-contact">
 									<label for="nom">Votre nom :</label><br /> <input type="text"
 										id="nom" name="name"
-										value="${sessionScope['utilisateur.Name'] }" />
+										value="${sessionScope['utilisateur.name'] }" />
 								</div>
 								<div class="col-md-4 in-contact">
 									<label for="email">Email :</label><br /> <input type="email"
@@ -69,6 +69,7 @@
 								type="submit" value="Envoyer">
 						</form>
 					</div>
+				</div>
 			</fieldset>
 			<div class="address">
 				<div class=" address-more">
