@@ -44,16 +44,16 @@ public final class FormulaireConnexion {
 		} catch (Exception e) {
 			setErreur(CHAMP_EMAIL, e.getMessage());
 		}
-		utilisateur.setEmail(email, false);
-		passage.setEmail(email, false);
+	//	utilisateur.setEmail(email, false);
+	//	passage.setEmail(email, false);
 		/* Validation du champ mot de passe. */
 		try {
 			validationMotDePasse(motDePasse);
 		} catch (Exception e) {
 			setErreur(CHAMP_PASS, e.getMessage());
 		}
-		utilisateur.setPassword(motDePasse, false);
-		passage.setPassword(motDePasse, false);
+	//	utilisateur.setPassword(motDePasse, false);
+	//	passage.setPassword(motDePasse, false);
 
 		/* Initialisation du résultat global de la validation. */
 		if (erreurs.isEmpty()) {
