@@ -18,7 +18,6 @@ public class DaoServiceImpl implements ServiceDao {
 
 	public DaoServiceImpl(UsineDao daoFactory) {
 		this.daoFactory = daoFactory;
-		this.prodImpl = new DaoProductImpl(daoFactory);
 	}
 
 	@Override
@@ -132,6 +131,7 @@ public class DaoServiceImpl implements ServiceDao {
 	}
 
 	public Service map(ResultSet result) throws SQLException {
+		this.prodImpl = new DaoProductImpl(daoFactory);
 		Service service = new Service();
 		service.setId(result.getLong("id"), true);
 		service.setCode(result.getString("code"), true);
