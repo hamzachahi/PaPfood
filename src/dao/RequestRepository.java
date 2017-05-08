@@ -15,6 +15,8 @@ public class RequestRepository {
 
 	private static final String MySQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id = ?";
 	private static final String OracleSQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id = ?";
+	private static final String OracleSQL_SELECT_PRODUCT_BY_KEYWORD = "SELECT * FROM product WHERE ? IN name " ;
+	private static final String OracleSQL_SELECT_SERVICE_BY_KEYWORD = "SELECT * FROM service WHERE ? IN name ";
 	// fin select
 	// début insert
 
@@ -711,5 +713,14 @@ public class RequestRepository {
 	public static String getOraclesqlSelectProductById() {
 		return OracleSQL_SELECT_PRODUCT_BY_ID;
 	}
+
+	public static String getOraclesqlSelectProductByKeyword() {
+		return OracleSQL_SELECT_PRODUCT_BY_KEYWORD;
+	}
+
+	public static String getOraclesqlSelectServiceByKeyword() {
+		return OracleSQL_SELECT_SERVICE_BY_KEYWORD;
+	}
+	
 	
 }

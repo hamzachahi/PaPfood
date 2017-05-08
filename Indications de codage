@@ -17,3 +17,7 @@ Pour chaque fichier jsp, il faut créer la servlet associé.
  Les objets Java sous les packages de Java Resources
  Vue doit contenir les servlets
  et Beans les objets permettant la manipulation de données
+ 
+ Remarques front-end: Inclure dans toutes les jsp les 3 fichiers jsp:
+ liens.jsp dans la balise <head> (pour le style et le js) la jsp header.jsp juste après
+ <body> et balise footer.jsp juste avant </body> 

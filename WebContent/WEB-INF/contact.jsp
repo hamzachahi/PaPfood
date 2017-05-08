@@ -43,11 +43,13 @@
 							<div class="contact-bottom">
 								<div class="col-md-4 in-contact">
 									<label for="nom">Votre nom :</label><br /> <input type="text"
-										id="nom" name="name" value="" />
+										id="nom" name="name"
+										value="${sessionScope['utilisateur.Name'] }" />
 								</div>
 								<div class="col-md-4 in-contact">
 									<label for="email">Email :</label><br /> <input type="email"
-										id="email" name="email" value="" />
+										id="email" name="email"
+										value="${sessionScope['utilisateur.email'] }" />
 								</div>
 								<div class="col-md-4 in-contact">
 									<label for="teleph">Numéro de téléphone :</label><br /> <input

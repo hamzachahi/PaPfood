@@ -10,15 +10,15 @@ import java.util.ArrayList;
 
 import beans.Association;
 import beans.Product;
+import beans.Service;
 
 public class DaoProductImpl implements ProductDao {
 	private UsineDao daoFactory;
 	private DaoServiceImpl servImpl;
-	
 
 	public DaoProductImpl(UsineDao daoFactory) {
 		this.daoFactory = daoFactory;
-		this.servImpl=new DaoServiceImpl(daoFactory);
+		this.servImpl = new DaoServiceImpl(daoFactory);
 	}
 
 	@Override
@@ -138,20 +138,20 @@ public class DaoProductImpl implements ProductDao {
 		product.setCode(result.getString("code"), true);
 		product.setDescription(result.getString("description"), true);
 		product.setIdProvider(result.getLong("id_provider"));
-		ArrayList<Association> assoc=new ArrayList<>();
+		ArrayList<Association> assoc = new ArrayList<>();
 		assoc.addAll(ProductComponent.findProductComponentById(daoFactory, result.getLong("id")));
-		for (int i = 0; i <assoc.size(); i++) {
+		for (int i = 0; i < assoc.size(); i++) {
 			product.getListSubProduct().add(this.findProductById(assoc.get(i).getIdFirstKey()));
 		}
 		assoc.removeAll(assoc);
 		assoc.addAll(ProductService.findProductServiceById(daoFactory, result.getLong("id")));
-		for (int i = 0; i <assoc.size(); i++) {
+		for (int i = 0; i < assoc.size(); i++) {
 			product.getListSubProduct().add(servImpl.findServiceById(assoc.get(i).getIdFirstKey()));
-		}		
-		//product.setMainImage(result.getBlob("main_image"), true);
+		}
+		// product.setMainImage(result.getBlob("main_image"), true);
 		product.setName(result.getString("name"), true);
 		product.setPrice(result.getDouble("price"), true);
-		//product.setProductListImage(listImage, true);
+		// product.setProductListImage(listImage, true);
 		return product;
 	}
 
@@ -162,12 +162,12 @@ public class DaoProductImpl implements ProductDao {
 		return findProductById(RequestRepository.getOraclesqlSelectAll(), isSucceed, Id);
 	}
 
-	private Product findProductById(String sql, Boolean isSucceed, Object...objets) {
+	private Product findProductById(String sql, Boolean isSucceed, Object... objets) {
 		// TODO Auto-generated method stub
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		Product product = null ;
+		Product product = null;
 
 		try {
 			/* Récupération d'une connexion depuis la Factory */
@@ -181,7 +181,7 @@ public class DaoProductImpl implements ProductDao {
 			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (resultSet.next()) {
 				isSucceed = true;
-				product=map(resultSet);
+				product = map(resultSet);
 			}
 		} catch (SQLException e) {
 			throw new ExceptionDao(e);
@@ -195,10 +195,11 @@ public class DaoProductImpl implements ProductDao {
 	public ArrayList<Product> findAllProduct() {
 		// TODO Auto-generated method stub
 		Boolean isSucceed = false;
-		String p="product";
+		String p = "product";
 		return findAllProduct(RequestRepository.getOraclesqlSelectAll(), isSucceed, p);
 	}
-	private ArrayList<Product> findAllProduct(String sql, Boolean isSucceed, Object...objets) {
+
+	private ArrayList<Product> findAllProduct(String sql, Boolean isSucceed, Object... objets) {
 		// TODO Auto-generated method stub
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -225,5 +226,39 @@ public class DaoProductImpl implements ProductDao {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
 		return product;
+	}
+
+	@Override
+	public ArrayList<Product> findProductByKeyWord(String keyWord) {
+		Boolean isSucceed = false;
+		return findProductByKeyWord(RequestRepository.getOraclesqlSelectServiceByKeyword(), keyWord, isSucceed);
+	}
+
+	private ArrayList<Product> findProductByKeyWord(String sql, String keyWord, Boolean isSucceed) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<Product> produitResults = new ArrayList<Product>();
+
+		try {
+			/* Récupération d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			/*
+			 * Préparation de la requête avec les objets passés en arguments
+			 * (ici, uniquement une adresse email) et exécution.
+			 */
+			preparedStatement = initialisationRequetePreparee(connexion, sql, false, keyWord);
+			resultSet = preparedStatement.executeQuery();
+			/* Parcours de la ligne de données retournée dans le ResultSet */
+			if (resultSet.next()) {
+				isSucceed = true;
+				produitResults.add(map(resultSet));
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return produitResults;
 	}
 }
