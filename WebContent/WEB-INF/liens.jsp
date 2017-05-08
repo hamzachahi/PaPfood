@@ -3,8 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>YummySHOP : Plateforme d'échange de nourriture entre
-	particuliers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
 <link href="assets/css/bootstrap-3.1.1.min.css" rel='stylesheet'
 	type='text/css' />
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -51,12 +51,5 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script>
 	new WOW().init();
 </script>
-<!-- //animation-effect -->
 </head>
-<body>
-	<%@include file="header.jsp"%>
-
-
-	<%@include file="footer.jsp"%>
-</body>
 </html>

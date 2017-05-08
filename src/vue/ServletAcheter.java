@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.Product;
+import beans.Salable;
 import dao.DaoProductImpl;
+import dao.DaoServiceImpl;
+import dao.UsineDao;
 
 /**
  * Servlet implementation class ServletAcheter
@@ -37,6 +39,25 @@ public class ServletAcheter extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		String action = request.getParameter("action");
+		ArrayList<Salable> salables = new ArrayList<>();
+
+		if (action.equals("chercherProduit")) {
+
+			String motCle = request.getParameter("name");
+
+			DaoServiceImpl serviceDao = new DaoServiceImpl(
+					new UsineDao("jdbc:oracle:thin:@localhost:1521:orcl", "papfood", "yummyshop"));
+			DaoProductImpl produitDao = new DaoProductImpl(
+					new UsineDao("jdbc:oracle:thin:@localhost:1521:orcl", "papfood", "yummyshop"));
+
+			salables.addAll(serviceDao.findServiceByKeyWord(motCle));
+			salables.addAll(produitDao.findProductByKeyWord(motCle));
+
+			request.setAttribute("searchResults", salables);
+
+		}
 
 	}
 

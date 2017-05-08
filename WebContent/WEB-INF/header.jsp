@@ -138,18 +138,7 @@
 			<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
 			<!---//pop-up-box---->
 			<div id="small-dialog" class="mfp-hide">
-				<div class="search-top">
-					<div class="login">
-						<form action="#" method="post">
-							<input type="submit" value=""> <input type="text"
-								name="search" value="Type something..."
-								onfocus="this.value = '';"
-								onblur="if (this.value == '') {this.value = '';}">
-
-						</form>
-					</div>
-					<p>Shopping</p>
-				</div>
+				<div class="search-top"></div>
 			</div>
 			<script>
 				$(document).ready(function() {
@@ -164,7 +153,7 @@
 						removalDelay : 300,
 						mainClass : 'my-mfp-zoom-in'
 					});
-
+			
 				});
 			</script>
 			<!---->

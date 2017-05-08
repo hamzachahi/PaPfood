@@ -8,10 +8,32 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+<%@ include file="liens.jsp"%>
+
+
 </head>
+
+
 <body>
 
 	<%@ include file="header.jsp"%>
+
+
+	<div id="small-dialog" class="mfp-hide">
+		<div class="search-top">
+			<div class="login">
+				<form action="ServletAcheter" method="post">
+					<label for="search"></label> <br /> <input type="text"
+						name="search" id="search" placeholder="Exp: lasagne.." /> <input
+						type="hidden" name="action" value="chercherProduit" />
+					<button type="submit" class="btn btn-info">
+						<span class="glyphicon glyphicon-search"></span> Search
+					</button>
+					<br />
+				</form>
+			</div>
+		</div>
+	</div>
 
 	<h3>Tous les produits</h3>
 
@@ -26,7 +48,7 @@
 		</thead>
 
 		<tbody>
-			<c:forEach items="${allProducts}" var="product">
+			<c:forEach var="product" items="${requestScope['allProducts']}">
 				<tr>
 					<td>${product.Name }</td>
 					<td>${product.Description }</td>
@@ -37,8 +59,6 @@
 
 
 		</tbody>
-
-
 
 	</table>
 
