@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import beans.Association;
 import beans.Product;
-import beans.Service;
 
 public class DaoProductImpl implements ProductDao {
 	private UsineDao daoFactory;
@@ -133,6 +132,7 @@ public class DaoProductImpl implements ProductDao {
 	}
 
 	public Product map(ResultSet result) throws SQLException {
+		this.servImpl = new DaoServiceImpl(daoFactory);
 		Product product = new Product();
 		product.setId(result.getLong("id"), true);
 		product.setCode(result.getString("code"), true);

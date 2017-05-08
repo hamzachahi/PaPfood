@@ -32,8 +32,8 @@ public class RequestRepository {
 	private static final String MySQL_INSERT_CONNECTION = "INSERT INTO connexion (login_time, person_id, person_id_ip_address, person_type) VALUES (?, ?, ?, ?)";
 	private static final String OracleSQL_INSERT_CONNECTION = "INSERT INTO connexion (login_time, person_id, person_id_ip_address, person_type) VALUES (?, ?, ?, ?)";
 
-	private static final String MySQL_INSERT_PRODUCT = "INSERT INTO food_dish (code, name, description, price, main_image, id_provider) VALUES (?, ?, ?, ?, ?, ?)";
-	private static final String OracleSQL_INSERT_PRODUCT = "INSERT INTO food_dish (code, name, description, price, main_image, id_provider) VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String MySQL_INSERT_PRODUCT = "INSERT INTO product (code, name, description, price, main_image, id_provider) VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String OracleSQL_INSERT_PRODUCT = "INSERT INTO product (code, name, description, price, main_image, id_provider) VALUES (?, ?, ?, ?, ?, ?)";
 
 	private static final String MySQL_INSERT_INVOICE = "INSERT INTO invoice (code_invoice, creation_date, delivered_date, type, total_price, header_message, footer_message, legal_message) VALUES (?, NOW(), ?, ?, ?, ?, ?, ?)";
 	private static final String OracleSQL_INSERT_INVOICE = "INSERT INTO invoice (code_invoice, creation_date, delivered_date, type, total_price, header_message, footer_message, legal_message) VALUES (?, SYSTIMESTAMP, ?, ?, ?, ?, ?, ?)";

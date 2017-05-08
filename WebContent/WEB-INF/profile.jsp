@@ -59,7 +59,6 @@
 			<input type="hidden" name="action" value="completeProfile" /><br />
 			<input type="submit" value="Entregistrer" />
 			<h1>
-             ${sessionUtilisateur.email}
               </h1>
 		</fieldset>
 	</form>
