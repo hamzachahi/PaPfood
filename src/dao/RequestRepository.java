@@ -5,7 +5,7 @@ public class RequestRepository {
 	private static final String MySQL_SE_TROUVER_PAR_ID = "SELECT * FROM person WHERE id = ?";
 	private static final String Oracle_SE_TROUVER_PAR_ID = "SELECT * FROM person WHERE id = ?";
 	private static final String MySQL_SE_TROUVER_PAR_EMAIL = "SELECT Id, name, surname, profession, email FROM person WHERE email = ?";
-	private static final String OracleSQL_SE_TROUVER_PAR_EMAIL = "SELECT id, name, surname, profession, email FROM person WHERE email = ?";
+	private static final String OracleSQL_SE_TROUVER_PAR_EMAIL = "SELECT id, name, surname, profession, password, email FROM person WHERE email = ?";
 	private static final String OracleSQL_SE_TROUVER_TOTALEMENT_PAR_EMAIL = "SELECT * FROM person WHERE email = ?";
 
 	private static final String MySQL_SELECT_ALL = "SELECT * FROM ?";
@@ -20,8 +20,8 @@ public class RequestRepository {
 	// fin select
 	// début insert
 
-	private static final String MySQL_INSERT_PERSON = "INSERT INTO person (email, password, name, function, date_inscription, private_key) VALUES (?, ?, ?, ?, NOW(),?)";
-	private static final String OracleSQL_INSERT_PERSON = "INSERT INTO person (email, password, name, function, date_inscription, private_key) VALUES (?, ?, ?, ?, SYSTIMESTAMP, ?)";
+	private static final String MySQL_INSERT_PERSON = "INSERT INTO person (email, password, name, function, date_inscription) VALUES (?, ?, ?, ?, NOW())";
+	private static final String OracleSQL_INSERT_PERSON = "INSERT INTO person (email, password, name, function, date_inscription) VALUES (?, ?, ?, ?, SYSTIMESTAMP)";
 
 	private static final String MySQL_INSERT_EVALUATION = "INSERT INTO evaluation (id_person, id_jury, note, comments) VALUES (?, ?, ?, ?)";
 	private static final String OracleSQL_INSERT_EVALUATION = "INSERT INTO evaluation (id_person, id_jury, note, comments) VALUES (?, ?, ?, ?)";
@@ -76,7 +76,7 @@ public class RequestRepository {
 	// fin insert
 	// début update
 	private static final String MySQL_UPDATE_PERSON = "UPDATE person SET name = ?, second_name=?, surname=?, second_surname=?, profession=?, date_inscription=?, password=?, email=?, phone_number=?, tel_number=?, facebook_id=?, twitter_id=?, instagram_id=?, linkedin_id=?, account_picture=?, street_number=?, street_name=?, city_name=?, country_name=?, postal_code=?, last_connection=?, function=?  WHERE ID = ?";
-	private static final String OracleSQL_UPDATE_PERSON = "UPDATE person SET name = ?, second_name=?, surname=?, second_surname=?, profession=?, date_inscription=?, password=?, email=?, phone_number=?, tel_number=?, facebook_id=?, twitter_id=?, instagram_id=?, linkedin_id=?, account_picture=?, street_number=?, street_name=?, city_name=?, country_name=?, postal_code=?, last_connection=?, function=?  WHERE ID = ?";
+	private static final String OracleSQL_UPDATE_PERSON = "UPDATE person SET name = ?, second_name=?, surname=?, second_surname=?, profession=?, email=?, phone_number=?, tel_number=?, facebook_id=?, twitter_id=?, instagram_id=?, linkedin_id=?, street_number=?, street_name=?, city_name=?, country_name=?, postal_code=?, function=?  WHERE ID = ?";
 
 	private static final String MySQL_UPDATE_COMMANDE = "UPDATE commande SET code=?, id_customer = ?, date_ordering=?, date_livraison=? WHERE ID = ?";
 	private static final String OracleSQL_UPDATE_COMMANDE = "UPDATE commande SET code=?, id_customer = ?, date_ordering=?, date_livraison=? WHERE ID = ?";

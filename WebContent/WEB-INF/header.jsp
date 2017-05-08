@@ -29,6 +29,11 @@
 				<span><i class="glyphicon glyphicon-phone"></i>06 41 06 73 15</span>
 				<p>Call Junior</p>
 			</div>
+			<div class="col-sm-2 number animated wow fadeInRight"
+				data-wow-delay=".5s">
+				<span><a href="ServletProfile"><i class="glyphicon glyphicon-phone"></i>Modifier Mon compte</a></span>
+				<p>Call Junior</p>
+			</div>
 			<div class="col-sm-2 search animated wow fadeInRight"
 				data-wow-delay=".5s">
 				<a class="play-icon popup-with-zoom-anim" href="#small-dialog"><i

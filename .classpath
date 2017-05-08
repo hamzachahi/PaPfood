@@ -20,7 +20,7 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jsf-api.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jasypt-1.9.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_121"/>
-	<classpathentry kind="lib" path="C:/Users/Youssef/workspace/PaPfood/librairie/javaQuery 8.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/TOSHIBA PC/Desktop/eclipse2/eclipse/workspace/PaPfood/librairie/javaQuery 8.2.jar"/>
 	<classpathentry kind="lib" path="librairie/ojdbc6.jar"/>
 	<classpathentry kind="lib" path="librairie/javadoc.zip"/>
 	<classpathentry kind="lib" path="librairie/javax.mail.jar"/>
