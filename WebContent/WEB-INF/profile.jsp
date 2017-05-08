@@ -45,8 +45,17 @@
 					:</label> <input type="text" id="country" name="country" placeholder="Exp : France" /><br />
 				<label for="zipcode">Code postal :</label> <input type="number"
 					id="zipcode" name="zipcode" placeholder="Exp : 06000" />
-			</fieldset>
-
+			</fieldset> <br/>
+			
+			<label for="fb">Facebook :</label> <input type="text"
+					id="fb" name="fbid"/> <br />
+			<label for="twi">Twitter :</label> <input type="text"
+					id="twi" name="twitterid"/> <br />
+			<label for="insta">Instagram :</label> <input type="text"
+					id="insta" name="instaid"/> <br />
+			<label for="linked">LinkedIn :</label> <input type="text"
+					id="linked" name="linkedid"/> <br />
+					
 			<input type="hidden" name="action" value="completeProfile" /><br />
 			<input type="submit" value="Entregistrer" />
 			<h1>

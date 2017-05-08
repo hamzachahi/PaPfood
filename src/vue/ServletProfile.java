@@ -35,35 +35,44 @@ public class ServletProfile extends HttpServlet {
 		utilisateur = (Person) session.getAttribute("sessionUtilisateur");
 
 		if (action.equals("completeProfile")) {
-		utilisateurDao=	new DaoPersonImpl(new UsineDao("jdbc:oracle:thin:@localhost:1521:orcl", "papfood", "yummyshop"));
+			utilisateurDao = new DaoPersonImpl(
+					new UsineDao("jdbc:oracle:thin:@localhost:1521:orcl", "papfood", "yummyshop"));
 			String name = "";
 			String name2 = "";
 			String prenom = "";
-			String prenom2 ="";
+			String prenom2 = "";
 			String email = "";
 			String numtel = "";
 			String profession = "";
-			String profil ="";
+			String profil = "";
 			// à changer en string dans les beans
 			Integer numVoie = new Integer("0");
 			String nomVoie = "";
 			String ville = "";
 			String country = "";
 			String codePostal = "";
-			 name = request.getParameter("sname");
-			 name2 = request.getParameter("sname2");
-			 prenom = request.getParameter("surname");
-			 prenom2 = request.getParameter("surname2");
-			 email = request.getParameter("email");
-			 numtel = request.getParameter("numtelephone");
-			 profession = request.getParameter("profession");
-			 profil = request.getParameter("profil");
+			String fbId = "";
+			String twitterId = "";
+			String instaId = "";
+			String linkedId = "";
+			name = request.getParameter("sname");
+			name2 = request.getParameter("sname2");
+			prenom = request.getParameter("surname");
+			prenom2 = request.getParameter("surname2");
+			email = request.getParameter("email");
+			numtel = request.getParameter("numtelephone");
+			profession = request.getParameter("profession");
+			profil = request.getParameter("profil");
 			// à changer en string dans les beans
-			 numVoie = Integer.parseInt(request.getParameter("streetnb"));
-			 nomVoie = request.getParameter("streetname");
-			 ville = request.getParameter("city");
-			 country = request.getParameter("country");
-			 codePostal = request.getParameter("zipcode");
+			numVoie = Integer.parseInt(request.getParameter("streetnb"));
+			nomVoie = request.getParameter("streetname");
+			ville = request.getParameter("city");
+			country = request.getParameter("country");
+			codePostal = request.getParameter("zipcode");
+			fbId = request.getParameter("fbid");
+			twitterId = request.getParameter("twitterid");
+			instaId = request.getParameter("instaid");
+			linkedId = request.getParameter("linkedid");
 
 			// photo à récupérer
 			utilisateur.setName(name, false);
@@ -79,6 +88,10 @@ public class ServletProfile extends HttpServlet {
 			utilisateur.setCityName(ville, false);
 			utilisateur.setCountryName(country, false);
 			utilisateur.setPostalCode(codePostal, false);
+			utilisateur.setFacebookId(fbId, false);
+			utilisateur.setTwitterId(twitterId, false);
+			utilisateur.setInstagramId(instaId, false);
+			utilisateur.setLinkedinId(linkedId, false);
 
 			session.setAttribute("utilisateur", utilisateur);
 
