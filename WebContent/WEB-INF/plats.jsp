@@ -43,17 +43,22 @@
 				<th>Nom du produit</th>
 				<th>Description</th>
 				<th>Prix</th>
+				<th>Image</th>
 				<th>Ajouter au panier</th>
 			</tr>
 		</thead>
 
 		<tbody>
-			<c:forEach var="product" items="${requestScope['allProducts']}">
+			<c:forEach var="article" items="${requestScope['allArticles']}">
 				<tr>
-					<td>${product.Name }</td>
-					<td>${product.Description }</td>
-					<td>${product.Price}</td>
-					<td><button type="button" class="btn btn-primary btn-xs">+</button></td>
+					<td>${article.name }</td>
+					<td>${article.description }</td>
+					<td>${article.price}</td>
+					<td>${article.mainImage }</td>
+					<td align="center"><button class="btn btn-primary btn-	s">
+							<a style="color: white;"
+								href="\ServletPanier?action=chargerPanier&idarticle=${article.id}">+1</a>
+						</button></td>
 				</tr>
 			</c:forEach>
 
