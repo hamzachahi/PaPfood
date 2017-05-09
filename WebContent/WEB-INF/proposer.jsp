@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -42,7 +44,11 @@
 				name="action" value="proposerProductService" /> <input
 				type="submit" value="Valider">
 		</fieldset>
-
+		<c:if test="${!empty requestScope.success}">
+			<%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
+			<p class="succes">Vous êtes connecté(e) avec l'adresse :
+				${requestScope.success}</p>
+		</c:if>
 	</form>
 
 </body>

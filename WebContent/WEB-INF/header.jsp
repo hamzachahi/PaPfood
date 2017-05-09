@@ -11,16 +11,15 @@
 			<div class="col-sm-4 world animated wow fadeInRight"
 				data-wow-delay=".5s">
 				<div class="cart box_1">
-					<a href="checkout.html">
-						<h3>
-							<div class="total">
-								<span class="simpleCart_total"></span>
-							</div>
-							<img src="images/cart.png" alt="" />
-						</h3>
-					</a>
+					<h3>
+						<div class="total">
+							<span class="simpleCart_total"></span>
+						</div>
+						<img src="assets/images/cart.png" alt="Mon Panier" />
+					</h3>
 					<p>
-						<a href="javascript:;" class="simpleCart_empty">Empty Cart</a>
+						<a href="\ServletPanier?action=showPanier"
+							class="simpleCart_empty">Empty Cart</a>
 					</p>
 
 				</div>
@@ -138,18 +137,7 @@
 			<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
 			<!---//pop-up-box---->
 			<div id="small-dialog" class="mfp-hide">
-				<div class="search-top">
-					<div class="login">
-						<form action="#" method="post">
-							<input type="submit" value=""> <input type="text"
-								name="search" value="Type something..."
-								onfocus="this.value = '';"
-								onblur="if (this.value == '') {this.value = '';}">
-
-						</form>
-					</div>
-					<p>Shopping</p>
-				</div>
+				<div class="search-top"></div>
 			</div>
 			<script>
 				$(document).ready(function() {
@@ -164,7 +152,7 @@
 						removalDelay : 300,
 						mainClass : 'my-mfp-zoom-in'
 					});
-
+			
 				});
 			</script>
 			<!---->

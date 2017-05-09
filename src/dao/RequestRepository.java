@@ -15,6 +15,8 @@ public class RequestRepository {
 
 	private static final String MySQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id = ?";
 	private static final String OracleSQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id = ?";
+	private static final String OracleSQL_SELECT_PRODUCT_BY_KEYWORD = "SELECT * FROM product WHERE ? IN name " ;
+	private static final String OracleSQL_SELECT_SERVICE_BY_KEYWORD = "SELECT * FROM service WHERE ? IN name ";
 	// fin select
 	// début insert
 
@@ -30,8 +32,8 @@ public class RequestRepository {
 	private static final String MySQL_INSERT_CONNECTION = "INSERT INTO connexion (login_time, person_id, person_id_ip_address, person_type) VALUES (?, ?, ?, ?)";
 	private static final String OracleSQL_INSERT_CONNECTION = "INSERT INTO connexion (login_time, person_id, person_id_ip_address, person_type) VALUES (?, ?, ?, ?)";
 
-	private static final String MySQL_INSERT_PRODUCT = "INSERT INTO food_dish (code, name, description, price, main_image, id_provider) VALUES (?, ?, ?, ?, ?, ?)";
-	private static final String OracleSQL_INSERT_PRODUCT = "INSERT INTO food_dish (code, name, description, price, main_image, id_provider) VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String MySQL_INSERT_PRODUCT = "INSERT INTO product (code, name, description, price, main_image, id_provider) VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String OracleSQL_INSERT_PRODUCT = "INSERT INTO product (code, name, description, price, main_image, id_provider) VALUES (?, ?, ?, ?, ?, ?)";
 
 	private static final String MySQL_INSERT_INVOICE = "INSERT INTO invoice (code_invoice, creation_date, delivered_date, type, total_price, header_message, footer_message, legal_message) VALUES (?, NOW(), ?, ?, ?, ?, ?, ?)";
 	private static final String OracleSQL_INSERT_INVOICE = "INSERT INTO invoice (code_invoice, creation_date, delivered_date, type, total_price, header_message, footer_message, legal_message) VALUES (?, SYSTIMESTAMP, ?, ?, ?, ?, ?, ?)";
@@ -711,5 +713,14 @@ public class RequestRepository {
 	public static String getOraclesqlSelectProductById() {
 		return OracleSQL_SELECT_PRODUCT_BY_ID;
 	}
+
+	public static String getOraclesqlSelectProductByKeyword() {
+		return OracleSQL_SELECT_PRODUCT_BY_KEYWORD;
+	}
+
+	public static String getOraclesqlSelectServiceByKeyword() {
+		return OracleSQL_SELECT_SERVICE_BY_KEYWORD;
+	}
+	
 	
 }

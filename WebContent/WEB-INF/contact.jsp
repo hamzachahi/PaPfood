@@ -43,11 +43,12 @@
 							<div class="contact-bottom">
 								<div class="col-md-4 in-contact">
 									<label for="nom">Votre nom :</label><br /> <input type="text"
-										id="nom" name="name" value="" />
+										id="nom" name="name" value="${sessionUtilisateur.name}" />
 								</div>
 								<div class="col-md-4 in-contact">
 									<label for="email">Email :</label><br /> <input type="email"
-										id="email" name="email" value="" />
+										id="email" name="email"
+										value="${sessionUtilisateur.email}" />
 								</div>
 								<div class="col-md-4 in-contact">
 									<label for="teleph">Numéro de téléphone :</label><br /> <input
@@ -67,6 +68,7 @@
 								type="submit" value="Envoyer">
 						</form>
 					</div>
+				</div>
 			</fieldset>
 			<div class="address">
 				<div class=" address-more">

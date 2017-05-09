@@ -18,7 +18,6 @@ public class DaoServiceImpl implements ServiceDao {
 
 	public DaoServiceImpl(UsineDao daoFactory) {
 		this.daoFactory = daoFactory;
-		this.prodImpl=new DaoProductImpl(daoFactory);
 	}
 
 	@Override
@@ -132,6 +131,7 @@ public class DaoServiceImpl implements ServiceDao {
 	}
 
 	public Service map(ResultSet result) throws SQLException {
+		this.prodImpl = new DaoProductImpl(daoFactory);
 		Service service = new Service();
 		service.setId(result.getLong("id"), true);
 		service.setCode(result.getString("code"), true);
@@ -225,6 +225,41 @@ public class DaoServiceImpl implements ServiceDao {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
 		return service;
+	}
+
+	@Override
+	public ArrayList<Service> findServiceByKeyWord(String keyWord) {
+		Boolean isSucceed = false;
+		return findServiceByKeyWord(RequestRepository.getOraclesqlSelectServiceByKeyword(), keyWord, isSucceed);
+	}
+
+	private ArrayList<Service> findServiceByKeyWord(String sql, String keyWord, Boolean isSucceed) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<Service> serviceResults = new ArrayList<>();
+
+		try {
+			/* Récupération d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			/*
+			 * Préparation de la requête avec les objets passés en arguments
+			 * (ici, uniquement une adresse email) et exécution.
+			 */
+			preparedStatement = initialisationRequetePreparee(connexion, sql, false, keyWord);
+			resultSet = preparedStatement.executeQuery();
+			/* Parcours de la ligne de données retournée dans le ResultSet */
+			while (resultSet.next()) {
+				isSucceed = true;
+				serviceResults.add(map(resultSet));
+
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return serviceResults;
 	}
 
 }
