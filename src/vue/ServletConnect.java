@@ -65,6 +65,8 @@ public class ServletConnect extends HttpServlet {
 			request.setAttribute(ATT_USER, utilisateur);
 			if (utilisateur != null) {
 				this.getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
+				session.setAttribute("loggedIn", isConnected);
+
 			}else{
 				form.setResultat("Echec de la connexion!");
 				this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
@@ -79,25 +81,11 @@ public class ServletConnect extends HttpServlet {
 		}
 
 		String action = request.getParameter("action");
-
-
-		/**
-		 * Si aucune erreur de validation n'a eu lieu, alors ajout du bean
-		 * Utilisateur à la session, sinon suppression du bean de la session.
-		 */
-		if (form.getErreurs().isEmpty()) {
-			session.setAttribute(ATT_SESSION_USER, utilisateur);
-			session.setAttribute("loggedIn", isConnected);
-		} else {
-			session.setAttribute(ATT_SESSION_USER, null);
-		}
+	
 
 		/* Stockage du formulaire et du bean dans l'objet request */
 		request.setAttribute(ATT_FORM, form);
 		request.setAttribute(ATT_USER, utilisateur);
-
-		this.getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
-
 		if (action != null) {
 			if (action.equals("logOut")) {
 				session.invalidate();
