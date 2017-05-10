@@ -34,14 +34,10 @@ public class ServletConnect extends HttpServlet {
 		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 	}
 
-<<<<<<< HEAD
+
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
 		this.utilisateurDao = new DaoPersonImpl(new UsineDao("jdbc:mysql://localhost:3306/papfood", "root", "0000"));
-=======
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.utilisateurDao = new DaoPersonImpl(
-				new UsineDao("jdbc:oracle:thin:@localhost:1521:orcl", "papfood", "yummyshop"));
->>>>>>> 3f0250fce330c5715209553db8cb785a6a0ffd84
+
 
 		/* Préparation de l'objet formulaire */
 		FormulaireConnexion form = new FormulaireConnexion(utilisateurDao);
@@ -58,7 +54,7 @@ public class ServletConnect extends HttpServlet {
 		/* Récupération de la session depuis la requête */
 		HttpSession session = request.getSession();
 
-<<<<<<< HEAD
+
         /**
          * Si aucune erreur de validation n'a eu lieu, alors ajout du bean
          * Utilisateur à la session, sinon suppression du bean de la session.
@@ -81,9 +77,9 @@ public class ServletConnect extends HttpServlet {
 			this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
 
 		}
-=======
+
 		String action = request.getParameter("action");
->>>>>>> 3f0250fce330c5715209553db8cb785a6a0ffd84
+
 
 		/**
 		 * Si aucune erreur de validation n'a eu lieu, alors ajout du bean
