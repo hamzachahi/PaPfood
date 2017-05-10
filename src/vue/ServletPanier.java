@@ -35,29 +35,32 @@ public class ServletPanier extends HttpServlet {
 		String action = request.getParameter("action");
 		ArrayList<Salable> tousLesArticles = new ArrayList<>();
 		ArrayList<Salable> monPanier = new ArrayList<>();
+		Double total = 0.0;
 
-		if (action.equals("chargerPanier")) {
+		if (action != null) {
 
-			HttpSession session = request.getSession();
-			tousLesArticles = (ArrayList) session.getAttribute("allArticles");
-			String monArticle = request.getParameter("idarticle");
+			if (action.equals("chargerPanier")) {
 
-			for (int i = 0; i < tousLesArticles.size(); i++) {
+				HttpSession session = request.getSession();
+				tousLesArticles = (ArrayList) session.getAttribute("allArticles");
+				String monArticle = request.getParameter("idarticle");
 
-				Salable article = tousLesArticles.get(i);
+				for (int i = 0; i < tousLesArticles.size(); i++) {
 
-				if (article.getId().toString().equals(monArticle)) {
-					monPanier.add(article);
+					Salable article = tousLesArticles.get(i);
+
+					if (article.getId().toString().equals(monArticle)) {
+						monPanier.add(article);
+						total += article.getPrice();
+
+					}
 				}
+
 			}
 
+			request.setAttribute("articlesPanier", monPanier);
+			request.setAttribute("nbArticles", monPanier.size());
+			request.setAttribute("prixTotal", total);
 		}
-
-		else {
-			this.getServletContext().getRequestDispatcher("/WEB-INF/panier.jsp").forward(request, response);
-		}
-
-		request.setAttribute("articlesPanier", monPanier);
-		request.setAttribute("nbArticles", monPanier.size());
 	}
 }

@@ -18,7 +18,7 @@
 						<img src="assets/images/cart.png" alt="Mon Panier" />
 					</h3>
 					<p>
-						<a href="\ServletPanier?action=showPanier"
+						<a href="${pageContext.request.contextPath}/panier"
 							class="simpleCart_empty">Empty Cart</a>
 					</p>
 
