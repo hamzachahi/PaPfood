@@ -124,4 +124,9 @@ public final class FormulaireConnexion {
 			return valeur;
 		}
 	}
+
+	public void setResultat(String string) {
+		// TODO Auto-generated method stub
+		resultat=string;
+	}
 }

@@ -36,7 +36,7 @@ public class ServletConnect extends HttpServlet {
     }
 
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-		this.utilisateurDao = new DaoPersonImpl(new UsineDao("jdbc:oracle:thin:@localhost:1521:orcl", "papfood", "yummyshop"));
+		this.utilisateurDao = new DaoPersonImpl(new UsineDao("jdbc:mysql://localhost:3306/papfood", "root", "0000"));
 
     	/* Préparation de l'objet formulaire */
         FormulaireConnexion form = new FormulaireConnexion(utilisateurDao);
@@ -58,11 +58,24 @@ public class ServletConnect extends HttpServlet {
          * Si aucune erreur de validation n'a eu lieu, alors ajout du bean
          * Utilisateur à la session, sinon suppression du bean de la session.
          */
-        if ( form.getErreurs().isEmpty() ) {
-            session.setAttribute( ATT_SESSION_USER, utilisateur );
-        } else {
-            session.setAttribute( ATT_SESSION_USER, null );
-        }
+        if (form.getErreurs().isEmpty()) {
+			session.setAttribute(ATT_SESSION_USER, utilisateur);
+			request.setAttribute(ATT_FORM, form);
+			request.setAttribute(ATT_USER, utilisateur);
+			if (utilisateur != null) {
+				this.getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
+			}else{
+				form.setResultat("Echec de la connexion!");
+				this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
+
+			}
+		} else {
+			form.setResultat("Echec de la connexion!");
+			session.setAttribute(ATT_SESSION_USER, null);
+			request.setAttribute(ATT_FORM, form);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
+
+		}
 
         /* Stockage du formulaire et du bean dans l'objet request */
         request.setAttribute( ATT_FORM, form );
