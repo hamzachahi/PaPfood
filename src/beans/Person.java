@@ -30,7 +30,7 @@ public class Person implements Serializable {
 	private String instagramId = "";
 	private String linkedinId = "";
 	private Image accountPicture = null;
-	private Integer streetNumber = 0;
+	private String streetNumber = "";
 	private String streetName = "";
 	private String cityName = "";
 	private String countryName = "";
@@ -167,11 +167,11 @@ public class Person implements Serializable {
 		this.accountPicture = accountPicture;
 	}
 
-	public Integer getStreetNumber() {
+	public String getStreetNumber() {
 		return streetNumber;
 	}
 
-	public void setStreetNumber(Integer streetNumber, Boolean sqlornot) {
+	public void setStreetNumber(String streetNumber, Boolean sqlornot) {
 		this.streetNumber = streetNumber;
 	}
 

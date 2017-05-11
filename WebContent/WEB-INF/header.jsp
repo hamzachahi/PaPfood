@@ -31,7 +31,7 @@
 			</div>
 			<div class="col-sm-2 number animated wow fadeInRight"
 				data-wow-delay=".5s">
-				<span><a href="ServletProfile"><i
+				<span><a href="${pageContext.request.contextPath}/profile"><i
 						class="glyphicon glyphicon-phone"></i>Modifier Mon compte</a></span>
 			</div>
 			<div class="col-sm-2 search animated wow fadeInRight"
@@ -73,7 +73,8 @@
 							</c:if>
 
 							<c:if test="${not empty sessionUtilisateur}">
-								<li><a href="${pageContext.request.contextPath}/deconnexion">Se
+								<li><a
+									href="${pageContext.request.contextPath}/deconnexion">Se
 										déconnecter</a></li>
 							</c:if>
 
@@ -109,7 +110,7 @@
 						removalDelay : 300,
 						mainClass : 'my-mfp-zoom-in'
 					});
-			
+
 				});
 			</script>
 			<!---->

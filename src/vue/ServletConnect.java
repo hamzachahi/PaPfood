@@ -64,7 +64,7 @@ public class ServletConnect extends HttpServlet {
 			request.setAttribute(ATT_FORM, form);
 			request.setAttribute(ATT_USER, utilisateur);
 			if (utilisateur != null) {
-				this.getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
+				response.sendRedirect(request.getContextPath()+"/accueil");
 				session.setAttribute("loggedIn", isConnected);
 
 			}else{

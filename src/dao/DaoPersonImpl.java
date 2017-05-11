@@ -156,7 +156,7 @@ public class DaoPersonImpl implements PersonDao {
 		utilisateur.setTwitterId(resultSet.getString("twitter_id"), false);
 		utilisateur.setInstagramId(resultSet.getString("instagram_id"), false);
 		utilisateur.setLinkedinId(resultSet.getString("linkedin_id"), false);
-		utilisateur.setStreetNumber(resultSet.getInt("street_number"), false);
+		utilisateur.setStreetNumber(resultSet.getString("street_number"), false);
 		utilisateur.setStreetName(resultSet.getString("street_name"), false);
 		utilisateur.setCityName(resultSet.getString("city_name"), false);
 		utilisateur.setCountryName(resultSet.getString("country_name"), false);

@@ -21,6 +21,6 @@ public class ServletDisconnect extends HttpServlet {
         session.invalidate();
 
         /* Redirection vers le Site du Zéro ! */
-        response.sendRedirect( URL_REDIRECTION );
+		response.sendRedirect(request.getContextPath()+"/connexion");
     }
 }
