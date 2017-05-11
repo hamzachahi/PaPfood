@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import beans.Association;
+import beans.Product;
 import beans.Service;
 
 public class DaoServiceImpl implements ServiceDao {
@@ -261,5 +262,38 @@ public class DaoServiceImpl implements ServiceDao {
 		}
 		return serviceResults;
 	}
+	@Override
+	public ArrayList<Service> findAllServiceById(Long Id) {
+		// TODO Auto-generated method stub
+		Boolean isSucceed=false;
+		return findAllServiceById(Id, isSucceed, RequestRepository.getMysqlSelectServiceById());
+	}
+	private ArrayList<Service> findAllServiceById(Long Id, Boolean isSucceed, String sql) {
+		// TODO Auto-generated method stub
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<Service> produitResults = new ArrayList<Service>();
 
+		try {
+			/* Récupération d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			/*
+			 * Préparation de la requête avec les objets passés en arguments
+			 * (ici, uniquement une adresse email) et exécution.
+			 */
+			preparedStatement = initialisationRequetePreparee(connexion, sql, false, Id);
+			resultSet = preparedStatement.executeQuery();
+			/* Parcours de la ligne de données retournée dans le ResultSet */
+			while (resultSet.next()) {
+				isSucceed = true;
+				produitResults.add(map(resultSet));
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return produitResults;
+	}
 }

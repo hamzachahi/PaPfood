@@ -3,8 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>Connectez-vous!</title>
 <%@include file="liens.jsp"%>
-<title>Connexion</title>
+
 </head>
 <body>
 

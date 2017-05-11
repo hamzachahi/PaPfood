@@ -250,7 +250,42 @@ public class DaoProductImpl implements ProductDao {
 			preparedStatement = initialisationRequetePreparee(connexion, sql, false, keyWord);
 			resultSet = preparedStatement.executeQuery();
 			/* Parcours de la ligne de données retournée dans le ResultSet */
-			if (resultSet.next()) {
+			while (resultSet.next()) {
+				isSucceed = true;
+				produitResults.add(map(resultSet));
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return produitResults;
+	}
+
+	@Override
+	public ArrayList<Product> findAllProductById(Long Id) {
+		// TODO Auto-generated method stub
+		Boolean isSucceed=false;
+		return findAllProductById(Id, isSucceed, RequestRepository.getMysqlSelectProductById());
+	}
+	private ArrayList<Product> findAllProductById(Long Id, Boolean isSucceed, String sql) {
+		// TODO Auto-generated method stub
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<Product> produitResults = new ArrayList<Product>();
+
+		try {
+			/* Récupération d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			/*
+			 * Préparation de la requête avec les objets passés en arguments
+			 * (ici, uniquement une adresse email) et exécution.
+			 */
+			preparedStatement = initialisationRequetePreparee(connexion, sql, false, Id);
+			resultSet = preparedStatement.executeQuery();
+			/* Parcours de la ligne de données retournée dans le ResultSet */
+			while (resultSet.next()) {
 				isSucceed = true;
 				produitResults.add(map(resultSet));
 			}

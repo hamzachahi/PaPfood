@@ -39,4 +39,6 @@ public interface Salable {
 	public Long getIdProvider();
 
 	public void setIdProvider(Long Id);
+
+	public String getType();
 }

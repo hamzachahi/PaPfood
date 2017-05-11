@@ -12,9 +12,11 @@ public interface ProductDao {
 	public Boolean removeProduct(Product product);
 
 	public Product findProductById(Long Id);
-	
+
 	public ArrayList<Product> findProductByKeyWord(String keyword);
 
 	public ArrayList<Product> findAllProduct();
+
+	public ArrayList<Product> findAllProductById(Long Id);
 
 }

@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.util.ArrayList;
 
 public class Service extends MotherProduct implements Salable {
+	protected String type = "Service";
 
 	@Override
 	public Boolean setId(Long newId, Boolean sqlornot) {
@@ -65,6 +66,12 @@ public class Service extends MotherProduct implements Salable {
 		// TODO Auto-generated method stub
 		this.setListProduct(listSubProduct, false);
 		return null;
+	}
+
+	@Override
+	public String getType() {
+		// TODO Auto-generated method stub
+		return type;
 	}
 
 }
