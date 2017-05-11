@@ -19,6 +19,8 @@ public class ServletProfile extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private PersonDao utilisateurDao = null;
+	public static final String URL_REDIRECTION = "http://localhost:2020/PaPfood/accueil";
+
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -35,14 +37,17 @@ public class ServletProfile extends HttpServlet {
 		utilisateur = (Person) session.getAttribute("sessionUtilisateur");
 
 		if (action.equals("completeProfile")) {
-			utilisateurDao = new DaoPersonImpl(
-					new UsineDao("jdbc:oracle:thin:@localhost:1521:orcl", "papfood", "yummyshop"));
+			this.utilisateurDao = new DaoPersonImpl(new UsineDao("jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root", "0000"));
+
+			//utilisateurDao = new DaoPersonImpl(
+		//			new UsineDao("jdbc:oracle:thin:@localhost:1521:orcl", "papfood", "yummyshop"));
 			String name = "";
 			String name2 = "";
 			String prenom = "";
 			String prenom2 = "";
 			String email = "";
 			String numtel = "";
+			String numfix="";
 			String profession = "";
 			String profil = "";
 			// à changer en string dans les beans
@@ -61,10 +66,15 @@ public class ServletProfile extends HttpServlet {
 			prenom2 = request.getParameter("surname2");
 			email = request.getParameter("email");
 			numtel = request.getParameter("numtelephone");
+			numfix=request.getParameter("numfix");			
 			profession = request.getParameter("profession");
 			profil = request.getParameter("profil");
 			// à changer en string dans les beans
-			numVoie = Integer.parseInt(request.getParameter("streetnb"));
+			if (request.getParameter("streetnb") != null || request.getParameter("streetnb").equals("")) {
+				numVoie = Integer.parseInt(request.getParameter("streetnb"));
+			}else{
+				numVoie=null;
+			}
 			nomVoie = request.getParameter("streetname");
 			ville = request.getParameter("city");
 			country = request.getParameter("country");
@@ -81,6 +91,7 @@ public class ServletProfile extends HttpServlet {
 			utilisateur.setSecondSurname(prenom2, false);
 			utilisateur.setEmail(email, false);
 			utilisateur.setPhoneNumber(numtel, false);
+			utilisateur.setTelNumber(numfix, false);
 			utilisateur.setProfession(profession, false);
 			utilisateur.setFunction(profil);
 			utilisateur.setStreetNumber(numVoie, false);
@@ -98,6 +109,8 @@ public class ServletProfile extends HttpServlet {
 			System.out.println(utilisateur.toString());
 
 			utilisateurDao.modifyPersonalInformation(utilisateur);
+	        response.sendRedirect( URL_REDIRECTION );
+
 
 		}
 

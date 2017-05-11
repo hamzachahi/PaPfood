@@ -27,7 +27,7 @@ public class DaoPersonImpl implements PersonDao {
 	/* Implémentation de la méthode définie dans l'interface UtilisateurDao */
 	@Override
 	public Person trouver(String email, boolean succeed) throws ExceptionDao {
-		return trouver(RequestRepository.getOraclesqlSeTrouverParEmail(), succeed, email);
+		return trouver(RequestRepository.getMysqlSeTrouverParEmail(), succeed, email);
 	}
 
 	@Override
@@ -47,8 +47,8 @@ public class DaoPersonImpl implements PersonDao {
 			connexion = daoFactory.getConnection();
 			utilisateur.setFunction("Perculiar");
 			System.out.println("connexion réussie. Création de personne...");
-			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlInsertPerson(),
-					true, utilisateur.getEmail(), utilisateur.getPassword(), utilisateur.getName(),
+			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlInsertPerson(), true,
+					utilisateur.getEmail(), utilisateur.getPassword(), utilisateur.getName(),
 					utilisateur.getFunction());
 			int statut = preparedStatement.executeUpdate();
 			if (statut == 0) {
@@ -87,12 +87,15 @@ public class DaoPersonImpl implements PersonDao {
 		try {
 			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
+			System.out.println("Connexion récupérée!");
+
 			/*
 			 * Préparation de la requête avec les objets passés en arguments
 			 * (ici, uniquement une adresse email) et exécution.
 			 */
 			preparedStatement = initialisationRequetePreparee(connexion, sql, false, objets);
 			resultSet = preparedStatement.executeQuery();
+			System.out.println("Requête executée!");
 			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (resultSet.next()) {
 				succeed = true;
@@ -143,37 +146,25 @@ public class DaoPersonImpl implements PersonDao {
 		utilisateur.setPassword(resultSet.getString("password"), false);
 		utilisateur.setName(resultSet.getString("name"), false);
 		utilisateur.setSurname(resultSet.getString("surname"), false);
-
-		// utilisateur.setAccountPicture(Toolkit.getDefaultToolkit().createImage(resultSet.getBytes("account_picture")),
-		// false);
-		/**
-		 * utilisateur.setDateInscription(resultSet.getTimestamp("date_inscription"),
-		 * false); utilisateur.setSecondName(resultSet.getString("second_name"),
-		 * false);
-		 * utilisateur.setSecondSurname(resultSet.getString("second_surname"),
-		 * false);
-		 **/
+		utilisateur.setSecondName(resultSet.getString("second_name"), false);
+		utilisateur.setDateInscription(resultSet.getTimestamp("date_inscription"), false);
+		utilisateur.setSecondSurname(resultSet.getString("second_surname"), false);
 		utilisateur.setProfession(resultSet.getString("profession"), false);
-		/**
-		 * utilisateur.setPhoneNumber(resultSet.getString("phone_number"),
-		 * false); utilisateur.setTelNumber(resultSet.getString("tel_number"),
-		 * false); utilisateur.setFacebookId(resultSet.getString("facebook_id"),
-		 * false); utilisateur.setTwitterId(resultSet.getString("twitter_id"),
-		 * false);
-		 * utilisateur.setInstagramId(resultSet.getString("instagram_id"),
-		 * false); utilisateur.setLinkedinId(resultSet.getString("linkedin_id"),
-		 * false);
-		 * utilisateur.setStreetNumber(resultSet.getInt("street_number"),
-		 * false); utilisateur.setStreetName(resultSet.getString("street_name"),
-		 * false); utilisateur.setCityName(resultSet.getString("city_name"),
-		 * false);
-		 * utilisateur.setCountryName(resultSet.getString("country_name"),
-		 * false); utilisateur.setPostalCode(resultSet.getString("postal_code"),
-		 * false);
-		 * utilisateur.setLastConnexion(resultSet.getInt("last_connection"));
-		 * utilisateur.setFunction(resultSet.getString("function"));
-		 * utilisateur.setPrivateKey(resultSet.getString("private_key"));
-		 **/
+		utilisateur.setPhoneNumber(resultSet.getString("phone_number"), false);
+		utilisateur.setTelNumber(resultSet.getString("tel_number"), false);
+		utilisateur.setFacebookId(resultSet.getString("facebook_id"), false);
+		utilisateur.setTwitterId(resultSet.getString("twitter_id"), false);
+		utilisateur.setInstagramId(resultSet.getString("instagram_id"), false);
+		utilisateur.setLinkedinId(resultSet.getString("linkedin_id"), false);
+		utilisateur.setStreetNumber(resultSet.getInt("street_number"), false);
+		utilisateur.setStreetName(resultSet.getString("street_name"), false);
+		utilisateur.setCityName(resultSet.getString("city_name"), false);
+		utilisateur.setCountryName(resultSet.getString("country_name"), false);
+		utilisateur.setPostalCode(resultSet.getString("postal_code"), false);
+		utilisateur.setLastConnexion(resultSet.getInt("last_connection"));
+		utilisateur.setFunction(resultSet.getString("function"));
+		// utilisateur.setAccountPicture(Toolkit.getDefaultToolkit().createImage(resultSet.getBytes("account_picture")),
+				// false);
 		return utilisateur;
 	}
 
@@ -253,8 +244,8 @@ public class DaoPersonImpl implements PersonDao {
 		try {
 			connexion = daoFactory.getConnection();
 			System.out.println("connexion réussie. mise à jour de personne...");
-			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlUpdatePerson(),
-					true, utilisateur.getName(), utilisateur.getSecondName(), utilisateur.getSurname(),
+			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlUpdatePerson(), true,
+					utilisateur.getName(), utilisateur.getSecondName(), utilisateur.getSurname(),
 					utilisateur.getSecondSurname(), utilisateur.getProfession(), utilisateur.getEmail(),
 					utilisateur.getPhoneNumber(), utilisateur.getTelNumber(), utilisateur.getFacebookId(),
 					utilisateur.getTwitterId(), utilisateur.getInstagramId(), utilisateur.getLinkedinId(),
@@ -265,7 +256,7 @@ public class DaoPersonImpl implements PersonDao {
 			if (statut == 0) {
 				throw new ExceptionDao(
 						"Échec de la mise à jour des informations de l'utilisateur, aucune ligne modifiée dans la table.");
-			}else{
+			} else {
 				System.out.println("Modification effectuée!");
 			}
 		} catch (SQLException e) {

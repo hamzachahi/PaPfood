@@ -49,7 +49,7 @@ public class UsineDao {
             driver = properties.getProperty( PROPERTY_DRIVER );
             nomUtilisateur = properties.getProperty( PROPERTY_NOM_UTILISATEUR );
             motDePasse = properties.getProperty( PROPERTY_MOT_DE_PASSE );
-            url="jdbc:mysql://localhost:3306/papfood";
+            url="jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true";
           //  url="jdbc:oracle:thin:@localhost:1521:orcl";
 
             driver="com.mysql.jdbc.Driver";

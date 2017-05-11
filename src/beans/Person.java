@@ -3,8 +3,10 @@ package beans;
 import java.awt.Image;
 import java.io.Serializable;
 import java.sql.Timestamp;
+
 import dao.DaoPersonImpl;
 import dao.UsineDao;
+
 import java.sql.Connection;
 
 public class Person implements Serializable {
@@ -18,8 +20,7 @@ public class Person implements Serializable {
 	private String secondSurname = "";
 	private String Profession = "";
 	private Timestamp dateInscription = null;
-	private Long Id ;
-	private String privateKey="";
+	private Long Id;
 	private String Password = "";
 	private String email = "";
 	private String phoneNumber = "";
@@ -35,10 +36,11 @@ public class Person implements Serializable {
 	private String countryName = "";
 	private String postalCode = "";
 	private Integer lastConnexion = null;
-	private String function="";
+	private String function = "";
 	private Connection maConnexion = null;
 	private ResultConnexion resultConnexion = null;
 	private DaoPersonImpl daopi = new DaoPersonImpl(UsineDao.getInstance());
+
 
 	protected Boolean Connexion(String Id, String Password) {
 		return null;
@@ -228,15 +230,6 @@ public class Person implements Serializable {
 	public void setFunction(String function) {
 		this.function = function;
 	}
-
-	public Connection getMaConnexion() {
-		return maConnexion;
-	}
-
-	public void setMaConnexion(Connection maConnexion) {
-		this.maConnexion = maConnexion;
-	}
-
 	public DaoPersonImpl getDaopi() {
 		return daopi;
 	}
@@ -244,13 +237,12 @@ public class Person implements Serializable {
 	public void setDaopi(DaoPersonImpl daopi) {
 		this.daopi = daopi;
 	}
-
-	public String getPrivateKey() {
-		return privateKey;
+	public Connection getMaConnexion() {
+		return maConnexion;
 	}
 
-	public void setPrivateKey(String privateKey) {
-		this.privateKey = privateKey;
+	public void setMaConnexion(Connection maConnexion) {
+		this.maConnexion = maConnexion;
 	}
 
 	public ResultConnexion getResultConnexion() {
@@ -265,15 +257,12 @@ public class Person implements Serializable {
 	public String toString() {
 		return "Person [Name=" + Name + ", secondName=" + secondName + ", Surname=" + Surname + ", secondSurname="
 				+ secondSurname + ", Profession=" + Profession + ", dateInscription=" + dateInscription + ", Id=" + Id
-				+ ", privateKey=" + privateKey + ", Password=" + Password + ", email=" + email + ", phoneNumber="
-				+ phoneNumber + ", telNumber=" + telNumber + ", facebookId=" + facebookId + ", twitterId=" + twitterId
-				+ ", instagramId=" + instagramId + ", linkedinId=" + linkedinId + ", accountPicture=" + accountPicture
-				+ ", streetNumber=" + streetNumber + ", streetName=" + streetName + ", cityName=" + cityName
-				+ ", countryName=" + countryName + ", postalCode=" + postalCode + ", lastConnexion=" + lastConnexion
-				+ ", function=" + function + ", maConnexion=" + maConnexion + ", resultConnexion=" + resultConnexion
-				+ ", daopi=" + daopi + "]";
+				+ ", Password=" + Password + ", email=" + email + ", phoneNumber=" + phoneNumber + ", telNumber="
+				+ telNumber + ", facebookId=" + facebookId + ", twitterId=" + twitterId + ", instagramId=" + instagramId
+				+ ", linkedinId=" + linkedinId + ", accountPicture=" + accountPicture + ", streetNumber=" + streetNumber
+				+ ", streetName=" + streetName + ", cityName=" + cityName + ", countryName=" + countryName
+				+ ", postalCode=" + postalCode + ", lastConnexion=" + lastConnexion + ", function=" + function
+				+ ", maConnexion=" + maConnexion + ", resultConnexion=" + resultConnexion + "]";
 	}
-
-	
 
 }

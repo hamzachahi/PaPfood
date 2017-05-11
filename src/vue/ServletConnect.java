@@ -36,7 +36,7 @@ public class ServletConnect extends HttpServlet {
 
 
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-		this.utilisateurDao = new DaoPersonImpl(new UsineDao("jdbc:mysql://localhost:3306/papfood", "root", "0000"));
+		this.utilisateurDao = new DaoPersonImpl(new UsineDao("jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root", "0000"));
 
 
 		/* Préparation de l'objet formulaire */
@@ -79,18 +79,8 @@ public class ServletConnect extends HttpServlet {
 			this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
 
 		}
-
-		String action = request.getParameter("action");
-	
-
 		/* Stockage du formulaire et du bean dans l'objet request */
 		request.setAttribute(ATT_FORM, form);
-		request.setAttribute(ATT_USER, utilisateur);
-		if (action != null) {
-			if (action.equals("logOut")) {
-				session.invalidate();
-				// response.sendRedirect();
-			}
-		}
+		request.setAttribute(ATT_USER, utilisateur);		
 	}
 }

@@ -73,7 +73,7 @@
 							</c:if>
 
 							<c:if test="${not empty sessionUtilisateur}">
-								<li><a href="\ServletConnect?action=logOut">Se
+								<li><a href="${pageContext.request.contextPath}/deconnexion">Se
 										déconnecter</a></li>
 							</c:if>
 

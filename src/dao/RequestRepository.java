@@ -4,7 +4,7 @@ public class RequestRepository {
 	// Début requête select
 	private static final String MySQL_SE_TROUVER_PAR_ID = "SELECT * FROM person WHERE id = ?";
 	private static final String Oracle_SE_TROUVER_PAR_ID = "SELECT * FROM person WHERE id = ?";
-	private static final String MySQL_SE_TROUVER_PAR_EMAIL = "SELECT Id, name, surname, profession, email FROM person WHERE email = ?";
+	private static final String MySQL_SE_TROUVER_PAR_EMAIL = "SELECT id, name, second_name, surname, second_surname, profession, date_inscription, password, email, phone_number, tel_number, facebook_id, twitter_id, instagram_id, linkedin_id, account_picture, street_number, street_name, city_name, country_name, postal_code, last_connection, function FROM person WHERE email = ?";
 	private static final String OracleSQL_SE_TROUVER_PAR_EMAIL = "SELECT id, name, surname, profession, password, email FROM person WHERE email = ?";
 	private static final String OracleSQL_SE_TROUVER_TOTALEMENT_PAR_EMAIL = "SELECT * FROM person WHERE email = ?";
 
@@ -75,7 +75,7 @@ public class RequestRepository {
 
 	// fin insert
 	// début update
-	private static final String MySQL_UPDATE_PERSON = "UPDATE person SET name = ?, second_name=?, surname=?, second_surname=?, profession=?, date_inscription=?, password=?, email=?, phone_number=?, tel_number=?, facebook_id=?, twitter_id=?, instagram_id=?, linkedin_id=?, account_picture=?, street_number=?, street_name=?, city_name=?, country_name=?, postal_code=?, last_connection=?, function=?  WHERE ID = ?";
+	private static final String MySQL_UPDATE_PERSON = "UPDATE person SET name = ?, second_name=?, surname=?, second_surname=?, profession=?, email=?, phone_number=?, tel_number=?, facebook_id=?, twitter_id=?, instagram_id=?, linkedin_id=?, street_number=?, street_name=?, city_name=?, country_name=?, postal_code=?, function=?  WHERE ID = ?";
 	private static final String OracleSQL_UPDATE_PERSON = "UPDATE person SET name = ?, second_name=?, surname=?, second_surname=?, profession=?, email=?, phone_number=?, tel_number=?, facebook_id=?, twitter_id=?, instagram_id=?, linkedin_id=?, street_number=?, street_name=?, city_name=?, country_name=?, postal_code=?, function=?  WHERE ID = ?";
 
 	private static final String MySQL_UPDATE_COMMANDE = "UPDATE commande SET code=?, id_customer = ?, date_ordering=?, date_livraison=? WHERE ID = ?";

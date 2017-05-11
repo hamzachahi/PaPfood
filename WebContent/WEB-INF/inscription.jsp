@@ -19,8 +19,7 @@
 
 				<label for="email">Adresse email <span class="requis">*</span></label>
 				<input type="email" id="email" name="email"
-					placeholder="votre adresse email"/>
-					 <span class="erreur">${form.erreurs['email']}</span>
+					placeholder="votre adresse email" /> <span class="erreur">${form.erreurs['email']}</span>
 				<br /> <label for="motdepasse">Mot de passe <span
 					class="requis">*</span></label> <input type="password" id="motdepasse"
 					name="motdepasse" value="" size="20" maxlength="20" /> <span
@@ -30,15 +29,16 @@
 					name="confirmation" value="" size="20" maxlength="20" /> <span
 					class="erreur">${form.erreurs['confirmation']}</span> <br /> <label
 					for="nom">Nom de famille</label> <input type="text" id="nom"
-					name="nom" placeholder="Votre nom de famille"/><span class="erreur">${form.erreurs['nom']}</span>
-				<br /> <input type="submit" value="Inscription" class="sansLabel" />
-				<br />
+					name="nom" placeholder="Votre nom de famille" /><span
+					class="erreur">${form.erreurs['nom']}</span> <br /> <input
+					type="submit" value="Inscription" class="sansLabel" /> <br />
 
 				<p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
 			</fieldset>
 		</form>
 	</div>
-					   	<%@ include file="/WEB-INF/map.jsp" %>
-	
+	<div>
+		<%@ include file="/WEB-INF/map.jsp"%>
+	</div>
 </div>
-</div>
+

@@ -33,12 +33,11 @@ public class ConnectOracle {
 			utilisateur.setSurname("maf", false);
 			utilisateur.setEmail("maf@maf.com", false);
 			utilisateur.setFunction("admin");
-			utilisateur.setPrivateKey("20170410MM021419");
 
 			try {
 				System.out.println("connexion réussie. Création de personne...");
 				preparedStatement = initialisationRequetePreparee(conn, RequestRepository.getOraclesqlInsertPerson(),
-						true, utilisateur.getEmail(), utilisateur.getPassword(), utilisateur.getName(), utilisateur.getFunction(), utilisateur.getPrivateKey());
+						true, utilisateur.getEmail(), utilisateur.getPassword(), utilisateur.getName(), utilisateur.getFunction());
 				int statut = preparedStatement.executeUpdate();
 				if (statut == 0) {
 					throw new ExceptionDao(
