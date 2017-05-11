@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8" />
+<%@include file="liens.jsp"%>
 <title>Connexion</title>
 </head>
 <body>
@@ -72,4 +72,6 @@
 			});
 		}
 	</script>
+		<%@include file="footer.jsp"%>
+	
 </body>

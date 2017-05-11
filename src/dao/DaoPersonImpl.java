@@ -27,7 +27,7 @@ public class DaoPersonImpl implements PersonDao {
 	/* Implémentation de la méthode définie dans l'interface UtilisateurDao */
 	@Override
 	public Person trouver(String email, boolean succeed) throws ExceptionDao {
-		return trouver(RequestRepository.getMysqlSeTrouverParEmail(), succeed, email);
+		return trouver(RequestRepository.getOraclesqlSeTrouverTotalementParEmail(), succeed, email);
 	}
 
 	@Override
