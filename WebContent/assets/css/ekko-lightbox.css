@@ -1,0 +1,154 @@
+/*!
+ * Lightbox for Bootstrap 3 by @ashleydw
+ * https://github.com/ashleydw/lightbox
+ *
+ * License: https://github.com/ashleydw/lightbox/blob/master/LICENSE
+ */
+
+.ekko-lightbox-container {
+  position: relative;
+}
+.modal {
+  bottom: 0;
+  display: none;
+  left: 0;
+  outline: 0 none;
+  overflow: hidden;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 9999;
+}
+.ekko-lightbox-nav-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+}
+
+.ekko-lightbox-nav-overlay a {
+  z-index: 100;
+  display: block;
+  width: 49%;
+  height: 100%;
+  font-size: 30px;
+  color: #fff;
+  text-shadow: 2px 2px 4px #000;
+  opacity: 0;
+  filter: dropshadow(color=#000000, offx=2, offy=2);
+  -webkit-transition: opacity 0.5s;
+     -moz-transition: opacity 0.5s;
+       -o-transition: opacity 0.5s;
+          transition: opacity 0.5s;
+}
+
+.ekko-lightbox-nav-overlay a:empty {
+  width: 49%;
+}
+
+.ekko-lightbox a:hover {
+  text-decoration: none;
+  opacity: 1;
+}
+
+.ekko-lightbox .ekko-left {
+  left: 0;
+  float: left;
+  padding-left: 15px;
+  text-align: left;
+  background-image: url(../img/arrows_slim_left.png);
+  background-repeat: no-repeat;
+  background-position: left 2% top 50%;
+}
+
+.ekko-lightbox .ekko-right {
+  background-image: url("../img/arrows_slim_right.png");
+  background-position: right 2% top 50%;
+  background-repeat: no-repeat;
+  float: right;
+  padding-right: 15px;
+  right: 0;
+  text-align: right;
+}
+.ekko-lightbox .modal-footer {
+  padding: 55px;
+  text-align: left;
+}
+.ekko-lightbox .modal-header {
+  border: 0 none;
+  height: 50px;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  width: 50px;
+  z-index: 9999;
+}
+.ekko-lightbox .modal-body {
+    border-radius: 0;
+    padding: 5px;
+}
+.ekko-lightbox .modal-content {
+    border-radius: 0;
+}
+.ekko-lightbox .close {
+  color: #fff;
+  display: block;
+  font-size: 30pt;
+  height: 50px;
+  opacity: 1;
+  padding: 5px 13px;
+  position: static;
+  text-align: center;
+}
+.ekko-lightbox .modal-footer h1 {
+    color: #222;
+    font-family: montserrat;
+    font-size: 14pt;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.ekko-lightbox .model-description {
+  line-height: 29px;
+}
+.ekko-lightbox .modal-footer .left-content {
+    float: left;
+    width: 550px;
+}
+.ekko-lightbox-container .img-responsive {
+    width: 100%;
+}
+.ekko-lightbox .model-description {
+    line-height: 29px;
+}
+.ekko-lightbox .social-icon {
+    float: right;
+}
+.ekko-lightbox .social-icon > h2 {
+    color: #aaa;
+    font-family: roboto condensed;
+    font-size: 20pt;
+}
+.ekko-lightbox .modal-footer .social-icon i {
+    float: left;
+    font-size: 20pt;
+    margin-right: 10px;
+}
+.ekko-lightbox .modal-footer .social-icon a {
+    color: #222;
+    font-family: montserrat;
+    font-size: 11pt;
+    line-height: 31px;
+    text-transform: uppercase;
+}
+.ekko-caption {
+    background: #000 none repeat scroll 0 0;
+    bottom: 0;
+    font-family: roboto condensed;
+    font-size: 13pt;
+    left: 0;
+    padding: 20px 30px;
+    position: absolute;
+}

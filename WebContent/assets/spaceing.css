@@ -1,0 +1,56 @@
+/*Padding Bottom*/
+.padding-bottom-lg-100 { padding-bottom: 100px }
+.padding-bottom-lg-90 { padding-bottom: 90px }
+.padding-bottom-uxlg { padding-bottom: 80px }
+.padding-bottom-xlg { padding-bottom: 70px }
+.padding-bottom-lg { padding-bottom: 60px }
+.padding-bottom-md { padding-bottom: 50px }
+.padding-bottom-emd { padding-bottom: 40px }
+.padding-bottom-xmd { padding-bottom: 30px }
+.padding-bottom-sm { padding-bottom: 20px }
+.padding-bottom-xsm { padding-bottom: 10px }
+.padding-bottom-usm { padding-bottom: 5px }
+/*Padding top*/
+.padding-top-lg-100 { padding-top: 100px }
+.padding-top-lg-90 { padding-top: 90px }
+.padding-top-xxlg { padding-top: 80px }
+.padding-top-xlg { padding-top: 70px }
+.padding-top-lg { padding-top: 60px }
+.padding-top-md { padding-top: 50px }
+.padding-top-emd { padding-top: 40px }
+.padding-top-xmd { padding-top: 30px }
+.padding-top-sm { padding-top: 20px }
+.padding-top-xsm { padding-top: 10px }
+.padding-top-usm { padding-top: 5px }
+/*margin Bottom*/
+.margin-bottom-lg-100 { margin-bottom: 100px }
+.margin-bottom-lg-90 { margin-bottom: 90px }
+.margin-bottom-xxlg { margin-bottom: 80px }
+.margin-bottom-xlg { margin-bottom: 70px }
+.margin-bottom-lg { margin-bottom: 60px }
+.margin-bottom-md { margin-bottom: 50px }
+.margin-bottom-emd { margin-bottom: 40px }
+.margin-bottom-xmd { margin-bottom: 30px }
+.margin-bottom-sm { margin-bottom: 20px }
+.margin-bottom-xsm { margin-bottom: 10px }
+.margin-bottom-usm { margin-bottom: 5px }
+/*margin top*/
+.margin-top-lg-100 { margin-top: 100px }
+.margin-top-lg-90 { margin-top: 90px }
+.margin-top-uxlg { margin-top: 80px }
+.margin-top-xxlg { margin-top: 70px }
+.margin-top-xlg { margin-top: 70px }
+.margin-top-lg { margin-top: 60px }
+.margin-top-md { margin-top: 50px }
+.margin-top-emd { margin-top: 40px }
+.margin-top-xmd { margin-top: 30px }
+.margin-top-sm { margin-top: 20px }
+.margin-top-xsm { margin-top: 10px }
+.margin-top-usm { margin-top: 5px }
+.margin-medioum-top { margin-top: 40px }
+.border-right { border-right: 1px solid #ddd }
+.border-left { border-left: 1px solid #ddd }
+.padding-sm-left { padding-left: 30px }
+.padding-md-right { padding-right: 42px }
+.padding-md-left { padding-left: 42px }
+.padding-xl-top { padding-top: 135px }

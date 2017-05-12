@@ -1,0 +1,380 @@
+/* Normal desktop :992px. */
+/* Normal desktop :992px. */
+@media (min-width: 992px) and (max-width: 1169px) {
+
+
+}
+
+ 
+/* Tablet desktop :768px. */
+@media (min-width: 768px) and (max-width: 991px) {
+    .search-form.active input {
+      width: 91%;
+    }
+    .blog-content {
+
+  width: 63%;
+}
+  .main-menu-area ul li:hover .mega-menu-container {
+  opacity: 0;
+  transform: perspective(600px) rotateX(-90deg);
+  visibility: none;
+}
+.main-menu-area ul li:first-child a {
+  margin-left: 0;
+}
+#carousel {
+  left: 0;
+  position: relative;
+  width: 100%;
+}
+.room-space {
+  bottom: 160px;
+}
+}
+
+ 
+/* small mobile :320px. */
+@media (max-width: 767px) {
+    .container {width:300px}
+.meanmenu-reveal {
+  margin-top: 3px;
+}
+  .main-menu-area ul li:hover .mega-menu-container {
+  opacity: 0;
+  transform: perspective(600px) rotateX(-90deg);
+  visibility: none;
+}
+.main-menu-area ul li:first-child a {
+  margin-left: 0;
+}
+.reservation {
+  float: left;
+  margin-left: 0;
+  margin-top: 22px;
+  max-width: 100%;
+  width: 100%;
+}
+.blog-content {
+  border-bottom: 1px solid #dddddd;
+  display: inline-block;
+  float: left;
+  height: auto;
+  padding-left: 0;
+  width: 100%;
+}
+.mini-cart {
+  height: 36px;
+  margin-right: 13px;
+  margin-top: 15px;
+  position: relative;
+  width: 36px;
+}
+.header-logo {
+  margin-top: 50px;
+}
+.layear-1-2 {
+  float: right;
+  text-align: left;
+  width: 42%;
+}
+.preview-1 .slides .layear-1-1 img {
+  animation: 1000ms ease-in-out 0s normal none 1 running fadeInRight;
+  display: block;
+  height: 100%;
+  left: 0;
+  opacity: 1;
+  position: absolute;
+  top: 0;
+}
+.slider-area .layear-1-2 > h1 {
+  font-size: 146%;
+}
+.slider-area .layear-1-2 > h2 {
+  font-size: 100%;
+}
+.layear-1-2 a {
+  animation: 1500ms ease-in-out 0s normal none 1 running fadeInRight;
+  float: left;
+  margin-top: 18px;
+}
+.btn-style-1 {
+  border: 2px solid #ffffff;
+  border-radius: 30px;
+  color: #ffffff;
+  font-size: 58%;
+  font-weight: bold;
+  padding: 6px 15px;
+  position: relative;
+  text-transform: uppercase;
+}
+.slider-2 .layear-1-2 {
+  float: left;
+  text-align: left;
+  width: 50%;
+  margin-left: 0;
+}
+.slider-2 .layear-1-2 p {
+  animation: 1000ms ease-in-out 0s normal none 1 running fadeInLeft;
+  font-size: 65%;
+  width: 80%;
+}
+.slider-2 .layear-1-2 .title1 {
+  font-family: "Montserrat",sans-serif;
+  font-size: 100%;
+  font-weight: bold;
+}
+.slider-2 .layear-1-2 .title2 {
+  font-size: 100%;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.slider-3 .title1 {
+
+  font-size: 100%;
+  text-align: center;
+}
+.slider-3 .title2 {
+
+  font-size: 100%;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+}
+.slider-3 .image-border {
+  height: 1px;
+  padding-bottom: 0;
+  padding-top: 0;
+  text-align: center;
+}
+.btn-style-2 {
+  font-size: 75%;
+  padding: 5px 20px;
+}
+.grid-sizer, .col-md-4 {
+  width: auto;
+}
+.home-one-menu-area {
+  margin-bottom: 20px;
+}
+.contact-area {
+  margin-bottom: 20px;
+}
+.gallery-inner .image-title-1 {
+  font-size: 100%;
+  margin-top: 0;
+}
+.gallery-inner .view-icon {
+  border: 2px solid #ffffff;
+  border-radius: 3px;
+  height: 38px;
+  margin: 15px auto auto;
+  transform: rotate(45deg);
+  width: 38px;
+}
+.single-pricing-table {
+  width: 100%;
+}
+.pricing-table-header .pricing {
+  left: 10px;
+}
+.btn-purchase-now {
+  padding: 10px 15px;
+}
+.pricing-table-content > ul {
+  padding: 10px 15px;
+}
+.about-image {
+  width: 100%;
+}
+.page-right-content {
+  margin-top: 0;
+  padding-left: 0;
+  width: 100%;
+}
+.page-counter ul li {
+  padding: 0;
+  width: 100%;
+}
+.page-counter ul li::before {
+  left: 0;
+}
+.padding-sm-left {
+  padding-left: 10px;
+}
+.padding-md-right {
+  display: block;
+  float: left;
+  padding-right: 10px;
+}
+.padding-xl-top {
+  padding-top: 10px;
+}
+.border-right-bullet::after {
+  right: -34px;
+  top: 0;
+}
+.padding-md-left {
+  padding-left: 10px;
+}
+.content-title .pull-left {
+  float: right !important;
+}
+.border-left {
+  border-left: 0 solid #dddddd;
+  border-right: 1px solid #dddddd;
+}
+.border-left-bullet::before {
+  left: 147px;
+  top: 0;
+}
+.content-text-area .text-left {
+  text-align: right;
+}
+.details-menu-image {
+  margin-top: 10px;
+}
+.btn-style-3 {
+  font-size: 9pt;
+}
+.title-center > p {
+  width: auto;
+}
+.room-space {
+  height: auto;
+  padding: 0;
+  position: relative;
+  width: 100%;
+}
+#carousel {
+  bottom: 30px;
+  float: left;
+  left: 0;
+  margin: 0;
+  position: relative;
+  width: 100%;
+}
+}
+ 
+/* Large Mobile :480px. */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    .container {width:450px}
+
+.meanmenu-reveal {
+  margin-top: 3px;
+}
+.reservation {
+  margin-left: 0;
+  margin-top: 22px;
+  width: 100%;
+}
+.mini-cart {
+  height: 36px;
+  margin-right: 13px;
+  margin-top: 15px;
+  position: relative;
+  width: 36px;
+}
+
+
+}
+@media (max-width: 360px) {
+
+
+.blog-left {
+  padding: 0;
+  width: 100%;
+}
+  .main-menu-area ul li:hover .mega-menu-container {
+  opacity: 0;
+  transform: perspective(600px) rotateX(-90deg);
+  visibility: none;
+}
+.blog-right-content {
+  padding: 0;
+  width: 100%;
+}
+.comment-area .comment-content {
+  display: block;
+  float: left;
+  padding-left: 0;
+  width: 100%;
+}
+.comment-area ul li ul {
+  padding-left: 0;
+}
+.xs-border-right{
+  border-right: 1px solid #dddddd;
+}
+
+#carousel .slides {
+    display: none;
+}
+#carousel .flex-direction-nav {
+    display: none;
+}
+.page-inner {
+  background: #ffffff none repeat scroll 0 0;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+ul.product-tab-list {
+  height: auto;
+}
+.product-tab-list li {
+  margin-bottom: 10px;
+  width: 100%;
+}
+.product-tab-list li > a::after {
+  content: "";
+  float: right;
+  font-family: fontawesome;
+  margin-right: 10px;
+}
+.product-tab-list li > a::after {
+  margin-right: 5px;
+}
+.releted-product {
+  margin-bottom: 10px;
+  width: 100%;
+}
+.releted-product-section .border-right {
+  border: 0 none;
+}
+.team-slider-section .flex-viewport {
+  float: right;
+  overflow: hidden;
+  width: 100%;
+}
+.team-slider-section ol.flex-control-thumbs {
+  float: left;
+  padding: 0;
+  width: 100%;
+}
+.team-slider-section .flex-direction-nav {
+  left: auto;
+  right: 0;
+}
+}
+/***************************************/
+@media (min-width: 1420px) {
+.header-logo {
+    float: left;
+	left: 7%;
+	margin-top: 64px;
+	position: absolute;
+	top: 70px;
+	width: 230px;
+}
+}
+@media (min-width: 992px) and (max-width: 1400px){
+.header-logo {
+    float: left;
+    left: 0;
+    margin-top: 74px;
+    position: absolute;
+    top: 70px;
+    width: 169px;
+}
+}
+  

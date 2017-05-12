@@ -5,20 +5,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Liste des plats</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
 <%@ include file="liens.jsp"%>
-
-
 </head>
-
-
-<body>
-
+<body class="home1">
 	<%@ include file="header.jsp"%>
-
-
 	<div id="small-dialog" class="mfp-hide">
 		<div class="search-top">
 			<div class="login">

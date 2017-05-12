@@ -44,7 +44,7 @@ public class ServletPropose extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		if (request.getSession(false) == null) {
+		/*if (request.getSession(false) == null) {
 
 			response.sendRedirect(request.getContextPath() + "/connexion");
 
@@ -52,10 +52,10 @@ public class ServletPropose extends HttpServlet {
 			utilisateur = (Person) session.getAttribute("sessionUtilisateur");
 			listProdSer.addAll(productDao.findAllProductById(utilisateur.getId()));
 			listProdSer.addAll(serviceDao.findAllServiceById(utilisateur.getId()));
-			request.setAttribute("listeDeSalable", listProdSer);
+			request.setAttribute("listeDeSalable", listProdSer);*/
 			this.getServletContext().getRequestDispatcher("/WEB-INF/proposer.jsp").forward(request, response);
 
-		}
+		//}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -145,7 +145,7 @@ public class ServletPropose extends HttpServlet {
 			int begin = 0;
 			int end = 10;
 			String pagination = "";
-			Integer total = listProdSer.size();
+			Integer total = listProdSerFinal.size();
 			if (total <= 0 || total == null) {
 				message = "Aucun sous-éléments à afficher!!";
 			} else {

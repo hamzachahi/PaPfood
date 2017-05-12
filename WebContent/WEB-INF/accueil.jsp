@@ -3,59 +3,152 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>YummySHOP : Plateforme d'échange de nourriture entre
-	particuliers</title>
-<link href="assets/css/bootstrap-3.1.1.min.css" rel='stylesheet'
-	type='text/css' />
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="js/jquery.min.js"></script>
-<!-- Custom Theme files -->
-<!--theme-style-->
-<link href="assets/css/style.css" rel="stylesheet" type="text/css"
-	media="all" />
-<!--//theme-style-->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords"
-	content="Youth Fashion Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-<script type="application/x-javascript">addEventListener("load", function() {
-		setTimeout(hideURLbar, 0);
-	}, false);
-	function hideURLbar() {
-		window.scrollTo(0, 1);
-	}
-</script>
-<link href='///fonts.googleapis.com/css?family=Raleway' rel='stylesheet'
-	type='text/css'>
-<link href='///fonts.googleapis.com/css?family=Poiret+One'
-	rel='stylesheet' type='text/css'>
-<!-- start menu -->
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/simpleCart.min.js"> </script>
-<!-- slide -->
-<script src="assets/js/responsiveslides.min.js"></script>
-<script>
-	$(function() {
-		$("#slider").responsiveSlides({
-			auto : false,
-			speed : 500,
-			namespace : "callbacks",
-			pager : true,
-		});
-	});
-</script>
-<!-- animation-effect -->
-<link href="assets/css/animate.min.css" rel="stylesheet">
-<script src="assets/js/wow.min.js"></script>
-<script>
-	new WOW().init();
-</script>
-<!-- //animation-effect -->
-</head>
-<body>
-	<%@include file="header.jsp"%>
+	<%@include file="liens.jsp"%>
 
+</head>
+<body class="home1" >
+	<%@include file="header.jsp"%>
+ <!-- Start Slider area -->
+    <section id="slider-area">
+    	<div class="container">
+    		<!-- slider -->
+            <div class="slider-area ">
+                <div class="bend niceties preview-1">
+                    <div id="ensign-nivoslider" class="slides">   
+                        <img class="no-bg" src="assets/img/slider/bg.jpg" alt="slider" title="#slider-direction-1"  />
+                        <img class="no-bg" src="assets/img/slider/bg.jpg" alt="slider" title="#slider-direction-2"  />
+                        <img class="no-bg" src="assets/img/slider/bg.jpg" alt="slider" title="#slider-direction-3"  />
+                    </div>
+                    <!-- direction 1 -->
+                    <div id="slider-direction-1" class="t-cn slider-direction">
+                        <div class="slider-content t-cn s-tb slider-1">
+                            <div class="title-container s-tb-c title-compress">
+                                <div class="layear-1-1"> <img src="assets/img/slider/slide1.png" alt="slide1" /> </div>
+                                <div class="layear-1-2">
+                                    <h2>Subtitle Here</h2>
+                                    <h3>al fresco</h3>
+                                    <h3>restaurant</h3>
+                                    <h3>website</h3>
+                                    <a class="btn-style-1" href="#">Order Now</a>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                    <!-- direction 2 -->
+                    <div id="slider-direction-2" class="slider-direction">
+                        <div class="slider-content t-cn s-tb slider-2">
+                            <div class="title-container s-tb-c">
+                                <div class="layear-1-1"> <img class="slide-image" src="assets/img/slider/slide2.png" alt="slide2" /> </div>
+                                <div class="layear-1-2">
+                                    <h2 class="title1">2008</h2>
+                                    <h3 class="title2">the quality</h3>
+                                    <p>Sed in magna et nisi imperdiet viverra sed ac nisl. In eu turpis dui. In urna nisl, dictum eget odio quis, consectetur venenatis odio. Curabitur at tellus</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- direction 3 -->
+                    <div id="slider-direction-3" class="slider-direction">
+                        <div class="slider-content t-lfr s-tb slider-3">
+                            <div class="title-container s-tb-c">
+                                <div class="layear-1-1">
+                                    <h2 class="title1">Welcome to Al Fresco</h2>
+                                    <h2 class="title2">be$t healthy food</h2>
+                                    <div class="image-border"></div>
+                                    <div class="button-area">
+                                        <a href="#" class="btn-style-2">read details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- slider end-->
+    	</div>
+    </section>
+    <!-- End Slider Section -->
+    <section id="home-one-content-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <!-- Room promotion -->
+                    <div class="room-promotion">
+                        <a href="#">
+                            <img src="assets/img/room/room1.png" alt="room" />
+                            <span class="discount">20% Off</span>
+                        </a>
+                        <a href="#">
+                            <h3 class="room-promotion-title">room promotion</h3>
+                        </a>
+                       <p>Maecenas dapibus dui felis, eu dapibus augue cursus eu. Lorem ipsum dolor.</p>
+                    </div>
+                    <!-- End Room Promotion -->
+                </div>
+                <div class="col-md-4">
+                    <!-- Hotel Menu Area -->
+                    <div class="home-one-menu-area">
+                        <!-- Hotel Menu Title -->
+                        <h3 class="menu-title">The menu</h3>
+                        <ul class="scrollbar-inner">
+                            <!-- Single Menu -->
+                            <li>
+                                <a href="#">
+                                    <img class="alignleft" src="assets/img/menu/menu1.png" alt="menu" />
+                                    <span class="restaurant-menu-title">Dimoâ€™s Pizza</span>
+                                    <span class="item-price">$24.1</span>
+                                    <p class="menu-description">Maecenas dapibus</p>
+                                </a>
+                            </li>
+                            <!-- Single Menu -->
+                            <li>
+                                <a href="#">
+                                    <img class="alignleft" src="assets/img/menu/menu2.png" alt="menu" />
+                                    <span class="restaurant-menu-title">Baked Potato</span>
+                                    <span class="item-price">$12</span>
+                                    <p class="menu-description">Maecenas dapibus</p>
+                                </a>
+                            </li>
+                            <!-- Single Menu -->
+                            <li>
+                                <a href="#">
+                                    <img class="alignleft" src="assets/img/menu/menu3.png" alt="menu" />
+                                    <span class="restaurant-menu-title">Salmon Steak</span>
+                                    <span class="item-price">$18.9</span>
+                                    <p class="menu-description">Maecenas dapibus</p>
+                                </a>
+                            </li>
+                            <!-- Single Menu -->
+                            <li>
+                                <a href="#">
+                                    <img class="alignleft" src="assets/img/menu/menu1.png" alt="menu" />
+                                    <span class="restaurant-menu-title">Salmon Steak</span>
+                                    <span class="item-price">$14</span>
+                                    <p class="menu-description">Maecenas dapibus</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- End Hotel Menu -->
+                </div>
+                <div class="col-md-4">
+                    <!-- Deals Area -->
+                    <div class="travel-deals">
+                        <img src="assets/img/news-1.png" alt="news" />
+                        <div class="deals-content">
+                            <div class="button-area">
+                                <a class="btn-news" href="#">travel deals</a>
+                            </div>
+                            <a href="#">
+                                <h4 class="news-title">Culture, Heritage, and Literary Legends</h4>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End Deals -->
+                </div>
+            </div>
+        </div>
+    </section>
 
 	<%@include file="footer.jsp"%>
 </body>

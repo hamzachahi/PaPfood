@@ -1,15 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <%@include file="liens.jsp"%>
 <title>Proposer un produit/service</title>
 </head>
-<body>
-
+<body class="home1">
 	<%@include file="header.jsp"%>
 
 	<form action="ServletPropose" method="POST">
@@ -62,7 +59,7 @@
 							<c:set var="total" value="0" />
 							<c:set var="i" value="0" />
 
-							<c:forEach var="u" items="${requestScope['listeDeSalable']}">
+							<c:forEach var="u" items="${requestScope['listeDeSalablesCut']}">
 								<tr>
 									<td>${i+1}</td>
 									<td>${u.code}</td>
@@ -96,13 +93,9 @@
 	</form>
 	<ul>
 
-		<form method="post" action="ServletPropose">
-			<input type="hidden" name="action" value="afficherSousVendables" />
-			<input type="hidden" name="begin" value="0" /> <input type="hidden"
-				name="end" value="0" /> <input type="submit"
-				value="Afficher/raffraichir
-				la liste de tous les sous-produits/services que vous pouvez rajouter">
-		</form>
+		<li><a
+			href="ServletPropose?action=afficherSousVendables&begin=0&end=${requestScope['nbre']}">Afficher/raffraichir	la liste de tous les utilisateurs</a></li>
+
 
 
 	</ul>
