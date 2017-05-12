@@ -72,13 +72,13 @@
 										</div>
 										<div class="form-group col-md-6">
 											<label>Sujet</label> <input type="text" class="form-control"
-												name="subject" id="subject" placeholder="Subject">
+												name="subject" id="subject" placeholder="Sujet">
 										</div>
 										<div class="form-group col-md-12">
 											<label>Question spécifique</label>
 											<textarea class="form-control" rows="5" name="message"
 												id="msg"
-												placeholder="Describe any specific question here..."></textarea>
+												placeholder="Décrivez n'importe quelle question spécifique ici..."></textarea>
 										</div>
 										<div class="form-group col-md-12">
 											<input type="hidden" name="action" value="nousContacter" />
@@ -96,6 +96,31 @@
 	</div>
 	</section>
 	<!--//map-->
+	<!-- Google Map js
+    ============================================ -->
+	<script>
+		function initMap() {
+			var mapDiv = document.getElementById('map');
+			var map = new google.maps.Map(mapDiv, {
+				center : {
+					lat : 23.7808874,
+					lng : 90.2792365
+				},
+				zoom : 10,
+				scrollwheel : false,
+			});
+			var marker = new google.maps.Marker({
+				position : map.getCenter(),
+				animation : google.maps.Animation.BOUNCE,
+				icon : 'img/map-marker.png',
+				map : map
+			});
+		}
+	</script>
+	<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5os6oQBtIiHfG4GbiQaaxv5KjC05o8FU&callback=initMap"></script>
+	<!-- main js -->
+	<%@include file="footer.jsp"%>
 
 </body>
 </html>
