@@ -11,7 +11,7 @@ public class Paginateur {
 	String pagination = "";
 	ArrayList<Salable> liste = null;
 
-	public String pagine(Integer total, ArrayList<Salable> liste, HttpServletRequest request) {
+	public String pagine(Long total, ArrayList<Salable> liste, HttpServletRequest request) {
 		begin = Integer.parseInt(request.getParameter("begin"));
 		end = Integer.parseInt(request.getParameter("end"));
 		if (total < 10) {

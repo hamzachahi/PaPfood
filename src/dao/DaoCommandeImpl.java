@@ -387,10 +387,10 @@ public class DaoCommandeImpl implements CommandeDao {
 	}
 
 	@Override
-	public ArrayList<Commande> findAllCommande() {
+	public ArrayList<Commande> findAllCommande(Long limit, Long offset) {
 		// TODO Auto-generated method stub
 		Boolean isSucceed = false;
-		return findAllCommande(RequestRepository.getOraclesqlSelectAll(), isSucceed, "commande");
+		return findAllCommande(RequestRepository.getMysqlSelectAllCommande(), isSucceed, limit, offset);
 	}
 
 	private ArrayList<Commande> findAllCommande(String sql, Boolean isSucceed, Object... objets) {

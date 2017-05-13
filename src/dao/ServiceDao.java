@@ -15,8 +15,9 @@ public interface ServiceDao {
 
 	public ArrayList<Service> findServiceByKeyWord(String keyWord);
 
-	public ArrayList<Service> findAllService();
+	public ArrayList<Service> findAllService(Long limit, Long offset);
 
 	public ArrayList<Service> findAllServiceById(Long Id);
 
+	public Long countElements();
 }

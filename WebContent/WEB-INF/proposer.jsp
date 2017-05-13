@@ -29,7 +29,7 @@
 						<h1>Informations</h1>
 						<div>
 							<li class="btn btn-style-4"><a
-								href="ServletPropose?action=afficherSousVendables&begin=0&end=${requestScope['nbre']}">Afficher/raffraichir
+								href="proposer?action=afficherSousVendables&begin=0&end=1${requestScope['nbre']}">Afficher/raffraichir
 									la liste de tous les sous-&Eacute;l&Eacute;ments possibles</a></li>
 						</div>
 						<br />
@@ -94,7 +94,8 @@
 	</div>
 
 	<c:if test="${param['action'] == 'afficherSousVendables'}">
-		<h3 align="left" class="primery-title">Liste des sous-&eacutel&eacutements trouv&eacutes</h3>
+		<h3 align="left" class="primery-title">Liste des
+			sous-&eacutel&eacutements trouv&eacutes</h3>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
@@ -157,7 +158,8 @@
 				</div>
 			</div>
 		</div>
-	</c:if> </section>
+	</c:if> 
+	</section>
 	<%@include file="footer.jsp"%>
 </body>
 </html>

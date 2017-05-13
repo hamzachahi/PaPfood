@@ -9,7 +9,11 @@ public class RequestRepository {
 	private static final String OracleSQL_SE_TROUVER_TOTALEMENT_PAR_EMAIL = "SELECT * FROM person WHERE email = ?";
 
 	private static final String MySQL_SELECT_ALL = "SELECT * FROM ?";
-	private static final String OracleSQL_SELECT_ALL = "SELECT * FROM ?";
+	private static final String MySQL_SELECT_ALL_PRODUCT = "SELECT * FROM product p Limit ? offset ?";
+	private static final String MySQL_SELECT_ALL_SERVICE = "SELECT * FROM service s Limit ? offset ?";
+	private static final String MySQL_SELECT_ALL_COMMANDE = "SELECT * FROM commande c Limit ? offset ?";
+
+
 
 	private static final String OracleSQL_LAST_ELEMENT = "SELECT *  FROM person where id=(select Max(id) person ?)";
 
@@ -21,6 +25,13 @@ public class RequestRepository {
 	private static final String MySQL_SELECT_PRODUCT_BY_ID = "SELECT * FROM product WHERE id_provider = ? " ;
 	private static final String MySQL_SELECT_SERVICE_BY_ID = "SELECT * FROM service WHERE id_provider = ? ";
 	// fin select
+	//début count
+	private static final String MySQL_SELECT_COUNT_PRODUCT = "select count(id) as nb from product p";
+	private static final String MySQL_SELECT_COUNT_SERVICE = "select count(id) as nb from service s";
+	
+
+	
+	//fin count
 	// début insert
 
 	private static final String MySQL_INSERT_PERSON = "INSERT INTO person (email, password, name, function, date_inscription) VALUES (?, ?, ?, ?, NOW())";
@@ -209,10 +220,6 @@ public class RequestRepository {
 
 	public static String getMysqlSelectAll() {
 		return MySQL_SELECT_ALL;
-	}
-
-	public static String getOraclesqlSelectAll() {
-		return OracleSQL_SELECT_ALL;
 	}
 
 	public static String getMysqlSelectAllImportant() {
@@ -731,6 +738,26 @@ public class RequestRepository {
 
 	public static String getMysqlSelectServiceById() {
 		return MySQL_SELECT_SERVICE_BY_ID;
+	}
+
+	public static String getMysqlSelectAllProduct() {
+		return MySQL_SELECT_ALL_PRODUCT;
+	}
+
+	public static String getMysqlSelectAllService() {
+		return MySQL_SELECT_ALL_SERVICE;
+	}
+
+	public static String getMysqlSelectCountProduct() {
+		return MySQL_SELECT_COUNT_PRODUCT;
+	}
+
+	public static String getMysqlSelectCountService() {
+		return MySQL_SELECT_COUNT_SERVICE;
+	}
+
+	public static String getMysqlSelectAllCommande() {
+		return MySQL_SELECT_ALL_COMMANDE;
 	}
 	
 	

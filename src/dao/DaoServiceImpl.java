@@ -7,10 +7,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-
 import beans.Association;
-import beans.Product;
 import beans.Service;
 
 public class DaoServiceImpl implements ServiceDao {
@@ -159,7 +158,7 @@ public class DaoServiceImpl implements ServiceDao {
 	public Service findServiceById(Long Id) {
 		// TODO Auto-generated method stub
 		Boolean isSucceed = false;
-		return findServiceById(RequestRepository.getOraclesqlSelectAll(), isSucceed, Id);
+		return findServiceById(RequestRepository.getMysqlSelectServiceById(), isSucceed, Id);
 	}
 
 	private Service findServiceById(String sql, Boolean isSucceed, Object... objets) {
@@ -192,11 +191,10 @@ public class DaoServiceImpl implements ServiceDao {
 	}
 
 	@Override
-	public ArrayList<Service> findAllService() {
+	public ArrayList<Service> findAllService(Long limit, Long offset) {
 		// TODO Auto-generated method stub
 		Boolean isSucceed = false;
-		String p = "service";
-		return findAllService(RequestRepository.getOraclesqlSelectAll(), isSucceed, p);
+		return findAllService(RequestRepository.getMysqlSelectAllService(), isSucceed, limit, offset);
 	}
 
 	private ArrayList<Service> findAllService(String sql, Boolean isSucceed, Object... objets) {
@@ -295,5 +293,39 @@ public class DaoServiceImpl implements ServiceDao {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
 		return produitResults;
+	}
+	@Override
+	public Long countElements() {
+		// TODO Auto-generated method stub
+		Boolean isSucceed = false;
+		Long nbre = countElements(isSucceed);
+		return nbre;
+	}
+
+	private Long countElements(Boolean isSucceed) {
+		Connection connexion = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		Long nbre = (long) 0;
+		try {
+			/* Récupération d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			/*
+			 * Préparation de la requête avec les objets passés en arguments
+			 * (ici, uniquement une adresse email) et exécution.
+			 */
+			statement=connexion.createStatement();
+			resultSet = statement.executeQuery("select count(id) as nb from product p");
+			/* Parcours de la ligne de données retournée dans le ResultSet */
+			if (resultSet.next()) {
+				isSucceed = true;
+				nbre = resultSet.getLong("nb");
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, statement, connexion);
+		}
+		return nbre;
 	}
 }
