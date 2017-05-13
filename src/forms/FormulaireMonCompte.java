@@ -73,7 +73,6 @@ public class FormulaireMonCompte {
 			traiterTelephone2(tel2, utilisateur);
 			traiterPrenom(prenom1, utilisateur);
 			traiterPrenom2(prenom2, utilisateur);
-			utilisateur.setSecondSurname(prenom2, false);
 			utilisateur.setProfession(profess, false);
 			utilisateur.setFunction(profil);
 			utilisateur.setStreetNumber(numvoie, false);
@@ -144,7 +143,7 @@ public class FormulaireMonCompte {
 	private void traiterNom(String nomFamille, Person utilisateur) {
 
 		try {
-			validationNom(nomFamille);
+			validationNomFamille(nomFamille);
 		} catch (Exception e) {
 			setErreur(CHAMP_NOM, e.getMessage());
 		}
@@ -195,7 +194,7 @@ public class FormulaireMonCompte {
 	/* Validation du nom */
 	private void validationNomFamille(String nomFamille) throws ValidExceptionForm {
 		if (nomFamille != null && nomFamille.length() < 3) {
-			throw new ValidExceptionForm("Le nom d'utilisateur doit contenir au moins 3 caractères.");
+			throw new ValidExceptionForm("Le nom doit contenir au moins 3 caractères.");
 		}
 	}
 
