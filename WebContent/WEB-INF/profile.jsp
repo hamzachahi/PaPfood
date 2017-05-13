@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html ng-app>
 <head>
 <%@include file="liens.jsp"%>
 <title>Compléter votre profil</title>
@@ -63,31 +63,42 @@
 											</div>
 										</fieldset>
 										<div class="form-group"
-											ng-class="{'has-error':!myForm.email.$valid && myForm.$pristine, 'has-success':myForm.email.$valid && myForm.$pristine}">
-											<label for="email">E-mail :</label> <input type="text"
-												id="email" class="form-control" name="email"
-												value="${sessionUtilisateur.email}" />
+											ng-class="{'has-error':myForm.email.$invalid && !myForm.$pristine,
+											'has-success':myForm.email.$valid && !myForm.$pristine}">
+											<label for="email">E-mail :</label> <input type="email"
+												id="email" ng-model="email" class="form-control"
+												name="email" value="${sessionUtilisateur.email}" />
+											<p class="help-block" ng-show="myForm.email.$invalid">Veuillez
+												entrer une adresse mail valide</p>
 										</div>
 
-										<p class="help-block"
-											ng-show="myForm.email.$error.email && !myForm.$pristine">Veuillez
-											entrer une adresse mail valide</p>
 
-										<div class="form-group">
+
+										<div class="form-group"
+											ng-class="{'has-error':myForm.numtelephone.$invalid && !myForm.numtelephone.$pristine,
+											'has-success':myForm.numtelephone.$valid && myForm.numtelephone.$dirty}">
 											<label for="numtel">Numéro de téléphone :</label> <input
 												type="text" id="numtel" class="form-control"
-												name="numtelephone"
-												value="${sessionUtilisateur.phoneNumber}"
+												name="numtelephone" ng-model="phone" ng-minlength="10"
+												ng-maxlength="10" value="${sessionUtilisateur.phoneNumber}"
 												placeholder="Exp : 06 12 34 56 78"
 												pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" />
+											<p class="help-block" ng-show="myForm.numtelephone.$invalid">Veuillez
+												taper un N° de 10 chiffres</p>
 										</div>
 
-										<div class="form-group">
+
+										<div class="form-group"
+											ng-class="{'has-error':myForm.numfix.$invalid && !myForm.numfix.$pristine,
+											'has-success':myForm.numfix.$valid && myForm.numfix.$dirty}">
 											<label for="numfix">Numéro de téléphone fixe :</label> <input
 												type="text" id="numfix" name="numfix" class="form-control"
+												ng-model="numfix" ng-minlength="10" ng-maxlength="10"
 												value="${sessionUtilisateur.telNumber}"
 												placeholder="Exp : 06 12 34 56 78"
 												pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" />
+											<p class="help-block" ng-show="myForm.numfix.$invalid">Veuillez
+												taper un N° de 10 chiffres</p>
 										</div>
 
 										<div class="form-group">
@@ -153,31 +164,32 @@
 													placeholder="Exp : France" />
 											</div>
 										</fieldset>
-										<p class="help-block"
-											ng-show="myForm.email.$error.email && !myForm.$pristine">Veuillez
-											entrer vos liens de profils réseaux sociaux</p>
-										<div class="form-group">
-											<label for="fb">Facebook :</label> <input type="text" id="fb"
-												class="form-control"
-												value="${sessionUtilisateur.facebookId}" name="fbid" />
-										</div>
-										<div class="form-group">
-											<label for="twi">Twitter :</label> <input type="text"
-												id="twi" class="form-control"
-												value="${sessionUtilisateur.twitterId}" name="twitterid" />
-										</div>
-										<div class="form-group">
-											<label for="insta">Instagram :</label> <input type="text"
-												id="insta" class="form-control"
-												value="${sessionUtilisateur.instagramId}" name="instaid" />
-										</div>
-										<div class="form-group">
-											<label for="linked">LinkedIn :</label> <input type="text"
-												id="linked" class="form-control"
-												value="${sessionUtilisateur.linkedinId}" name="linkedid" />
-										</div>
+
+										<fieldset>
+											<legend>Réseaux sociaux</legend>
+											<div class="form-group">
+												<label for="fb">Facebook :</label> <input type="text"
+													id="fb" class="form-control"
+													value="${sessionUtilisateur.facebookId}" name="fbid" />
+											</div>
+											<div class="form-group">
+												<label for="twi">Twitter :</label> <input type="text"
+													id="twi" class="form-control"
+													value="${sessionUtilisateur.twitterId}" name="twitterid" />
+											</div>
+											<div class="form-group">
+												<label for="insta">Instagram :</label> <input type="text"
+													id="insta" class="form-control"
+													value="${sessionUtilisateur.instagramId}" name="instaid" />
+											</div>
+											<div class="form-group">
+												<label for="linked">LinkedIn :</label> <input type="text"
+													id="linked" class="form-control"
+													value="${sessionUtilisateur.linkedinId}" name="linkedid" />
+											</div>
+										</fieldset>
 										<input type="hidden" name="action" value="completeProfile" /><br />
-										<input class="btn btn-style-4"" type="submit"
+										<input class="btn btn-style-4 btn-block" " type="submit"
 											value="Enregistrer" />
 									</div>
 
@@ -189,6 +201,6 @@
 			</div>
 		</div>
 	</div>
-	<pre>{{myForm | json}}</pre> <%@include file="footer.jsp"%>
+	<!-- 	<pre>{{myForm | json}}</pre> --> <%@include file="footer.jsp"%>
 </body>
 </html>
