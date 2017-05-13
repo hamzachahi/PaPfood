@@ -33,7 +33,6 @@
 				<th>Nom du produit</th>
 				<th>Description</th>
 				<th>Prix</th>
-				<th>Image</th>
 				<th>Ajouter au panier</th>
 			</tr>
 		</thead>
@@ -44,7 +43,6 @@
 					<td>${article.name }</td>
 					<td>${article.description }</td>
 					<td>${article.price}</td>
-					<td>${article.mainImage }</td>
 					<td align="center"><button class="btn btn-primary btn-	s">
 							<a style="color: white;"
 								href="\ServletPanier?action=chargerPanier&idarticle=${article.id}">+1</a>

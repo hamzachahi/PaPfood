@@ -19,19 +19,17 @@
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 					<div class="row">
-						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<!-- Connection button -->
-							<div class="connexion pull-right">
+							<div class="reservation pull-right">
 								<c:if test="${empty sessionUtilisateur}">
 									<a class="btn-style-1"
-										href="${pageContext.request.contextPath}/connexion">Se
-										connecter</a>
+										href="${pageContext.request.contextPath}/connexion">Connexion</a>
 								</c:if>
 
 								<c:if test="${not empty sessionUtilisateur}">
-									<a class="btn-style-2"
-										href="${pageContext.request.contextPath}/deconnexion">Se
-										déconnecter</a>
+									<a class="btn-style-1"
+										href="${pageContext.request.contextPath}/deconnexion">Déconnexion</a>
 								</c:if>
 							</div>
 						</div>
@@ -39,7 +37,7 @@
 							<!-- Reservation button -->
 							<div class="reservation pull-right">
 								<a href="#" class="btn-reservation" data-toggle="modal"
-									data-target="#reservationModal">reservation</a>
+									data-target="#reservationModal">Réservation</a>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -108,19 +106,23 @@
 											<li><a href="blog-full-width.html">Blog full width</a></li>
 											<li><a href="blog-single.html">Blog single</a></li>
 										</ul> <!-- End Sub Menu --></li>
-									<li><a href="#">pages</a> <!-- Start Sub Menu -->
+									<li><a href="#">Naviguer</a> <!-- Start Sub Menu -->
 										<ul>
 											<li><a href="about.html">About</a></li>
 											<li><a href="accordions.html">Accordions</a></li>
 											<li><a href="menu-details.html">Menu Details</a></li>
 											<li><a href="menu.html">Menu</a></li>
-											<li><a href="pricing-tables.html">Pricing Table</a></li>
+											<li><a href="${pageContext.request.contextPath}/profile">Modifier
+													mon compte</a></li>
 											<li><a href="room-booking.html">Room Booking</a></li>
-											<li><a href="rooms-listing.html">Room Listing</a></li>
-											<li><a href="shop-cart.html">Shop Cart</a></li>
-											<li><a href="shop-details.html">Shop Details</a></li>
-											<li><a href="the-staff.html">The Staff</a></li>
-											<li><a href="contact.html">Contact</a></li>
+											<li><a href="rooms-listing.html">Liste des services</a></li>
+											<li><a href="rooms-listing.html">Liste des produits</a></li>
+											<li><a href="${pageContext.request.contextPath}/panier">Votre
+													panier</a></li>
+											<li><a href="shop-details.html">Informations sur le site</a></li>
+											<li><a href="the-staff.html">Notre équipe</a></li>
+											<li><a href="${pageContext.request.contextPath}/contact">Nous
+													contacter</a></li>
 										</ul> <!-- End Sub Menu --></li>
 								</ul>
 							</nav>

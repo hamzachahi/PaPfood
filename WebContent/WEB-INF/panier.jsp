@@ -13,7 +13,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="restaurent-menu-title">
-					<c:if test="${empty sessionUtilisateur}">
+					<c:if test="${!empty sessionUtilisateur}">
 						<h2 class="primery-title">${sessionUtilisateur.surname}
 							${sessionUtilisateur.name}</h2>
 					</c:if>

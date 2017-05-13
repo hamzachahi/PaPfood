@@ -57,13 +57,15 @@
 										<div class="form-group col-md-6">
 											<label>Votre nom complet</label> <input type="email"
 												class="form-control" id="nom" name="name"
-												value="${sessionUtilisateur.name}"
+												value="${sessionUtilisateur.surname} ${sessionUtilisateur.name}"
 												placeholder="Entrez votre nom complet">
 										</div>
 										<div class="form-group col-md-6">
 											<label>N° de téléphone</label> <input type="text"
 												name="phonenumber" id="teleph" class="form-control"
-												placeholder="Numéro de téléphone">
+												value="${sessionUtilisateur.phoneNumber}
+												placeholder="
+												Numéro detéléphone">
 										</div>
 										<div class="form-group col-md-6">
 											<label>email</label> <input type="text" class="form-control"

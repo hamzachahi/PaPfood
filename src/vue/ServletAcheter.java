@@ -28,12 +28,16 @@ public class ServletAcheter extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		/*HttpSession session = request.getSession();
+		HttpSession session = request.getSession();
 
 		DaoServiceImpl serviceDao = new DaoServiceImpl(
-				new UsineDao("jdbc:oracle:thin:@localhost:1521:orcl", "papfood", "yummyshop"));
+				new UsineDao(
+						"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true",
+						"root", "0000"));
 		DaoProductImpl produitDao = new DaoProductImpl(
-				new UsineDao("jdbc:oracle:thin:@localhost:1521:orcl", "papfood", "yummyshop"));
+				new UsineDao(
+						"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true",
+						"root", "0000"));
 
 
 		ArrayList<Salable> tousLesArticles = new ArrayList<>();
@@ -43,7 +47,7 @@ public class ServletAcheter extends HttpServlet {
 
 
 		request.setAttribute("allArticles", tousLesArticles);
-		session.setAttribute("allArticles", tousLesArticles);*/
+		session.setAttribute("allArticles", tousLesArticles);
 
 		this.getServletContext().getRequestDispatcher("/WEB-INF/plats.jsp").forward(request, response);
 
