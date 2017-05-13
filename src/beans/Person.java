@@ -252,7 +252,8 @@ public class Person implements Serializable {
 	public void setResultConnexion(ResultConnexion resultConnexion) {
 		this.resultConnexion = resultConnexion;
 	}
-
+	
+	
 	@Override
 	public String toString() {
 		return "Person [Name=" + Name + ", secondName=" + secondName + ", Surname=" + Surname + ", secondSurname="
