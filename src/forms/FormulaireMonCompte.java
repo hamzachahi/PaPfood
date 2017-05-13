@@ -71,7 +71,8 @@ public class FormulaireMonCompte {
 			traiterEmail(email, utilisateur);
 			traiterTelephone1(tel1, utilisateur);
 			traiterTelephone2(tel2, utilisateur);
-			utilisateur.setSurname(prenom1, false);
+			traiterPrenom(prenom1, utilisateur);
+			traiterPrenom2(prenom2, utilisateur);
 			utilisateur.setSecondSurname(prenom2, false);
 			utilisateur.setProfession(profess, false);
 			utilisateur.setFunction(profil);
@@ -149,6 +150,24 @@ public class FormulaireMonCompte {
 		}
 		utilisateur.setName(nomFamille, false);
 
+	}
+
+	private void traiterPrenom(String prenom, Person utilisateur) {
+		try {
+			validationNom(prenom);
+		} catch (Exception e) {
+			setErreur(CHAMP_PRENOM, e.getMessage());
+		}
+		utilisateur.setSurname(prenom, false);
+	}
+
+	private void traiterPrenom2(String prenom, Person utilisateur) {
+		try {
+			validationNom(prenom);
+		} catch (Exception e) {
+			setErreur(CHAMP_PRENOM_2, e.getMessage());
+		}
+		utilisateur.setSecondSurname(prenom, false);
 	}
 
 	private void setErreur(String champ, String message) {
