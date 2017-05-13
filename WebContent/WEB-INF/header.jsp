@@ -132,7 +132,7 @@
 								<a href="${pageContext.request.contextPath}/panier"> <img
 									src="assets/img/ecommerce_cart.png" alt="cart" /> <c:if
 										test="${not empty sessionUtilisateur}">
-										<span class="item-count">${nbrelementspanier}</span>
+										<span class="item-count">${sessionScope.nbrelementspanier}</span>
 									</c:if>
 								</a>
 							</div>

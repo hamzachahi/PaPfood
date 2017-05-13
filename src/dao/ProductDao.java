@@ -15,8 +15,9 @@ public interface ProductDao {
 
 	public ArrayList<Product> findProductByKeyWord(String keyword);
 
-	public ArrayList<Product> findAllProduct();
+	public ArrayList<Product> findAllProduct(Long limit, Long offset);
 
 	public ArrayList<Product> findAllProductById(Long Id);
 
+	public Long countElements();
 }

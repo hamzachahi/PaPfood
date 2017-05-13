@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import beans.Association;
@@ -159,7 +160,7 @@ public class DaoProductImpl implements ProductDao {
 	public Product findProductById(Long Id) {
 		// TODO Auto-generated method stub
 		Boolean isSucceed = false;
-		return findProductById(RequestRepository.getOraclesqlSelectAll(), isSucceed, Id);
+		return findProductById(RequestRepository.getMysqlSelectProductById(), isSucceed, Id);
 	}
 
 	private Product findProductById(String sql, Boolean isSucceed, Object... objets) {
@@ -192,11 +193,10 @@ public class DaoProductImpl implements ProductDao {
 	}
 
 	@Override
-	public ArrayList<Product> findAllProduct() {
+	public ArrayList<Product> findAllProduct(Long limit, Long offset) {
 		// TODO Auto-generated method stub
 		Boolean isSucceed = false;
-		String p = "product";
-		return findAllProduct(RequestRepository.getOraclesqlSelectAll(), isSucceed, p);
+		return findAllProduct(RequestRepository.getMysqlSelectAllProduct(), isSucceed, limit, offset);
 	}
 
 	private ArrayList<Product> findAllProduct(String sql, Boolean isSucceed, Object... objets) {
@@ -265,9 +265,10 @@ public class DaoProductImpl implements ProductDao {
 	@Override
 	public ArrayList<Product> findAllProductById(Long Id) {
 		// TODO Auto-generated method stub
-		Boolean isSucceed=false;
+		Boolean isSucceed = false;
 		return findAllProductById(Id, isSucceed, RequestRepository.getMysqlSelectProductById());
 	}
+
 	private ArrayList<Product> findAllProductById(Long Id, Boolean isSucceed, String sql) {
 		// TODO Auto-generated method stub
 		Connection connexion = null;
@@ -295,5 +296,40 @@ public class DaoProductImpl implements ProductDao {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
 		return produitResults;
+	}
+
+	@Override
+	public Long countElements() {
+		// TODO Auto-generated method stub
+		Boolean isSucceed = false;
+		Long nbre = countElements(isSucceed);
+		return nbre;
+	}
+
+	private Long countElements(Boolean isSucceed) {
+		Connection connexion = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		Long nbre = (long) 0;
+		try {
+			/* Récupération d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			/*
+			 * Préparation de la requête avec les objets passés en arguments
+			 * (ici, uniquement une adresse email) et exécution.
+			 */
+			statement = connexion.createStatement();
+			resultSet = statement.executeQuery("select count(id) as nb from product p");
+			/* Parcours de la ligne de données retournée dans le ResultSet */
+			if (resultSet.next()) {
+				isSucceed = true;
+				nbre = resultSet.getLong("nb");
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, statement, connexion);
+		}
+		return nbre;
 	}
 }

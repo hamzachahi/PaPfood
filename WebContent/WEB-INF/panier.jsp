@@ -98,7 +98,7 @@
 								<table class="table cart-total">
 									<tr>
 										<td>subtotal:</td>
-										<td>$84.00</td>
+										<td>${requestScope.total} &euro;</td>
 									</tr>
 									<tr>
 										<td>shipping:</td>
@@ -106,11 +106,11 @@
 									</tr>
 									<tr>
 										<td>order total:</td>
-										<td>$110.00</td>
+										<td>${requestScope.total} &euro;</td>
 									</tr>
 									<tr class="total-row">
 										<td>total</td>
-										<td>$194.00</td>
+										<td>${requestScope.total} &euro;</td>
 									</tr>
 								</table>
 							</div>

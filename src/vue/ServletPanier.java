@@ -15,6 +15,7 @@ import beans.Salable;
 @WebServlet("/ServletPanier")
 public class ServletPanier extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private ArrayList<Salable> monPanier = new ArrayList<>();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -27,40 +28,23 @@ public class ServletPanier extends HttpServlet {
 
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		this.getServletContext().getRequestDispatcher("/WEB-INF/panier.jsp").forward(request, response);
-
 		String action = request.getParameter("action");
-		ArrayList<Salable> tousLesArticles = new ArrayList<>();
-		ArrayList<Salable> monPanier = new ArrayList<>();
 		Double total = 0.0;
 
 		if (action != null) {
 
-			if (action.equals("chargerPanier")) {
-
-				HttpSession session = request.getSession();
-				tousLesArticles = (ArrayList) session.getAttribute("allArticles");
-				String monArticle = request.getParameter("idarticle");
-
-				for (int i = 0; i < tousLesArticles.size(); i++) {
-
-					Salable article = tousLesArticles.get(i);
-
-					if (article.getId().toString().equals(monArticle)) {
-						monPanier.add(article);
-						total += article.getPrice();
-
-					}
-				}
-
-			}
-
+		} else {
+			HttpSession session = request.getSession();
+			monPanier = (ArrayList) session.getAttribute("monPanier");
 			request.setAttribute("articlesPanier", monPanier);
-			request.setAttribute("nbArticles", monPanier.size());
-			request.setAttribute("prixTotal", total);
+			for (int i = 0; i < monPanier.size(); i++) {
+				total=total+monPanier.get(i).getPrice();
+			}
+			request.setAttribute("total", total);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/panier.jsp").forward(request, response);
 		}
 	}
 }
