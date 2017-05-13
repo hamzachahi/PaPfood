@@ -20,6 +20,6 @@ public interface CommandeDao {
 
 	public Commande findCommandeParId(Long id);
 
-	public ArrayList<Commande> findAllCommande();
+	public ArrayList<Commande> findAllCommande(Long limit, Long offset);
 
 }

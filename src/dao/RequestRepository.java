@@ -11,6 +11,7 @@ public class RequestRepository {
 	private static final String MySQL_SELECT_ALL = "SELECT * FROM ?";
 	private static final String MySQL_SELECT_ALL_PRODUCT = "SELECT * FROM product p Limit ? offset ?";
 	private static final String MySQL_SELECT_ALL_SERVICE = "SELECT * FROM service s Limit ? offset ?";
+	private static final String MySQL_SELECT_ALL_COMMANDE = "SELECT * FROM commande c Limit ? offset ?";
 
 
 
@@ -753,6 +754,10 @@ public class RequestRepository {
 
 	public static String getMysqlSelectCountService() {
 		return MySQL_SELECT_COUNT_SERVICE;
+	}
+
+	public static String getMysqlSelectAllCommande() {
+		return MySQL_SELECT_ALL_COMMANDE;
 	}
 	
 	
