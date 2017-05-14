@@ -199,4 +199,16 @@ public class FormulaireMonCompte {
 		}
 	}
 
+	public String getResultat() {
+		return resultat;
+	}
+
+	public void setResultat(String resultat) {
+		this.resultat = resultat;
+	}
+
+	public Map<String, String> getErreurs() {
+		return erreurs;
+	}
+
 }

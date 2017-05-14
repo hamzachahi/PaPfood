@@ -40,9 +40,6 @@ public class ServletProfile extends HttpServlet {
 					"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true",
 					"root", "0000"));
 
-			// utilisateurDao = new DaoPersonImpl(
-			// new UsineDao("jdbc:oracle:thin:@localhost:1521:orcl", "papfood",
-			// "yummyshop"));
 			
 			//Formulaire pour le contrôle des erreurs dans la modification d'informations
 			String name = "";
