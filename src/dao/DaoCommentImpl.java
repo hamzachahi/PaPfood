@@ -20,6 +20,7 @@ public class DaoCommentImpl implements CommentDao {
 	public DaoCommentImpl(UsineDao daoFactory) {
 		this.daoFactory = daoFactory;
 	}
+
 	@Override
 	public Boolean Comment(Person pers, MotherProduct mProduct, String comment) {
 		// TODO Auto-generated method stub
@@ -67,8 +68,9 @@ public class DaoCommentImpl implements CommentDao {
 							"Échec de l'ajout de l'enregistrement association, aucune ligne ajoutée dans la table.");
 
 				}
-			
-			} else if (mProduct.getClass().getSuperclass().getName().toString().equals(Product.class.getName().toString())) {
+
+			} else if (mProduct.getClass().getSuperclass().getName().toString()
+					.equals(Product.class.getName().toString())) {
 				preparedStatement = initialisationRequetePreparee(connexion,
 						RequestRepository.getOraclesqlInsertCommentsProduct(), true, id, mProduct.getId());
 				statut = preparedStatement.executeUpdate();
@@ -159,5 +161,23 @@ public class DaoCommentImpl implements CommentDao {
 		}
 
 		return isSucceed;
+	}
+
+	@Override
+	public Boolean selectCommentsByIdPerson(Long Id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean selectCommentsByIdProduct(Long Id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean selectCommentsByIdService(Long Id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

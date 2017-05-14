@@ -5,13 +5,13 @@ import java.util.ArrayList;
 public class Cart {
 
 	private int id;
-	private ArrayList<FoodDish> orderedProducts;
+	private ArrayList<Salable> orderedProducts;
 	private Double subTotal;
 	private int itemsNumber;
 
 	public Cart() {
 
-		orderedProducts = new ArrayList<FoodDish>();
+		orderedProducts = new ArrayList<Salable>();
 		itemsNumber = orderedProducts.size();
 		subTotal = calculerTotal(orderedProducts);
 
@@ -25,11 +25,11 @@ public class Cart {
 		this.id = id;
 	}
 
-	public ArrayList<FoodDish> getOrderedProducts() {
+	public ArrayList<Salable> getOrderedProducts() {
 		return orderedProducts;
 	}
 
-	public void setOrderedProducts(ArrayList<FoodDish> orderedProducts) {
+	public void setOrderedProducts(ArrayList<Salable> orderedProducts) {
 		this.orderedProducts = orderedProducts;
 	}
 
@@ -50,7 +50,7 @@ public class Cart {
 	}
 
 	/* Fonction qui calcule le prix total des articles dans le panier */
-	public Double calculerTotal(ArrayList<FoodDish> articles) {
+	public Double calculerTotal(ArrayList<Salable> articles) {
 
 		Double total = 0.0;
 

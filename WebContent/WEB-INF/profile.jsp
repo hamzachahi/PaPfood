@@ -29,7 +29,8 @@
 						<h1>Complétez vos informations</h1>
 						<div class="col-md-11">
 							<div class="row">
-								<form action="ServletProfile" method="POST" name="myForm">
+								<form action="ServletProfile" method="POST" name="myForm"
+									enctype="multipart/form-data">
 
 									<div class="col-md-6">
 
@@ -120,7 +121,10 @@
 										</div>
 										<div class="form-group">
 											<label for="photo">Uploader votre photo :</label> <input
-												type="file" id="photo" name="photo" />
+												type="file" id="fichier" name="fichier"
+												value="<c:out value="${fichier.courtnom}"/>" /> <span
+												class="erreur">${formfile.erreurs['fichier']}</span>
+											<p class="${empty formfile.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
 										</div>
 									</div>
 									<div class="col-md-6">

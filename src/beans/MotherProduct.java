@@ -1,6 +1,5 @@
 package beans;
 
-import java.awt.Image;
 import java.util.ArrayList;
 
 public abstract class MotherProduct {
@@ -9,10 +8,10 @@ public abstract class MotherProduct {
 	protected String Name;
 	protected String Description;
 	protected Double Price;
-	protected Image mainImage;
-	protected ArrayList<Image> listImage;
-	protected ArrayList<Salable> listSubProduct;
-	protected ArrayList<Comment> Comments;
+	protected String mainImage;
+	protected ArrayList<String> listImage= new ArrayList<>();
+	protected ArrayList<Salable> listSubProduct= new ArrayList<Salable>();
+	protected ArrayList<Comment> Comments= new ArrayList<Comment>();
 	protected Long idProvider;
 
 	public Long getId() {
@@ -55,19 +54,19 @@ public abstract class MotherProduct {
 		Price = price;
 	}
 
-	public Image getMainImage() {
+	public String getMainImage() {
 		return mainImage;
 	}
 
-	public void setMainImage(Image mainImage) {
+	public void setMainImage(String mainImage) {
 		this.mainImage = mainImage;
 	}
 
-	public ArrayList<Image> getListImage() {
+	public ArrayList<String> getListImage() {
 		return listImage;
 	}
 
-	public void setListImage(ArrayList<Image> listImage) {
+	public void setListImage(ArrayList<String> listImage) {
 		this.listImage = listImage;
 	}
 

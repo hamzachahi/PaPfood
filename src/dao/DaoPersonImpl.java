@@ -2,14 +2,12 @@ package dao;
 
 import static dao.UtilitaireDao.fermeturesSilencieuses;
 import static dao.UtilitaireDao.initialisationRequetePreparee;
-import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Map;
 import beans.Commande;
 import beans.Person;
@@ -36,7 +34,7 @@ public class DaoPersonImpl implements PersonDao {
 	}
 
 	/* Implémentation de la méthode définie dans l'interface UtilisateurDao */
-	@SuppressWarnings({ "deprecation" })
+
 	@Override
 	public void creer(Person utilisateur) throws ExceptionDao {
 		Connection connexion = null;
@@ -163,8 +161,7 @@ public class DaoPersonImpl implements PersonDao {
 		utilisateur.setPostalCode(resultSet.getString("postal_code"), false);
 		utilisateur.setLastConnexion(resultSet.getInt("last_connection"));
 		utilisateur.setFunction(resultSet.getString("function"));
-		// utilisateur.setAccountPicture(Toolkit.getDefaultToolkit().createImage(resultSet.getBytes("account_picture")),
-				// false);
+		utilisateur.setAccountPicture(resultSet.getString("account_picture"), false);
 		return utilisateur;
 	}
 
@@ -249,9 +246,9 @@ public class DaoPersonImpl implements PersonDao {
 					utilisateur.getSecondSurname(), utilisateur.getProfession(), utilisateur.getEmail(),
 					utilisateur.getPhoneNumber(), utilisateur.getTelNumber(), utilisateur.getFacebookId(),
 					utilisateur.getTwitterId(), utilisateur.getInstagramId(), utilisateur.getLinkedinId(),
-					utilisateur.getStreetNumber(), utilisateur.getStreetName(), utilisateur.getCityName(),
-					utilisateur.getCountryName(), utilisateur.getPostalCode(), utilisateur.getFunction(),
-					utilisateur.getId());
+					utilisateur.getAccountPicture(), utilisateur.getStreetNumber(), utilisateur.getStreetName(),
+					utilisateur.getCityName(), utilisateur.getCountryName(), utilisateur.getPostalCode(),
+					utilisateur.getFunction(), utilisateur.getId());
 			int statut = preparedStatement.executeUpdate();
 			if (statut == 0) {
 				throw new ExceptionDao(

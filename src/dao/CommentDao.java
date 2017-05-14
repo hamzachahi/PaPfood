@@ -10,4 +10,10 @@ public interface CommentDao {
 	public Boolean modifiyComment(Comment comment);
 
 	public Boolean deleteComment(Comment comment);
+
+	public Boolean selectCommentsByIdPerson(Long Id);
+
+	public Boolean selectCommentsByIdProduct(Long Id);
+
+	public Boolean selectCommentsByIdService(Long Id);
 }
