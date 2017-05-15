@@ -442,7 +442,7 @@ public class DaoCommandeImpl implements CommandeDao {
 			int i = 0;
 			while (resultSet.next()) {
 				isSucceed = true;
-				commandeProduct.get(i).getmProduct().setId((resultSet.getLong("id_product")));
+				commandeProduct.get(i).getmProduct().setId((resultSet.getLong("id_product")), true);
 				commandeProduct.get(i).setQuantity(resultSet.getInt("quantity"));
 				i = i + 1;
 			}
@@ -474,7 +474,7 @@ public class DaoCommandeImpl implements CommandeDao {
 			int i = 0;
 			while (resultSet.next()) {
 				isSucceed = true;
-				commandeProduct.get(i).getmProduct().setId((resultSet.getLong("id_service")));
+				commandeProduct.get(i).getmProduct().setId((resultSet.getLong("id_service")), true);
 				commandeProduct.get(i).setQuantity(resultSet.getInt("quantity"));
 				i = i + 1;
 			}

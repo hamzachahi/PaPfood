@@ -1,6 +1,9 @@
 package vue;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.Commande;
-import forms.FormOrder;
+import beans.ElementCommand;
+import beans.Person;
+import dao.DaoCommandeImpl;
+import dao.UsineDao;
 
 @WebServlet("/ServletOrder")
 
@@ -25,21 +31,56 @@ public class ServletOrder extends HttpServlet {
 	public static final String VUE = "/WEB-INF/order.jsp";
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/* Affichage de la page de commande */
-		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		FormOrder formulaire = new FormOrder();
+		HttpSession session = request.getSession();
+		Person utilisateur = (Person) session.getAttribute("sessionUtilisateur");
+		ArrayList<ElementCommand> elements = new ArrayList<>();
+		elements = (ArrayList) session.getAttribute("monPanier");
+		String action = request.getParameter("action");
+		String adresseComplete = "";
+		DaoCommandeImpl commandeDao = new DaoCommandeImpl(new UsineDao(
+				"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true",
+				"root", "0000"));
 
-		@SuppressWarnings("unused")
-		Commande commande = formulaire.order(request);
+		Commande order = new Commande();
 
-		@SuppressWarnings("unused")
-		HttpSession maSession = request.getSession();
+		if (action != null) {
+			if (action.equals("changerAdresse")) {
 
-		// A TERMINER
+				String pays = request.getParameter("country");
+				String num = request.getParameter("num");
+				String nom = request.getParameter("nom");
+				String ville = request.getParameter("ville");
+
+				adresseComplete = num + ", " + nom + ", " + ville + ", " + pays;
+			}
+
+			if (action.equals("validerPanier")) {
+
+				Date aujourdhui = new Date();
+				DateFormat mediumDateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM);
+				String now = mediumDateFormat.format(aujourdhui);
+				now.replaceAll(" ", "");
+				adresseComplete = utilisateur.getStreetNumber() + ", " + utilisateur.getStreetName() + ", "
+						+ utilisateur.getCityName() + ", " + utilisateur.getCountryName();
+
+				order.setAdresseExpedition(adresseComplete);
+				order.setAdresseFacturation(adresseComplete);
+				order.setCustomer(utilisateur);
+				order.setPrice(Double.parseDouble(session.getAttribute("prixtotal").toString()));
+				String code = utilisateur.getName().substring(0, 0) + "" + utilisateur.getSurname().substring(0, 0) + ""
+						+ now;
+				order.setCode(code);
+				order.setElements(elements);
+				commandeDao.Commander(order);
+
+			}
+		}
+
 	}
 
 }

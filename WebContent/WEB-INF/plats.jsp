@@ -68,9 +68,9 @@
 											<c:forEach var="article"
 												items="${requestScope['searchResults']}">
 												<tr>
-													<td>${article.name }</td>
-													<td>${article.description }</td>
-													<td>${article.price}</td>
+													<td>${article.mproduct.name }</td>
+													<td>${article.mproduct.description }</td>
+													<td>${article.mproduct.price}</td>
 													<td align="center"><button
 															class="btn btn-primary btn-	s">
 															<a style="color: white;"

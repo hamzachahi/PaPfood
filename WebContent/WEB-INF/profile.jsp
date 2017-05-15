@@ -193,7 +193,7 @@
 											</div>
 										</fieldset>
 										<input type="hidden" name="action" value="completeProfile" /><br />
-										<input class="btn btn-style-4 btn-block" " type="submit"
+										<input class="btn btn-style-4 btn-block"  type="submit"
 											value="Enregistrer" />
 									</div>
 

@@ -36,6 +36,7 @@ public class ServletProfile extends HttpServlet {
 			throws ServletException, IOException {
 
 		String action = request.getParameter("action");
+		System.out.println("L'action est : "+action);
 		HttpSession session = request.getSession();
 		Person utilisateur = null;
 		String chemin = null;

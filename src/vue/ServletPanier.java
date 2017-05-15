@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import beans.Salable;
+import beans.ElementCommand;
 
 @WebServlet("/ServletPanier")
 public class ServletPanier extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ArrayList<Salable> monPanier = new ArrayList<>();
+	private ArrayList<ElementCommand> monPanier = new ArrayList<>();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -41,10 +41,12 @@ public class ServletPanier extends HttpServlet {
 			monPanier = (ArrayList) session.getAttribute("monPanier");
 			request.setAttribute("articlesPanier", monPanier);
 			for (int i = 0; i < monPanier.size(); i++) {
-				total=total+monPanier.get(i).getPrice();
+				total = total + monPanier.get(i).getmProduct().getPrice();
 			}
 			request.setAttribute("total", total);
+			session.setAttribute("prixtotal", total);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/panier.jsp").forward(request, response);
 		}
+
 	}
 }

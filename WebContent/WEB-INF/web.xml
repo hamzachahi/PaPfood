@@ -109,7 +109,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ServletOrder</servlet-name>
-		<url-pattern>/Order</url-pattern>
+		<url-pattern>/order</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ServletMap</servlet-name>
