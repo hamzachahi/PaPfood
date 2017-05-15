@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import forms.FormContact;
 
+@SuppressWarnings("unused")
 @WebServlet("/Contact")
 
 public class ServletContact extends HttpServlet {
