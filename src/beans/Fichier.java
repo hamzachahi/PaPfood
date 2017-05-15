@@ -4,7 +4,7 @@ public class Fichier {
 
     private String description;
     private String nom;
-    private String courtNom;
+    private String courtnom;
 
     public String getDescription() {
         return description;
@@ -23,11 +23,11 @@ public class Fichier {
     }
 
 	public String getCourtNom() {
-		return courtNom;
+		return courtnom;
 	}
 
 	public void setCourtNom(String courtNom) {
-		this.courtNom = courtNom;
+		this.courtnom = courtNom;
 	}
     
 }

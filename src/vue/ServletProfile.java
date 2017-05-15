@@ -3,27 +3,23 @@ package vue;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import beans.Fichier;
 import beans.Person;
 import dao.DaoPersonImpl;
 import dao.PersonDao;
 import dao.UsineDao;
-import forms.FormUpload;
 
 @WebServlet("/ServletProfile")
+@MultipartConfig
 public class ServletProfile extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private PersonDao utilisateurDao = null;
-	public static final String CHEMIN = "chemin";
-	public static final String ATT_FICHIER = "fichier";
-	public static final String ATT_FORM = "formfile";
-	private static final String CHAMP_FICHIER = "fichier";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -34,15 +30,12 @@ public class ServletProfile extends HttpServlet {
 			throws ServletException, IOException {
 
 		String action = request.getParameter("action");
-		System.out.println("L'action est : "+action);
+		System.out.println("L'action est : " + action);
 		HttpSession session = request.getSession();
 		Person utilisateur = null;
-		String chemin = null;
-		FormUpload form = null;
-		Fichier fichier = null;
 		utilisateur = (Person) session.getAttribute("sessionUtilisateur");
 		String realChemin = utilisateur.getAccountPicture();
-		
+
 		if (action != null) {
 			if (action.equals("completeProfile")) {
 				this.utilisateurDao = new DaoPersonImpl(new UsineDao(
@@ -117,21 +110,7 @@ public class ServletProfile extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/accueil");
 
 			}
-		}else{
-			if (request.getPart(CHAMP_FICHIER) != null) {
-				System.out.println("Je charge la photo");
-				chemin = this.getServletConfig().getInitParameter(CHEMIN);
-				form = new FormUpload(false);
-				fichier = form.enregistrerFichier(request, chemin);
-				utilisateur = (Person) session.getAttribute("sessionUtilisateur");
-				utilisateur.setAccountPicture(fichier.getNom(), false);
-				utilisateurDao.modifyPersonalInformation(utilisateur);
-				request.setAttribute(ATT_FORM, form);
-				request.setAttribute(ATT_FICHIER, fichier);
-				session.setAttribute("sessionUtilisateur", utilisateur);
-				this.getServletContext().getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
 
-			}	
 		}
 	}
 }
