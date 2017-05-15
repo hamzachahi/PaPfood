@@ -16,6 +16,7 @@ public class TestMainOracle {
 			String user = "system";
 			String passwd = "Dbamanager1";
 
+		@SuppressWarnings("unused")
 		Connection conn = DriverManager.getConnection(url, user, passwd);
 			System.out.println("Connexion effective !");
 			

@@ -29,11 +29,8 @@
 						<h1>Complétez vos informations</h1>
 						<div class="col-md-11">
 							<div class="row">
-								<form action="ServletProfile" method="POST" name="myForm"
-									enctype="multipart/form-data">
-
+								<form action="ServletProfile" method="POST" name="myForm">
 									<div class="col-md-6">
-
 										<fieldset>
 											<legend>Vos informations</legend>
 											<div class="form-group">
@@ -42,7 +39,6 @@
 													value="${sessionUtilisateur.name}"
 													placeholder="Nom de famille..." />
 											</div>
-
 											<div class="form-group">
 												<label for="sname2">Deuxième nom de famille :</label> <input
 													type="text" id="sname2" class="form-control" name="sname2"
@@ -63,14 +59,12 @@
 													placeholder="Second prénom.." />
 											</div>
 										</fieldset>
-										<div class="form-group"
-											ng-class="{'has-error':myForm.email.$invalid && !myForm.$pristine,
-											'has-success':myForm.email.$valid && !myForm.$pristine}">
+										<div class="form-group">
 											<label for="email">E-mail :</label> <input type="email"
-												id="email" ng-model="email" class="form-control"
-												name="email" value="${sessionUtilisateur.email}" />
-											<p class="help-block" ng-show="myForm.email.$invalid">Veuillez
-												entrer une adresse mail valide</p>
+												id="email" class="form-control" name="email"
+												value="${sessionUtilisateur.email}" />
+											<p class="help-block">Veuillez entrer une adresse mail
+												valide</p>
 										</div>
 
 
@@ -118,13 +112,6 @@
 												<option value="pro">Professionnel</option>
 												<option value="perculiar">Particulier</option>
 											</select>
-										</div>
-										<div class="form-group">
-											<label for="photo">Uploader votre photo :</label> <input
-												type="file" id="fichier" name="fichier"
-												value="<c:out value="${fichier.courtnom}"/>" /> <span
-												class="erreur">${formfile.erreurs['fichier']}</span>
-											<p class="${empty formfile.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -194,6 +181,30 @@
 										</fieldset>
 										<input type="hidden" name="action" value="completeProfile" /><br />
 										<input class="btn btn-style-4 btn-block" " type="submit"
+											value="Enregistrer" />
+									</div>
+
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="booking-form">
+						<h1>Modifier votre photo de profil</h1>
+						<div class="col-md-11">
+							<div class="row">
+								<form action="ServletProfile" method="POST"
+									enctype="multipart/form-data">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="photo">Uploader votre photo :</label> <input
+												type="file" id="fichier" name="fichier"
+												value="<c:out value="${fichier.courtnom}"/>" /> <span
+												class="erreur">${formfile.erreurs['fichier']}</span>
+											<p class="${empty formfile.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<input class="btn btn-style-4 btn-block" type="submit"
 											value="Enregistrer" />
 									</div>
 
