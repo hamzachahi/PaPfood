@@ -29,7 +29,7 @@ public class Person implements Serializable {
 	private String twitterId = "";
 	private String instagramId = "";
 	private String linkedinId = "";
-	private Image accountPicture = null;
+	private String accountPicture = null;
 	private String streetNumber = "";
 	private String streetName = "";
 	private String cityName = "";
@@ -159,11 +159,11 @@ public class Person implements Serializable {
 		this.linkedinId = linkedinId;
 	}
 
-	public Image getAccountPicture() {
+	public String getAccountPicture() {
 		return accountPicture;
 	}
 
-	public void setAccountPicture(Image accountPicture, Boolean sqlornot) {
+	public void setAccountPicture(String accountPicture, Boolean sqlornot) {
 		this.accountPicture = accountPicture;
 	}
 

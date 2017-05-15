@@ -2,10 +2,8 @@ package forms;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import beans.Person;
 import dao.PersonDao;
 
@@ -181,7 +179,6 @@ public class FormulaireMonCompte {
 	}
 
 	// validation du mail en back-end
-	@SuppressWarnings("unused")
 	private void validationEmail(String email) throws Exception {
 		/**
 		 * Valide l'adresse email saisie.
@@ -192,13 +189,13 @@ public class FormulaireMonCompte {
 	}
 
 	/* Validation du nom */
+
 	private void validationNomFamille(String nomFamille) throws ValidExceptionForm {
 		if (nomFamille != null && nomFamille.length() < 3) {
 			throw new ValidExceptionForm("Le nom doit contenir au moins 3 caractères.");
 		}
 	}
 
-	@SuppressWarnings("unused")
 	private void validationTel(String numeroTel) throws Exception {
 		/**
 		 * Valide le num�ro de telephone saisi

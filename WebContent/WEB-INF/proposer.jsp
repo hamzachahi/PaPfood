@@ -36,7 +36,8 @@
 
 						<div class="col-md-11">
 							<div class="row">
-								<form action="ServletPropose" method="POST">
+								<form action="ServletPropose" method="POST"
+									enctype="multipart/form-data">
 									<div class="form-group">
 										<label for="nom">Nom :</label> <input class="form-control"
 											type="text" id="nom" name="nom" placeholder="Exp : pizza" />
@@ -55,7 +56,10 @@
 									</div>
 									<div class="form-group">
 										<label for="photo">Uploader une photo :</label> <input
-											class="form-control" type="file" id="photo" name="photo" />
+											class="form-control" type="file" id="fichier" name="fichier"
+											value="<c:out value="${fichier.nom}"/>" /> <span
+											class="erreur">${formfile.erreurs['fichier']}</span>
+											 <p class="${empty formfile.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>        
 									</div>
 									<div class="form-group">
 										<label for="prix"> Description/Remarques </label>
@@ -158,8 +162,7 @@
 				</div>
 			</div>
 		</div>
-	</c:if> 
-	</section>
+	</c:if> </section>
 	<%@include file="footer.jsp"%>
 </body>
 </html>

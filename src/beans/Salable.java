@@ -1,6 +1,5 @@
 package beans;
 
-import java.awt.Image;
 import java.util.ArrayList;
 
 public interface Salable {
@@ -24,13 +23,13 @@ public interface Salable {
 
 	public Boolean setDescription(String newDescription, Boolean sqlornot);
 
-	public Image getMainImage();
+	public String getMainImage();
 
-	public Boolean setMainImage(Image newImage, Boolean sqlornot);
+	public Boolean setMainImage(String newImage, Boolean sqlornot);
 
-	public ArrayList<Image> getProductListImage();
+	public ArrayList<String> getProductListImage();
 
-	public Boolean setProductListImage(ArrayList<Image> listImage, Boolean sqlornot);
+	public Boolean setProductListImage(ArrayList<String> listImage, Boolean sqlornot);
 
 	public ArrayList<Salable> getListSubProduct();
 

@@ -13,25 +13,25 @@ public class RequestRepository {
 	private static final String MySQL_SELECT_ALL_SERVICE = "SELECT * FROM service s Limit ? offset ?";
 	private static final String MySQL_SELECT_ALL_COMMANDE = "SELECT * FROM commande c Limit ? offset ?";
 
-
+	private static final String MySQL_SELECT_ALL_SERVICE_IMAGE_LINKS = "SELECT link FROM images_links_service WHERE id_service = ?";
+	private static final String MySQL_SELECT_ALL_PRODUCT_IMAGE_LINKS = "SELECT link FROM images_links_product WHERE id_product = ?";
+	private static final String MySQL_SELECT_ALL_PERSON_IMAGE_LINKS = "SELECT link FROM images_links_person WHERE id_person = ?";
 
 	private static final String OracleSQL_LAST_ELEMENT = "SELECT *  FROM person where id=(select Max(id) person ?)";
 
 	private static final String MySQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id = ?";
 	private static final String OracleSQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id = ?";
-	private static final String OracleSQL_SELECT_PRODUCT_BY_KEYWORD = "SELECT * FROM product WHERE ? IN name " ;
+	private static final String OracleSQL_SELECT_PRODUCT_BY_KEYWORD = "SELECT * FROM product WHERE ? IN name ";
 	private static final String OracleSQL_SELECT_SERVICE_BY_KEYWORD = "SELECT * FROM service WHERE ? IN name ";
 
-	private static final String MySQL_SELECT_PRODUCT_BY_ID = "SELECT * FROM product WHERE id_provider = ? " ;
+	private static final String MySQL_SELECT_PRODUCT_BY_ID = "SELECT * FROM product WHERE id_provider = ? ";
 	private static final String MySQL_SELECT_SERVICE_BY_ID = "SELECT * FROM service WHERE id_provider = ? ";
 	// fin select
-	//début count
+	// début count
 	private static final String MySQL_SELECT_COUNT_PRODUCT = "select count(id) as nb from product p";
 	private static final String MySQL_SELECT_COUNT_SERVICE = "select count(id) as nb from service s";
-	
 
-	
-	//fin count
+	// fin count
 	// début insert
 
 	private static final String MySQL_INSERT_PERSON = "INSERT INTO person (email, password, name, function, date_inscription) VALUES (?, ?, ?, ?, NOW())";
@@ -86,11 +86,13 @@ public class RequestRepository {
 	private static final String OracleSQL_INSERT_COMMENTS = "INSERT INTO comments (id_author, date_posted, content) VALUES (?, SYSTIMESTAMP, ?)";
 	private static final String OracleSQL_INSERT_COMMENTS_PRODUCT = "INSERT INTO comments_product (id_comment, id_product) VALUES ( ?, ?)";
 	private static final String OracleSQL_INSERT_COMMENTS_SERVICE = "INSERT INTO comments_service (id_comment, id_service) VALUES ( ?, ?)";
+	private static final String MySQL_INSERT_IMAGE_PRODUCT_LINK = "INSERT INTO images_links_product (links, id_product) VALUES (?, ?)";
+	private static final String MySQL_INSERT_IMAGE_SERVICE_LINK = "INSERT INTO images_links_service (links, id_service) VALUES (?, ?)";
+	private static final String MySQL_INSERT_IMAGE_PERSON_LINK = "INSERT INTO images_links_person (links, utility, id_person) VALUES (?, ?, ?)";
 
 	// fin insert
 	// début update
-	private static final String MySQL_UPDATE_PERSON = "UPDATE person SET name = ?, second_name=?, surname=?, second_surname=?, profession=?, email=?, phone_number=?, tel_number=?, facebook_id=?, twitter_id=?, instagram_id=?, linkedin_id=?, street_number=?, street_name=?, city_name=?, country_name=?, postal_code=?, function=?  WHERE ID = ?";
-	private static final String OracleSQL_UPDATE_PERSON = "UPDATE person SET name = ?, second_name=?, surname=?, second_surname=?, profession=?, email=?, phone_number=?, tel_number=?, facebook_id=?, twitter_id=?, instagram_id=?, linkedin_id=?, street_number=?, street_name=?, city_name=?, country_name=?, postal_code=?, function=?  WHERE ID = ?";
+	private static final String MySQL_UPDATE_PERSON = "UPDATE person SET name = ?, second_name=?, surname=?, second_surname=?, profession=?, email=?, phone_number=?, tel_number=?, facebook_id=?, twitter_id=?, instagram_id=?, linkedin_id=?, account_picture=?, street_number=?, street_name=?, city_name=?, country_name=?, postal_code=?, function=?  WHERE ID = ?";
 
 	private static final String MySQL_UPDATE_COMMANDE = "UPDATE commande SET code=?, id_customer = ?, date_ordering=?, date_livraison=? WHERE ID = ?";
 	private static final String OracleSQL_UPDATE_COMMANDE = "UPDATE commande SET code=?, id_customer = ?, date_ordering=?, date_livraison=? WHERE ID = ?";
@@ -142,8 +144,13 @@ public class RequestRepository {
 
 	private static final String OracleSQL_UPDATE_COMMANDE_STATE = "UPDATE commande SET state=1 WHERE ID= ?";
 	private static final String OracleSQL_UPDATE_COMMENTS = "UPDATE comments SET content = ?, date_posted=SYSTIMESTAMP WHERE ID= ?";
+
+	private static final String MySQL_UPDATE_IMAGE_SERVICE_LINK = "UPDATE images_links_service SET link = ?  WHERE link = ? and id_service = ?";
+	private static final String MySQL_UPDATE_IMAGE_PRODUCT_LINK = "UPDATE images_links_product SET link = ?  WHERE link = ? and id_product = ?";
+	private static final String MySQL_UPDATE_IMAGE_PERSON_LINK = "UPDATE images_links_person SET link = ?  WHERE link = ? and id_person = ?";
+
 	// fin update
-	// début update	
+	// début update
 
 	private static final String MySQL_DELETE_PERSON = "DELETE FROM person WHERE ID = ?";
 	private static final String OracleSQL_DELETE_PERSON = "DELETE FROM person WHERE ID = ?";
@@ -196,18 +203,20 @@ public class RequestRepository {
 	private static final String OracleSQL_DELETE_COMMENTS_PRODUCT = "DELETE FROM comments_product WHERE ID = ?";
 	private static final String OracleSQL_DELETE_COMMENTS_SERVICE = "DELETE FROM comments_service WHERE ID = ?";
 	private static final String OracleSQL_DELETE_MESSAGE = "DELETE FROM message WHERE ID = ?";
-	
-	private static final String OracleSQL_SELECT_FROM_COMMANDE_SERVICE="SELECT * from commande_service where id_commande = ?";
-	private static final String OracleSQL_SELECT_FROM_COMMANDE_PRODUCT=" SELECT * from commande_product where id_commande = ?";
-	private static final String OracleSQL_SELECT_FROM_COMMANDE_BY_CUSTOMER="SELECT * from commande WHERE id_customer = ?";
-	private static final String OracleSQL_SELECT_FROM_COMMANDE_BY_ID="SELECT * from commande WHERE id = ?";
-	private static final String OracleSQL_SELECT_FROM_PRODUCT_SERVICE="SELECT * from product_service where id_product = ?";
-	private static final String OracleSQL_SELECT_FROM_SERVICE_COMPONENT="SELECT * from service_component where id_service = ?";
-	private static final String OracleSQL_SELECT_FROM_SERVICE_PRODUCT="SELECT * from service_product where id_service = ?";
-	private static final String OracleSQL_SELECT_FROM_PRODUCT_COMPONENT="SELECT * from product_component where id_componed = ?";
+
+	private static final String OracleSQL_SELECT_FROM_COMMANDE_SERVICE = "SELECT * from commande_service where id_commande = ?";
+	private static final String OracleSQL_SELECT_FROM_COMMANDE_PRODUCT = " SELECT * from commande_product where id_commande = ?";
+	private static final String OracleSQL_SELECT_FROM_COMMANDE_BY_CUSTOMER = "SELECT * from commande WHERE id_customer = ?";
+	private static final String OracleSQL_SELECT_FROM_COMMANDE_BY_ID = "SELECT * from commande WHERE id = ?";
+	private static final String OracleSQL_SELECT_FROM_PRODUCT_SERVICE = "SELECT * from product_service where id_product = ?";
+	private static final String OracleSQL_SELECT_FROM_SERVICE_COMPONENT = "SELECT * from service_component where id_service = ?";
+	private static final String OracleSQL_SELECT_FROM_SERVICE_PRODUCT = "SELECT * from service_product where id_service = ?";
+	private static final String OracleSQL_SELECT_FROM_PRODUCT_COMPONENT = "SELECT * from product_component where id_componed = ?";
 	private static final String OracleSQL_SELECT_SERVICE_BY_ID = "SELECT * FROM service WHERE ID = ?";
 	private static final String OracleSQL_SELECT_PRODUCT_BY_ID = "SELECT * FROM product WHERE ID = ?";
-
+	private static final String MySQL_DELETE_IMAGE_PRODUCT_LINK = "DELETE FROM images_links_product WHERE link = ? and id_product = ?";
+	private static final String MySQL_DELETE_IMAGE_SERVICE_LINK = "DELETE FROM images_links_service WHERE link = ? and id_service = ?";
+	private static final String MySQL_DELETE_IMAGE_PERSON_LINK = "DELETE FROM images_links_person WHERE link = ? and id_person = ?";
 
 	// fin update
 	public static String getMysqlSeTrouverParEmail() {
@@ -360,10 +369,6 @@ public class RequestRepository {
 
 	public static String getMysqlUpdatePerson() {
 		return MySQL_UPDATE_PERSON;
-	}
-
-	public static String getOraclesqlUpdatePerson() {
-		return OracleSQL_UPDATE_PERSON;
 	}
 
 	public static String getMysqlUpdateCommande() {
@@ -653,6 +658,7 @@ public class RequestRepository {
 	public static String getOraclesqlDeleteCommentsService() {
 		return OracleSQL_DELETE_COMMENTS_SERVICE;
 	}
+
 	public static String getOraclesqlInsertMessage() {
 		return OracleSQL_INSERT_MESSAGE;
 	}
@@ -672,6 +678,7 @@ public class RequestRepository {
 	public static String getMysqlSeTrouverParId() {
 		return MySQL_SE_TROUVER_PAR_ID;
 	}
+
 	public static String getOraclesqlSeTrouverParId() {
 		return Oracle_SE_TROUVER_PAR_ID;
 	}
@@ -759,6 +766,53 @@ public class RequestRepository {
 	public static String getMysqlSelectAllCommande() {
 		return MySQL_SELECT_ALL_COMMANDE;
 	}
-	
-	
+
+	public static String getMysqlSelectAllServiceImageLinks() {
+		return MySQL_SELECT_ALL_SERVICE_IMAGE_LINKS;
+	}
+
+	public static String getMysqlSelectAllProductImageLinks() {
+		return MySQL_SELECT_ALL_PRODUCT_IMAGE_LINKS;
+	}
+
+	public static String getMysqlSelectAllPersonImageLinks() {
+		return MySQL_SELECT_ALL_PERSON_IMAGE_LINKS;
+	}
+
+	public static String getMysqlInsertImageProductLink() {
+		return MySQL_INSERT_IMAGE_PRODUCT_LINK;
+	}
+
+	public static String getMysqlInsertImageServiceLink() {
+		return MySQL_INSERT_IMAGE_SERVICE_LINK;
+	}
+
+	public static String getMysqlInsertImagePersonLink() {
+		return MySQL_INSERT_IMAGE_PERSON_LINK;
+	}
+
+	public static String getMysqlUpdateImageServiceLink() {
+		return MySQL_UPDATE_IMAGE_SERVICE_LINK;
+	}
+
+	public static String getMysqlUpdateImageProductLink() {
+		return MySQL_UPDATE_IMAGE_PRODUCT_LINK;
+	}
+
+	public static String getMysqlUpdateImagePersonLink() {
+		return MySQL_UPDATE_IMAGE_PERSON_LINK;
+	}
+
+	public static String getMysqlDeleteImageProductLink() {
+		return MySQL_DELETE_IMAGE_PRODUCT_LINK;
+	}
+
+	public static String getMysqlDeleteImageServiceLink() {
+		return MySQL_DELETE_IMAGE_SERVICE_LINK;
+	}
+
+	public static String getMysqlDeleteImagePersonLink() {
+		return MySQL_DELETE_IMAGE_PERSON_LINK;
+	}
+
 }
