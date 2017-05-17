@@ -55,26 +55,26 @@
 								<div class="row">
 									<form action="ServletContact" method="post">
 										<div class="form-group col-md-6">
-											<label>Votre nom complet</label> <input type="email"
+											<label>Votre nom complet</label> <input type="text"
 												class="form-control" id="nom" name="name"
 												value="${sessionUtilisateur.surname} ${sessionUtilisateur.name}"
-												placeholder="Entrez votre nom complet">
+												placeholder="Entrez votre nom complet"/>
 										</div>
 										<div class="form-group col-md-6">
 											<label>N° de téléphone</label> <input type="text"
 												name="phonenumber" id="teleph" class="form-control"
 												value="${sessionUtilisateur.phoneNumber}
 												placeholder="
-												Numéro detéléphone">
+												Numéro detéléphone"/>
 										</div>
 										<div class="form-group col-md-6">
 											<label>email</label> <input type="text" class="form-control"
 												id="email" name="email" value="${sessionUtilisateur.email}"
-												placeholder="Adresse email">
+												placeholder="Adresse email"/>
 										</div>
 										<div class="form-group col-md-6">
 											<label>Sujet</label> <input type="text" class="form-control"
-												name="subject" id="subject" placeholder="Sujet">
+												name="subject" id="subject" placeholder="Sujet"/>
 										</div>
 										<div class="form-group col-md-12">
 											<label>Question spécifique</label>
@@ -86,6 +86,7 @@
 											<input type="hidden" name="action" value="nousContacter" />
 											<button type="submit" class="btn btn-send-now pull-right">Envoyez
 												maintenant!</button>
+										<span>${requestScope.erreur}</span>		
 										</div>
 									</form>
 								</div>

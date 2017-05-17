@@ -49,7 +49,7 @@ public class ServletUpload extends HttpServlet {
 		Person utilisateur = null;
 		HttpSession session = request.getSession(false);
 		System.out.println("Je charge la photo");
-		// chemin = this.getServletConfig().getInitParameter(CHEMIN);
+		chemin = this.getServletConfig().getInitParameter(CHEMIN);
 		System.out.println("Chemin récupéré : " + chemin);
 		this.utilisateurDao = new DaoPersonImpl(new UsineDao(
 				"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true",
