@@ -101,6 +101,9 @@ public class ServletAcheter extends HttpServlet {
 					total += monPanier.get(i1).getmProduct().getPrice();
 				}
 				session.setAttribute("prixtotal", total);
+				request.setAttribute("searchResults", elements);
+				request.setAttribute("total", total);
+				session.setAttribute("searchResults", elements);
 			}
 
 			if (action.equals("chercherProduit")) {

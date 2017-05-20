@@ -35,7 +35,19 @@ public class ServletPanier extends HttpServlet {
 		Double total = 0.0;
 
 		if (action != null) {
-
+			if (action.equals("removeSalable")) {
+				HttpSession session = request.getSession();
+				int i = Integer.parseInt(request.getParameter("indice"));
+				monPanier.remove(i);
+				request.setAttribute("articlesPanier", monPanier);
+				session.setAttribute("monPanier", monPanier);
+				for (int i1 = 0; i1 < monPanier.size(); i1++) {
+					total = total + monPanier.get(i1).getmProduct().getPrice();
+				}
+				request.setAttribute("total", total);
+				session.setAttribute("prixtotal", total);
+				this.getServletContext().getRequestDispatcher("/WEB-INF/panier.jsp").forward(request, response);
+			}
 		} else {
 			HttpSession session = request.getSession();
 			monPanier = (ArrayList) session.getAttribute("monPanier");

@@ -32,7 +32,7 @@
 								<table class="table shop-cart">
 									<thead>
 										<tr>
-											<th>Image</th>
+											<th>N°</th>
 											<th>Nom</th>
 											<th>Prix</th>
 											<th>Supprimer</th>
@@ -41,15 +41,17 @@
 									</thead>
 
 									<tbody>
+										<c:set var="i" value="0" />
 										<c:forEach var="article"
 											items="${requestScope['articlesPanier']}">
 											<tr>
-												<td>${article.mainImage }</td>
-												<td>${article.name }</td>
-												<td><span class='cart-price'>${article.price }</span></td>
-												<td><span class="item-remove"><a
-														href="ServletPropose?action=addSalable&indice=${i}">+</a></span></td>
+												<td>${i+1}</td>
+												<td>${article.mProduct.name }</td>
+												<td><span class='cart-price'>${article.mProduct.price }</span></td>
+												<td><a href="panier?action=removeSalable&indice=${i}"><button
+															class="btn btn-primary btn-	s">-1</button></a></td>
 											</tr>
+											<c:set var="i" value="${i+1}" />
 										</c:forEach>
 									</tbody>
 
