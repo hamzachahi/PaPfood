@@ -51,48 +51,53 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="table-responsive">
-								<div class="pagination">
-									<table class="table shop-cart">
-										<thead>
+								<table class="table shop-cart">
+									<thead>
+										<tr>
+											<th>N°</th>
+											<th>Nom du produit</th>
+											<th>Description</th>
+											<th>Prix</th>
+											<th>Ajouter au panier</th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<c:set var="i" value="0" />
+										<c:forEach var="article"
+											items="${requestScope['searchResults']}">
 											<tr>
-												<th>Nom du produit</th>
-												<th>Description</th>
-												<th>Prix</th>
-												<th>Ajouter au panier</th>
+												<td>${i+1}</td>
+												<td>${article.mProduct.name }</td>
+												<td>${article.mProduct.description }</td>
+												<td>${article.mProduct.price}</td>
+												<td align="center"><a style="color: white;"
+													href="acheter?action=chargerPanier&idarticle=${i}"><button
+															class="btn btn-primary btn-	s">+1</button></a></td>
 											</tr>
-										</thead>
-
-										<tbody>
-											<c:set var="total" value="0" />
-											<c:set var="i" value="0" />
-											<c:forEach var="article"
-												items="${requestScope['searchResults']}">
-												<tr>
-													<td>${article.mproduct.name }</td>
-													<td>${article.mproduct.description }</td>
-													<td>${article.mproduct.price}</td>
-													<td align="center"><button
-															class="btn btn-primary btn-	s">
-															<a style="color: white;"
-																href="acheter?action=chargerPanier&idarticle=${i}">+1</a>
-														</button></td>
-												</tr>
-												<c:set var="total" value="${total+1}" />
-												<c:set var="i" value="${i+1}" />
-											</c:forEach>
+											<c:set var="i" value="${i+1}" />
+										</c:forEach>
 
 
-										</tbody>
+									</tbody>
 
-										<tfoot>
+									<tfoot>
+										<tr>
 											<td><b>TOTAL</b></td>
 											<td></td>
 											<td></td>
 											<td><b>${requestScope['total']}</b></td>
-										</tfoot>
-									</table>
-									${requestScope['pagination']}
+										</tr>
+
+									</tfoot>
+								</table>
+								<div class="product-pagination">
+									<nav>
+									<ul class="pagination">${requestScope['pagination']}
+									</ul>
+									</nav>
 								</div>
+
 							</div>
 						</div>
 					</div>

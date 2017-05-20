@@ -139,6 +139,7 @@ public class DaoProductImpl implements ProductDao {
 		product.setCode(result.getString("code"), true);
 		product.setDescription(result.getString("description"), true);
 		product.setIdProvider(result.getLong("id_provider"));
+		product.setAdd_date(result.getDate("add_date"));
 		ArrayList<Association> assoc = new ArrayList<>();
 		assoc.addAll(ProductComponent.findProductComponentById(daoFactory, result.getLong("id")));
 		for (int i = 0; i < assoc.size(); i++) {

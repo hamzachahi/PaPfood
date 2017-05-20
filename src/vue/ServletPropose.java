@@ -36,14 +36,14 @@ public class ServletPropose extends HttpServlet {
 			"0000"));
 	private Person utilisateur = null;
 	private ArrayList<Salable> listProdSerFinal = new ArrayList<>();
-	private Paginateur paginateur = new Paginateur();
 	private ArrayList<Salable> listProdSer = null;
 	public static final String CHEMIN = "chemin";
 	public static final String ATT_FICHIER = "fichier";
 	public static final String ATT_FORM = "formfile";
 	private static final String CHAMP_FICHIER = "fichier";
 
-
+	Long begin = null;
+	Long end = null;
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -161,7 +161,8 @@ public class ServletPropose extends HttpServlet {
 				this.getServletContext().getRequestDispatcher("/WEB-INF/proposer.jsp").forward(request, response);
 			}
 			if (action.equals("afficherSousVendables")) {
-
+				begin = Long.parseLong(request.getParameter("begin"));
+				end = Long.parseLong(request.getParameter("end"));
 				String message = "";
 				String pagination = "";
 				Long total = productDao.countElements();
@@ -170,25 +171,21 @@ public class ServletPropose extends HttpServlet {
 					message = "Aucun sous-éléments à afficher!!";
 				} else {
 					message = "Liste des éléments trouvés";
+					listProdSer.addAll(productDao.findAllProduct(begin, end));
+					listProdSer.addAll(serviceDao.findAllService(begin, end));
+					request.setAttribute("listProduits", listProdSer);
+					request.setAttribute("total", total);
 
 				}
 				System.out.println("Nombre d'utilisateurs dans la base : " + total);
-				pagination = paginateur.pagine(total, listProdSer, request);
+				pagination=Paginateur.pagine(total, listProdSer, request, "proposer");
 				System.out.println("Pagination effectuée!");
 				request.setAttribute("pagination", pagination);
 				System.out.println("Pagination settée!");
 				request.setAttribute("total", total);
 				request.setAttribute("listeDeSalablesCut", listProdSer);
 				request.setAttribute("message", message);
-				// forwardTo = request.getContextPath() +
-				// "/proposer?action=afficherSousVendables&begin=" + begin +
-				// "&end="
-				// + end + "";
-				// RequestDispatcher dp = request.getRequestDispatcher(forwardTo
-				// +
-				// "&message=" + message);
-
-				// dp.forward(request, response);
+				
 				this.getServletContext().getRequestDispatcher("/WEB-INF/proposer.jsp").forward(request, response);
 
 			}

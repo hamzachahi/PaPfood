@@ -1,5 +1,6 @@
 package beans;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class Service extends MotherProduct implements Salable {
@@ -71,6 +72,19 @@ public class Service extends MotherProduct implements Salable {
 	public String getType() {
 		// TODO Auto-generated method stub
 		return type;
+	}
+
+	@Override
+	public Date getAddDate() {
+		// TODO Auto-generated method stub
+		return this.addDate;
+	}
+
+	@Override
+	public Boolean setAddDate(Date date) {
+		// TODO Auto-generated method stub
+		this.addDate=date;
+		return true;
 	}
 
 }

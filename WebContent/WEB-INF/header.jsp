@@ -108,21 +108,24 @@
 										</ul> <!-- End Sub Menu --></li>
 									<li><a href="#">Naviguer</a> <!-- Start Sub Menu -->
 										<ul>
+											<li><a href="${pageContext.request.contextPath}/profile">Modifier
+													mon compte</a></li>
+											<li><a href="${pageContext.request.contextPath}/services">Liste des services</a></li>
+											<li><a href="${pageContext.request.contextPath}/produits">Liste des produits</a></li>
+											<li><a href="${pageContext.request.contextPath}/panier">Votre
+													panier</a></li>
+											<li><a href="${pageContext.request.contextPath}/mescommandes">Mes commandes</a></li>
+											<li><a href="${pageContext.request.contextPath}/mespropositions">Mes propositions</a></li>
+											<li><a href="${pageContext.request.contextPath}/about">Informations sur le
+													site</a></li>
+											<li><a href="${pageContext.request.contextPath}/team">Notre équipe</a></li>
+											<li><a href="${pageContext.request.contextPath}/contact">Nous
+													contacter</a></li>
 											<li><a href="about.html">About</a></li>
+											<li><a href="room-booking.html">Room Booking</a></li>
 											<li><a href="accordions.html">Accordions</a></li>
 											<li><a href="menu-details.html">Menu Details</a></li>
 											<li><a href="menu.html">Menu</a></li>
-											<li><a href="${pageContext.request.contextPath}/profile">Modifier
-													mon compte</a></li>
-											<li><a href="room-booking.html">Room Booking</a></li>
-											<li><a href="rooms-listing.html">Liste des services</a></li>
-											<li><a href="rooms-listing.html">Liste des produits</a></li>
-											<li><a href="${pageContext.request.contextPath}/panier">Votre
-													panier</a></li>
-											<li><a href="shop-details.html">Informations sur le site</a></li>
-											<li><a href="the-staff.html">Notre équipe</a></li>
-											<li><a href="${pageContext.request.contextPath}/contact">Nous
-													contacter</a></li>
 										</ul> <!-- End Sub Menu --></li>
 								</ul>
 							</nav>

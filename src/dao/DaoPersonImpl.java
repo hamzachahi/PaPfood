@@ -30,7 +30,7 @@ public class DaoPersonImpl implements PersonDao {
 
 	@Override
 	public Person trouverParId(Long id, boolean succeed) throws ExceptionDao {
-		return trouverParId(RequestRepository.getOraclesqlSeTrouverParId(), succeed, id);
+		return trouverParId(RequestRepository.getMysqlSeTrouverParId(), succeed, id);
 	}
 
 	/* Implémentation de la méthode définie dans l'interface UtilisateurDao */

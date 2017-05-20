@@ -1,5 +1,6 @@
 package beans;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 public abstract class MotherProduct {
@@ -13,6 +14,7 @@ public abstract class MotherProduct {
 	protected ArrayList<Salable> listSubProduct= new ArrayList<Salable>();
 	protected ArrayList<Comment> Comments= new ArrayList<Comment>();
 	protected Long idProvider;
+	protected Date addDate;
 
 	public Long getId() {
 		return Id;
@@ -94,11 +96,22 @@ public abstract class MotherProduct {
 		this.idProvider = idProvider;
 	}
 
+	public Date getAdd_date() {
+		return addDate;
+	}
+
+	public void setAdd_date(Date add_date) {
+		this.addDate = add_date;
+	}
+
 	@Override
 	public String toString() {
 		return "MotherProduct [Id=" + Id + ", Code=" + Code + ", Name=" + Name + ", Description=" + Description
-				+ ", Price=" + Price + ", listSubProduct=" + listSubProduct + ", Comments=" + Comments + ", idProvider="
-				+ idProvider + "]";
+				+ ", Price=" + Price + ", mainImage=" + mainImage + ", listImage=" + listImage + ", listSubProduct="
+				+ listSubProduct + ", Comments=" + Comments + ", idProvider=" + idProvider + ", add_date=" + addDate
+				+ "]";
 	}
+
+	
 
 }

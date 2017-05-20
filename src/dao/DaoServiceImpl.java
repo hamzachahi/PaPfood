@@ -137,6 +137,8 @@ public class DaoServiceImpl implements ServiceDao {
 		service.setCode(result.getString("code"), true);
 		service.setDescription(result.getString("description"), true);
 		service.setIdProvider(result.getLong("id_provider"));
+		service.setAdd_date(result.getDate("add_date"));
+
 		ArrayList<Association> assoc = new ArrayList<>();
 		assoc.addAll(ProductComponent.findProductComponentById(daoFactory, result.getLong("id")));
 		for (int i = 0; i < assoc.size(); i++) {

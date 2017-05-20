@@ -2,8 +2,8 @@ package dao;
 
 public class RequestRepository {
 	// Début requête select
-	private static final String MySQL_SE_TROUVER_PAR_ID = "SELECT * FROM person WHERE id = ?";
-	private static final String Oracle_SE_TROUVER_PAR_ID = "SELECT * FROM person WHERE id = ?";
+	private static final String MySQL_SE_TROUVER_PAR_ID = "SELECT * FROM person p WHERE id = ?";
+	private static final String Oracle_SE_TROUVER_PAR_ID = "SELECT * FROM person p WHERE id = ?";
 	private static final String MySQL_SE_TROUVER_PAR_EMAIL = "SELECT id, name, second_name, surname, second_surname, profession, date_inscription, password, email, phone_number, tel_number, facebook_id, twitter_id, instagram_id, linkedin_id, account_picture, street_number, street_name, city_name, country_name, postal_code, last_connection, function FROM person WHERE email = ?";
 	private static final String OracleSQL_SE_TROUVER_PAR_EMAIL = "SELECT id, name, surname, profession, password, email FROM person WHERE email = ?";
 	private static final String OracleSQL_SE_TROUVER_TOTALEMENT_PAR_EMAIL = "SELECT * FROM person WHERE email = ?";
@@ -21,11 +21,11 @@ public class RequestRepository {
 
 	private static final String MySQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id = ?";
 	private static final String OracleSQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id = ?";
-	private static final String OracleSQL_SELECT_PRODUCT_BY_KEYWORD = "SELECT * FROM product WHERE ? IN name ";
-	private static final String OracleSQL_SELECT_SERVICE_BY_KEYWORD = "SELECT * FROM service WHERE ? IN name ";
+	private static final String OracleSQL_SELECT_PRODUCT_BY_KEYWORD = "SELECT * FROM product WHERE name LIKE ?";
+	private static final String OracleSQL_SELECT_SERVICE_BY_KEYWORD = "SELECT * FROM service WHERE name LIKE ?";
 
-	private static final String MySQL_SELECT_PRODUCT_BY_ID = "SELECT * FROM product WHERE id_provider = ? ";
-	private static final String MySQL_SELECT_SERVICE_BY_ID = "SELECT * FROM service WHERE id_provider = ? ";
+	private static final String MySQL_SELECT_PRODUCT_BY_ID = "SELECT * FROM product p WHERE Id = ?";
+	private static final String MySQL_SELECT_SERVICE_BY_ID = "SELECT * FROM service s WHERE Id = ?";
 	// fin select
 	// début count
 	private static final String MySQL_SELECT_COUNT_PRODUCT = "select count(id) as nb from product p";
@@ -140,7 +140,7 @@ public class RequestRepository {
 	private static final String OracleSQL_UPDATE_INVOICE_SERVICE = "UPDATE invoice_person SET id_invoice = ?, id_service=? WHERE ID = ?";
 
 	private static final String OracleSQL_UPDATE_MESSAGE_RECEIVE_DATE = "UPDATE message set receive_date=SYSTIMESTAMP WHERE ID = ?";
-	private static final String OracleSQL_UPDATE_MESSAGE_READ_DATE = "UPDATE message set read_date=SYSTIMESTAMP WHERE ID = ? ";
+	private static final String OracleSQL_UPDATE_MESSAGE_READ_DATE = "UPDATE message set read_date=SYSTIMESTAMP WHERE ID = ?";
 
 	private static final String OracleSQL_UPDATE_COMMANDE_STATE = "UPDATE commande SET state=1 WHERE ID= ?";
 	private static final String OracleSQL_UPDATE_COMMENTS = "UPDATE comments SET content = ?, date_posted=SYSTIMESTAMP WHERE ID= ?";

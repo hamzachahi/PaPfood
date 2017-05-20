@@ -34,12 +34,13 @@ public class ServletOrder extends HttpServlet {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
 		Person utilisateur = (Person) session.getAttribute("sessionUtilisateur");
 		ArrayList<ElementCommand> elements = new ArrayList<>();
-		elements = (ArrayList) session.getAttribute("monPanier");
+		elements = (ArrayList<ElementCommand>) session.getAttribute("monPanier");
 		String action = request.getParameter("action");
 		String adresseComplete = "";
 		DaoCommandeImpl commandeDao = new DaoCommandeImpl(new UsineDao(

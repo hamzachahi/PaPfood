@@ -1,5 +1,6 @@
 package beans;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 public interface Salable {
@@ -40,4 +41,8 @@ public interface Salable {
 	public void setIdProvider(Long Id);
 
 	public String getType();
+
+	public Date getAddDate();
+
+	public Boolean setAddDate(Date date);
 }
