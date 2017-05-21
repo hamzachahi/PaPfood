@@ -9,8 +9,8 @@
                             <div class="contact-icon">
                                 <i class="fa fa-phone" aria-hidden="true"></i>
                             </div>
-                            <div class="contact-title">Nous contacter:</div>
-                            <div class="contact-velue"> <a href="tel:906-914-6147">906-914-6147</a></div>
+                            <div class="contact-title">Par t&eacute;l&eacute;phone :</div>
+                            <div class="contact-velue"> <a href="tel:906-914-6147">+(33) 1 23 45 67 89</a></div>
                         </div>
                         <!-- End Phone Contact -->
                     </div>
@@ -20,8 +20,8 @@
                             <div class="contact-icon">
                                 <i class="fa fa-envelope" aria-hidden="true"></i>
                             </div>
-                            <div class="contact-title">Entrer en contact :</div>
-                            <div class="contact-velue"> <a href="mailto:email@alfresco.com">papfood@papfood.com</a> </div>
+                            <div class="contact-title">Par courriel :</div>
+                            <div class="contact-velue"> <a href="mailto:email@alfresco.com">contact@cibo.com</a> </div>
                         </div>
                         <!-- End email Contact -->
                     </div>
@@ -31,9 +31,9 @@
                             <div class="contact-icon">
                                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                             </div>
-                            <div class="contact-title">Location:</div>
+                            <div class="contact-title">Par courrier :</div>
                             <div class="contact-velue">
-                                <a href="//maps.google.com/maps?daddr=40.765819,-73.975866&amp;ll=" target="_blank">Université de Nice Sophia Antipolis</a>
+                                <a href="//maps.google.com/maps?daddr=40.765819,-73.975866&amp;ll=" target="_blank">Campus des Lucioles, Sophia Antipolis</a>
                             </div>
                         </div>
                         <!-- End Location -->
@@ -46,7 +46,7 @@
             <div class="container border-top">
                 <div class="row">
                     <div class="col-md-6">
-                        <p class="text-left" ><strong>Yummy Shop</strong> - The Community Culinary Exchange Platform</p>
+                        <p class="text-left" ><strong>Cibo</strong> - The Community Culinary Exchange Platform</p>
                     </div>
                     <div class="col-md-6">
                         <p class="text-right" > &copy; Copyright 2017 <a href="http://www.envalab.com/" title="envalab" target="_blank"><strong>envalab</strong></a>. All Right Reserved</p>
@@ -97,7 +97,7 @@
                                         <textarea class="form-control" rows="4" placeholder="Describe any specific question here..."></textarea>
                                     </div>
                                     <div class="form-group col-md-12 text-center">
-                                        <button type="submit" class="btn btn-model-reservation">Réservez maintenant!</button>
+                                        <button type="submit" class="btn btn-model-reservation">Commandez maintenant!</button>
                                     </div>
                                 </form>
                             </div>

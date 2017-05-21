@@ -37,14 +37,14 @@
 							<!-- Reservation button -->
 							<div class="reservation pull-right">
 								<a href="#" class="btn-reservation" data-toggle="modal"
-									data-target="#reservationModal">Réservation</a>
+									data-target="#reservationModal">Alerte</a>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 							<!-- Start Top Search -->
 							<div class="search-area">
 								<form action="#">
-									<input placeholder="Type here to search" type="text">
+									<input placeholder="Rechercher..." type="text">
 									<button type="submit">
 										<i class="fa fa-search" aria-hidden="true"></i>
 									</button>
@@ -69,10 +69,9 @@
 							<nav>
 								<ul>
 									<li><a href="${pageContext.request.contextPath}/accueil">Accueil</a></li>
-									<li><a href="${pageContext.request.contextPath}/acheter">Acheter</a></li>
-									<li><a href="${pageContext.request.contextPath}/proposer">Proposer</a></li>
-									<li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
-									<li class="mega-menu-active"><a href="#">Megamenu</a> <!-- Start Mega MEnu -->
+									<li><a href="${pageContext.request.contextPath}/acheter">Commander</a></li>
+									<li><a href="${pageContext.request.contextPath}/proposer">Proposer plat</a></li>
+									<li class="mega-menu-active"><a href="#">CiboRelation</a> <!-- Start Mega MEnu -->
 										<div class="mega-menu-container megamenu-area">
 											<div class="row">
 												<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
@@ -80,16 +79,16 @@
 														<li><h3 class="mega-menu-title">Parrainage</h3></li>
 														<li><a href="layout.html">Code promo</a></li>
 														<li><a href="boutons.html">Invitez vos amis !</a></li>
-														
+
 													</ul>
 												</div>
 												<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 													<ul>
-														<li><h3 class="mega-menu-title">Catégories</h3></li>
-														<li><a href="#">Menu One</a></li>
-														<li><a href="#">Menu Two</a></li>
-														<li><a href="#">Menu Three</a></li>
-														<li><a href="#">Menu Four</a></li>
+														<li><h3 class="mega-menu-title">Préférences</h3></li>
+														<li><a href="#">Plats favoris</a></li>
+														<li><a href="#">Cuistots favoris</a></li>
+														<li><a href="#">Notes attribuées</a></li>
+														<li><a href="#">Notes reçues</a></li>
 													</ul>
 												</div>
 												<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
@@ -103,23 +102,27 @@
 										<ul>
 											<li><a href="${pageContext.request.contextPath}/profile">Modifier
 													mon compte</a></li>
-											<li><a href="${pageContext.request.contextPath}/services">Liste des services</a></li>
-											<li><a href="${pageContext.request.contextPath}/produits">Liste des produits</a></li>
+											<li><a
+												href="${pageContext.request.contextPath}/services">Liste
+													des services</a></li>
+											<li><a
+												href="${pageContext.request.contextPath}/produits">Catégories</a></li>
 											<li><a href="${pageContext.request.contextPath}/panier">Votre
 													panier</a></li>
-											<li><a href="${pageContext.request.contextPath}/mescommandes">Mes commandes</a></li>
-											<li><a href="${pageContext.request.contextPath}/mespropositions">Mes propositions</a></li>
-											<li><a href="${pageContext.request.contextPath}/about">Informations sur le
-													site</a></li>
-											<li><a href="${pageContext.request.contextPath}/team">Notre équipe</a></li>
-											<li><a href="${pageContext.request.contextPath}/contact">Nous
-													contacter</a></li>
-											<li><a href="about.html">About</a></li>
-											<li><a href="room-booking.html">Room Booking</a></li>
-											<li><a href="accordions.html">Accordions</a></li>
-											<li><a href="menu-details.html">Menu Details</a></li>
-											<li><a href="menu.html">Menu</a></li>
+											<li><a
+												href="${pageContext.request.contextPath}/mescommandes">Mes
+													commandes</a></li>
+											<li><a
+												href="${pageContext.request.contextPath}/mespropositions">Propositions</a></li>
+											<li><a href="${pageContext.request.contextPath}/about">Informations
+													sur le site</a></li>
+											<li><a href="${pageContext.request.contextPath}/team">Notre
+													équipe</a></li>
+											<li><a href="room-booking.html">Rejoignez notre équipe de courtiers !</a></li>
+										<!-- 	<li><a href="menu-details.html">Menu Details</a></li>
+											<li><a href="menu.html">Menu</a></li>  -->
 										</ul> <!-- End Sub Menu --></li>
+									<li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
 								</ul>
 							</nav>
 							<div class="mobile-menu"></div>

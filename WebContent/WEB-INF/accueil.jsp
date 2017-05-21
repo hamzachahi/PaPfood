@@ -89,42 +89,42 @@
                     <!-- Hotel Menu Area -->
                     <div class="home-one-menu-area">
                         <!-- Hotel Menu Title -->
-                        <h3 class="menu-title">The menu</h3>
+                        <h3 class="menu-title">Tendances</h3>
                         <ul class="scrollbar-inner">
                             <!-- Single Menu -->
                             <li>
                                 <a href="#">
                                     <img class="alignleft" src="assets/img/menu/menu1.png" alt="menu" />
-                                    <span class="restaurant-menu-title">Dimo’s Pizza</span>
-                                    <span class="item-price">$24.1</span>
-                                    <p class="menu-description">Maecenas dapibus</p>
+                                    <span class="restaurant-menu-title">Dimo's Pizza</span>
+                                    <span class="item-price">12 &euro;</span>
+                                    <p class="menu-description">Pizza avec une base de sauce tomate et les ingrédients qui suivent : fromage, thon, poivrons, olive, champignons</p>
                                 </a>
                             </li>
                             <!-- Single Menu -->
                             <li>
                                 <a href="#">
                                     <img class="alignleft" src="assets/img/menu/menu2.png" alt="menu" />
-                                    <span class="restaurant-menu-title">Baked Potato</span>
-                                    <span class="item-price">$12</span>
-                                    <p class="menu-description">Maecenas dapibus</p>
+                                    <span class="restaurant-menu-title">American Burger</span>
+                                    <span class="item-price">7 &euro;</span>
+                                    <p class="menu-description">Steak, fromage, salade, tomate, oignon, cornichons</p>
                                 </a>
                             </li>
                             <!-- Single Menu -->
                             <li>
                                 <a href="#">
                                     <img class="alignleft" src="assets/img/menu/menu3.png" alt="menu" />
-                                    <span class="restaurant-menu-title">Salmon Steak</span>
-                                    <span class="item-price">$18.9</span>
-                                    <p class="menu-description">Maecenas dapibus</p>
+                                    <span class="restaurant-menu-title">Lasagnes</span>
+                                    <span class="item-price">8 &euro;</span>
+                                    <p class="menu-description">Gluten free !</p>
                                 </a>
                             </li>
                             <!-- Single Menu -->
                             <li>
                                 <a href="#">
                                     <img class="alignleft" src="assets/img/menu/menu1.png" alt="menu" />
-                                    <span class="restaurant-menu-title">Salmon Steak</span>
-                                    <span class="item-price">$14</span>
-                                    <p class="menu-description">Maecenas dapibus</p>
+                                    <span class="restaurant-menu-title">Salade niçoise</span>
+                                    <span class="item-price">6 &euro;</span>
+                                    <p class="menu-description">salade, tomates, thon, pommes de terre, olive, oeuf</p>
                                 </a>
                             </li>
                         </ul>
