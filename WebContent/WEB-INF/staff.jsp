@@ -29,12 +29,14 @@
 					<div class="row">
 						<div class="col-md-7">
 							<div class="team-title">
-								<h4 class="title-style-11 color-2">our talented staff</h4>
+								<h4 class="title-style-11 color-2">L'équipe compétente</h4>
 								<hr class="hr-border-bottom pull-left">
 							</div>
-							<p>Vestibulum aliquet lacus et mollis mattis. Donec vol.utpat
-								gravida urna. Nullam tincidunt mollis urna quis venenatis. Class
-								aptent tacitih.</p>
+							<ul>
+							<li><a href="https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwielai54YDUAhVMAcAKHezkAhUQFggnMAA&url=https%3A%2F%2Ffr.linkedin.com%2Fin%2Fjunior-noubissi-49872b133&usg=AFQjCNE-TXiPNqhrutXSR77eLFOcGJNAWQ&sig2=2ZECczCqv8jz1zKNmCl72A">Junior Noubissi</a></li>
+							<li><a href="https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwjGhKvf4YDUAhWKLsAKHe9nDoUQFggjMAA&url=https%3A%2F%2Ffr.linkedin.com%2Fin%2Fyoussef-ferchichi-7233b3102&usg=AFQjCNH8UZtt5aPdWG-qMxakqOhfjXcZLA&sig2=eV0cI3puMGGDtNPpAri6hQ">Youssef Ferchichi</a></li>
+							<li><a href="https://www.linkedin.com/in/hamza-chahi-46b442109/">Hamza Chahi</a>
+							</ul>
 							<div class="team-top-footer">
 								<button type="submit" class="btn btn-style-4">read menu</button>
 								<span class="staff-signature">EsmetHajrizi</span>

@@ -125,6 +125,10 @@
 		<servlet-name>ServletUsers</servlet-name>
 		<servlet-class>vue.ServletUsers</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ServletFacture</servlet-name>
+		<servlet-class>vue.ServletFacture</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>ServletAccueil</servlet-name>
 		<url-pattern>/accueil</url-pattern>
@@ -216,5 +220,9 @@
 	<servlet-mapping>
 		<servlet-name>ServletUsers</servlet-name>
 		<url-pattern>/users</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ServletFacture</servlet-name>
+		<url-pattern>/facture</url-pattern>
 	</servlet-mapping>
 </web-app>

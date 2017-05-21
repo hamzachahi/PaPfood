@@ -25,11 +25,11 @@
                             <div class="title-container s-tb-c title-compress">
                                 <div class="layear-1-1"> <img src="assets/img/slider/slide1.png" alt="slide1" /> </div>
                                 <div class="layear-1-2">
-                                    <h2>Subtitle Here</h2>
-                                    <h3>al fresco</h3>
-                                    <h3>restaurant</h3>
-                                    <h3>website</h3>
-                                    <a class="btn-style-1" href="#">Order Now</a>
+                                    <h2>Il Cibo</h2>
+                                    <h3>Envie d'un plat en particulier ?</h3>
+                                    <h3>Cibo vous le ram&egrave;ne &ccedil;a jusqu'&agrave; chez vous !</h3>
+                                    <h3>Rapide et pratique</h3>
+                                    <a class="btn-style-1" href="${pageContext.request.contextPath}/order">Commander maintenant !</a>
                                 </div>
                             </div>
                         </div>  
@@ -40,9 +40,9 @@
                             <div class="title-container s-tb-c">
                                 <div class="layear-1-1"> <img class="slide-image" src="assets/img/slider/slide2.png" alt="slide2" /> </div>
                                 <div class="layear-1-2">
-                                    <h2 class="title1">2008</h2>
-                                    <h3 class="title2">the quality</h3>
-                                    <p>Sed in magna et nisi imperdiet viverra sed ac nisl. In eu turpis dui. In urna nisl, dictum eget odio quis, consectetur venenatis odio. Curabitur at tellus</p>
+                                    <h2 class="title1">Cibo</h2>
+                                    <h3 class="title2">La qualit&eacute;</h3>
+                                    <p>Avant que chaque plat ne soit propos&eacute;, nous veillons &agrave; ce qu'il respecte notre charte de qualit&eacute; afin de vous proposer le meilleur &agrave; chacune de vos commandes. </p>
                                 </div>
                             </div>
                         </div>
@@ -52,11 +52,11 @@
                         <div class="slider-content t-lfr s-tb slider-3">
                             <div class="title-container s-tb-c">
                                 <div class="layear-1-1">
-                                    <h2 class="title1">Welcome to Al Fresco</h2>
-                                    <h2 class="title2">be$t healthy food</h2>
+                                    <h2 class="title1">Bienvenue sur Cibo !</h2>
+                                    <h2 class="title2">Commandez sans plus attendre !</h2>
                                     <div class="image-border"></div>
                                     <div class="button-area">
-                                        <a href="#" class="btn-style-2">read details</a>
+                                        <a href="${pageContext.request.contextPath}/order" class="btn-style-2">Commander !</a>
                                     </div>
                                 </div>
                             </div>
@@ -89,42 +89,42 @@
                     <!-- Hotel Menu Area -->
                     <div class="home-one-menu-area">
                         <!-- Hotel Menu Title -->
-                        <h3 class="menu-title">The menu</h3>
+                        <h3 class="menu-title">Tendances</h3>
                         <ul class="scrollbar-inner">
                             <!-- Single Menu -->
                             <li>
                                 <a href="#">
                                     <img class="alignleft" src="assets/img/menu/menu1.png" alt="menu" />
-                                    <span class="restaurant-menu-title">Dimo’s Pizza</span>
-                                    <span class="item-price">$24.1</span>
-                                    <p class="menu-description">Maecenas dapibus</p>
+                                    <span class="restaurant-menu-title">Dimo's Pizza</span>
+                                    <span class="item-price">12 &euro;</span>
+                                    <p class="menu-description">Pizza avec une base de sauce tomate et les ingrédients qui suivent : fromage, thon, poivrons, olive, champignons</p>
                                 </a>
                             </li>
                             <!-- Single Menu -->
                             <li>
                                 <a href="#">
                                     <img class="alignleft" src="assets/img/menu/menu2.png" alt="menu" />
-                                    <span class="restaurant-menu-title">Baked Potato</span>
-                                    <span class="item-price">$12</span>
-                                    <p class="menu-description">Maecenas dapibus</p>
+                                    <span class="restaurant-menu-title">American Burger</span>
+                                    <span class="item-price">7 &euro;</span>
+                                    <p class="menu-description">Steak, fromage, salade, tomate, oignon, cornichons</p>
                                 </a>
                             </li>
                             <!-- Single Menu -->
                             <li>
                                 <a href="#">
                                     <img class="alignleft" src="assets/img/menu/menu3.png" alt="menu" />
-                                    <span class="restaurant-menu-title">Salmon Steak</span>
-                                    <span class="item-price">$18.9</span>
-                                    <p class="menu-description">Maecenas dapibus</p>
+                                    <span class="restaurant-menu-title">Lasagnes</span>
+                                    <span class="item-price">8 &euro;</span>
+                                    <p class="menu-description">Gluten free !</p>
                                 </a>
                             </li>
                             <!-- Single Menu -->
                             <li>
                                 <a href="#">
                                     <img class="alignleft" src="assets/img/menu/menu1.png" alt="menu" />
-                                    <span class="restaurant-menu-title">Salmon Steak</span>
-                                    <span class="item-price">$14</span>
-                                    <p class="menu-description">Maecenas dapibus</p>
+                                    <span class="restaurant-menu-title">Salade niçoise</span>
+                                    <span class="item-price">6 &euro;</span>
+                                    <p class="menu-description">salade, tomates, thon, pommes de terre, olive, oeuf</p>
                                 </a>
                             </li>
                         </ul>
