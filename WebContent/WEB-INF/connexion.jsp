@@ -152,7 +152,7 @@
 							<div class="logmod__alter-container">
 								<a href="#" class="connect facebook">
 									<div class="connect__icon" data-max-rows="1" data-size="xlarge"
-										data-show-faces="true" onlogin="renderData();" data-scope=""
+										data-show-faces="true" onlogin="" data-scope=""
 										data-auto-logout-link="true">
 										<i class="fa fa-facebook"></i>
 									</div>
@@ -178,19 +178,9 @@
 		src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
 	<script src="assets/js/index.js"></script>
-	<script type="text/javascript">
-		function renderData() {
-			$.ajax({
-				type : "POST",
-				contentType : "application/json",
-				url : "ServletConnect",
-				dataType : "json",
-				success : function() {
-					console.log('VOOOOOIIIIIILAAAAA');
-				}
-			});
-		}
-	</script>
+	<script src="assets/js/facebook.js"></script>
+
+
 
 
 </body>
