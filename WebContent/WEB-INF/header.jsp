@@ -59,7 +59,7 @@
 		<div id="main-menu" class="container-fluid">
 			<!-- Header Logo -->
 			<div class="header-logo">
-				<a href="index.html"><img src="assets/img/logo.png" alt="logo" /></a>
+				<!-- <a href="index.html"><img src="assets/img/logo.png" alt="logo" /></a> -->
 			</div>
 			<div class="container">
 				<div class="row">
@@ -77,15 +77,15 @@
 											<div class="row">
 												<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 													<ul>
-														<li><h3 class="mega-menu-title">shortcodes</h3></li>
-														<li><a href="layout.html">Layout &amp; Grids</a></li>
-														<li><a href="boutons.html">Buttons &amp; Alerts</a></li>
-														<li><a href="pricing-tables.html">Pricing Tables</a></li>
+														<li><h3 class="mega-menu-title">Parrainage</h3></li>
+														<li><a href="layout.html">Code promo</a></li>
+														<li><a href="boutons.html">Invitez vos amis !</a></li>
+														
 													</ul>
 												</div>
 												<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 													<ul>
-														<li><h3 class="mega-menu-title">Menu</h3></li>
+														<li><h3 class="mega-menu-title">Catégories</h3></li>
 														<li><a href="#">Menu One</a></li>
 														<li><a href="#">Menu Two</a></li>
 														<li><a href="#">Menu Three</a></li>
@@ -99,13 +99,6 @@
 												</div>
 											</div>
 										</div> <!-- End Mega Menu --></li>
-									<li><a href="blog-grid.html">blog</a> <!-- Start Sub Menu -->
-										<ul>
-											<li><a href="blog-grid.html">Blog Grid</a></li>
-											<li><a href="blog-circle.html">Blog Circle</a></li>
-											<li><a href="blog-full-width.html">Blog full width</a></li>
-											<li><a href="blog-single.html">Blog single</a></li>
-										</ul> <!-- End Sub Menu --></li>
 									<li><a href="#">Naviguer</a> <!-- Start Sub Menu -->
 										<ul>
 											<li><a href="${pageContext.request.contextPath}/profile">Modifier
