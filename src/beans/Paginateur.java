@@ -22,7 +22,7 @@ public class Paginateur {
 		if (total < 10) {
 			listem = liste;
 
-			pagination = "<li class=\"preview hidden\"><a href=\""+path+"?action=afficherSousVendables&begin=1&end=" + total
+			pagination = "<li class=\"preview hidden\"><a href=\""+path+"?action=afficherSousVendables&begin=0&end=" + total
 					+ "&pagenum=1\" aria-label=\"Previous`\"><span aria-hidden=\"true\"><i class=\"fa fa-angle-left\" aria-hidden=\"true\"></i></span></a></li>";
 			pagination = pagination
 					+ "<li><a class=\"active\" href=\""+path+"?action=afficherSousVendables&begin=0&end=" + total

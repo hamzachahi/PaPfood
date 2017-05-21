@@ -27,13 +27,15 @@ public class ServletAcheter extends HttpServlet {
 	ArrayList<ElementCommand> elements = new ArrayList<>();
 	Long begin = null;
 	Long end = null;
+	Long total = null;
 	DaoServiceImpl serviceDao = new DaoServiceImpl(new UsineDao(
 			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
 			"0000"));
 	DaoProductImpl productDao = new DaoProductImpl(new UsineDao(
 			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
 			"0000"));
-	String pagination="";
+	String pagination = "";
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		processRequest(request, response);
@@ -45,6 +47,7 @@ public class ServletAcheter extends HttpServlet {
 		processRequest(request, response);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
@@ -55,7 +58,7 @@ public class ServletAcheter extends HttpServlet {
 				end = Long.parseLong(request.getParameter("end"));
 				String message = "";
 				String pagination = "";
-				Long total = productDao.countElements();
+				total = productDao.countElements();
 				total = total + serviceDao.countElements();
 				if (total <= 0 || total == null) {
 					message = "Aucun sous-éléments à afficher!!";
@@ -64,8 +67,12 @@ public class ServletAcheter extends HttpServlet {
 						elements.remove(i);
 					}
 					message = "Liste des éléments trouvés";
-					tousLesArticles.addAll(productDao.findAllProduct(begin, end));
-					tousLesArticles.addAll(serviceDao.findAllService(begin, end));
+					tousLesArticles = new ArrayList<>();
+					tousLesArticles.addAll(productDao.findAllProduct(end, begin));
+					tousLesArticles.addAll(serviceDao.findAllService(end, begin));
+					for (int i = 0; i < elements.size(); i++) {
+						elements.remove(i);
+					}
 					for (int i = 0; i < tousLesArticles.size(); i++) {
 						ElementCommand elementCom = new ElementCommand();
 						elementCom.setmProduct(tousLesArticles.get(i));
@@ -78,7 +85,7 @@ public class ServletAcheter extends HttpServlet {
 
 				}
 				System.out.println("Nombre d'utilisateurs dans la base : " + total);
-				pagination=Paginateur.pagine(total, tousLesArticles, request, "acheter");
+				pagination = Paginateur.pagine(total, tousLesArticles, request, "acheter");
 				System.out.println("Pagination effectuée!");
 				request.setAttribute("pagination", pagination);
 				System.out.println("Pagination settée!");
@@ -87,9 +94,12 @@ public class ServletAcheter extends HttpServlet {
 				request.setAttribute("message", message);
 			}
 			if (action.equals("chargerPanier")) {
-				Double total = 0.0;
+				Double totalpanier = 0.0;
 
-				HttpSession session = request.getSession();
+				HttpSession session = request.getSession(false);
+				if (session.getAttribute("monPanier") != null) {
+					monPanier=((ArrayList<ElementCommand>) session.getAttribute("monPanier"));
+				}
 				int i = Integer.parseInt(request.getParameter("idarticle"));
 				ElementCommand article = elements.get(i);
 				monPanier.add(article);
@@ -98,20 +108,23 @@ public class ServletAcheter extends HttpServlet {
 				session.setAttribute("monPanier", monPanier);
 
 				for (int i1 = 0; i1 < monPanier.size(); i1++) {
-					total += monPanier.get(i1).getmProduct().getPrice();
+					totalpanier += monPanier.get(i1).getmProduct().getPrice();
 				}
-				session.setAttribute("prixtotal", total);
+				session.setAttribute("prixtotal", totalpanier);
 				request.setAttribute("searchResults", elements);
 				request.setAttribute("total", total);
 				session.setAttribute("searchResults", elements);
+				pagination = Paginateur.pagine(total, tousLesArticles, request, "acheter");
+				request.setAttribute("pagination", pagination);
 			}
 
 			if (action.equals("chercherProduit")) {
 				HttpSession session = request.getSession();
 				String motCle = request.getParameter("name");
+				tousLesArticles = new ArrayList<>();
 				tousLesArticles.addAll(serviceDao.findServiceByKeyWord(motCle));
 				tousLesArticles.addAll(productDao.findProductByKeyWord(motCle));
-				Long total = (long) tousLesArticles.size();
+				total = (long) tousLesArticles.size();
 				for (int i = 0; i < elements.size(); i++) {
 					elements.remove(i);
 				}
@@ -124,7 +137,7 @@ public class ServletAcheter extends HttpServlet {
 				request.setAttribute("total", total);
 				request.setAttribute("searchResults", elements);
 				session.setAttribute("searchResults", elements);
-				pagination=Paginateur.pagine(total, tousLesArticles, request, "acheter");
+				pagination = Paginateur.pagine(total, tousLesArticles, request, "acheter");
 				request.setAttribute("pagination", pagination);
 				Cookie[] mesCookies = request.getCookies();
 				if (mesCookies != null) {
@@ -137,13 +150,12 @@ public class ServletAcheter extends HttpServlet {
 					}
 				}
 			}
-			this.getServletContext().getRequestDispatcher("/WEB-INF/plats.jsp").forward(request, response);
 
 		} else {
 			if (tousLesArticles == null) {
 				tousLesArticles = new ArrayList<>();
 				HttpSession session = request.getSession();
-				Long total = productDao.countElements();
+				total = productDao.countElements();
 				total = total + serviceDao.countElements();
 				tousLesArticles.addAll(productDao.findAllProduct((long) 10, (long) 0));
 				tousLesArticles.addAll(serviceDao.findAllService((long) 10, (long) 0));
@@ -160,18 +172,19 @@ public class ServletAcheter extends HttpServlet {
 				request.setAttribute("searchResults", elements);
 				request.setAttribute("total", total);
 				session.setAttribute("searchResults", elements);
-				pagination=Paginateur.pagine(total, tousLesArticles, request, "acheter");
-				request.setAttribute("pagination", pagination);				
+				pagination = Paginateur.pagine(total, tousLesArticles, request, "acheter");
+				request.setAttribute("pagination", pagination);
 			} else {
 				request.setAttribute("searchResults", elements);
-				Long total = productDao.countElements();
+				total = productDao.countElements();
 				total = total + serviceDao.countElements();
 				request.setAttribute("total", total);
-				pagination=Paginateur.pagine(total, tousLesArticles, request, "acheter");
+				pagination = Paginateur.pagine(total, tousLesArticles, request, "acheter");
 				request.setAttribute("pagination", pagination);
 			}
-			this.getServletContext().getRequestDispatcher("/WEB-INF/plats.jsp").forward(request, response);
 
 		}
+		this.getServletContext().getRequestDispatcher("/WEB-INF/plats.jsp").forward(request, response);
+
 	}
 }

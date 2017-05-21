@@ -45,7 +45,7 @@
 											<h3>${article.name }</h3>
 											<p>${article.description }.</p>
 											<a class="btn btn-rooms-book-now"
-												href="acheter?action=chargerPanier&idarticle=${i}">Ajouter
+												href="services?action=chargerPanier&idarticle=${i}">Ajouter
 												au panier</a> <a class="btn btn-rooms-book-now"
 												href="details?type=Service&cible=${article.id}">+
 												D&eacute;tails</a>

@@ -58,6 +58,11 @@
 									<tfoot>
 										<tr>
 											<th>Sous-total: ${requestScope.total} &euro;</th>
+											<td align="center">
+												<button class="btn btn-style-4">
+													<a style="color: white;" href="panier?action=viderPanier">Vider le panier</a>
+												</button>
+											</td>
 											<td align="right">
 												<button class="btn btn-style-4">
 													<a style="color: white;" href="order?action=validerPanier">Valider

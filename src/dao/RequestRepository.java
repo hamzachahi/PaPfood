@@ -26,10 +26,16 @@ public class RequestRepository {
 
 	private static final String MySQL_SELECT_PRODUCT_BY_ID = "SELECT * FROM product p WHERE Id = ?";
 	private static final String MySQL_SELECT_SERVICE_BY_ID = "SELECT * FROM service s WHERE Id = ?";
+	
+	private static final String MySQL_SELECT_PRODUCT_BY_ID_PROVIDER = "SELECT * FROM product p WHERE id_provider = ? limit ? offset ?";
+	private static final String MySQL_SELECT_SERVICE_BY_ID_PROVIDER = "SELECT * FROM service s WHERE id_provider = ? limit ? offset ?";
 	// fin select
 	// début count
 	private static final String MySQL_SELECT_COUNT_PRODUCT = "select count(id) as nb from product p";
 	private static final String MySQL_SELECT_COUNT_SERVICE = "select count(id) as nb from service s";
+	
+	private static final String MySQL_SELECT_COUNT_PRODUCT_BY_ID_PROVIDER = "select count(id) as nb from product p WHERE id_provider = ?";
+	private static final String MySQL_SELECT_COUNT_SERVICE_BY_ID_PROVIDER = "select count(id) as nb from service s WHERE id_provider = ?";
 
 	// fin count
 	// début insert
@@ -813,6 +819,22 @@ public class RequestRepository {
 
 	public static String getMysqlDeleteImagePersonLink() {
 		return MySQL_DELETE_IMAGE_PERSON_LINK;
+	}
+
+	public static String getMysqlSelectProductByIdProvider() {
+		return MySQL_SELECT_PRODUCT_BY_ID_PROVIDER;
+	}
+
+	public static String getMysqlSelectServiceByIdProvider() {
+		return MySQL_SELECT_SERVICE_BY_ID_PROVIDER;
+	}
+
+	public static String getMysqlSelectCountProductByIdProvider() {
+		return MySQL_SELECT_COUNT_PRODUCT_BY_ID_PROVIDER;
+	}
+
+	public static String getMysqlSelectCountServiceByIdProvider() {
+		return MySQL_SELECT_COUNT_SERVICE_BY_ID_PROVIDER;
 	}
 
 }

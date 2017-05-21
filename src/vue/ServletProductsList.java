@@ -22,12 +22,15 @@ public class ServletProductsList extends HttpServlet {
 	private DaoProductImpl productDao = new DaoProductImpl(new UsineDao(
 			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
 			"0000"));
-	private ArrayList<ElementCommand> elements;
+	private ArrayList<ElementCommand> elements = new ArrayList<>();
+	private ArrayList<ElementCommand> monPanier = new ArrayList<>();
 	private ArrayList<Salable> tousLesProduits;
 	String pagination = "";
 	Long begin = null;
 	Long end = null;
+	Long total = null;
 
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -39,17 +42,26 @@ public class ServletProductsList extends HttpServlet {
 
 				String message = "";
 				String pagination = "";
-				Long total = productDao.countElements();
+				total = productDao.countElements();
 				if (total <= 0 || total == null) {
 					message = "Aucun sous-éléments à afficher!!";
 				} else {
 					message = "Liste des éléments trouvés";
 					tousLesProduits.addAll(productDao.findAllProduct(begin, end));
+					for (int i = 0; i < elements.size(); i++) {
+						elements.remove(i);
+					}
+					for (int i = 0; i < tousLesProduits.size(); i++) {
+						ElementCommand elementCom = new ElementCommand();
+						elementCom.setmProduct(tousLesProduits.get(i));
+						elementCom.setQuantity(0);
+						elements.add(elementCom);
+					}
 					request.setAttribute("listProduits", tousLesProduits);
 					request.setAttribute("total", total);
 				}
 				System.out.println("Nombre d'utilisateurs dans la base : " + total);
-				pagination =Paginateur.pagine(total, tousLesProduits, request, "produits");
+				pagination = Paginateur.pagine(total, tousLesProduits, request, "produits");
 				System.out.println("Pagination effectuée!");
 				request.setAttribute("pagination", pagination);
 				System.out.println("Pagination settée!");
@@ -57,13 +69,44 @@ public class ServletProductsList extends HttpServlet {
 				request.setAttribute("listProduits", tousLesProduits);
 				request.setAttribute("message", message);
 			}
+			if (action.equals("chargerPanier")) {
+				Double totalpanier = 0.0;
+				HttpSession session = request.getSession(false);
+				if (session.getAttribute("monPanier") != null) {
+					monPanier=((ArrayList<ElementCommand>) session.getAttribute("monPanier"));
+				}
+				int i = Integer.parseInt(request.getParameter("idarticle"));
+				ElementCommand article = elements.get(i);
+				monPanier.add(article);
+				session.setAttribute("nbrelementspanier", monPanier.size());
+				request.setAttribute("articlesPanier", monPanier);
+				session.setAttribute("monPanier", monPanier);
+
+				for (int i1 = 0; i1 < monPanier.size(); i1++) {
+					totalpanier += monPanier.get(i1).getmProduct().getPrice();
+				}
+				request.setAttribute("listProduits", tousLesProduits);
+				request.setAttribute("total", totalpanier);
+				session.setAttribute("tousLesProduits", elements);
+				pagination = Paginateur.pagine(total, tousLesProduits, request, "services");
+				request.setAttribute("pagination", pagination);
+			}
 
 		} else {
 			if (tousLesProduits == null) {
 				tousLesProduits = new ArrayList<>();
 				HttpSession session = request.getSession();
-				Long total = productDao.countElements();
+				total = productDao.countElements();
 				tousLesProduits.addAll(productDao.findAllProduct((long) 10, (long) 0));
+				for (int i = 0; i < elements.size(); i++) {
+					elements.remove(i);
+				}
+				for (int i = 0; i < tousLesProduits.size(); i++) {
+					ElementCommand elementCom = new ElementCommand();
+					elementCom.setmProduct(tousLesProduits.get(i));
+					elementCom.setQuantity(0);
+					elements.add(elementCom);
+				}
 				request.setAttribute("listProduits", tousLesProduits);
 				request.setAttribute("total", total);
 				session.setAttribute("tousLesProduits", elements);
@@ -71,7 +114,7 @@ public class ServletProductsList extends HttpServlet {
 				request.setAttribute("pagination", pagination);
 			} else {
 				request.setAttribute("listProduits", tousLesProduits);
-				Long total = productDao.countElements();
+				total = productDao.countElements();
 				request.setAttribute("total", total);
 				pagination = Paginateur.pagine(total, tousLesProduits, request, "produits");
 				request.setAttribute("pagination", pagination);

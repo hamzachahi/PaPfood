@@ -17,7 +17,10 @@ public interface ProductDao {
 
 	public ArrayList<Product> findAllProduct(Long limit, Long offset);
 
-	public ArrayList<Product> findAllProductById(Long Id);
+	public ArrayList<Product> findAllProductByIdProvider(Long Id, Long limit, Long offset);
 
 	public Long countElements();
+
+	public Long countElementsByIdProvider(Long Id);
+
 }

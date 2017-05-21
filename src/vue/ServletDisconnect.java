@@ -16,11 +16,9 @@ public class ServletDisconnect extends HttpServlet {
 	public static final String URL_REDIRECTION = "http://localhost:2020/PaPfood/connexion";
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-        /* Récupération et destruction de la session en cours */
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         session.invalidate();
 
-        /* Redirection vers le Site du Zéro ! */
 		response.sendRedirect(request.getContextPath()+"/connexion");
     }
 }

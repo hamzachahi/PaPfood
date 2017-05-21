@@ -31,26 +31,39 @@ public class ServletPanier extends HttpServlet {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
 		String action = request.getParameter("action");
 		Double total = 0.0;
-
-		if (action != null) {
+		if (request.getSession(false) == null) {
+			response.sendRedirect(request.getContextPath() + "/connexion");
+		} else if (action != null) {
 			if (action.equals("removeSalable")) {
-				HttpSession session = request.getSession();
 				int i = Integer.parseInt(request.getParameter("indice"));
 				monPanier.remove(i);
 				request.setAttribute("articlesPanier", monPanier);
 				session.setAttribute("monPanier", monPanier);
+				session.setAttribute("nbrelementspanier", monPanier.size());
 				for (int i1 = 0; i1 < monPanier.size(); i1++) {
 					total = total + monPanier.get(i1).getmProduct().getPrice();
 				}
 				request.setAttribute("total", total);
 				session.setAttribute("prixtotal", total);
-				this.getServletContext().getRequestDispatcher("/WEB-INF/panier.jsp").forward(request, response);
 			}
+			if (action.equals("viderPanier")) {
+				monPanier = null;
+				monPanier = new ArrayList<>();
+				request.setAttribute("articlesPanier", monPanier);
+				session.setAttribute("monPanier", monPanier);
+				session.setAttribute("nbrelementspanier", monPanier.size());
+				request.setAttribute("total", 0);
+				session.setAttribute("prixtotal", 0);
+			}
+			this.getServletContext().getRequestDispatcher("/WEB-INF/panier.jsp").forward(request, response);
+
 		} else {
-			HttpSession session = request.getSession();
-			monPanier = (ArrayList) session.getAttribute("monPanier");
+			if (session.getAttribute("monPanier") != null) {
+				monPanier = (ArrayList) session.getAttribute("monPanier");
+			}
 			request.setAttribute("articlesPanier", monPanier);
 			for (int i = 0; i < monPanier.size(); i++) {
 				total = total + monPanier.get(i).getmProduct().getPrice();

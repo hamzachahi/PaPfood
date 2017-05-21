@@ -28,9 +28,10 @@
 					<div class="booking-form">
 						<h1>Informations</h1>
 						<div>
-							<li class="btn btn-style-4"><a
-								href="proposer?action=afficherSousVendables&begin=0&end=1${requestScope['nbre']}">Afficher/raffraichir
-									la liste de tous les sous-&Eacute;l&Eacute;ments possibles</a></li>
+							<a href="proposer?action=afficherSousVendables&begin=0&end=10">
+								<li class="btn btn-style-4">Afficher/raffraichir la liste
+									de tous les sous-&Eacute;l&Eacute;ments possibles</li>
+							</a>
 						</div>
 						<br />
 
@@ -59,7 +60,7 @@
 											class="form-control" type="file" id="fichier" name="fichier"
 											value="<c:out value="${fichier.nom}"/>" /> <span
 											class="erreur">${formfile.erreurs['fichier']}</span>
-											 <p class="${empty formfile.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>        
+										<p class="${empty formfile.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
 									</div>
 									<div class="form-group">
 										<label for="prix"> Description/Remarques </label>
@@ -111,11 +112,11 @@
 										<table class="table shop-cart">
 											<thead>
 												<td><b>N&ordm;</b></td>
-												<td><b>Code</b></td>
 												<td><b>Nom</b></td>
 												<td><b>Prix</b></td>
 												<td><b>Description</b></td>
 												<td><b>Type</b></td>
+												<td><b>D&eacute;tails</b></td>
 												<td><b>Ajouter</b></td>
 
 
@@ -130,13 +131,16 @@
 												items="${requestScope['listeDeSalablesCut']}">
 												<tr>
 													<td>${i+1}</td>
-													<td>${u.code}</td>
 													<td>${u.name}</td>
 													<td>${u.price}</td>
 													<td>${u.description}</td>
 													<td>${u.type}</td>
-													<td><a
-														href="ServletPropose?action=addSalable&indice=${i}">+</a></td>
+													<td><a class="btn btn-rooms-book-now"
+														href="details?type=${u.type}&cible=${u.id}">+
+															D&eacute;tails</a></td>
+													<td>
+													<td><a href="proposer?action=addSalable&indice=${i}"><button
+																class="btn btn-primary btn-	s">+1</button></a></td>
 
 
 													<!-- On compte le nombre de users -->
@@ -163,6 +167,164 @@
 			</div>
 		</div>
 	</c:if> </section>
+	<section id="page-title-area">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="restaurent-menu-title">
+					<c:if test="${!empty param['message']}">
+						<h2>Reçu message : ${param.message}</h2>
+					</c:if>
+				</div>
+			</div>
+		</div>
+	</div>
+	<c:if test="${param['action'] == 'addSalable'}">
+		<h3 align="center" class="primery-title">Sous-produits/Services
+			rajoutés</h3>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="page-inner padding-top-lg padding-bottom-lg">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="table-responsive">
+									<div class="pagination">
+										<table class="table shop-cart">
+											<thead>
+												<td><b>N&ordm;</b></td>
+												<td><b>Nom</b></td>
+												<td><b>Prix</b></td>
+												<td><b>Description</b></td>
+												<td><b>Type</b></td>
+												<td><b>D&eacute;tails</b></td>
+												<td><b>Supprimer</b></td>
+
+
+											</thead>
+
+											<!-- Ici on affiche les lignes, une par utilisateur -->
+											<!-- cette variable montre comment on peut utiliser JSTL et EL pour calculer -->
+											<c:set var="ii" value="0" />
+
+											<c:forEach var="uu"
+												items="${requestScope['listeDeSousSalables']}">
+												<tr>
+													<td>${ii+1}</td>
+													<td>${uu.name}</td>
+													<td>${uu.price}</td>
+													<td>${uu.description}</td>
+													<td>${uu.type}</td>
+													<td><a class="btn btn-rooms-book-now"
+														href="details?type=${uu.type}&cible=${uu.id}">+
+															D&eacute;tails</a></td>
+													<td>
+													<td><a
+														href="proposer?action=removeSalable&index=${ii}"><button
+																class="btn btn-primary btn-	s">-1</button></a></td>
+
+
+
+													<!-- On compte le nombre de users -->
+													<c:set var="ii" value="${ii+1}" />
+												</tr>
+											</c:forEach>
+
+											<!-- Affichage du solde total dans la dernière ligne du tableau -->
+											<tfoot>
+												<td><b>TOTAL</b></td>
+												<td></td>
+												<td><b>${ii}</b></td>
+											</tfoot>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</c:if> </section>
+	<section id="page-title-area">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="restaurent-menu-title">
+					<c:if test="${!empty param['message']}">
+						<h2>Reçu message : ${param.message}</h2>
+					</c:if>
+				</div>
+			</div>
+		</div>
+	</div>
+	<c:if test="${param['action'] == 'removeSalable'}">
+		<h3 align="center" class="primery-title">Sous-produits/services
+			rajoutés</h3>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="page-inner padding-top-lg padding-bottom-lg">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="table-responsive">
+									<div class="pagination">
+										<table class="table shop-cart">
+											<thead>
+												<td><b>N&ordm;</b></td>
+												<td><b>Nom</b></td>
+												<td><b>Prix</b></td>
+												<td><b>Description</b></td>
+												<td><b>Type</b></td>
+												<td><b>D&eacute;tails</b></td>
+												<td><b>Supprimer</b></td>
+
+
+											</thead>
+
+											<!-- Ici on affiche les lignes, une par utilisateur -->
+											<!-- cette variable montre comment on peut utiliser JSTL et EL pour calculer -->
+											<c:set var="ii" value="0" />
+
+											<c:forEach var="uu"
+												items="${requestScope['listeDeSousSalables']}">
+												<tr>
+													<td>${ii+1}</td>
+													<td>${uu.name}</td>
+													<td>${uu.price}</td>
+													<td>${uu.description}</td>
+													<td>${uu.type}</td>
+													<td><a class="btn btn-rooms-book-now"
+														href="details?type=${uu.type}&cible=${uu.id}">+
+															D&eacute;tails</a></td>
+													<td><a
+														href="proposer?action=removeSalable&index=${ii}"><button
+																class="btn btn-primary btn-	s">-1</button></a></td>
+
+
+
+													<!-- On compte le nombre de users -->
+													<c:set var="ii" value="${ii+1}" />
+												</tr>
+											</c:forEach>
+
+											<!-- Affichage du solde total dans la dernière ligne du tableau -->
+											<tfoot>
+												<td><b>TOTAL</b></td>
+												<td></td>
+												<td><b>${ii}</b></td>
+											</tfoot>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</c:if> </section>
+	</section>
 	<%@include file="footer.jsp"%>
 </body>
 </html>

@@ -17,7 +17,10 @@ public interface ServiceDao {
 
 	public ArrayList<Service> findAllService(Long limit, Long offset);
 
-	public ArrayList<Service> findAllServiceById(Long Id);
+	public ArrayList<Service> findAllServiceByIdProvider(Long Id, Long limit, Long offset);
 
 	public Long countElements();
+
+	public Long countElementsByIdProvider(Long Id);
+
 }

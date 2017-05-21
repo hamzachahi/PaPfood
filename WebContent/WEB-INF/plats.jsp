@@ -58,6 +58,8 @@
 											<th>Nom du produit</th>
 											<th>Description</th>
 											<th>Prix</th>
+											<th>D&eacute;tails</th>
+
 											<th>Ajouter au panier</th>
 										</tr>
 									</thead>
@@ -71,9 +73,13 @@
 												<td>${article.mProduct.name }</td>
 												<td>${article.mProduct.description }</td>
 												<td>${article.mProduct.price}</td>
+												<td><a class="btn btn-rooms-book-now"
+													href="details?type=${article.mProduct.type}&cible=${article.mProduct.id}">+
+														D&eacute;tails</a></td>
 												<td align="center"><a style="color: white;"
 													href="acheter?action=chargerPanier&idarticle=${i}"><button
 															class="btn btn-primary btn-	s">+1</button></a></td>
+
 											</tr>
 											<c:set var="i" value="${i+1}" />
 										</c:forEach>
@@ -86,7 +92,7 @@
 											<td><b>TOTAL</b></td>
 											<td></td>
 											<td></td>
-											<td><b>${requestScope['total']}</b></td>
+											<td><b>${requestScope['total']+1}</b></td>
 										</tr>
 
 									</tfoot>

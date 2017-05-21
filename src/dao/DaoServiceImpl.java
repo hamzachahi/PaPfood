@@ -263,12 +263,12 @@ public class DaoServiceImpl implements ServiceDao {
 		return serviceResults;
 	}
 	@Override
-	public ArrayList<Service> findAllServiceById(Long Id) {
+	public ArrayList<Service> findAllServiceByIdProvider(Long Id, Long limit, Long offset) {
 		// TODO Auto-generated method stub
 		Boolean isSucceed=false;
-		return findAllServiceById(Id, isSucceed, RequestRepository.getMysqlSelectServiceById());
+		return findAllServiceById(Id, limit, offset, isSucceed, RequestRepository.getMysqlSelectServiceByIdProvider());
 	}
-	private ArrayList<Service> findAllServiceById(Long Id, Boolean isSucceed, String sql) {
+	private ArrayList<Service> findAllServiceById(Long Id, Long limit, Long offset, Boolean isSucceed, String sql) {
 		// TODO Auto-generated method stub
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -282,7 +282,7 @@ public class DaoServiceImpl implements ServiceDao {
 			 * Préparation de la requête avec les objets passés en arguments
 			 * (ici, uniquement une adresse email) et exécution.
 			 */
-			preparedStatement = initialisationRequetePreparee(connexion, sql, false, Id);
+			preparedStatement = initialisationRequetePreparee(connexion, sql, false, Id, limit, offset);
 			resultSet = preparedStatement.executeQuery();
 			/* Parcours de la ligne de données retournée dans le ResultSet */
 			while (resultSet.next()) {
@@ -330,4 +330,40 @@ public class DaoServiceImpl implements ServiceDao {
 		}
 		return nbre;
 	}
+
+	@Override
+	public Long countElementsByIdProvider(Long Id) {
+		// TODO Auto-generated method stub
+		Boolean isSucceed = false;
+		return countElementsByIdProvider(Id, isSucceed);
+	}
+
+	private Long countElementsByIdProvider(Long Id, Boolean isSucceed) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Long nbre = (long) 0;
+		try {
+			/* Récupération d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			/*
+			 * Préparation de la requête avec les objets passés en arguments
+			 * (ici, uniquement une adresse email) et exécution.
+			 */
+			preparedStatement = initialisationRequetePreparee(connexion,
+					RequestRepository.getMysqlSelectCountServiceByIdProvider(), false, Id);
+			resultSet = preparedStatement.executeQuery();
+			/* Parcours de la ligne de données retournée dans le ResultSet */
+			if (resultSet.next()) {
+				isSucceed = true;
+				nbre = resultSet.getLong("nb");
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return nbre;
+	}
+
 }

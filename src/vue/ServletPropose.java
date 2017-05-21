@@ -65,137 +65,145 @@ public class ServletPropose extends HttpServlet {
 		} else if (request.getSession(false) != null && listProdSer == null) {
 			listProdSer = new ArrayList<>();
 			utilisateur = (Person) session.getAttribute("sessionUtilisateur");
-			listProdSer.addAll(productDao.findAllProductById(utilisateur.getId()));
-			listProdSer.addAll(serviceDao.findAllServiceById(utilisateur.getId()));
+			listProdSer.addAll(productDao.findAllProductByIdProvider(utilisateur.getId(), (long) 10, (long) 0));
+			listProdSer.addAll(serviceDao.findAllServiceByIdProvider(utilisateur.getId(), (long) 10, (long) 0));
 			request.setAttribute("listeDeSalable", listProdSer);
-			this.getServletContext().getRequestDispatcher("/WEB-INF/proposer.jsp").forward(request, response);
-
 		} else {
-			String action = request.getParameter("action");
+			if (request.getParameter("action") != null) {
+				String action = request.getParameter("action");
 
-			if (action.equals("proposerProductService") && session != null) {
-				String nom = null;
-				String monChoix = null;
-				Double prix = null;
-				String description = null;
-				String code = null;
-				Long idProvider = null;
-				String chemin = null;
-				FormUpload form=null;
-				Fichier fichier=null;
-				if (request.getPart(CHAMP_FICHIER) != null) {
-					chemin = this.getServletConfig().getInitParameter(CHEMIN);
-					form = new FormUpload(false);
-					fichier = form.enregistrerFichier(request, chemin);
-					request.setAttribute(ATT_FORM, form);
-					request.setAttribute(ATT_FICHIER, fichier);
-				}
-
-				nom = request.getParameter("nom");
-				monChoix = request.getParameter("type");
-				prix = Double.parseDouble(request.getParameter("prix"));
-				// à compléter les sous produits
-				description = request.getParameter("description");
-				// à récupérer : photo
-
-				idProvider = utilisateur.getId();
-				Date actuelle = new Date();
-				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-				String dat = dateFormat.format(actuelle);
-				code = dat;
-				code = code + monChoix.substring(0, 3);
-				code = code + idProvider;
-
-				if (monChoix.equals("product")) {
-
-					Product produit = new Product();
-
-					produit.setName(nom, false);
-					produit.setPrice(prix, false);
-					produit.setDescription(description, false);
-					produit.setIdProvider(utilisateur.getId());
-					produit.setCode(code);
-
-					System.out.println(produit.toString());
-					if(fichier.getNom()!=null&&!fichier.getNom().equals("")){
-						produit.getListImage().add((fichier.getNom()));
+				if (action.equals("proposerProductService") && session != null) {
+					String nom = null;
+					String monChoix = null;
+					Double prix = null;
+					String description = null;
+					String code = null;
+					Long idProvider = null;
+					String chemin = null;
+					FormUpload form = null;
+					Fichier fichier = null;
+					if (request.getPart(CHAMP_FICHIER) != null) {
+						chemin = this.getServletConfig().getInitParameter(CHEMIN);
+						form = new FormUpload(false);
+						fichier = form.enregistrerFichier(request, chemin);
+						request.setAttribute(ATT_FORM, form);
+						request.setAttribute(ATT_FICHIER, fichier);
 					}
-					Boolean success = productDao.addProduct(produit);
-					if (success == true) {
-						request.setAttribute("success", "Votre offre à bien été enregistrée!");
-						response.sendRedirect(request.getContextPath() + "/proposer");						
 
+					nom = request.getParameter("nom");
+					monChoix = request.getParameter("type");
+					prix = Double.parseDouble(request.getParameter("prix"));
+					// à compléter les sous produits
+					description = request.getParameter("description");
+					// à récupérer : photo
+
+					idProvider = utilisateur.getId();
+					Date actuelle = new Date();
+					DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+					String dat = dateFormat.format(actuelle);
+					code = dat;
+					code = code + monChoix.substring(0, 3);
+					code = code + idProvider;
+
+					if (monChoix.equals("product")) {
+
+						Product produit = new Product();
+
+						produit.setName(nom, false);
+						produit.setPrice(prix, false);
+						produit.setDescription(description, false);
+						produit.setIdProvider(utilisateur.getId());
+						produit.setCode(code);
+
+						System.out.println(produit.toString());
+						if (fichier.getNom() != null && !fichier.getNom().equals("")) {
+							produit.getListImage().add((fichier.getNom()));
+						}
+						Boolean success = productDao.addProduct(produit);
+						if (success == true) {
+							request.setAttribute("success", "Votre offre à bien été enregistrée!");
+							response.sendRedirect(request.getContextPath() + "/proposer");
+
+						} else {
+							request.setAttribute("success", "Votre offre n'a pas été enregistrée!");
+							response.sendRedirect(request.getContextPath() + "/proposer");
+
+						}
+
+					}
+
+					else {
+						Service service = new Service();
+
+						service.setName(nom, false);
+						service.setPrice(prix, false);
+						service.setDescription(description, false);
+						service.setIdProvider(utilisateur.getId());
+						service.setCode(code);
+						System.out.println(service.toString());
+						if (fichier.getNom() != null && !fichier.getNom().equals("")) {
+							service.getListImage().add(fichier.getNom());
+						}
+						Boolean success = serviceDao.addService(service);
+						if (success == true) {
+							request.setAttribute("success", "Votre offre à bien été enregistrée!");
+							this.getServletContext().getRequestDispatcher(request.getContextPath() + "/proposer")
+									.forward(request, response);
+
+						} else {
+							request.setAttribute("success", "Votre offre n'a pas été enregistrée!");
+							this.getServletContext().getRequestDispatcher(request.getContextPath() + "/proposer")
+									.forward(request, response);
+
+						}
+					}
+				}
+				if (action.equals("afficherSousVendables")) {
+					begin = Long.parseLong(request.getParameter("begin"));
+					end = Long.parseLong(request.getParameter("end"));
+					String message = "";
+					String pagination = "";
+					Long total = productDao.countElementsByIdProvider(utilisateur.getId());
+					total = total + serviceDao.countElementsByIdProvider(utilisateur.getId());
+					if (total <= 0 || total == null) {
+						message = "Aucun sous-éléments à afficher!!";
 					} else {
-						request.setAttribute("success", "Votre offre n'a pas été enregistrée!");
-						response.sendRedirect(request.getContextPath() + "/proposer");
+						message = "Liste des éléments trouvés";
+						listProdSer=new ArrayList<>();
+						listProdSer.addAll(
+								productDao.findAllProductByIdProvider(utilisateur.getId(), end, begin));
+						listProdSer.addAll(
+								serviceDao.findAllServiceByIdProvider(utilisateur.getId(), end, begin));
+						request.setAttribute("listProduits", listProdSer);
+						request.setAttribute("total", total);
 
 					}
-
-				}
-
-				else {
-					Service service = new Service();
-
-					service.setName(nom, false);
-					service.setPrice(prix, false);
-					service.setDescription(description, false);
-					service.setIdProvider(utilisateur.getId());
-					service.setCode(code);
-					System.out.println(service.toString());
-					if(fichier.getNom()!=null&&!fichier.getNom().equals("")){
-						service.getListImage().add(fichier.getNom());
-					}
-					Boolean success = serviceDao.addService(service);
-					if (success == true) {
-						request.setAttribute("success", "Votre offre à bien été enregistrée!");
-						this.getServletContext().getRequestDispatcher(request.getContextPath() + "/proposer")
-								.forward(request, response);
-
-					} else {
-						request.setAttribute("success", "Votre offre n'a pas été enregistrée!");
-						this.getServletContext().getRequestDispatcher(request.getContextPath() + "/proposer")
-								.forward(request, response);
-
-					}
-				}
-				this.getServletContext().getRequestDispatcher("/WEB-INF/proposer.jsp").forward(request, response);
-			}
-			if (action.equals("afficherSousVendables")) {
-				begin = Long.parseLong(request.getParameter("begin"));
-				end = Long.parseLong(request.getParameter("end"));
-				String message = "";
-				String pagination = "";
-				Long total = productDao.countElements();
-				total = total + serviceDao.countElements();
-				if (total <= 0 || total == null) {
-					message = "Aucun sous-éléments à afficher!!";
-				} else {
-					message = "Liste des éléments trouvés";
-					listProdSer.addAll(productDao.findAllProduct(begin, end));
-					listProdSer.addAll(serviceDao.findAllService(begin, end));
-					request.setAttribute("listProduits", listProdSer);
+					System.out.println("Nombre d'utilisateurs dans la base : " + total);
+					pagination = Paginateur.pagine(total, listProdSer, request, "proposer");
+					System.out.println("Pagination effectuée!");
+					request.setAttribute("pagination", pagination);
+					System.out.println("Pagination settée!");
 					request.setAttribute("total", total);
-
+					request.setAttribute("listeDeSalablesCut", listProdSer);
+					request.setAttribute("message", message);
 				}
-				System.out.println("Nombre d'utilisateurs dans la base : " + total);
-				pagination=Paginateur.pagine(total, listProdSer, request, "proposer");
-				System.out.println("Pagination effectuée!");
-				request.setAttribute("pagination", pagination);
-				System.out.println("Pagination settée!");
-				request.setAttribute("total", total);
-				request.setAttribute("listeDeSalablesCut", listProdSer);
-				request.setAttribute("message", message);
-				
-				this.getServletContext().getRequestDispatcher("/WEB-INF/proposer.jsp").forward(request, response);
-
-			}
-			if (action.equals("addSalable")) {
-				Integer indice = Integer.parseInt(request.getParameter("indice"));
-				listProdSerFinal.add(listProdSer.get(indice));
-				request.setAttribute("success", "Elément ajouté!");
+				if (action.equals("addSalable")) {
+					int indice = Integer.parseInt(request.getParameter("indice"));
+					listProdSerFinal.add(listProdSer.get(indice));
+					request.setAttribute("success", "Elément ajouté!");
+					request.setAttribute("listeDeSousSalables", listProdSerFinal);
+				}
+				if (action.equals("removeSalable")) {
+					int index = Integer.parseInt(request.getParameter("index"));
+					listProdSerFinal.remove(index);
+					System.out.println("Elément retiré!");
+					request.setAttribute("success", "Elément retiré!");
+					request.setAttribute("listeDeSousSalables", listProdSerFinal);
+				}
 
 			}
 		}
+		this.getServletContext().getRequestDispatcher("/WEB-INF/proposer.jsp").forward(request, response);
 	}
 
 }
