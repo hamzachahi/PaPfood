@@ -29,7 +29,7 @@
                                     <h3>Envie d'un plat en particulier ?</h3>
                                     <h3>Cibo vous le ram&egrave;ne &ccedil;a jusqu'&agrave; chez vous !</h3>
                                     <h3>Rapide et pratique</h3>
-                                    <a class="btn-style-1" href="${pageContext.request.contextPath}/order">Commander maintenant !</a>
+                                    <a class="btn-style-1" href="${pageContext.request.contextPath}/acheter">Commander maintenant !</a>
                                 </div>
                             </div>
                         </div>  
@@ -56,7 +56,7 @@
                                     <h2 class="title2">Commandez sans plus attendre !</h2>
                                     <div class="image-border"></div>
                                     <div class="button-area">
-                                        <a href="${pageContext.request.contextPath}/order" class="btn-style-2">Commander !</a>
+                                        <a href="${pageContext.request.contextPath}/acheter" class="btn-style-2">Commander !</a>
                                     </div>
                                 </div>
                             </div>

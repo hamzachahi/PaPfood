@@ -70,8 +70,9 @@
 								<ul>
 									<li><a href="${pageContext.request.contextPath}/accueil">Accueil</a></li>
 									<li><a href="${pageContext.request.contextPath}/acheter">Commander</a></li>
-									<li><a href="${pageContext.request.contextPath}/proposer">Proposer plat</a></li>
-									<li class="mega-menu-active"><a href="#">CiboRelation</a> <!-- Start Mega MEnu -->
+									<li><a href="${pageContext.request.contextPath}/proposer">Proposer</a></li>
+									<li class="mega-menu-active"><a href="#">CiboRelation</a>
+										<!-- Start Mega MEnu -->
 										<div class="mega-menu-container megamenu-area">
 											<div class="row">
 												<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
@@ -100,26 +101,31 @@
 										</div> <!-- End Mega Menu --></li>
 									<li><a href="#">Naviguer</a> <!-- Start Sub Menu -->
 										<ul>
+											<li><a href="${pageContext.request.contextPath}/account">Mon
+													profil</a></li>
 											<li><a href="${pageContext.request.contextPath}/profile">Modifier
 													mon compte</a></li>
 											<li><a
 												href="${pageContext.request.contextPath}/services">Liste
 													des services</a></li>
 											<li><a
-												href="${pageContext.request.contextPath}/produits">Catégories</a></li>
+												href="${pageContext.request.contextPath}/produits">Liste
+													des produits</a></li>
 											<li><a href="${pageContext.request.contextPath}/panier">Votre
 													panier</a></li>
 											<li><a
 												href="${pageContext.request.contextPath}/mescommandes">Mes
 													commandes</a></li>
 											<li><a
-												href="${pageContext.request.contextPath}/mespropositions">Propositions</a></li>
+												href="${pageContext.request.contextPath}/mespropositions">
+													Vos propositions</a></li>
 											<li><a href="${pageContext.request.contextPath}/about">Informations
 													sur le site</a></li>
 											<li><a href="${pageContext.request.contextPath}/team">Notre
 													équipe</a></li>
-											<li><a href="room-booking.html">Rejoignez notre équipe de courtiers !</a></li>
-										<!-- 	<li><a href="menu-details.html">Menu Details</a></li>
+											<li><a href="room-booking.html">Rejoignez notre
+													équipe de courtiers !</a></li>
+											<!-- 	<li><a href="menu-details.html">Menu Details</a></li>
 											<li><a href="menu.html">Menu</a></li>  -->
 										</ul> <!-- End Sub Menu --></li>
 									<li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
