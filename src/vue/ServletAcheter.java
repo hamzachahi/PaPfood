@@ -95,12 +95,14 @@ public class ServletAcheter extends HttpServlet {
 			}
 			if (action.equals("chargerPanier")) {
 				Double totalpanier = 0.0;
-
+				int i = 0;
 				HttpSession session = request.getSession(false);
 				if (session.getAttribute("monPanier") != null) {
-					monPanier=((ArrayList<ElementCommand>) session.getAttribute("monPanier"));
+					monPanier = ((ArrayList<ElementCommand>) session.getAttribute("monPanier"));
 				}
-				int i = Integer.parseInt(request.getParameter("idarticle"));
+				if (request.getParameter("idarticle") != null) {
+					i = Integer.parseInt(request.getParameter("idarticle"));
+				}
 				ElementCommand article = elements.get(i);
 				monPanier.add(article);
 				session.setAttribute("nbrelementspanier", monPanier.size());

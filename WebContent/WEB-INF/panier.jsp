@@ -80,7 +80,7 @@
 							<div class="shiping-address">
 								<h5 class="shiping-address">Adresse différente ?</h5>
 								<div class="shipping-address-inner">
-									<form method="POST" action="ServletOrder">
+									<form method="POST" action="order">
 										<div class="form-group">
 											<select class="form-control" name="country">
 												<option value="AF">Afghanistan</option>

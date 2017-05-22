@@ -58,6 +58,9 @@ public class ServletOrder extends HttpServlet {
 				String ville = request.getParameter("ville");
 
 				adresseComplete = num + ", " + nom + ", " + ville + ", " + pays;
+
+				session.setAttribute("adresseComplete", adresseComplete);
+				System.out.println(adresseComplete);
 			}
 
 			if (action.equals("validerPanier")) {
@@ -66,8 +69,11 @@ public class ServletOrder extends HttpServlet {
 				DateFormat mediumDateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM);
 				String now = mediumDateFormat.format(aujourdhui);
 				now.replaceAll(" ", "");
-				adresseComplete = utilisateur.getStreetNumber() + ", " + utilisateur.getStreetName() + ", "
-						+ utilisateur.getCityName() + ", " + utilisateur.getCountryName();
+				session.getAttribute(adresseComplete);
+				if (adresseComplete == null || adresseComplete.equals("")) {
+					adresseComplete = utilisateur.getStreetNumber() + ", " + utilisateur.getStreetName() + ", "
+							+ utilisateur.getCityName() + ", " + utilisateur.getCountryName();
+				}
 
 				order.setAdresseExpedition(adresseComplete);
 				order.setAdresseFacturation(adresseComplete);
@@ -81,6 +87,8 @@ public class ServletOrder extends HttpServlet {
 
 			}
 		}
+
+		this.getServletContext().getRequestDispatcher("/panier").forward(request, response);
 
 	}
 
