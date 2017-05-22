@@ -4,7 +4,9 @@ import static dao.UtilitaireDao.fermeturesSilencieuses;
 import static dao.UtilitaireDao.initialisationRequetePreparee;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import beans.Evaluation;
 
@@ -89,14 +91,14 @@ public class DaoEvaluationImpl implements EvaluationDao {
 	}
 
 	@Override
-	public Boolean deleteEvaluation(Evaluation evaluation) {
+	public Boolean deleteEvaluation(Long Id) {
 		// TODO Auto-generated method stub
 		Boolean isSucceed = false;
 
-		return deleteEvaluation(evaluation, isSucceed);
+		return deleteEvaluation(Id, isSucceed);
 	}
 
-	private Boolean deleteEvaluation(Evaluation evaluation, Boolean isSucceed) {
+	private Boolean deleteEvaluation(Long Id, Boolean isSucceed) {
 		Connection connexion = null;
 		PreparedStatement Statement = null;
 		try {
@@ -107,7 +109,7 @@ public class DaoEvaluationImpl implements EvaluationDao {
 			 * (ici, uniquement une adresse email) et exécution.
 			 */
 			Statement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlDeleteEvaluation(),
-					false, evaluation.getId());
+					false, Id);
 			int statut = Statement.executeUpdate();
 			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
@@ -123,5 +125,47 @@ public class DaoEvaluationImpl implements EvaluationDao {
 		}
 
 		return isSucceed;
+	}
+
+	@Override
+	public ArrayList<Evaluation> getMyEvaluation(Long Id, Long limit, Long offset) {
+		// TODO Auto-generated method stub
+		Boolean isSucceed = false;
+		return getMyEvaluation(Id, isSucceed, limit, offset);
+	}
+
+	private ArrayList<Evaluation> getMyEvaluation(Long Id, Boolean isSucceed, Long limit, Long offset) {
+		// TODO Auto-generated method stub
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<Evaluation> evaluationResults = new ArrayList<Evaluation>();
+
+		try {
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlSelectMyMessage(),
+					false, Id, limit, offset);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				isSucceed = true;
+				evaluationResults.add(Map(resultSet));
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return evaluationResults;
+	}
+
+	private Evaluation Map(ResultSet resultSet) throws SQLException {
+		// TODO Auto-generated method stub
+		Evaluation eval = new Evaluation();
+		eval.setId(resultSet.getLong("Id"));
+		eval.setIdJury(resultSet.getLong("id_jury"));
+		eval.setIdPerson(resultSet.getLong("id_person"));
+		eval.setNote(resultSet.getDouble("note"));
+		eval.setComments(resultSet.getString("comments"));
+		return eval;
 	}
 }

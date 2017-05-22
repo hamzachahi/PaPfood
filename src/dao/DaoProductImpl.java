@@ -40,8 +40,7 @@ public class DaoProductImpl implements ProductDao {
 			 * (ici, uniquement une adresse email) et exécution.
 			 */
 			Statement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlInsertProduct(), false,
-					product.getCode(), product.getName(), product.getDescription(), product.getPrice(),
-					product.getMainImage(), product.getIdProvider());
+					product.getCode(), product.getName(), product.getDescription(), product.getPrice(), product.getIdProvider());
 			int statut = Statement.executeUpdate();
 			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {

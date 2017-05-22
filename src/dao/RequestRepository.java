@@ -26,14 +26,24 @@ public class RequestRepository {
 
 	private static final String MySQL_SELECT_PRODUCT_BY_ID = "SELECT * FROM product p WHERE Id = ?";
 	private static final String MySQL_SELECT_SERVICE_BY_ID = "SELECT * FROM service s WHERE Id = ?";
-	
+
 	private static final String MySQL_SELECT_PRODUCT_BY_ID_PROVIDER = "SELECT * FROM product p WHERE id_provider = ? limit ? offset ?";
 	private static final String MySQL_SELECT_SERVICE_BY_ID_PROVIDER = "SELECT * FROM service s WHERE id_provider = ? limit ? offset ?";
+
+	private static final String MySQL_SELECT_MY_SEND_MESSAGE = "SELECT * FROM message m WHERE id_sender = ? limit ? offset ?";
+	private static final String MySQL_SELECT_MY_MESSAGE = "SELECT * FROM message m WHERE id_receiver = ? limit ? offset ?";
+	private static final String MySQL_SELECT_MY_UNREAD_MESSAGE = "SELECT * FROM message m WHERE read_date = null and id_receiver= ? limit ? offset ?";
+
+	private static final String MySQL_SELECT_COMMENT_PRODUCT = "SELECT id_comment FROM comments_product cp WHERE id_product = ? limit ? offset ?";
+	private static final String MySQL_SELECT_COMMENT_SERVICE = "SELECT id_comment FROM comments_service cs WHERE id_service = ? limit ? offset ?";
+
+	private static final String MySQL_SELECT_COMMENT_BY_ID = "SELECT * FROM comments c WHERE Id = ?";
+
 	// fin select
 	// début count
 	private static final String MySQL_SELECT_COUNT_PRODUCT = "select count(id) as nb from product p";
 	private static final String MySQL_SELECT_COUNT_SERVICE = "select count(id) as nb from service s";
-	
+
 	private static final String MySQL_SELECT_COUNT_PRODUCT_BY_ID_PROVIDER = "select count(id) as nb from product p WHERE id_provider = ?";
 	private static final String MySQL_SELECT_COUNT_SERVICE_BY_ID_PROVIDER = "select count(id) as nb from service s WHERE id_provider = ?";
 
@@ -52,8 +62,8 @@ public class RequestRepository {
 	private static final String MySQL_INSERT_CONNECTION = "INSERT INTO connexion (login_time, person_id, person_id_ip_address, person_type) VALUES (?, ?, ?, ?)";
 	private static final String OracleSQL_INSERT_CONNECTION = "INSERT INTO connexion (login_time, person_id, person_id_ip_address, person_type) VALUES (?, ?, ?, ?)";
 
-	private static final String MySQL_INSERT_PRODUCT = "INSERT INTO product (code, name, description, price, main_image, id_provider) VALUES (?, ?, ?, ?, ?, ?)";
-	private static final String OracleSQL_INSERT_PRODUCT = "INSERT INTO product (code, name, description, price, main_image, id_provider) VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String MySQL_INSERT_PRODUCT = "INSERT INTO product (code, name, description, price, id_provider) VALUES (?, ?, ?, ?, ?)";
+	private static final String OracleSQL_INSERT_PRODUCT = "INSERT INTO product (code, name, description, price, id_provider) VALUES (?, ?, ?, ?, ?)";
 
 	private static final String MySQL_INSERT_INVOICE = "INSERT INTO invoice (code_invoice, creation_date, delivered_date, type, total_price, header_message, footer_message, legal_message) VALUES (?, NOW(), ?, ?, ?, ?, ?, ?)";
 	private static final String OracleSQL_INSERT_INVOICE = "INSERT INTO invoice (code_invoice, creation_date, delivered_date, type, total_price, header_message, footer_message, legal_message) VALUES (?, SYSTIMESTAMP, ?, ?, ?, ?, ?, ?)";
@@ -835,6 +845,30 @@ public class RequestRepository {
 
 	public static String getMysqlSelectCountServiceByIdProvider() {
 		return MySQL_SELECT_COUNT_SERVICE_BY_ID_PROVIDER;
+	}
+
+	public static String getMysqlSelectMySendMessage() {
+		return MySQL_SELECT_MY_SEND_MESSAGE;
+	}
+
+	public static String getMysqlSelectMyMessage() {
+		return MySQL_SELECT_MY_MESSAGE;
+	}
+
+	public static String getMysqlSelectMyUnreadMessage() {
+		return MySQL_SELECT_MY_UNREAD_MESSAGE;
+	}
+
+	public static String getMysqlSelectCommentProduct() {
+		return MySQL_SELECT_COMMENT_PRODUCT;
+	}
+
+	public static String getMysqlSelectCommentService() {
+		return MySQL_SELECT_COMMENT_SERVICE;
+	}
+
+	public static String getMysqlSelectCommentById() {
+		return MySQL_SELECT_COMMENT_BY_ID;
 	}
 
 }

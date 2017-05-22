@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.ArrayList;
+
 import beans.Evaluation;
 
 public interface EvaluationDao {
@@ -7,6 +9,8 @@ public interface EvaluationDao {
 
 	public Boolean modifyEvaluation(Evaluation evaluation);
 
-	public Boolean deleteEvaluation(Evaluation evaluation);
+	public Boolean deleteEvaluation(Long Id);
+
+	public ArrayList<Evaluation> getMyEvaluation(Long Id, Long limit, Long offset);
 
 }

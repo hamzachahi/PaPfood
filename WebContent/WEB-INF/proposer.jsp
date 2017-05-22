@@ -37,7 +37,7 @@
 
 						<div class="col-md-11">
 							<div class="row">
-								<form action="ServletPropose" method="POST"
+								<form action="proposer" method="POST"
 									enctype="multipart/form-data">
 									<div class="form-group">
 										<label for="nom">Nom :</label> <input class="form-control"

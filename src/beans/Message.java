@@ -4,8 +4,8 @@ import java.sql.Date;
 
 public class Message {
 	private Long Id;
-	private Person Sender;
-	private Person Receiver;
+	private Long Sender;
+	private Long Receiver;
 	private String Content;
 	private Date sentDate;
 	private Date receiveDate;
@@ -19,19 +19,19 @@ public class Message {
 		Id = id;
 	}
 
-	public Person getSender() {
+	public Long getSender() {
 		return Sender;
 	}
 
-	public void setSender(Person sender) {
+	public void setSender(Long sender) {
 		Sender = sender;
 	}
 
-	public Person getReceiver() {
+	public Long getReceiver() {
 		return Receiver;
 	}
 
-	public void setReceiver(Person receiver) {
+	public void setReceiver(Long receiver) {
 		Receiver = receiver;
 	}
 

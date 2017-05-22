@@ -134,6 +134,16 @@
 							<div class="mobile-menu"></div>
 							<!-- Start Mini cart -->
 							<div class="mini-cart pull-right ">
+								<a href="${pageContext.request.contextPath}/message"> <img
+									src="assets/img/message_icon.png" alt="cart" /> <c:if
+										test="${not empty sessionUtilisateur}">
+										<span class="item-count">${sessionScope.nbremessagenonlu}</span>
+									</c:if>
+								</a>
+							</div>
+							<!-- End Mini Cart -->
+							<!-- Start Mini cart -->
+							<div class="mini-cart pull-right ">
 								<a href="${pageContext.request.contextPath}/panier"> <img
 									src="assets/img/ecommerce_cart.png" alt="cart" /> <c:if
 										test="${not empty sessionUtilisateur}">

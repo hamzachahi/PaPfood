@@ -3,6 +3,9 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
+	<welcome-file-list>
+		<welcome-file>ServletAccueil</welcome-file>
+	</welcome-file-list>
 	<servlet>
 		<servlet-name>ServletAccueil</servlet-name>
 		<servlet-class>vue.ServletAccueil</servlet-class>
@@ -129,6 +132,10 @@
 		<servlet-name>ServletFacture</servlet-name>
 		<servlet-class>vue.ServletFacture</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ServletCompte</servlet-name>
+		<servlet-class>vue.ServletCompte</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>ServletAccueil</servlet-name>
 		<url-pattern>/accueil</url-pattern>
@@ -224,5 +231,9 @@
 	<servlet-mapping>
 		<servlet-name>ServletFacture</servlet-name>
 		<url-pattern>/facture</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ServletCompte</servlet-name>
+		<url-pattern>/account</url-pattern>
 	</servlet-mapping>
 </web-app>
