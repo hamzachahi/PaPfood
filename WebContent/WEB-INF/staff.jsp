@@ -45,7 +45,7 @@
 							<li>Nicolas Micheli</li>
 							</ul>
 							<div class="team-top-footer">
-								<button type="submit" class="btn btn-style-4">read menu</button>
+								<!-- <button type="submit" class="btn btn-style-4">read menu</button>  -->
 								<span class="staff-signature">Université Côte d'Azur</span>
 							</div>
 						</div>
