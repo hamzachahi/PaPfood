@@ -58,17 +58,12 @@
 									<tfoot>
 										<tr>
 											<th>Sous-total: ${requestScope.total} &euro;</th>
-											<td align="center">
-												<button class="btn btn-style-4">
-													<a style="color: white;" href="panier?action=viderPanier">Vider le panier</a>
-												</button>
-											</td>
-											<td align="right">
-												<button class="btn btn-style-4">
-													<a style="color: white;" href="order?action=validerPanier">Valider
-														votre panier et accéder au paiement</a>
-												</button>
-											</td>
+											<td align="center"><a style="color: white;"
+												href="panier?action=viderPanier"><button
+														class="btn btn-style-4">Vider le panier</button></a></td>
+											<td align="right"><a style="color: white;"
+												href="order?action=validerPanier"><button
+														class="btn btn-style-4">Valider votre panier</button></a></td>
 										</tr>
 									</tfoot>
 								</table>
@@ -354,8 +349,7 @@
 												placeholder="Code postal et Ville..">
 										</div>
 										<input type="hidden" name="action" value="changerAdresse" />
-										<button type="submit" class="btn btn-style-4">Envoyer
-											à cette adresse</button>
+										<button type="submit" class="btn btn-style-4">Changer l'adresse</button>
 									</form>
 								</div>
 							</div>

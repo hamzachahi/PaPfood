@@ -16,6 +16,7 @@ import beans.Commande;
 import beans.ElementCommand;
 import beans.Person;
 import dao.DaoCommandeImpl;
+import dao.DaoInvoiceImpl;
 import dao.UsineDao;
 
 @WebServlet("/ServletOrder")
@@ -46,6 +47,11 @@ public class ServletOrder extends HttpServlet {
 		DaoCommandeImpl commandeDao = new DaoCommandeImpl(new UsineDao(
 				"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true",
 				"root", "0000"));
+		/*
+		 * DaoInvoiceImpl invoiceDao = new DaoInvoiceImpl(new UsineDao(
+		 * "jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true",
+		 * "root", "0000"));
+		 */
 
 		Commande order = new Commande();
 
@@ -61,6 +67,8 @@ public class ServletOrder extends HttpServlet {
 
 				session.setAttribute("adresseComplete", adresseComplete);
 				System.out.println(adresseComplete);
+				this.getServletContext().getRequestDispatcher("/panier").forward(request, response);
+
 			}
 
 			if (action.equals("validerPanier")) {
@@ -87,8 +95,6 @@ public class ServletOrder extends HttpServlet {
 
 			}
 		}
-
-		this.getServletContext().getRequestDispatcher("/panier").forward(request, response);
 
 	}
 
