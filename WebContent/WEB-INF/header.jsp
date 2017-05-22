@@ -121,8 +121,7 @@
 													Vos propositions</a></li>
 											<li><a href="${pageContext.request.contextPath}/about">Informations
 													sur le site</a></li>
-											<li><a href="${pageContext.request.contextPath}/team">Notre
-													équipe</a></li>
+											<li><a href="${pageContext.request.contextPath}/team">Nos partenaires</a></li>
 											<li><a href="room-booking.html">Rejoignez notre
 													équipe de courtiers !</a></li>
 											<!-- 	<li><a href="menu-details.html">Menu Details</a></li>

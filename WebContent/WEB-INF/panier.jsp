@@ -66,7 +66,7 @@
 											<td align="right">
 												<button class="btn btn-style-4">
 													<a style="color: white;" href="order?action=validerPanier">Valider
-														votre panier</a>
+														votre panier et accéder au paiement</a>
 												</button>
 											</td>
 										</tr>
@@ -336,7 +336,6 @@
 												<option value="VG">Virgin Islands, British</option>
 												<option value="VI">Virgin Islands, U.S.</option>
 												<option value="WF">Wallis and Futuna</option>
-												<option value="EH">Western Sahara</option>
 												<option value="YE">Yemen</option>
 												<option value="ZM">Zambia</option>
 												<option value="ZW">Zimbabwe</option>
@@ -355,7 +354,7 @@
 												placeholder="Code postal et Ville..">
 										</div>
 										<input type="hidden" name="action" value="changerAdresse" />
-										<button type="submit" class="btn btn-style-4">Enovyer
+										<button type="submit" class="btn btn-style-4">Envoyer
 											à cette adresse</button>
 									</form>
 								</div>
@@ -364,23 +363,23 @@
 						<div class="col-md-6 col-md-offset-2">
 							<div class="cart-calculation">
 								<div class="cart-title">
-									<h5 class="cart-title">cart totals</h5>
+									<h5 class="cart-title">Facture</h5>
 								</div>
 								<table class="table cart-total">
 									<tr>
-										<td>subtotal:</td>
+										<td>Sous-total</td>
 										<td>${requestScope.total}&euro;</td>
 									</tr>
 									<tr>
-										<td>shipping:</td>
-										<td>Free shipping</td>
+										<td>Frais de livraison:</td>
+										<td>Gratuit</td>
 									</tr>
 									<tr>
-										<td>order total:</td>
+										<td>Prix total :</td>
 										<td>${requestScope.total}&euro;</td>
 									</tr>
 									<tr class="total-row">
-										<td>total</td>
+										<td>Total</td>
 										<td>${requestScope.total}&euro;</td>
 									</tr>
 								</table>
