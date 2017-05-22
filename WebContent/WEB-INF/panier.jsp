@@ -58,17 +58,12 @@
 									<tfoot>
 										<tr>
 											<th>Sous-total: ${requestScope.total} &euro;</th>
-											<td align="center">
-												<button class="btn btn-style-4">
-													<a style="color: white;" href="panier?action=viderPanier">Vider le panier</a>
-												</button>
-											</td>
-											<td align="right">
-												<button class="btn btn-style-4">
-													<a style="color: white;" href="order?action=validerPanier">Valider
-														votre panier</a>
-												</button>
-											</td>
+											<td align="center"><a style="color: white;"
+												href="panier?action=viderPanier"><button
+														class="btn btn-style-4">Vider le panier</button></a></td>
+											<td align="right"><a style="color: white;"
+												href="order?action=validerPanier"><button
+														class="btn btn-style-4">Valider votre panier</button></a></td>
 										</tr>
 									</tfoot>
 								</table>
@@ -80,7 +75,7 @@
 							<div class="shiping-address">
 								<h5 class="shiping-address">Adresse différente ?</h5>
 								<div class="shipping-address-inner">
-									<form method="POST" action="ServletOrder">
+									<form method="POST" action="order">
 										<div class="form-group">
 											<select class="form-control" name="country">
 												<option value="AF">Afghanistan</option>
@@ -336,7 +331,6 @@
 												<option value="VG">Virgin Islands, British</option>
 												<option value="VI">Virgin Islands, U.S.</option>
 												<option value="WF">Wallis and Futuna</option>
-												<option value="EH">Western Sahara</option>
 												<option value="YE">Yemen</option>
 												<option value="ZM">Zambia</option>
 												<option value="ZW">Zimbabwe</option>
@@ -355,8 +349,7 @@
 												placeholder="Code postal et Ville..">
 										</div>
 										<input type="hidden" name="action" value="changerAdresse" />
-										<button type="submit" class="btn btn-style-4">Enovyer
-											à cette adresse</button>
+										<button type="submit" class="btn btn-style-4">Changer l'adresse</button>
 									</form>
 								</div>
 							</div>
@@ -364,23 +357,23 @@
 						<div class="col-md-6 col-md-offset-2">
 							<div class="cart-calculation">
 								<div class="cart-title">
-									<h5 class="cart-title">cart totals</h5>
+									<h5 class="cart-title">Facture</h5>
 								</div>
 								<table class="table cart-total">
 									<tr>
-										<td>subtotal:</td>
+										<td>Sous-total</td>
 										<td>${requestScope.total}&euro;</td>
 									</tr>
 									<tr>
-										<td>shipping:</td>
-										<td>Free shipping</td>
+										<td>Frais de livraison:</td>
+										<td>Gratuit</td>
 									</tr>
 									<tr>
-										<td>order total:</td>
+										<td>Prix total :</td>
 										<td>${requestScope.total}&euro;</td>
 									</tr>
 									<tr class="total-row">
-										<td>total</td>
+										<td>Total</td>
 										<td>${requestScope.total}&euro;</td>
 									</tr>
 								</table>

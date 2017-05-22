@@ -134,13 +134,14 @@
                 <div class="col-md-4">
                     <!-- Deals Area -->
                     <div class="travel-deals">
-                        <img src="assets/img/news-1.png" alt="news" />
+                        <img src="assets/img/UNS.png" alt="news" />
+                        <img src="assets/img/ogcnice.PNG" alt="news" />
                         <div class="deals-content">
                             <div class="button-area">
-                                <a class="btn-news" href="#">travel deals</a>
+                                <a class="btn-news" href="${pageContext.request.contextPath}/team">Suivez nos partenaires</a>
                             </div>
-                            <a href="#">
-                                <h4 class="news-title">Culture, Heritage, and Literary Legends</h4>
+                            <a href="http://miageprojet2.unice.fr">
+                                <h4 class="news-title">MIAGE Unice</h4>
                             </a>
                         </div>
                     </div>

@@ -26,6 +26,7 @@ public class RequestRepository {
 
 	private static final String MySQL_SELECT_PRODUCT_BY_ID = "SELECT * FROM product p WHERE Id = ?";
 	private static final String MySQL_SELECT_SERVICE_BY_ID = "SELECT * FROM service s WHERE Id = ?";
+	private static final String MySQL_SELECT_INVOICE_BY_ID = "SELECT * from invoice i WHERE Id = ?";
 
 	private static final String MySQL_SELECT_PRODUCT_BY_ID_PROVIDER = "SELECT * FROM product p WHERE id_provider = ? limit ? offset ?";
 	private static final String MySQL_SELECT_SERVICE_BY_ID_PROVIDER = "SELECT * FROM service s WHERE id_provider = ? limit ? offset ?";
@@ -869,6 +870,11 @@ public class RequestRepository {
 
 	public static String getMysqlSelectCommentById() {
 		return MySQL_SELECT_COMMENT_BY_ID;
+	}
+
+	public static String getMysqlSelectInvoiceById() {
+		return MySQL_SELECT_INVOICE_BY_ID;
+
 	}
 
 }

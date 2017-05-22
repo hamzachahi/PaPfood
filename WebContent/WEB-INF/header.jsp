@@ -119,10 +119,9 @@
 											<li><a
 												href="${pageContext.request.contextPath}/mespropositions">
 													Vos propositions</a></li>
-											<li><a href="${pageContext.request.contextPath}/about">Informations
+											<li><a href="${pageContext.request.contextPath}/team">Informations
 													sur le site</a></li>
-											<li><a href="${pageContext.request.contextPath}/team">Notre
-													équipe</a></li>
+											<li><a href="${pageContext.request.contextPath}/about">Nos partenaires</a></li>
 											<li><a href="room-booking.html">Rejoignez notre
 													équipe de courtiers !</a></li>
 											<!-- 	<li><a href="menu-details.html">Menu Details</a></li>

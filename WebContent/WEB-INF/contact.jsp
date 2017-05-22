@@ -29,11 +29,11 @@
 							<div class="title-center text-center contact">
 								<h2>Prendre contact avec nous</h2>
 								<hr />
-								<p>Yummy Shop mais en oeuvre chaque jour des efforts
-									surhumains pour vos fournir le meilleur service possible. Vos
-									questions sont les bienvenues car elle nous permettent tous les
-									jours d'améliorer votre expérience. Nous vous répondrons dans
-									les plus brefs délais!</p>
+								<p>Cibo met en oeuvre chaque jour des efforts surhumains
+									pour vos fournir le meilleur service possible. Vos questions
+									sont les bienvenues car elle nous permettent tous les jours
+									d'améliorer votre expérience. Nous vous répondrons dans les
+									plus brefs délais!</p>
 								<div class="social-icon">
 									Suivez-nous sur: <span><a href="#"><i
 											class="fa fa-facebook-square" aria-hidden="true"></i>facebook</a></span>
@@ -58,7 +58,7 @@
 											<label>Votre nom complet</label> <input type="text"
 												class="form-control" id="nom" name="name"
 												value="${sessionUtilisateur.surname} ${sessionUtilisateur.name}"
-												placeholder="Entrez votre nom complet"/>
+												placeholder="Entrez votre nom complet" />
 										</div>
 										<div class="form-group col-md-6">
 											<label>N° de téléphone</label> <input type="text"
@@ -70,11 +70,11 @@
 										<div class="form-group col-md-6">
 											<label>email</label> <input type="text" class="form-control"
 												id="email" name="email" value="${sessionUtilisateur.email}"
-												placeholder="Adresse email"/>
+												placeholder="Adresse email" />
 										</div>
 										<div class="form-group col-md-6">
 											<label>Sujet</label> <input type="text" class="form-control"
-												name="subject" id="subject" placeholder="Sujet"/>
+												name="subject" id="subject" placeholder="Sujet" />
 										</div>
 										<div class="form-group col-md-12">
 											<label>Question spécifique</label>
@@ -86,7 +86,7 @@
 											<input type="hidden" name="action" value="nousContacter" />
 											<button type="submit" class="btn btn-send-now pull-right">Envoyez
 												maintenant!</button>
-										<span>${requestScope.erreur}</span>		
+											<span>${requestScope.erreur}</span>
 										</div>
 									</form>
 								</div>
@@ -106,8 +106,8 @@
 			var mapDiv = document.getElementById('map');
 			var map = new google.maps.Map(mapDiv, {
 				center : {
-					lat : 23.7808874,
-					lng : 90.2792365
+					lat : 33.5745549,
+					lng : -7.6172651
 				},
 				zoom : 10,
 				scrollwheel : false,
