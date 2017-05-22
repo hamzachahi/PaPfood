@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>À propos | PaPfood - La plateforme d'échanges</title>
+<title>À propos | Cibo - La plateforme d'échange de nourriture entre particulier</title>
 <%@include file="liens.jsp"%>
 </head>
 <body class="home1">
