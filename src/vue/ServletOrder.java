@@ -14,7 +14,9 @@ import javax.servlet.http.HttpSession;
 
 import beans.Commande;
 import beans.ElementCommand;
+import beans.Invoice;
 import beans.Person;
+import beans.Salable;
 import dao.DaoCommandeImpl;
 import dao.DaoInvoiceImpl;
 import dao.UsineDao;
@@ -47,13 +49,13 @@ public class ServletOrder extends HttpServlet {
 		DaoCommandeImpl commandeDao = new DaoCommandeImpl(new UsineDao(
 				"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true",
 				"root", "0000"));
-		/*
-		 * DaoInvoiceImpl invoiceDao = new DaoInvoiceImpl(new UsineDao(
-		 * "jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true",
-		 * "root", "0000"));
-		 */
+
+		DaoInvoiceImpl invoiceDao = new DaoInvoiceImpl(new UsineDao(
+				"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true",
+				"root", "0000"));
 
 		Commande order = new Commande();
+		Invoice facture = new Invoice();
 
 		if (action != null) {
 			if (action.equals("changerAdresse")) {
@@ -63,7 +65,7 @@ public class ServletOrder extends HttpServlet {
 				String nom = request.getParameter("nom");
 				String ville = request.getParameter("ville");
 
-				adresseComplete = num + ", " + nom + ", " + ville + ", " + pays;
+				adresseComplete = num + ", " + nom + ", " + ville + "," + pays;
 
 				session.setAttribute("adresseComplete", adresseComplete);
 				System.out.println(adresseComplete);
@@ -83,6 +85,8 @@ public class ServletOrder extends HttpServlet {
 							+ utilisateur.getCityName() + ", " + utilisateur.getCountryName();
 				}
 
+				// Construction de la commande
+
 				order.setAdresseExpedition(adresseComplete);
 				order.setAdresseFacturation(adresseComplete);
 				order.setCustomer(utilisateur);
@@ -93,7 +97,30 @@ public class ServletOrder extends HttpServlet {
 				order.setElements(elements);
 				commandeDao.Commander(order);
 
+				// Construction de la facture
+
+				ArrayList<Salable> listeArticles = new ArrayList<>();
+
+				for (int i = 0; i < elements.size(); i++) {
+
+					listeArticles.add(elements.get(i).getmProduct());
+
+				}
+
+				String codeFacture = utilisateur.getCityName() + code + session.getAttribute("prixtotal").toString()
+						+ elements.get(0).toString().substring(0, 2);
+
+				facture.setPersonName(utilisateur.getName(), false);
+				facture.setTotalPrice(Double.parseDouble(session.getAttribute("prixtotal").toString()), false);
+				facture.setListProduct(listeArticles, false);
+				facture.setCodeInvoice(codeFacture, false);
+				facture.setPhoneNumber(utilisateur.getPhoneNumber(), false);
+				facture.setDestinatorAddress(adresseComplete, false);
+
+				// invoiceDao.addInvoice(facture);
+
 			}
+
 		}
 
 	}

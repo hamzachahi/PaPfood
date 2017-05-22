@@ -22,8 +22,13 @@ public class DaoInvoiceImpl implements InvoiceDao {
 
 	@Override
 	public boolean addInvoice(Invoice facture) {
-		// TODO Auto-generated method stub
-		return false;
+		Boolean isSucceed = false;
+		return addInvoice(facture, isSucceed);
+	}
+
+	private boolean addInvoice(Invoice facture, Boolean isSucceed) {
+
+		return isSucceed;
 	}
 
 	@Override

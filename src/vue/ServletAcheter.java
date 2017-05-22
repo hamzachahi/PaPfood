@@ -104,7 +104,17 @@ public class ServletAcheter extends HttpServlet {
 					i = Integer.parseInt(request.getParameter("idarticle"));
 				}
 				ElementCommand article = elements.get(i);
-				monPanier.add(article);
+				for (int i1 = 0; i1 < monPanier.size(); i1++) {
+
+					if (monPanier.get(i1).equals(article)) {
+
+						monPanier.get(i1).setQuantity(article.getQuantity() + 1);
+					} else {
+						monPanier.add(article);
+					}
+
+				}
+
 				session.setAttribute("nbrelementspanier", monPanier.size());
 				request.setAttribute("articlesPanier", monPanier);
 				session.setAttribute("monPanier", monPanier);
@@ -189,4 +199,5 @@ public class ServletAcheter extends HttpServlet {
 		this.getServletContext().getRequestDispatcher("/WEB-INF/plats.jsp").forward(request, response);
 
 	}
+
 }
