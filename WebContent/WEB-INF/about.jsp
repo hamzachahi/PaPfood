@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>À propos | PaPfood - La plateforme d'échanges</title>
+<title>À propos | Cibo - La plateforme d'échange de nourriture entre particulier</title>
 <%@include file="liens.jsp"%>
 </head>
 <body class="home1">
@@ -41,10 +41,11 @@
 										<h2>your dream comes true with our theme</h2>
 									</div>
 									<div class="title-3">
-										<h6>the founder</h6>
+										<h6>Equipe compétente</h6>
 									</div>
 									<div class="title-4">
-										<h6>Wayne R. Shepard</h6>
+										<h6>
+</h6>
 									</div>
 								</div>
 							</div>
