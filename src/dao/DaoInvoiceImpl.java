@@ -85,8 +85,12 @@ public class DaoInvoiceImpl implements InvoiceDao {
 	}
 
 	private static Invoice map(ResultSet resultSet) throws SQLException {
-
-		return null;
+		
+		Invoice facture = new Invoice();
+		
+		
+		return facture;
+		
 	}
 
 }

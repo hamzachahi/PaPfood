@@ -95,7 +95,7 @@ public class ServletOrder extends HttpServlet {
 						+ now;
 				order.setCode(code);
 				order.setElements(elements);
-				commandeDao.Commander(order);
+				boolean orderDone = commandeDao.Commander(order);
 
 				// Construction de la facture
 
@@ -117,7 +117,9 @@ public class ServletOrder extends HttpServlet {
 				facture.setPhoneNumber(utilisateur.getPhoneNumber(), false);
 				facture.setDestinatorAddress(adresseComplete, false);
 
-				// invoiceDao.addInvoice(facture);
+				// boolean invoiceDone = invoiceDao.addInvoice(facture);
+
+				this.getServletContext().getRequestDispatcher("/facture").forward(request, response);
 
 			}
 
