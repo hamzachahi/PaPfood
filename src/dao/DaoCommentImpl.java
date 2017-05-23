@@ -55,12 +55,14 @@ public class DaoCommentImpl implements CommentDao {
 				isSucceed = false;
 				throw new ExceptionDao("Échec de la création du commentaire en base, aucun ID auto-généré retourné.");
 			}
-
+			System.out.println("Valeur de l'Id : " + id);
 			preparedStatement = initialisationRequetePreparee(connexion,
 					RequestRepository.getOraclesqlInsertCommentsProduct(), true, id, IdProduct);
 			statut = preparedStatement.executeUpdate();
 			if (statut == 0) {
 				isSucceed = false;
+				System.out.println(
+						"Échec de l'ajout de l'enregistrement association, aucune ligne ajoutée dans la table.");
 				throw new ExceptionDao(
 						"Échec de l'ajout de l'enregistrement association, aucune ligne ajoutée dans la table.");
 
@@ -130,26 +132,21 @@ public class DaoCommentImpl implements CommentDao {
 	}
 
 	@Override
-	public Boolean modifiyComment(beans.Comment comment) {
+	public Boolean modifiyComment(Long Id, String content) {
 		// TODO Auto-generated method stub
 		boolean isSucceed = false;
-		return modifyComments(comment, isSucceed);
+		return modifyComments(Id,content, isSucceed);
 	}
 
-	private Boolean modifyComments(beans.Comment comment, boolean isSucceed) {
+	private Boolean modifyComments(Long Id, String content, boolean isSucceed) {
 		Connection connexion = null;
 		PreparedStatement Statement = null;
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
+
 			Statement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlUpdateComments(), false,
-					comment.getContent(), comment.getId());
+					content, Id);
 			int statut = Statement.executeUpdate();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
 				isSucceed = true;
 			} else {
@@ -177,16 +174,11 @@ public class DaoCommentImpl implements CommentDao {
 		Connection connexion = null;
 		PreparedStatement Statement = null;
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
+
 			Statement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlDeleteComments(), false,
 					Id);
 			int statut = Statement.executeUpdate();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
 				isSucceed = true;
 			} else {
@@ -217,21 +209,28 @@ public class DaoCommentImpl implements CommentDao {
 		ResultSet resultSet = null;
 		ArrayList<Comment> commentResults = new ArrayList<Comment>();
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
+
 			preparedStatement = initialisationRequetePreparee(connexion,
 					RequestRepository.getMysqlSelectCommentProduct(), false, Id, limit, offset);
 			resultSet = preparedStatement.executeQuery();
-			/*
-			 * Parcours de la ligne de données retournée dans le ResultSet
-			 */
+
 			while (resultSet.next()) {
 				isSucceed = true;
 				listIdCommentsProduct.add(resultSet.getLong("id_comment"));
+			}
+			System.out.println("Talle de la liste d'Id : " + listIdCommentsProduct.size());
+			for (int i = 0; i < listIdCommentsProduct.size(); i++) {
+
+				connexion = daoFactory.getConnection();
+
+				preparedStatement = initialisationRequetePreparee(connexion,
+						RequestRepository.getMysqlSelectCommentById(), false, listIdCommentsProduct.get(i));
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					isSucceed = true;
+					commentResults.add(Map(resultSet));
+				}
 			}
 		} catch (SQLException e) {
 			throw new ExceptionDao(e);
@@ -239,31 +238,6 @@ public class DaoCommentImpl implements CommentDao {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
 
-		for (int i = 0; i < listIdCommentsProduct.size(); i++) {
-
-			try {
-				/* Récupération d'une connexion depuis la Factory */
-				connexion = daoFactory.getConnection();
-				/*
-				 * Préparation de la requête avec les objets passés en arguments
-				 * (ici, uniquement une adresse email) et exécution.
-				 */
-				preparedStatement = initialisationRequetePreparee(connexion,
-						RequestRepository.getMysqlSelectCommentById(), false, Id);
-				resultSet = preparedStatement.executeQuery();
-				/*
-				 * Parcours de la ligne de données retournée dans le ResultSet
-				 */
-				while (resultSet.next()) {
-					isSucceed = true;
-					commentResults.add(Map(resultSet));
-				}
-			} catch (SQLException e) {
-				throw new ExceptionDao(e);
-			} finally {
-				fermeturesSilencieuses(resultSet, preparedStatement, connexion);
-			}
-		}
 		return commentResults;
 
 	}
@@ -285,52 +259,30 @@ public class DaoCommentImpl implements CommentDao {
 		ResultSet resultSet = null;
 		ArrayList<Comment> commentResults = new ArrayList<Comment>();
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			preparedStatement = initialisationRequetePreparee(connexion,
 					RequestRepository.getMysqlSelectCommentService(), false, Id, limit, offset);
 			resultSet = preparedStatement.executeQuery();
-			/*
-			 * Parcours de la ligne de données retournée dans le ResultSet
-			 */
 			while (resultSet.next()) {
 				isSucceed = true;
 				listIdCommentsProduct.add(resultSet.getLong("id_comment"));
+			}
+			System.out.println("Talle de la liste d'Id : " + listIdCommentsProduct.size());
+			for (int i = 0; i < listIdCommentsProduct.size(); i++) {
+
+				connexion = daoFactory.getConnection();
+				preparedStatement = initialisationRequetePreparee(connexion,
+						RequestRepository.getMysqlSelectCommentById(), false, listIdCommentsProduct.get(i));
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					isSucceed = true;
+					commentResults.add(Map(resultSet));
+				}
 			}
 		} catch (SQLException e) {
 			throw new ExceptionDao(e);
 		} finally {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
-		}
-
-		for (int i = 0; i < listIdCommentsProduct.size(); i++) {
-
-			try {
-				/* Récupération d'une connexion depuis la Factory */
-				connexion = daoFactory.getConnection();
-				/*
-				 * Préparation de la requête avec les objets passés en arguments
-				 * (ici, uniquement une adresse email) et exécution.
-				 */
-				preparedStatement = initialisationRequetePreparee(connexion,
-						RequestRepository.getMysqlSelectCommentById(), false, Id);
-				resultSet = preparedStatement.executeQuery();
-				/*
-				 * Parcours de la ligne de données retournée dans le ResultSet
-				 */
-				while (resultSet.next()) {
-					isSucceed = true;
-					commentResults.add(Map(resultSet));
-				}
-			} catch (SQLException e) {
-				throw new ExceptionDao(e);
-			} finally {
-				fermeturesSilencieuses(resultSet, preparedStatement, connexion);
-			}
 		}
 		return commentResults;
 	}
@@ -338,9 +290,102 @@ public class DaoCommentImpl implements CommentDao {
 	private Comment Map(ResultSet result) throws SQLException {
 		Comment comment = new Comment();
 		comment.setId(result.getLong("Id"));
-		comment.setAuthor(result.getLong("id_author"));
+		comment.setIdAuthor(result.getLong("id_author"));
 		comment.setDatePosted(result.getDate("date_posted"));
 		comment.setContent(result.getString("content"));
+		return comment;
+	}
+
+	@Override
+	public Long selectNbreCommentsByIdService(Long IdService) {
+		// TODO Auto-generated method stub
+		Boolean isSucceed = false;
+		return selectNbreCommentsByIdService(IdService, isSucceed);
+	}
+
+	private Long selectNbreCommentsByIdService(Long IdService, Boolean isSucceed) {
+		// TODO Auto-generated method stub
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Long nbre = (long) 0;
+		try {
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					RequestRepository.getMysqlSelectCountCommentsByIdService(), false, IdService);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				isSucceed = true;
+				nbre = resultSet.getLong("nb");
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return nbre;
+	}
+
+	@Override
+	public Long selectNbreCommentsByIdProduct(Long IdProduct) {
+		// TODO Auto-generated method stub
+		Boolean isSucceed = false;
+		return selectNbreCommentsByIdProduct(IdProduct, isSucceed);
+	}
+
+	private Long selectNbreCommentsByIdProduct(Long IdProduct, Boolean isSucceed) {
+		// TODO Auto-generated method stub
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Long nbre = (long) 0;
+		try {
+			connexion = daoFactory.getConnection();
+
+			preparedStatement = initialisationRequetePreparee(connexion,
+					RequestRepository.getMysqlSelectCountCommentsByIdProduct(), false, IdProduct);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				isSucceed = true;
+				nbre = resultSet.getLong("nb");
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return nbre;
+	}
+
+	@Override
+	public Comment selectCommentById(Long Id) {
+		// TODO Auto-generated method stub
+		Boolean isSucceed = false;
+		return selectCommentById(Id, isSucceed);
+	}
+
+	private Comment selectCommentById(Long Id, Boolean isSucceed) {
+		// TODO Auto-generated method stub
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Comment comment = null;
+
+		try {
+			connexion = daoFactory.getConnection();
+
+			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlSelectCommentById(),
+					false, Id);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				isSucceed = true;
+				comment = Map(resultSet);
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
 		return comment;
 	}
 }

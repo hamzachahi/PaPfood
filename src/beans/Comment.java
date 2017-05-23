@@ -4,9 +4,10 @@ import java.sql.Date;
 
 public class Comment {
 	private Long Id;
-	private Long Author;
+	private Long idAuthor;
 	private String Content;
 	private Date datePosted;
+	private Person Author;
 
 	public Long getId() {
 		return Id;
@@ -16,12 +17,12 @@ public class Comment {
 		Id = id;
 	}
 
-	public Long getAuthor() {
-		return Author;
+	public Long getIdAuthor() {
+		return idAuthor;
 	}
 
-	public void setAuthor(Long author) {
-		Author = author;
+	public void setIdAuthor(Long idauthor) {
+		idAuthor = idauthor;
 	}
 
 	public String getContent() {
@@ -38,6 +39,14 @@ public class Comment {
 
 	public void setDatePosted(Date datePosted) {
 		this.datePosted = datePosted;
+	}
+
+	public Person getAuthor() {
+		return Author;
+	}
+
+	public void setAuthor(Person author) {
+		Author = author;
 	}
 
 }

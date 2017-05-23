@@ -9,9 +9,9 @@ public class Paginateur {
 	static int end = 10;
 	static String pagenum = "1";
 	static String pagination = "";
-	static ArrayList<Salable> listem = null;
+	static ArrayList<? extends Object> listem = null;
 
-	public static String pagine(Long total, ArrayList<Salable> liste, HttpServletRequest request, String path2) {
+	public static String pagine(Long total, ArrayList<? extends Object> liste, HttpServletRequest request, String path2) {
 		String path=path2;
 		if (request.getParameter("begin") != null) {
 			begin = Integer.parseInt(request.getParameter("begin"));
@@ -72,11 +72,11 @@ public class Paginateur {
 		return pagination;
 	}
 
-	public ArrayList<Salable> getListe() {
+	public ArrayList<? extends Object> getListe() {
 		return listem;
 	}
 
-	public void setListe(ArrayList<Salable> liste) {
+	public void setListe(ArrayList<? extends Object> liste) {
 		Paginateur.listem = liste;
 	}
 

@@ -47,6 +47,8 @@ public class RequestRepository {
 
 	private static final String MySQL_SELECT_COUNT_PRODUCT_BY_ID_PROVIDER = "select count(id) as nb from product p WHERE id_provider = ?";
 	private static final String MySQL_SELECT_COUNT_SERVICE_BY_ID_PROVIDER = "select count(id) as nb from service s WHERE id_provider = ?";
+	private static final String MySQL_SELECT_COUNT_COMMENTS_BY_ID_SERVICE = "select count(id) as nb from comments_service cs WHERE id_service = ?";
+	private static final String MySQL_SELECT_COUNT_COMMENTS_BY_ID_PRODUCT = "select count(id) as nb from comments_product cs WHERE id_product = ?";
 
 	// fin count
 	// début insert
@@ -100,7 +102,7 @@ public class RequestRepository {
 	private static final String OracleSQL_INSERT_COMMANDE_SERVICE = "INSERT INTO commande_service (id_commande,id_service,quantity) VALUES(?,?,?))";
 
 	private static final String OracleSQL_INSERT_MESSAGE = "INSERT INTO message (id_sender, id_receiver, content, sent_date) VALUES ( ?, ?, ?, SYSTIMESTAMP)";
-	private static final String OracleSQL_INSERT_COMMENTS = "INSERT INTO comments (id_author, date_posted, content) VALUES (?, SYSTIMESTAMP, ?)";
+	private static final String OracleSQL_INSERT_COMMENTS = "INSERT INTO comments (id_author, date_posted, content) VALUES (?, NOW(), ?)";
 	private static final String OracleSQL_INSERT_COMMENTS_PRODUCT = "INSERT INTO comments_product (id_comment, id_product) VALUES ( ?, ?)";
 	private static final String OracleSQL_INSERT_COMMENTS_SERVICE = "INSERT INTO comments_service (id_comment, id_service) VALUES ( ?, ?)";
 	private static final String MySQL_INSERT_IMAGE_PRODUCT_LINK = "INSERT INTO images_links_product (links, id_product) VALUES (?, ?)";
@@ -160,7 +162,7 @@ public class RequestRepository {
 	private static final String OracleSQL_UPDATE_MESSAGE_READ_DATE = "UPDATE message set read_date=SYSTIMESTAMP WHERE ID = ?";
 
 	private static final String OracleSQL_UPDATE_COMMANDE_STATE = "UPDATE commande SET state=1 WHERE ID= ?";
-	private static final String OracleSQL_UPDATE_COMMENTS = "UPDATE comments SET content = ?, date_posted=SYSTIMESTAMP WHERE ID= ?";
+	private static final String OracleSQL_UPDATE_COMMENTS = "UPDATE comments SET content = ?, date_posted = NOW() WHERE ID= ?";
 
 	private static final String MySQL_UPDATE_IMAGE_SERVICE_LINK = "UPDATE images_links_service SET link = ?  WHERE link = ? and id_service = ?";
 	private static final String MySQL_UPDATE_IMAGE_PRODUCT_LINK = "UPDATE images_links_product SET link = ?  WHERE link = ? and id_product = ?";
@@ -875,6 +877,14 @@ public class RequestRepository {
 	public static String getMysqlSelectInvoiceById() {
 		return MySQL_SELECT_INVOICE_BY_ID;
 
+	}
+
+	public static String getMysqlSelectCountCommentsByIdService() {
+		return MySQL_SELECT_COUNT_COMMENTS_BY_ID_SERVICE;
+	}
+
+	public static String getMysqlSelectCountCommentsByIdProduct() {
+		return MySQL_SELECT_COUNT_COMMENTS_BY_ID_PRODUCT;
 	}
 
 }
