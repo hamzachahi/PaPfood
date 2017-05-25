@@ -13,6 +13,7 @@ public class RequestRepository {
 	private static final String MySQL_SELECT_ALL_SERVICE = "SELECT * FROM service s Limit ? offset ?";
 	private static final String MySQL_SELECT_ALL_COMMANDE = "SELECT * FROM commande c Limit ? offset ?";
 	private static final String MySQL_SELECT_ALL_INVOICE = "SELECT * FROM invoice i Limit ? offset ?";
+	private static final String MySQL_SELECT_ALL_PERSON = "SELECT * FROM person p";
 
 	private static final String MySQL_SELECT_ALL_SERVICE_IMAGE_LINKS = "SELECT link FROM images_links_service WHERE id_service = ?";
 	private static final String MySQL_SELECT_ALL_PRODUCT_IMAGE_LINKS = "SELECT link FROM images_links_product WHERE id_product = ?";
@@ -803,6 +804,10 @@ public class RequestRepository {
 
 	public static String getMysqlSelectAllCommande() {
 		return MySQL_SELECT_ALL_COMMANDE;
+	}
+
+	public static String getMysqlSelectAllPerson() {
+		return MySQL_SELECT_ALL_PERSON;
 	}
 
 	public static String getMysqlSelectAllInvoice() {

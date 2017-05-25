@@ -15,6 +15,10 @@
 		<servlet-class>vue.ServletInscription</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>ServletAllOrders</servlet-name>
+		<servlet-class>vue.ServletAllOrders</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>GestionTestJDBC</servlet-name>
 		<servlet-class>vue.GestionTestJDBC</servlet-class>
 	</servlet>
@@ -140,6 +144,10 @@
 		<servlet-name>ServletSearch</servlet-name>
 		<servlet-class>vue.ServletSearch</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ServletAllUsers</servlet-name>
+		<servlet-class>vue.ServletAllUsers</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>ServletAccueil</servlet-name>
 		<url-pattern>/accueil</url-pattern>
@@ -243,5 +251,13 @@
 	<servlet-mapping>
 		<servlet-name>ServletSearch</servlet-name>
 		<url-pattern>/search</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ServletAllUsers</servlet-name>
+		<url-pattern>/allusers</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ServletAllOrders</servlet-name>
+		<url-pattern>/orders</url-pattern>
 	</servlet-mapping>
 </web-app>
