@@ -18,27 +18,21 @@ public class DaoEvaluationImpl implements EvaluationDao {
 	}
 
 	@Override
-	public Boolean Evaluate(Evaluation evaluation) {
+	public Boolean Evaluate(Long IdPerson, Long Jury, Double Note, String Comments) {
 		// TODO Auto-generated method stub
 		Boolean isSucceed = false;
-		return Evaluate(evaluation, isSucceed);
+		return Evaluate(IdPerson, Jury, Note, Comments, isSucceed);
 	}
 
-	private Boolean Evaluate(Evaluation evaluation, Boolean isSucceed) {
+	private Boolean Evaluate(Long IdPerson, Long Jury, Double Note, String Comments, Boolean isSucceed) {
 		Connection connexion = null;
 		PreparedStatement Statement = null;
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
-			Statement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlInsertEvaluation(),
-					false, evaluation.getIdPerson(), evaluation.getIdJury(), evaluation.getNote(),
-					evaluation.getComments());
+		
+			Statement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlInsertEvaluation(),
+					false, IdPerson, Jury, Note, Comments);
 			int statut = Statement.executeUpdate();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
 				isSucceed = true;
 			} else {
@@ -54,28 +48,22 @@ public class DaoEvaluationImpl implements EvaluationDao {
 	}
 
 	@Override
-	public Boolean modifyEvaluation(Evaluation evaluation) {
+	public Boolean modifyEvaluation(Long Id, Double Note, String Comments) {
 		// TODO Auto-generated method stub
 		Boolean isSucceed = false;
 
-		return modifyEvaluation(evaluation, isSucceed);
+		return modifyEvaluation(Id, Note, Comments, isSucceed);
 	}
 
-	private Boolean modifyEvaluation(Evaluation evaluation, Boolean isSucceed) {
+	private Boolean modifyEvaluation(Long Id, Double Note, String Comments, Boolean isSucceed) {
 		Connection connexion = null;
 		PreparedStatement Statement = null;
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
-			Statement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlUpdateEvaluation(),
-					false, evaluation.getIdPerson(), evaluation.getIdJury(), evaluation.getNote(),
-					evaluation.getComments(), evaluation.getId());
+			
+			Statement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlUpdateEvaluation(),
+					false, Note, Comments, Id);
 			int statut = Statement.executeUpdate();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
 				isSucceed = true;
 			} else {
@@ -102,16 +90,10 @@ public class DaoEvaluationImpl implements EvaluationDao {
 		Connection connexion = null;
 		PreparedStatement Statement = null;
 		try {
-			/* Récupération d'une connexion depuis la Factory */
-			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
-			Statement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlDeleteEvaluation(),
+			connexion = daoFactory.getConnection();			
+			Statement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlDeleteEvaluation(),
 					false, Id);
 			int statut = Statement.executeUpdate();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
 				isSucceed = true;
 			} else {
@@ -143,7 +125,7 @@ public class DaoEvaluationImpl implements EvaluationDao {
 
 		try {
 			connexion = daoFactory.getConnection();
-			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlSelectMyMessage(),
+			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlSelectMyEvaluationByIdPerson(),
 					false, Id, limit, offset);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -166,6 +148,69 @@ public class DaoEvaluationImpl implements EvaluationDao {
 		eval.setIdPerson(resultSet.getLong("id_person"));
 		eval.setNote(resultSet.getDouble("note"));
 		eval.setComments(resultSet.getString("comments"));
+		eval.setDate_posted(resultSet.getDate("date_posted"));
+
 		return eval;
+	}
+	@Override
+	public Long selectNbreEvaluationByIdPerson(Long IdPerson) {
+		// TODO Auto-generated method stub
+		Boolean isSucceed = false;
+		return selectNbreEvaluationByIdPerson(IdPerson, isSucceed);
+	}
+
+	private Long selectNbreEvaluationByIdPerson(Long IdPerson, Boolean isSucceed) {
+		// TODO Auto-generated method stub
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Long nbre = (long) 0;
+		try {
+			connexion = daoFactory.getConnection();
+
+			preparedStatement = initialisationRequetePreparee(connexion,
+					RequestRepository.getMysqlSelectCountEvaluationByIdPerson(), false, IdPerson);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				isSucceed = true;
+				nbre = resultSet.getLong("nb");
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return nbre;
+	}
+
+	@Override
+	public Double selectMoyenneEvaluationByIdPerson(Long IdPerson) {
+		// TODO Auto-generated method stub
+		Boolean isSucceed = false;
+		return selectMoyenneEvaluationByIdPerson(IdPerson, isSucceed);
+	}
+
+	private Double selectMoyenneEvaluationByIdPerson(Long IdPerson, Boolean isSucceed) {
+		// TODO Auto-generated method stub
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Double moyenne = 20.0;
+		try {
+			connexion = daoFactory.getConnection();
+
+			preparedStatement = initialisationRequetePreparee(connexion,
+					RequestRepository.getMysqlSelectMoyenneEvaluationByIdPerson(), false, IdPerson);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				isSucceed = true;
+				moyenne = resultSet.getDouble("moy");
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return moyenne;
 	}
 }

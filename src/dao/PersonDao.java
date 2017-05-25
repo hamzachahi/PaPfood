@@ -22,8 +22,6 @@ public interface PersonDao {
 
 	public Boolean Claim(Person pers, String claiming, String subject, String emailDest);
 
-	public Boolean Search(ArrayList<String> Params, String KeyWord);
-
 	public Map<ArrayList<String>, ArrayList<String>> Historique(Person utilisateur, Boolean isSucceed,
 			Integer nbreJours);
 

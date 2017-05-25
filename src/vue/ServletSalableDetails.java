@@ -42,7 +42,7 @@ public class ServletSalableDetails extends HttpServlet {
 	Long total = null;
 	ArrayList<Comment> listComments = new ArrayList<>();
 	private ArrayList<ElementCommand> monPanier;
-	private Paginateur pagination;
+	private String pagination;
 	private long begin;
 	private long end;
 
@@ -403,6 +403,7 @@ public class ServletSalableDetails extends HttpServlet {
 				request.setAttribute("salable", service);
 				person = personDao.trouverParId(service.getIdProvider(), false);
 				request.setAttribute("owner", person);
+				total = commentDao.selectNbreCommentsByIdService(service.getId());
 				for (int i = 0; i < listComments.size(); i++) {
 					listComments.get(i).setAuthor(personDao.trouverParId(listComments.get(i).getIdAuthor(), false));
 				}

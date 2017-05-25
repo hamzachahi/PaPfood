@@ -1,7 +1,7 @@
 package beans;
 
 public class ElementCommand {
-	private int Quantity;
+	private int Quantity=0;
 	private Salable mProduct;
 
 	public int getQuantity() {

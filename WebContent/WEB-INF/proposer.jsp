@@ -84,7 +84,6 @@
 		</div>
 	</div>
 	</section>
-
 	<section id="page-title-area">
 	<div class="container">
 		<div class="row">
@@ -97,7 +96,6 @@
 			</div>
 		</div>
 	</div>
-
 	<c:if test="${param['action'] == 'afficherSousVendables'}">
 		<h3 align="left" class="primery-title">Liste des
 			sous-&eacutel&eacutements trouv&eacutes</h3>
@@ -110,20 +108,15 @@
 								<div class="table-responsive">
 									<div class="pagination">
 										<table class="table shop-cart">
-											<thead>
-												<td><b>N&ordm;</b></td>
-												<td><b>Nom</b></td>
-												<td><b>Prix</b></td>
-												<td><b>Description</b></td>
-												<td><b>Type</b></td>
-												<td><b>D&eacute;tails</b></td>
-												<td><b>Ajouter</b></td>
-
-
-											</thead>
-
-											<!-- Ici on affiche les lignes, une par utilisateur -->
-											<!-- cette variable montre comment on peut utiliser JSTL et EL pour calculer -->
+											<tr>
+												<th>N&ordm;</th>
+												<th>Nom</th>
+												<th>Prix</th>
+												<th>Description</th>
+												<th>Type</th>
+												<th>D&eacute;tails</th>
+												<th>Ajouter</th>
+											</tr>
 											<c:set var="total" value="0" />
 											<c:set var="i" value="0" />
 
@@ -152,9 +145,12 @@
 
 											<!-- Affichage du solde total dans la dernière ligne du tableau -->
 											<tfoot>
-												<td><b>TOTAL</b></td>
-												<td></td>
-												<td><b>${requestScope['total']}</b></td>
+												<tr>
+													<td><b>TOTAL</b></td>
+													<td></td>
+													<td><b>${requestScope['total']}</b></td>
+												</tr>
+
 											</tfoot>
 										</table>
 										${requestScope['pagination']}
@@ -192,15 +188,15 @@
 									<div class="pagination">
 										<table class="table shop-cart">
 											<thead>
-												<td><b>N&ordm;</b></td>
-												<td><b>Nom</b></td>
-												<td><b>Prix</b></td>
-												<td><b>Description</b></td>
-												<td><b>Type</b></td>
-												<td><b>D&eacute;tails</b></td>
-												<td><b>Supprimer</b></td>
-
-
+												<tr>
+													<td><b>N&ordm;</b></td>
+													<td><b>Nom</b></td>
+													<td><b>Prix</b></td>
+													<td><b>Description</b></td>
+													<td><b>Type</b></td>
+													<td><b>D&eacute;tails</b></td>
+													<td><b>Supprimer</b></td>
+												</tr>
 											</thead>
 
 											<!-- Ici on affiche les lignes, une par utilisateur -->
@@ -232,9 +228,11 @@
 
 											<!-- Affichage du solde total dans la dernière ligne du tableau -->
 											<tfoot>
-												<td><b>TOTAL</b></td>
-												<td></td>
-												<td><b>${ii}</b></td>
+												<tr>
+													<td><b>TOTAL</b></td>
+													<td></td>
+													<td><b>${ii}</b></td>
+												</tr>
 											</tfoot>
 										</table>
 									</div>
@@ -271,15 +269,15 @@
 									<div class="pagination">
 										<table class="table shop-cart">
 											<thead>
-												<td><b>N&ordm;</b></td>
-												<td><b>Nom</b></td>
-												<td><b>Prix</b></td>
-												<td><b>Description</b></td>
-												<td><b>Type</b></td>
-												<td><b>D&eacute;tails</b></td>
-												<td><b>Supprimer</b></td>
-
-
+												<tr>
+													<td><b>N&ordm;</b></td>
+													<td><b>Nom</b></td>
+													<td><b>Prix</b></td>
+													<td><b>Description</b></td>
+													<td><b>Type</b></td>
+													<td><b>D&eacute;tails</b></td>
+													<td><b>Supprimer</b></td>
+												</tr>
 											</thead>
 
 											<!-- Ici on affiche les lignes, une par utilisateur -->
@@ -310,9 +308,11 @@
 
 											<!-- Affichage du solde total dans la dernière ligne du tableau -->
 											<tfoot>
-												<td><b>TOTAL</b></td>
-												<td></td>
-												<td><b>${ii}</b></td>
+												<tr>
+													<td><b>TOTAL</b></td>
+													<td></td>
+													<td><b>${ii}</b></td>
+												</tr>
 											</tfoot>
 										</table>
 									</div>
@@ -324,7 +324,6 @@
 			</div>
 		</div>
 	</c:if> </section>
-	</section>
 	<%@include file="footer.jsp"%>
 </body>
 </html>

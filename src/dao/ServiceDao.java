@@ -13,8 +13,6 @@ public interface ServiceDao {
 
 	public Service findServiceById(Long Id);
 
-	public ArrayList<Service> findServiceByKeyWord(String keyWord);
-
 	public ArrayList<Service> findAllService(Long limit, Long offset);
 
 	public ArrayList<Service> findAllServiceByIdProvider(Long Id, Long limit, Long offset);

@@ -43,8 +43,8 @@
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 							<!-- Start Top Search -->
 							<div class="search-area">
-								<form action="#">
-									<input placeholder="Rechercher..." type="text">
+								<form method="post" action="search">
+									<input placeholder="Rechercher..." type="text" name="keyword">
 									<button type="submit">
 										<i class="fa fa-search" aria-hidden="true"></i>
 									</button>
@@ -121,7 +121,8 @@
 													Vos propositions</a></li>
 											<li><a href="${pageContext.request.contextPath}/team">Informations
 													sur le site</a></li>
-											<li><a href="${pageContext.request.contextPath}/about">Nos partenaires</a></li>
+											<li><a href="${pageContext.request.contextPath}/about">Nos
+													partenaires</a></li>
 											<li><a href="room-booking.html">Rejoignez notre
 													équipe de courtiers !</a></li>
 											<!-- 	<li><a href="menu-details.html">Menu Details</a></li>
@@ -135,8 +136,11 @@
 							<div class="mini-cart pull-right ">
 								<a href="${pageContext.request.contextPath}/message"> <img
 									src="assets/img/message_icon.png" alt="cart" /> <c:if
-										test="${not empty sessionUtilisateur}">
+										test="${not empty sessionUtilisateur||not empty sessionScope.nbremessagenonlu }">
 										<span class="item-count">${sessionScope.nbremessagenonlu}</span>
+									</c:if> <c:if
+										test="${empty sessionUtilisateur||empty sessionScope.nbremessagenonlu}">
+										<span class="item-count">0</span>
 									</c:if>
 								</a>
 							</div>
@@ -145,8 +149,11 @@
 							<div class="mini-cart pull-right ">
 								<a href="${pageContext.request.contextPath}/panier"> <img
 									src="assets/img/ecommerce_cart.png" alt="cart" /> <c:if
-										test="${not empty sessionUtilisateur}">
+										test="${not empty sessionUtilisateur||not empty sessionScope.nbrelementspanier}">
 										<span class="item-count">${sessionScope.nbrelementspanier}</span>
+									</c:if> <c:if
+										test="${empty sessionUtilisateur||empty sessionScope.nbrelementspanier}">
+										<span class="item-count">0</span>
 									</c:if>
 								</a>
 							</div>

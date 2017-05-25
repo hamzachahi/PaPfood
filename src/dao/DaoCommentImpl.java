@@ -27,7 +27,7 @@ public class DaoCommentImpl implements CommentDao {
 	}
 
 	@SuppressWarnings("resource")
-	public Boolean CommentProduct(Long idAuthor, Long IdProduct, String comment, boolean isSucceed) {
+	private Boolean CommentProduct(Long idAuthor, Long IdProduct, String comment, boolean isSucceed) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet valeursAutoGenerees = null;
