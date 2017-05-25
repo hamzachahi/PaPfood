@@ -64,19 +64,15 @@ public class ServletAcheter extends HttpServlet {
 				String pagination = "";
 				total = productDao.countElements();
 				total = total + serviceDao.countElements();
+				elements = (ArrayList<ElementCommand>) session.getAttribute("searchResults");
 				if (total <= 0 || total == null) {
 					message = "Aucun sous-éléments à afficher!!";
-				} else {
-					for (int i = 0; i < elements.size(); i++) {
-						elements.remove(i);
-					}
+				} else {					
 					message = "Liste des éléments trouvés";
 					tousLesArticles = new ArrayList<>();
 					tousLesArticles.addAll(productDao.findAllProduct(end, begin));
 					tousLesArticles.addAll(serviceDao.findAllService(end, begin));
-					for (int i = 0; i < elements.size(); i++) {
-						elements.remove(i);
-					}
+					elements=new ArrayList<>();
 					for (int i = 0; i < tousLesArticles.size(); i++) {
 						ElementCommand elementCom = new ElementCommand();
 						elementCom.setmProduct(tousLesArticles.get(i));
@@ -168,9 +164,9 @@ public class ServletAcheter extends HttpServlet {
 			}
 
 		} else {
+			HttpSession session = request.getSession(false);
 			if (tousLesArticles == null) {
 				tousLesArticles = new ArrayList<>();
-				HttpSession session = request.getSession();
 				if (session.getAttribute("searchResults") != null) {
 					elements = (ArrayList<ElementCommand>) session.getAttribute("searchResults");
 				} else {
@@ -186,7 +182,7 @@ public class ServletAcheter extends HttpServlet {
 				for (int i = 0; i < tousLesArticles.size(); i++) {
 					ElementCommand elementCom = new ElementCommand();
 					elementCom.setmProduct(tousLesArticles.get(i));
-					elementCom.setQuantity(0);
+					elementCom.setQuantity(1);
 					elements.add(elementCom);
 				}
 
@@ -196,6 +192,7 @@ public class ServletAcheter extends HttpServlet {
 				pagination = Paginateur.pagine(total, tousLesArticles, request, "acheter");
 				request.setAttribute("pagination", pagination);
 			} else {
+				elements = (ArrayList<ElementCommand>) session.getAttribute("searchResults");
 				request.setAttribute("searchResults", elements);
 				total = productDao.countElements();
 				total = total + serviceDao.countElements();
