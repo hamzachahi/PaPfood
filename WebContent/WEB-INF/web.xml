@@ -148,9 +148,17 @@
 		<servlet-name>ServletAllUsers</servlet-name>
 		<servlet-class>vue.ServletAllUsers</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ServletAllInvoices</servlet-name>
+		<servlet-class>vue.ServletAllInvoices</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>ServletAccueil</servlet-name>
 		<url-pattern>/accueil</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ServletAllInvoices</servlet-name>
+		<url-pattern>/allinvoices</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ServletInscription</servlet-name>
