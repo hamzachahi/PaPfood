@@ -21,15 +21,24 @@ public class RequestRepository {
 
 	private static final String MySQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id = ?";
 	private static final String OracleSQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id = ?";
-	private static final String OracleSQL_SELECT_PRODUCT_BY_KEYWORD = "SELECT * FROM product WHERE name LIKE ?";
-	private static final String OracleSQL_SELECT_SERVICE_BY_KEYWORD = "SELECT * FROM service WHERE name LIKE ?";
+
+	private static final String MySQL_SELECT_PRODUCT_BY_KEYWORD = "SELECT * FROM product WHERE name LIKE ? or description like ? limit ? offset ?";
+	private static final String MySQL_SELECT_SERVICE_BY_KEYWORD = "SELECT * FROM service WHERE name LIKE ? or description like ? limit ? offset ?";
+	private static final String MySQL_SELECT_PERSON_BY_KEYWORD = "SELECT * FROM person WHERE name LIKE ? or second_name like ? or surname like ? or second_surname like ? or profession like ? limit ? offset ?";
+	private static final String MySQL_SELECT_COUNT_PRODUCT_BY_KEYWORD = "SELECT count(distinct(id)) as nb FROM papfood.product p where name like ? or description like ?";
+	private static final String MySQL_SELECT_COUNT_SERVICE_BY_KEYWORD = "SELECT count(distinct(id)) as nb FROM papfood.service p where name like ? or description like ?";
+	private static final String MySQL_SELECT_COUNT_PERSON_BY_KEYWORD = "SELECT count(distinct(id)) as nb FROM papfood.person p where name like ? or second_name like ? or surname like ? or second_surname like ? or profession like ?";
 
 	private static final String MySQL_SELECT_PRODUCT_BY_ID = "SELECT * FROM product p WHERE Id = ?";
 	private static final String MySQL_SELECT_SERVICE_BY_ID = "SELECT * FROM service s WHERE Id = ?";
 	private static final String MySQL_SELECT_INVOICE_BY_ID = "SELECT * from invoice i WHERE Id = ?";
+	private static final String MySQL_SELECT_POST_BY_ID = "SELECT * from posts p WHERE Id = ?";
+	private static final String MySQL_SELECT_COMMENT_BY_ID = "SELECT * FROM comments c WHERE Id = ?";
 
 	private static final String MySQL_SELECT_PRODUCT_BY_ID_PROVIDER = "SELECT * FROM product p WHERE id_provider = ? limit ? offset ?";
 	private static final String MySQL_SELECT_SERVICE_BY_ID_PROVIDER = "SELECT * FROM service s WHERE id_provider = ? limit ? offset ?";
+	private static final String MySQL_SELECT_MY_EVALUATION_BY_ID_PERSON = "SELECT * FROM evaluation e WHERE id_person = ? limit ? offset ?";
+	private static final String MySQL_SELECT_POSTS_BY_ID_AUTHOR = "SELECT * FROM posts p WHERE id_author = ? limit ? offset ?";
 
 	private static final String MySQL_SELECT_MY_SEND_MESSAGE = "SELECT * FROM message m WHERE id_sender = ? limit ? offset ?";
 	private static final String MySQL_SELECT_MY_MESSAGE = "SELECT * FROM message m WHERE id_receiver = ? limit ? offset ?";
@@ -37,8 +46,6 @@ public class RequestRepository {
 
 	private static final String MySQL_SELECT_COMMENT_PRODUCT = "SELECT id_comment FROM comments_product cp WHERE id_product = ? limit ? offset ?";
 	private static final String MySQL_SELECT_COMMENT_SERVICE = "SELECT id_comment FROM comments_service cs WHERE id_service = ? limit ? offset ?";
-
-	private static final String MySQL_SELECT_COMMENT_BY_ID = "SELECT * FROM comments c WHERE Id = ?";
 
 	// fin select
 	// début count
@@ -49,6 +56,11 @@ public class RequestRepository {
 	private static final String MySQL_SELECT_COUNT_SERVICE_BY_ID_PROVIDER = "select count(id) as nb from service s WHERE id_provider = ?";
 	private static final String MySQL_SELECT_COUNT_COMMENTS_BY_ID_SERVICE = "select count(id) as nb from comments_service cs WHERE id_service = ?";
 	private static final String MySQL_SELECT_COUNT_COMMENTS_BY_ID_PRODUCT = "select count(id) as nb from comments_product cs WHERE id_product = ?";
+	private static final String MySQL_SELECT_COUNT_EVALUATION_BY_ID_PERSON = "select count(id) as nb from evaluation e WHERE id_person = ?";
+	private static final String MySQL_SELECT_COUNT_POST_BY_ID_AUTHOR = "select count(id) as nb from posts p WHERE id_author = ?";
+	private static final String MySQL_SELECT_COUNT_MESSAGE_BY_ID_SENDER = "select count(id) as nb from evaluation e WHERE id_sender = ?";
+
+	private static final String MySQL_SELECT_MOYENNE_EVALUATION_BY_ID_PERSON = "SELECT (SUM(note)/COUNT(note)) as moy from evaluation e WHERE id_person = ?";
 
 	// fin count
 	// début insert
@@ -56,8 +68,7 @@ public class RequestRepository {
 	private static final String MySQL_INSERT_PERSON = "INSERT INTO person (email, password, name, function, date_inscription) VALUES (?, ?, ?, ?, NOW())";
 	private static final String OracleSQL_INSERT_PERSON = "INSERT INTO person (email, password, name, function, date_inscription) VALUES (?, ?, ?, ?, SYSTIMESTAMP)";
 
-	private static final String MySQL_INSERT_EVALUATION = "INSERT INTO evaluation (id_person, id_jury, note, comments) VALUES (?, ?, ?, ?)";
-	private static final String OracleSQL_INSERT_EVALUATION = "INSERT INTO evaluation (id_person, id_jury, note, comments) VALUES (?, ?, ?, ?)";
+	private static final String MySQL_INSERT_EVALUATION = "INSERT INTO evaluation (id_person, id_jury, note, comments, date_posted) VALUES (?, ?, ?, ?, NOW())";
 
 	private static final String MySQL_INSERT_COMMANDE = "INSERT INTO commande (code,id_customer,date_ordering) VALUES(?,?,NOW())";
 	private static final String OracleSQL_INSERT_COMMANDE = "INSERT INTO commande (code,id_customer,date_ordering) VALUES(?,?,SYSTIMESTAMP)";
@@ -101,7 +112,9 @@ public class RequestRepository {
 	private static final String MySQL_INSERT_COMMANDE_SERVICE = "INSERT INTO commande_service (id_commande,id_service,quantity) VALUES(?,?,?))";
 	private static final String OracleSQL_INSERT_COMMANDE_SERVICE = "INSERT INTO commande_service (id_commande,id_service,quantity) VALUES(?,?,?))";
 
-	private static final String OracleSQL_INSERT_MESSAGE = "INSERT INTO message (id_sender, id_receiver, content, sent_date) VALUES ( ?, ?, ?, SYSTIMESTAMP)";
+	private static final String MySQL_INSERT_MESSAGE = "INSERT INTO message (id_sender, id_receiver, content, sent_date) VALUES ( ?, ?, ?, NOW())";
+	private static final String MySQL_INSERT_POST = "INSERT INTO posts (id_author, date_posted, content, title) VALUES (?, NOW(), ?, ?)";
+
 	private static final String OracleSQL_INSERT_COMMENTS = "INSERT INTO comments (id_author, date_posted, content) VALUES (?, NOW(), ?)";
 	private static final String OracleSQL_INSERT_COMMENTS_PRODUCT = "INSERT INTO comments_product (id_comment, id_product) VALUES ( ?, ?)";
 	private static final String OracleSQL_INSERT_COMMENTS_SERVICE = "INSERT INTO comments_service (id_comment, id_service) VALUES ( ?, ?)";
@@ -116,8 +129,7 @@ public class RequestRepository {
 	private static final String MySQL_UPDATE_COMMANDE = "UPDATE commande SET code=?, id_customer = ?, date_ordering=?, date_livraison=? WHERE ID = ?";
 	private static final String OracleSQL_UPDATE_COMMANDE = "UPDATE commande SET code=?, id_customer = ?, date_ordering=?, date_livraison=? WHERE ID = ?";
 
-	private static final String MySQL_UPDATE_EVALUATION = "UPDATE evaluation SET id_person=?, id_jury = ?, note=?, comments=? WHERE ID = ?";
-	private static final String OracleSQL_UPDATE_EVALUATION = "UPDATE evaluation SET id_person=?, id_jury = ?, note=?, comments=? WHERE ID = ?";
+	private static final String MySQL_UPDATE_EVALUATION = "UPDATE evaluation SET  note=?, comments=?, date_posted=NOW() WHERE ID = ?";
 
 	private static final String MySQL_UPDATE_COMMANDE_PRODUCT = "UPDATE commande_product SET id_commande = ?, id_product=?, quantity=? WHERE ID = ?";
 	private static final String OracleSQL_UPDATE_COMMANDE_PRODUCT = "UPDATE commande_product SET id_commande = ?, id_product=?, quantity=? WHERE ID = ?";
@@ -158,11 +170,12 @@ public class RequestRepository {
 	private static final String MySQL_UPDATE_INVOICE_SERVICE = "UPDATE invoice_person SET id_invoice = ?, id_service=? WHERE ID = ?";
 	private static final String OracleSQL_UPDATE_INVOICE_SERVICE = "UPDATE invoice_person SET id_invoice = ?, id_service=? WHERE ID = ?";
 
-	private static final String OracleSQL_UPDATE_MESSAGE_RECEIVE_DATE = "UPDATE message set receive_date=SYSTIMESTAMP WHERE ID = ?";
-	private static final String OracleSQL_UPDATE_MESSAGE_READ_DATE = "UPDATE message set read_date=SYSTIMESTAMP WHERE ID = ?";
+	private static final String MySQL_UPDATE_MESSAGE_RECEIVE_DATE = "UPDATE message set receive_date=NOW() WHERE ID = ?";
+	private static final String MySQL_UPDATE_MESSAGE_READ_DATE = "UPDATE message set read_date=NOW() WHERE ID = ?";
 
 	private static final String OracleSQL_UPDATE_COMMANDE_STATE = "UPDATE commande SET state=1 WHERE ID= ?";
 	private static final String OracleSQL_UPDATE_COMMENTS = "UPDATE comments SET content = ?, date_posted = NOW() WHERE ID= ?";
+	private static final String MySQL_UPDATE_POSTS = "UPDATE posts SET content = ?, date_posted = NOW(), title = ? WHERE ID= ?";
 
 	private static final String MySQL_UPDATE_IMAGE_SERVICE_LINK = "UPDATE images_links_service SET link = ?  WHERE link = ? and id_service = ?";
 	private static final String MySQL_UPDATE_IMAGE_PRODUCT_LINK = "UPDATE images_links_product SET link = ?  WHERE link = ? and id_product = ?";
@@ -217,11 +230,12 @@ public class RequestRepository {
 	private static final String OracleSQL_DELETE_SERVICE = "DELETE FROM service WHERE ID = ?";
 
 	private static final String MySQL_DELETE_EVALUATION = "DELETE FROM evaluation WHERE ID = ?";
-	private static final String OracleSQL_DELETE_EVALUATION = "DELETE FROM evaluation WHERE ID = ?";
 	private static final String OracleSQL_DELETE_COMMENTS = "DELETE FROM comments WHERE ID = ?";
+	private static final String MySQL_DELETE_POST = "DELETE FROM posts WHERE ID = ?";
+
 	private static final String OracleSQL_DELETE_COMMENTS_PRODUCT = "DELETE FROM comments_product WHERE ID = ?";
 	private static final String OracleSQL_DELETE_COMMENTS_SERVICE = "DELETE FROM comments_service WHERE ID = ?";
-	private static final String OracleSQL_DELETE_MESSAGE = "DELETE FROM message WHERE ID = ?";
+	private static final String MySQL_DELETE_MESSAGE = "DELETE FROM message WHERE ID = ?";
 
 	private static final String OracleSQL_SELECT_FROM_COMMANDE_SERVICE = "SELECT * from commande_service where id_commande = ?";
 	private static final String OracleSQL_SELECT_FROM_COMMANDE_PRODUCT = " SELECT * from commande_product where id_commande = ?";
@@ -268,10 +282,6 @@ public class RequestRepository {
 
 	public static String getMysqlInsertEvaluation() {
 		return MySQL_INSERT_EVALUATION;
-	}
-
-	public static String getOraclesqlInsertEvaluation() {
-		return OracleSQL_INSERT_EVALUATION;
 	}
 
 	public static String getMysqlInsertCommande() {
@@ -400,10 +410,6 @@ public class RequestRepository {
 
 	public static String getMysqlUpdateEvaluation() {
 		return MySQL_UPDATE_EVALUATION;
-	}
-
-	public static String getOraclesqlUpdateEvaluation() {
-		return OracleSQL_UPDATE_EVALUATION;
 	}
 
 	public static String getMysqlUpdateCommandeProduct() {
@@ -634,10 +640,6 @@ public class RequestRepository {
 		return MySQL_DELETE_EVALUATION;
 	}
 
-	public static String getOraclesqlDeleteEvaluation() {
-		return OracleSQL_DELETE_EVALUATION;
-	}
-
 	public static String getOraclesqlSeTrouverTotalementParEmail() {
 		return OracleSQL_SE_TROUVER_TOTALEMENT_PAR_EMAIL;
 	}
@@ -678,20 +680,20 @@ public class RequestRepository {
 		return OracleSQL_DELETE_COMMENTS_SERVICE;
 	}
 
-	public static String getOraclesqlInsertMessage() {
-		return OracleSQL_INSERT_MESSAGE;
+	public static String getMysqlInsertMessage() {
+		return MySQL_INSERT_MESSAGE;
 	}
 
-	public static String getOraclesqlUpdateMessageReceiveDate() {
-		return OracleSQL_UPDATE_MESSAGE_RECEIVE_DATE;
+	public static String getMysqlUpdateMessageReceiveDate() {
+		return MySQL_UPDATE_MESSAGE_RECEIVE_DATE;
 	}
 
-	public static String getOraclesqlUpdateMessageReadDate() {
-		return OracleSQL_UPDATE_MESSAGE_READ_DATE;
+	public static String getMysqlUpdateMessageReadDate() {
+		return MySQL_UPDATE_MESSAGE_READ_DATE;
 	}
 
-	public static String getOraclesqlDeleteMessage() {
-		return OracleSQL_DELETE_MESSAGE;
+	public static String getMysqlDeleteMessage() {
+		return MySQL_DELETE_MESSAGE;
 	}
 
 	public static String getMysqlSeTrouverParId() {
@@ -750,12 +752,28 @@ public class RequestRepository {
 		return OracleSQL_SELECT_PRODUCT_BY_ID;
 	}
 
-	public static String getOraclesqlSelectProductByKeyword() {
-		return OracleSQL_SELECT_PRODUCT_BY_KEYWORD;
+	public static String getMysqlSelectProductByKeyword() {
+		return MySQL_SELECT_PRODUCT_BY_KEYWORD;
 	}
 
-	public static String getOraclesqlSelectServiceByKeyword() {
-		return OracleSQL_SELECT_SERVICE_BY_KEYWORD;
+	public static String getMysqlSelectServiceByKeyword() {
+		return MySQL_SELECT_SERVICE_BY_KEYWORD;
+	}
+
+	public static String getMysqlSelectPersonByKeyword() {
+		return MySQL_SELECT_PERSON_BY_KEYWORD;
+	}
+
+	public static String getMysqlSelectCountProductByKeyword() {
+		return MySQL_SELECT_COUNT_PRODUCT_BY_KEYWORD;
+	}
+
+	public static String getMysqlSelectCountServiceByKeyword() {
+		return MySQL_SELECT_COUNT_SERVICE_BY_KEYWORD;
+	}
+
+	public static String getMysqlSelectCountPersonByKeyword() {
+		return MySQL_SELECT_COUNT_PERSON_BY_KEYWORD;
 	}
 
 	public static String getMysqlSelectProductById() {
@@ -885,6 +903,46 @@ public class RequestRepository {
 
 	public static String getMysqlSelectCountCommentsByIdProduct() {
 		return MySQL_SELECT_COUNT_COMMENTS_BY_ID_PRODUCT;
+	}
+
+	public static String getMysqlSelectCountEvaluationByIdPerson() {
+		return MySQL_SELECT_COUNT_EVALUATION_BY_ID_PERSON;
+	}
+
+	public static String getMysqlSelectMyEvaluationByIdPerson() {
+		return MySQL_SELECT_MY_EVALUATION_BY_ID_PERSON;
+	}
+
+	public static String getMysqlSelectPostById() {
+		return MySQL_SELECT_POST_BY_ID;
+	}
+
+	public static String getMysqlSelectCountPostByIdAuthor() {
+		return MySQL_SELECT_COUNT_POST_BY_ID_AUTHOR;
+	}
+
+	public static String getMysqlSelectCountMessageByIdSender() {
+		return MySQL_SELECT_COUNT_MESSAGE_BY_ID_SENDER;
+	}
+
+	public static String getMysqlInsertPost() {
+		return MySQL_INSERT_POST;
+	}
+
+	public static String getMysqlUpdatePosts() {
+		return MySQL_UPDATE_POSTS;
+	}
+
+	public static String getMysqlDeletePost() {
+		return MySQL_DELETE_POST;
+	}
+
+	public static String getMysqlSelectPostsByIdAuthor() {
+		return MySQL_SELECT_POSTS_BY_ID_AUTHOR;
+	}
+
+	public static String getMysqlSelectMoyenneEvaluationByIdPerson() {
+		return MySQL_SELECT_MOYENNE_EVALUATION_BY_ID_PERSON;
 	}
 
 }

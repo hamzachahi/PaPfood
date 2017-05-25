@@ -46,7 +46,7 @@
 										<label class="string optional" for="nom">Pseudo/Nom de
 											famille*</label> <input class="string optional" maxlength="255"
 											id="nom" name="nom" placeholder="Votre Pseudo/Nom de famille"
-											type="email" size="50" /> <span class="erreur">${form.erreurs['nom']}</span>
+											type="text" size="50" /> <span class="erreur">${form.erreurs['nom']}</span>
 									</div>
 								</div>
 								<div class="sminputs">

@@ -40,7 +40,8 @@ public class DaoProductImpl implements ProductDao {
 			 * (ici, uniquement une adresse email) et exécution.
 			 */
 			Statement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlInsertProduct(), false,
-					product.getCode(), product.getName(), product.getDescription(), product.getPrice(), product.getIdProvider());
+					product.getCode(), product.getName(), product.getDescription(), product.getPrice(),
+					product.getIdProvider());
 			int statut = Statement.executeUpdate();
 			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
@@ -226,40 +227,6 @@ public class DaoProductImpl implements ProductDao {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
 		return product;
-	}
-
-	@Override
-	public ArrayList<Product> findProductByKeyWord(String keyWord) {
-		Boolean isSucceed = false;
-		return findProductByKeyWord(RequestRepository.getOraclesqlSelectServiceByKeyword(), keyWord, isSucceed);
-	}
-
-	private ArrayList<Product> findProductByKeyWord(String sql, String keyWord, Boolean isSucceed) {
-		Connection connexion = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		ArrayList<Product> produitResults = new ArrayList<Product>();
-
-		try {
-			/* Récupération d'une connexion depuis la Factory */
-			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
-			preparedStatement = initialisationRequetePreparee(connexion, sql, false, keyWord);
-			resultSet = preparedStatement.executeQuery();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
-			while (resultSet.next()) {
-				isSucceed = true;
-				produitResults.add(map(resultSet));
-			}
-		} catch (SQLException e) {
-			throw new ExceptionDao(e);
-		} finally {
-			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
-		}
-		return produitResults;
 	}
 
 	@Override

@@ -226,42 +226,7 @@ public class DaoServiceImpl implements ServiceDao {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
 		return service;
-	}
-
-	@Override
-	public ArrayList<Service> findServiceByKeyWord(String keyWord) {
-		Boolean isSucceed = false;
-		return findServiceByKeyWord(RequestRepository.getOraclesqlSelectServiceByKeyword(), keyWord, isSucceed);
-	}
-
-	private ArrayList<Service> findServiceByKeyWord(String sql, String keyWord, Boolean isSucceed) {
-		Connection connexion = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		ArrayList<Service> serviceResults = new ArrayList<>();
-
-		try {
-			/* Récupération d'une connexion depuis la Factory */
-			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
-			preparedStatement = initialisationRequetePreparee(connexion, sql, false, keyWord);
-			resultSet = preparedStatement.executeQuery();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
-			while (resultSet.next()) {
-				isSucceed = true;
-				serviceResults.add(map(resultSet));
-
-			}
-		} catch (SQLException e) {
-			throw new ExceptionDao(e);
-		} finally {
-			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
-		}
-		return serviceResults;
-	}
+	}	
 	@Override
 	public ArrayList<Service> findAllServiceByIdProvider(Long Id, Long limit, Long offset) {
 		// TODO Auto-generated method stub

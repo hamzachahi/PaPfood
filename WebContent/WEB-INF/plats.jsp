@@ -27,7 +27,7 @@
 				<div class="page-inner padding-top-xlg">
 					<hr />
 					<div class="search-area">
-						<form action="ServletAcheter" method="post">
+						<form action="acheter" method="post">
 							<input type="text" name="search" id="search"
 								placeholder="Exp: lasagne.." /> <input type="hidden"
 								name="action" value="chercherProduit" />
@@ -59,7 +59,6 @@
 											<th>Description</th>
 											<th>Prix</th>
 											<th>D&eacute;tails</th>
-
 											<th>Ajouter au panier</th>
 										</tr>
 									</thead>
@@ -77,24 +76,19 @@
 													href="details?type=${article.mProduct.type}&cible=${article.mProduct.id}">+
 														D&eacute;tails</a></td>
 												<td align="center"><a style="color: white;"
-													href="acheter?action=chargerPanier&idarticle=${i}"><button
+													href="acheter?action=chargerPanier&codearticle=${article.mProduct.id}&typea=${article.mProduct.type}"><button
 															class="btn btn-primary btn-	s">+1</button></a></td>
-
 											</tr>
 											<c:set var="i" value="${i+1}" />
 										</c:forEach>
-
-
 									</tbody>
-
 									<tfoot>
 										<tr>
 											<td><b>TOTAL</b></td>
 											<td></td>
 											<td></td>
-											<td><b>${requestScope['total']+1}</b></td>
+											<td><b>${requestScope['total']}</b></td>
 										</tr>
-
 									</tfoot>
 								</table>
 								<div class="product-pagination">
@@ -103,7 +97,6 @@
 									</ul>
 									</nav>
 								</div>
-
 							</div>
 						</div>
 					</div>

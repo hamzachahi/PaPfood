@@ -297,13 +297,7 @@ public class DaoPersonImpl implements PersonDao {
 	public Boolean Claim(Person pers, String claiming, String subject, String emailDest) {
 		// TODO Auto-generated method stub
 		return Invitation(pers, subject, claiming, emailDest, "maildereclamation");
-	}
-
-	@Override
-	public Boolean Search(ArrayList<String> Params, String KeyWord) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	}	
 
 	@Override
 	public Map<ArrayList<String>, ArrayList<String>> Historique(Person utilisateur, Boolean isSucceed,

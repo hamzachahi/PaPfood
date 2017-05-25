@@ -35,7 +35,7 @@ public class DaoMessageImpl implements MessageDao {
 			 * Préparation de la requête avec les objets passés en arguments
 			 * (ici, uniquement une adresse email) et exécution.
 			 */
-			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlInsertMessage(),
+			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlInsertMessage(),
 					true, Id, id_dest, message);
 			int statut = preparedStatement.executeUpdate();
 
@@ -73,7 +73,7 @@ public class DaoMessageImpl implements MessageDao {
 			 * (ici, uniquement une adresse email) et exécution.
 			 */
 			preparedStatement = initialisationRequetePreparee(connexion,
-					RequestRepository.getOraclesqlUpdateMessageReceiveDate(), true, message.getId());
+					RequestRepository.getMysqlUpdateMessageReceiveDate(), true, message.getId());
 			int statut = preparedStatement.executeUpdate();
 
 			/* Parcours de la ligne de données retournée dans le ResultSet */
@@ -111,7 +111,7 @@ public class DaoMessageImpl implements MessageDao {
 			 * (ici, uniquement une adresse email) et exécution.
 			 */
 			preparedStatement = initialisationRequetePreparee(connexion,
-					RequestRepository.getOraclesqlUpdateMessageReadDate(), true, message.getId());
+					RequestRepository.getMysqlUpdateMessageReadDate(), true, message.getId());
 			int statut = preparedStatement.executeUpdate();
 			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
@@ -146,7 +146,7 @@ public class DaoMessageImpl implements MessageDao {
 			 * Préparation de la requête avec les objets passés en arguments
 			 * (ici, uniquement une adresse email) et exécution.
 			 */
-			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlDeleteMessage(),
+			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlDeleteMessage(),
 					true, message.getId());
 			int statut = preparedStatement.executeUpdate();
 			/* Parcours de la ligne de données retournée dans le ResultSet */
@@ -273,5 +273,35 @@ public class DaoMessageImpl implements MessageDao {
 		message.setReceiveDate(result.getDate("receive_date"));
 		message.setReadDate(result.getDate("read_date"));
 		return null;
+	}
+
+	@Override
+	public Long countNbreMessageById(Long IdSender) {
+		// TODO Auto-generated method stub
+		Boolean isSucceed = false;
+		return countNbreMessageById(IdSender, isSucceed);
+	}
+
+	private Long countNbreMessageById(Long IdSender, Boolean isSucceed) {
+		// TODO Auto-generated method stub
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Long nbre = (long) 0;
+		try {
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					RequestRepository.getMysqlSelectCountMessageByIdSender(), false, IdSender);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				isSucceed = true;
+				nbre = resultSet.getLong("nb");
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return nbre;
 	}
 }

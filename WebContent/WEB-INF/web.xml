@@ -136,6 +136,10 @@
 		<servlet-name>ServletCompte</servlet-name>
 		<servlet-class>vue.ServletCompte</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ServletSearch</servlet-name>
+		<servlet-class>vue.ServletSearch</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>ServletAccueil</servlet-name>
 		<url-pattern>/accueil</url-pattern>
@@ -235,5 +239,9 @@
 	<servlet-mapping>
 		<servlet-name>ServletCompte</servlet-name>
 		<url-pattern>/account</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ServletSearch</servlet-name>
+		<url-pattern>/search</url-pattern>
 	</servlet-mapping>
 </web-app>

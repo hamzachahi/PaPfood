@@ -14,8 +14,15 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="restaurent-menu-title">
-					<h2 class="primery-title">Nom prenom</h2>
-					<h3 class="secondery-title">Profil</h3>
+					<h2 class="primery-title">${sessionUtilisateur.surname}
+						${sessionUtilisateur.name}</h2>
+					<c:if test="${sessionUtilisateur.id ne owner.id}">
+						<h3 class="secondery-title">Profil de : ${owner.surname}
+							${owner.name}</h3>
+					</c:if>
+					<c:if test="${ sessionUtilisateur.id eq owner.id }">
+						<h3 class="secondery-title">Votre Profil</h3>
+					</c:if>
 				</div>
 			</div>
 		</div>
@@ -35,118 +42,96 @@
 						<div class="col-md-4">
 							<div class="blog-single-left">
 								<div class="blog-date-time">
-									<label>date:</label> <span>October 12, 2015</span>
+									<label>Dernière connexion:</label> <span>${lastconnexion}</span>
 								</div>
 								<div class="blog-comment">
-									<label>comments:</label> <span>3</span>
+									<label>Moyenne des notes:</label> <span>${moyennenotes}</span>
+								</div>
+								<div class="blog-comment">
+									<label>Nombre de notes:</label> <span>${totalEval}</span>
 								</div>
 								<div class="blog-authore">
-									<label>author:</label> <span>Esmet Hajrizi</span>
+									<label>author:</label> <span>${owner.name}
+										${owner.surname}</span>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-8">
-							<div class="single-blog-content">
-								<h2>Latin America's 50 Best Restaurants</h2>
-								<p>Maecenas ac molestie metus. Nullam rutrum sapien ut
-									lectus pharetra, ac porttitor tellus pellentesque. In ipsum
-									nibh, pellentesque ut nibh nec, ultricies lobortis velit.
-									Vivamus maximus vitae orci ut auctor. Nullam porta odio ex, id
-									varius quam dignissim ut. Sed laoreet turpis urna, eget maximus
-									justo cursus sit amet.</p>
-								<blockquote cite="#">Aenean tempor, magna vel
-									venenatis viverra, tortor mi tincidunt purus, a semper ex augue
-									nec erat. Maecenas non ante vel est consectetur.</blockquote>
-								<p>Fusce lobortis, nibh ac porttitor laoreet, odio tellus
-									sagittis mauris, at mattis mi justo non dui. Pellentesque
-									convallis consequat luctus. Sed interdum erat at velit
-									ultricies, eget hendrerit nisi varius. Praesent a ornare nulla.
-								</p>
-								<h3>And this is another heading</h3>
-								<p>Maecenas ac molestie metus. Nullam rutrum sapien ut
-									lectus pharetra, ac porttitor tellus pellentesque. In ipsum
-									nibh, pellentesque ut nibh nec, ultricies lobortis velit.
-									Vivamus maximus vitae orci ut auctor. Nullam porta odio ex, id
-									varius quam dignissim ut. Sed laoreet turpis urna, eget maximus
-									justo cursus sit amet. Fusce lobortis, nibh ac porttitor
-									laoreet, odio tellus sagittis mauris, at mattis mi justo non
-									dui. Pellentesque convallis consequat luctus. Sed interdum erat
-									at velit ultricies, eget hendrerit nisi varius. Praesent a
-									ornare nulla.</p>
-							</div>
+							<c:forEach var="postr" items="${requestScope['postReal']}">
+								<div class="single-blog-content">
+									<h2>${postr.title}</h2>
+									<p>${postr.content}</p>
+									<h3>${postr.datePosted}</h3>
+								</div>
+							</c:forEach>
 							<nav class="alfresco-prev-next">
 							<ul class="pager">
-								<li class="previous"><a href="#">previous post</a></li>
-								<li class="next"><a href="#">next post</a></li>
+								<c:if test="${ starti >= 0 }">
+									<li class="previous"><a
+										href="account?naviguer=previouspost&starti=${starti}&finali=${finali}&member=${owner.id}">previous
+											post</a></li>
+								</c:if>
+								<li class="center">${numberpost} publications</li>
+								<c:if test="${ startf <= (numberpost-1) }">
+									<li class="next"><a
+										href="account?naviguer=nextpost&startf=${startf}&finalf=${finalf}&member=${owner.id}">next
+											post</a></li>
+								</c:if>
+
 							</ul>
 							</nav>
 							<div class="comment-area padding-top-lg">
 								<div class="comment-count">
-									<span>3 Avis</span>
+									<span>${totalEval} evaluations</span>
 								</div>
-								<ul>
-									<li>
-										<div class="avatar">
-											<img src="assets/img/comments/1.png"
-												class="assets/img-circle" alt="">
-										</div>
-										<div class="comment-content">
-											<div class="comment-title">
-												<h5 class="user-name">Leroy Hanson</h5>
-												<span class="date-time">october 13, 2015 / reply</span>
+								<c:forEach var="evaluation"
+									items="${requestScope['listEvaluations']}">
+									<ul>
+										<li>
+											<div class="avatar">
+												<img src="assets/img/comments/2.png"
+													class="assets/img-circle" alt="">
 											</div>
-											<p>Maecenas ac molestie metus. Nullam rutrum sapien ut
-												lectus pharetra, ac porttitor tellus pellentesque. In ipsum
-												nibh, pellentesque ut nibh nec, ultricies lobortis velit.
-												Vivamus maximus vitae orci ut auctor.</p>
-										</div>
-										<ul>
-											<li>
-												<div class="avatar">
-													<img src="assets/img/comments/2.png"
-														class="assets/img-circle" alt="">
+											<div class="comment-content">
+												<div class="comment-title">
+													<h5 class="user-name"><a href="account?cible=${evaluation.author.id}">${evaluation.author.surname}
+														${evaluation.author.name}</a></h5>
+													<span class="date-time">${evaluation.datePosted}</span>
 												</div>
-												<div class="comment-content">
-													<div class="comment-title">
-														<h5 class="user-name">Leroy Hanson</h5>
-														<span class="date-time">october 13, 2015 / reply</span>
-													</div>
-													<p>Maecenas ac molestie metus. Nullam rutrum sapien ut
-														lectus pharetra, ac porttitor tellus pellentesque. In
-														ipsum nibh, pellentesque ut nibh nec, ultricies lobortis
-														velit. Vivamus maximus vitae orci ut auctor.</p>
+												<div class="blog-comment">
+													<label>Note attribuée:</label> <span>${evaluation.note}</span>
 												</div>
-											</li>
-										</ul>
-									</li>
-									<li>
-										<div class="avatar">
-											<img src="assets/img/comments/3.png"
-												class="assets/img-circle" alt="">
-										</div>
-										<div class="comment-content">
-											<div class="comment-title">
-												<h5 class="user-name">Leroy Hanson</h5>
-												<span class="date-time">october 13, 2015 / reply</span>
+												<p>${evaluation.comments}</p>
 											</div>
-											<p>Maecenas ac molestie metus. Nullam rutrum sapien ut
-												lectus pharetra, ac porttitor tellus pellentesque. In ipsum
-												nibh, pellentesque ut nibh nec, ultricies lobortis velit.
-												Vivamus maximus vitae orci ut auctor.</p>
-										</div>
-									</li>
-								</ul>
+										</li>
+									</ul>
+								</c:forEach>
+								<p class="text-left">${totalEval}avis</p>
+								<div class="product-pagination">
+									<nav>
+									<ul class="pagination">${requestScope['pagination']}
+									</ul>
+									</nav>
+								</div>
+
 								<div class="comment-form">
-									<h5>Soummettre un avis</h5>									
+									<h5>Poster</h5>
 									<form method="post" action="account">
-										<div class="row">											
+										<div class="row">
 											<div class="form-group col-md-12">
-												<label>Rédigez l'avis</label>
-												<textarea class="form-control" rows="3"></textarea>
+												<label>Titre/Sujet</label> <input type="text"
+													class="form-control" name="sujet"
+													placeholder="Saisissez le sujet ou titre">
 											</div>
 											<div class="form-group col-md-12">
-												<button type="submit" class="btn btn-comments-submit">Enregistrer
-													l'avis</button>
+												<label>Rédigez le post</label>
+												<textarea class="form-control" rows="3" name="contentpost"></textarea>
+											</div>
+											<div class="form-group col-md-12">
+												<input type="hidden" name="action" value="poster" /> <input
+													type="hidden" name="ownerid" value="${owner.id}" />
+												<button type="submit" class="btn btn-comments-submit">Enregistrez
+													le post</button>
 											</div>
 										</div>
 									</form>
@@ -160,9 +145,12 @@
 										<div class="row">
 											<div class="form-group col-md-12">
 												<label>Contactez par message</label>
-												<textarea class="form-control" rows="3"></textarea>
+												<textarea class="form-control" rows="3"
+													name="contentmessage"></textarea>
 											</div>
 											<div class="form-group col-md-12">
+												<input type="hidden" name="action" value="contacter" /> <input
+													type="hidden" name="ownerid" value="${owner.id}" />
 												<button type="submit" class="btn btn-comments-submit">Envoyez
 													le message</button>
 											</div>
@@ -178,13 +166,16 @@
 										<div class="row">
 											<div class="form-group col-md-12">
 												<label>Evaluation /20</label> <input type="number" min="1"
-													max="20" placeholder="15,25" class="form-control">
+													max="20" placeholder="15,25" class="form-control"
+													name="note">
 											</div>
 											<div class="form-group col-md-12">
 												<label>Tapez la note</label>
-												<textarea class="form-control" rows="3"></textarea>
+												<textarea class="form-control" rows="3" name="contentnote"></textarea>
 											</div>
 											<div class="form-group col-md-12">
+												<input type="hidden" name="action" value="noter" /> <input
+													type="hidden" name="ownerid" value="${owner.id}" />
 												<button type="submit" class="btn btn-comments-submit">
 													Soumettre</button>
 											</div>

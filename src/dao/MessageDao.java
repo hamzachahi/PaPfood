@@ -18,4 +18,6 @@ public interface MessageDao {
 
 	public ArrayList<Message> getMySendMessage(Long Id, Long limit, Long offset);
 
+	public Long countNbreMessageById(Long idSender);
+
 }
