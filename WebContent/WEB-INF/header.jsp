@@ -129,6 +129,18 @@
 											<li><a href="menu.html">Menu</a></li>  -->
 										</ul> <!-- End Sub Menu --></li>
 									<li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
+
+									<c:if
+										test="${not empty sessionScope.sessionUtilisateur &&  sessionScope.sessionUtilisateur.function == 'admin'}">
+										<li><a href="#">Administration</a>
+											<ul>
+												<li><a href="#">Toutes les factures</a></li>
+												<li><a href="#">Toutes les commandes</a></li>
+												<li><a href="#">Tous les utilisateurs</a></li>
+
+											</ul></li>
+
+									</c:if>
 								</ul>
 							</nav>
 							<div class="mobile-menu"></div>
