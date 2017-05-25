@@ -177,6 +177,7 @@ public class ServletSalableDetails extends HttpServlet {
 				}
 				ElementCommand article = new ElementCommand();
 				article.setmProduct(salable);
+				article.setQuantity(1);
 				monPanier.add(article);
 				session.setAttribute("nbrelementspanier", monPanier.size());
 				request.setAttribute("articlesPanier", monPanier);

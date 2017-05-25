@@ -77,6 +77,7 @@ public class ServletProductsList extends HttpServlet {
 				}
 				int i = Integer.parseInt(request.getParameter("idarticle"));
 				ElementCommand article = elements.get(i);
+				article.setQuantity(1);
 				monPanier.add(article);
 				session.setAttribute("nbrelementspanier", monPanier.size());
 				request.setAttribute("articlesPanier", monPanier);
