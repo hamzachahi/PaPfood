@@ -39,7 +39,7 @@
 
 
 						<p>
-							<a href="#"><button class="btn btn-style-4 ">Voir/Imprimer
+							<a href="#"><button class="btn btn-style-4">Voir/Imprimer
 									la facture</button></a>
 						</p>
 					</div>

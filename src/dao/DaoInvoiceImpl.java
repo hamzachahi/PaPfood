@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import beans.Invoice;
+import beans.Product;
 
 public class DaoInvoiceImpl implements InvoiceDao {
 
@@ -80,17 +81,44 @@ public class DaoInvoiceImpl implements InvoiceDao {
 
 	@Override
 	public ArrayList<Invoice> findAll(Long limit, Long offset) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean isSucceed = false;
+		return findAllInvoice(RequestRepository.getMysqlSelectAllInvoice(), isSucceed, limit, offset);
+	}
+
+	private ArrayList<Invoice> findAllInvoice(String sql, Boolean isSucceed, Object... objets) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<Invoice> factures = new ArrayList<>();
+
+		try {
+			/* Récupération d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			/*
+			 * Préparation de la requête avec les objets passés en arguments
+			 * (ici, uniquement une adresse email) et exécution.
+			 */
+			preparedStatement = initialisationRequetePreparee(connexion, sql, false, objets);
+			resultSet = preparedStatement.executeQuery();
+			/* Parcours de la ligne de données retournée dans le ResultSet */
+			while (resultSet.next()) {
+				isSucceed = true;
+				factures.add(map(resultSet));
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return factures;
 	}
 
 	private static Invoice map(ResultSet resultSet) throws SQLException {
-		
+
 		Invoice facture = new Invoice();
-		
-		
+
 		return facture;
-		
+
 	}
 
 }
