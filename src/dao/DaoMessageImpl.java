@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import beans.Message;
 
 public class DaoMessageImpl implements MessageDao {
@@ -29,22 +28,14 @@ public class DaoMessageImpl implements MessageDao {
 		PreparedStatement preparedStatement = null;
 		Boolean succeed = false;
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlInsertMessage(),
 					true, Id, id_dest, message);
 			int statut = preparedStatement.executeUpdate();
-
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
 				succeed = true;
 			} else {
 				throw new ExceptionDao("Echec de l'envoi du message!");
-
 			}
 		} catch (SQLException e) {
 			throw new ExceptionDao(e);
@@ -66,17 +57,10 @@ public class DaoMessageImpl implements MessageDao {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			preparedStatement = initialisationRequetePreparee(connexion,
 					RequestRepository.getMysqlUpdateMessageReceiveDate(), true, message.getId());
 			int statut = preparedStatement.executeUpdate();
-
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
 				isSucceed = true;
 			} else {
@@ -104,16 +88,10 @@ public class DaoMessageImpl implements MessageDao {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			preparedStatement = initialisationRequetePreparee(connexion,
 					RequestRepository.getMysqlUpdateMessageReadDate(), true, message.getId());
 			int statut = preparedStatement.executeUpdate();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
 				isSucceed = true;
 			} else {
@@ -130,26 +108,20 @@ public class DaoMessageImpl implements MessageDao {
 	}
 
 	@Override
-	public Boolean deleteMessage(Message message) {
+	public Boolean deleteMessage(Long Id) {
 		// TODO Auto-generated method stub
 		Boolean isSucceed = false;
-		return deleteMessage(message, isSucceed);
+		return deleteMessage(Id, isSucceed);
 	}
 
-	private Boolean deleteMessage(Message message, Boolean isSucceed) {
+	private Boolean deleteMessage(Long Id, Boolean isSucceed) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlDeleteMessage(),
-					true, message.getId());
+					true, Id);
 			int statut = preparedStatement.executeUpdate();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
 				isSucceed = true;
 			} else {
@@ -179,16 +151,10 @@ public class DaoMessageImpl implements MessageDao {
 		ArrayList<Message> messageResults = new ArrayList<Message>();
 
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			preparedStatement = initialisationRequetePreparee(connexion,
-					RequestRepository.getMysqlSelectMyUnreadMessage(), false, Id, limit, offset);
+					RequestRepository.getMysqlSelectMyUnreadMessage(), false, Id, Id, limit, offset);
 			resultSet = preparedStatement.executeQuery();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			while (resultSet.next()) {
 				isSucceed = true;
 				messageResults.add(Map(resultSet));
@@ -239,7 +205,7 @@ public class DaoMessageImpl implements MessageDao {
 		return getMySendMessage(Id, limit, offset, isSucceed);
 	}
 
-	public ArrayList<Message> getMySendMessage(Long Id, Long limit, Long offset, Boolean isSucceed) {
+	private ArrayList<Message> getMySendMessage(Long Id, Long limit, Long offset, Boolean isSucceed) {
 		// TODO Auto-generated method stub
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -266,13 +232,15 @@ public class DaoMessageImpl implements MessageDao {
 	private Message Map(ResultSet result) throws SQLException {
 		Message message = new Message();
 		message.setId(result.getLong("Id"));
-		message.setContent(result.getString(result.getString("content")));
+		if (result.getString("content") != null) {
+			message.setContent(result.getString("content"));
+		}
 		message.setSender(result.getLong("id_sender"));
-		message.setReceiver(result.getLong("id_receive"));
+		message.setReceiver(result.getLong("id_receiver"));
 		message.setSentDate(result.getDate("sent_date"));
 		message.setReceiveDate(result.getDate("receive_date"));
 		message.setReadDate(result.getDate("read_date"));
-		return null;
+		return message;
 	}
 
 	@Override
@@ -292,6 +260,128 @@ public class DaoMessageImpl implements MessageDao {
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
 					RequestRepository.getMysqlSelectCountMessageByIdSender(), false, IdSender);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				isSucceed = true;
+				nbre = resultSet.getLong("nb");
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return nbre;
+	}
+
+	@Override
+	public Message selectMessageById(Long Id) {
+		// TODO Auto-generated method stub
+		Boolean isSucceed = false;
+		return selectMessageById(Id, isSucceed);
+	}
+
+	private Message selectMessageById(Long Id, Boolean isSucceed) {
+		// TODO Auto-generated method stub
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Message message = null;
+
+		try {
+			connexion = daoFactory.getConnection();
+
+			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlSelectMessageById(),
+					false, Id);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				isSucceed = true;
+				message = Map(resultSet);
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return message;
+	}
+
+	@Override
+	public Long countNbreMessageUnReadById(Long IdSender) {
+		// TODO Auto-generated method stub
+		Boolean isSucceed = false;
+		return countNbreMessageUnReadById(IdSender, isSucceed);
+	}
+
+	private Long countNbreMessageUnReadById(Long IdSender, Boolean isSucceed) {
+		// TODO Auto-generated method stub
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Long nbre = (long) 0;
+		try {
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					RequestRepository.getMysqlSelectCountUnreadMessageByIdSender(), false, IdSender, IdSender);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				isSucceed = true;
+				nbre = resultSet.getLong("nb");
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return nbre;
+	}
+
+	@Override
+	public Long countNbreMessageReadById(Long IdSender) {
+		// TODO Auto-generated method stub
+		Boolean isSucceed = false;
+		return countNbreMessageReadById(IdSender, isSucceed);
+	}
+
+	private Long countNbreMessageReadById(Long IdSender, Boolean isSucceed) {
+		// TODO Auto-generated method stub
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Long nbre = (long) 0;
+		try {
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					RequestRepository.getMysqlSelectCountReadMessageByIdSender(), false, IdSender);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				isSucceed = true;
+				nbre = resultSet.getLong("nb");
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return nbre;
+	}
+
+	@Override
+	public Long countNbreMessageSendById(Long IdSender) {
+		// TODO Auto-generated method stub
+		Boolean isSucceed = false;
+		return countNbreMessageSendById(IdSender, isSucceed);
+	}
+
+	private Long countNbreMessageSendById(Long IdSender, Boolean isSucceed) {
+		// TODO Auto-generated method stub
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Long nbre = (long) 0;
+		try {
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					RequestRepository.getMysqlSelectCountSentMessageByIdSender(), false, IdSender);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				isSucceed = true;

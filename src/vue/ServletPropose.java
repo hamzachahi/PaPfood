@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import beans.Fichier;
 import beans.Paginateur;
 import beans.Person;
 import beans.Product;
@@ -21,11 +20,7 @@ import beans.Service;
 import dao.DaoProductImpl;
 import dao.DaoServiceImpl;
 import dao.UsineDao;
-import forms.FormUpload;
 
-/**
- * Servlet implementation class ServletPropose
- */
 @WebServlet("/ServletPropose")
 public class ServletPropose extends HttpServlet {
 	private DaoProductImpl productDao = new DaoProductImpl(new UsineDao(
@@ -37,11 +32,6 @@ public class ServletPropose extends HttpServlet {
 	private Person utilisateur = null;
 	private ArrayList<Salable> listProdSerFinal = new ArrayList<>();
 	private ArrayList<Salable> listProdSer = null;
-	public static final String CHEMIN = "chemin";
-	public static final String ATT_FICHIER = "fichier";
-	public static final String ATT_FORM = "formfile";
-	private static final String CHAMP_FICHIER = "fichier";
-
 	Long begin = null;
 	Long end = null;
 	private static final long serialVersionUID = 1L;
@@ -78,18 +68,7 @@ public class ServletPropose extends HttpServlet {
 					Double prix = null;
 					String description = null;
 					String code = null;
-					Long idProvider = null;
-					String chemin = null;
-					FormUpload form = null;
-					Fichier fichier = null;
-					if (request.getPart(CHAMP_FICHIER) != null) {
-						chemin = this.getServletConfig().getInitParameter(CHEMIN);
-						form = new FormUpload(false);
-						fichier = form.enregistrerFichier(request, chemin);
-						request.setAttribute(ATT_FORM, form);
-						request.setAttribute(ATT_FICHIER, fichier);
-					}
-
+					Long idProvider = null;					
 					nom = request.getParameter("nom");
 					monChoix = request.getParameter("type");
 					prix = Double.parseDouble(request.getParameter("prix"));
@@ -115,10 +94,7 @@ public class ServletPropose extends HttpServlet {
 						produit.setIdProvider(utilisateur.getId());
 						produit.setCode(code);
 
-						System.out.println(produit.toString());
-						if (fichier.getNom() != null && !fichier.getNom().equals("")) {
-							produit.getListImage().add((fichier.getNom()));
-						}
+						System.out.println(produit.toString());						
 						Boolean success = productDao.addProduct(produit);
 						if (success == true) {
 							request.setAttribute("success", "Votre offre à bien été enregistrée!");
@@ -140,10 +116,7 @@ public class ServletPropose extends HttpServlet {
 						service.setDescription(description, false);
 						service.setIdProvider(utilisateur.getId());
 						service.setCode(code);
-						System.out.println(service.toString());
-						if (fichier.getNom() != null && !fichier.getNom().equals("")) {
-							service.getListImage().add(fichier.getNom());
-						}
+						System.out.println(service.toString());						
 						Boolean success = serviceDao.addService(service);
 						if (success == true) {
 							request.setAttribute("success", "Votre offre à bien été enregistrée!");

@@ -34,7 +34,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="single-blog">
-								<img src="assets/img/single-blog.png" alt="">
+								<img src="${owner.accountPicture}" alt="">
 							</div>
 						</div>
 					</div>
@@ -71,7 +71,7 @@
 										href="account?naviguer=previouspost&starti=${starti}&finali=${finali}&member=${owner.id}">previous
 											post</a></li>
 								</c:if>
-								<li class="center">${numberpost} publications</li>
+								<li class="center">${numberpost}publications</li>
 								<c:if test="${ startf <= (numberpost-1) }">
 									<li class="next"><a
 										href="account?naviguer=nextpost&startf=${startf}&finalf=${finalf}&member=${owner.id}">next
@@ -89,13 +89,15 @@
 									<ul>
 										<li>
 											<div class="avatar">
-												<img src="assets/img/comments/2.png"
+												<img src="${evaluation.author.accountPicture}"
 													class="assets/img-circle" alt="">
 											</div>
 											<div class="comment-content">
 												<div class="comment-title">
-													<h5 class="user-name"><a href="account?cible=${evaluation.author.id}">${evaluation.author.surname}
-														${evaluation.author.name}</a></h5>
+													<h5 class="user-name">
+														<a href="account?cible=${evaluation.author.id}">${evaluation.author.surname}
+															${evaluation.author.name}</a>
+													</h5>
 													<span class="date-time">${evaluation.datePosted}</span>
 												</div>
 												<div class="blog-comment">
@@ -113,75 +115,80 @@
 									</ul>
 									</nav>
 								</div>
+								<c:if test="${sessionUtilisateur.id eq owner.id}">
 
-								<div class="comment-form">
-									<h5>Poster</h5>
-									<form method="post" action="account">
-										<div class="row">
-											<div class="form-group col-md-12">
-												<label>Titre/Sujet</label> <input type="text"
-													class="form-control" name="sujet"
-													placeholder="Saisissez le sujet ou titre">
+									<div class="comment-form">
+										<h5>Poster</h5>
+										<form method="post" action="account">
+											<div class="row">
+												<div class="form-group col-md-12">
+													<label>Titre/Sujet</label> <input type="text"
+														class="form-control" name="sujet"
+														placeholder="Saisissez le sujet ou titre">
+												</div>
+												<div class="form-group col-md-12">
+													<label>Rédigez le post</label>
+													<textarea class="form-control" rows="3" name="contentpost"></textarea>
+												</div>
+												<div class="form-group col-md-12">
+													<input type="hidden" name="action" value="poster" /> <input
+														type="hidden" name="ownerid" value="${owner.id}" />
+													<button type="submit" class="btn btn-comments-submit">Enregistrez
+														le post</button>
+												</div>
 											</div>
-											<div class="form-group col-md-12">
-												<label>Rédigez le post</label>
-												<textarea class="form-control" rows="3" name="contentpost"></textarea>
+										</form>
+									</div>
+									<br />
+									<hr />
+									<br />
+								</c:if>
+								<c:if test="${sessionUtilisateur.id ne owner.id}">
+
+									<div class="comment-form">
+										<h5>Envoyer un message</h5>
+										<form method="post" action="account">
+											<div class="row">
+												<div class="form-group col-md-12">
+													<label>Contactez par message</label>
+													<textarea class="form-control" rows="3"
+														name="contentmessage"></textarea>
+												</div>
+												<div class="form-group col-md-12">
+													<input type="hidden" name="action" value="contacter" /> <input
+														type="hidden" name="ownerid" value="${owner.id}" />
+													<button type="submit" class="btn btn-comments-submit">Envoyez
+														le message</button>
+												</div>
 											</div>
-											<div class="form-group col-md-12">
-												<input type="hidden" name="action" value="poster" /> <input
-													type="hidden" name="ownerid" value="${owner.id}" />
-												<button type="submit" class="btn btn-comments-submit">Enregistrez
-													le post</button>
+										</form>
+									</div>
+									<br />
+									<hr />
+									<br />
+									<div class="comment-form">
+										<h5>Notez</h5>
+										<form method="post" action="account">
+											<div class="row">
+												<div class="form-group col-md-12">
+													<label>Evaluation /20</label> <input type="number" min="1"
+														max="20" placeholder="15,25" class="form-control"
+														name="note">
+												</div>
+												<div class="form-group col-md-12">
+													<label>Tapez la note</label>
+													<textarea class="form-control" rows="3" name="contentnote"></textarea>
+												</div>
+												<div class="form-group col-md-12">
+													<input type="hidden" name="action" value="noter" /> <input
+														type="hidden" name="ownerid" value="${owner.id}" />
+													<button type="submit" class="btn btn-comments-submit">
+														Soumettre</button>
+												</div>
 											</div>
-										</div>
-									</form>
-								</div>
-								<br />
-								<hr />
-								<br />
-								<div class="comment-form">
-									<h5>Envoyer un message</h5>
-									<form method="post" action="account">
-										<div class="row">
-											<div class="form-group col-md-12">
-												<label>Contactez par message</label>
-												<textarea class="form-control" rows="3"
-													name="contentmessage"></textarea>
-											</div>
-											<div class="form-group col-md-12">
-												<input type="hidden" name="action" value="contacter" /> <input
-													type="hidden" name="ownerid" value="${owner.id}" />
-												<button type="submit" class="btn btn-comments-submit">Envoyez
-													le message</button>
-											</div>
-										</div>
-									</form>
-								</div>
-								<br />
-								<hr />
-								<br />
-								<div class="comment-form">
-									<h5>Notez</h5>
-									<form method="post" action="account">
-										<div class="row">
-											<div class="form-group col-md-12">
-												<label>Evaluation /20</label> <input type="number" min="1"
-													max="20" placeholder="15,25" class="form-control"
-													name="note">
-											</div>
-											<div class="form-group col-md-12">
-												<label>Tapez la note</label>
-												<textarea class="form-control" rows="3" name="contentnote"></textarea>
-											</div>
-											<div class="form-group col-md-12">
-												<input type="hidden" name="action" value="noter" /> <input
-													type="hidden" name="ownerid" value="${owner.id}" />
-												<button type="submit" class="btn btn-comments-submit">
-													Soumettre</button>
-											</div>
-										</div>
-									</form>
-								</div>
+										</form>
+									</div>
+								</c:if>
 							</div>
 						</div>
 					</div>

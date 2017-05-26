@@ -24,5 +24,9 @@
 	<classpathentry kind="lib" path="librairie/ojdbc6.jar"/>
 	<classpathentry kind="lib" path="librairie/javadoc.zip"/>
 	<classpathentry kind="lib" path="librairie/javax.mail.jar"/>
+	<classpathentry kind="lib" path="librairie/commons-fileupload-1.3.2.jar"/>
+	<classpathentry kind="lib" path="librairie/commons-io-2.5-javadoc.jar"/>
+	<classpathentry kind="lib" path="librairie/commons-io-2.5.jar"/>
+	<classpathentry kind="lib" path="librairie/javax.mail-1.5.6.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

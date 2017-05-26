@@ -35,6 +35,7 @@ public class RequestRepository {
 	private static final String MySQL_SELECT_INVOICE_BY_ID = "SELECT * from invoice i WHERE Id = ?";
 	private static final String MySQL_SELECT_POST_BY_ID = "SELECT * from posts p WHERE Id = ?";
 	private static final String MySQL_SELECT_COMMENT_BY_ID = "SELECT * FROM comments c WHERE Id = ?";
+	private static final String MySQL_SELECT_MESSAGE_BY_ID = "SELECT * FROM message m WHERE Id = ?";
 
 	private static final String MySQL_SELECT_PRODUCT_BY_ID_PROVIDER = "SELECT * FROM product p WHERE id_provider = ? limit ? offset ?";
 	private static final String MySQL_SELECT_SERVICE_BY_ID_PROVIDER = "SELECT * FROM service s WHERE id_provider = ? limit ? offset ?";
@@ -42,8 +43,8 @@ public class RequestRepository {
 	private static final String MySQL_SELECT_POSTS_BY_ID_AUTHOR = "SELECT * FROM posts p WHERE id_author = ? limit ? offset ?";
 
 	private static final String MySQL_SELECT_MY_SEND_MESSAGE = "SELECT * FROM message m WHERE id_sender = ? limit ? offset ?";
-	private static final String MySQL_SELECT_MY_MESSAGE = "SELECT * FROM message m WHERE id_receiver = ? limit ? offset ?";
-	private static final String MySQL_SELECT_MY_UNREAD_MESSAGE = "SELECT * FROM message m WHERE read_date = null and id_receiver= ? limit ? offset ?";
+	private static final String MySQL_SELECT_MY_MESSAGE = "SELECT * FROM message m WHERE id_receiver = ? and read_date is not null limit ? offset ?";
+	private static final String MySQL_SELECT_MY_UNREAD_MESSAGE = "SELECT * FROM message m WHERE read_date is null and id_receiver= ? and id_sender != ? limit ? offset ?";
 
 	private static final String MySQL_SELECT_COMMENT_PRODUCT = "SELECT id_comment FROM comments_product cp WHERE id_product = ? limit ? offset ?";
 	private static final String MySQL_SELECT_COMMENT_SERVICE = "SELECT id_comment FROM comments_service cs WHERE id_service = ? limit ? offset ?";
@@ -60,6 +61,9 @@ public class RequestRepository {
 	private static final String MySQL_SELECT_COUNT_EVALUATION_BY_ID_PERSON = "select count(id) as nb from evaluation e WHERE id_person = ?";
 	private static final String MySQL_SELECT_COUNT_POST_BY_ID_AUTHOR = "select count(id) as nb from posts p WHERE id_author = ?";
 	private static final String MySQL_SELECT_COUNT_MESSAGE_BY_ID_SENDER = "select count(id) as nb from evaluation e WHERE id_sender = ?";
+	private static final String MySQL_SELECT_COUNT_UNREAD_MESSAGE_BY_ID_SENDER = "select count(id) as nb FROM message m WHERE read_date is null and id_receiver= ? and id_sender != ?";
+	private static final String MySQL_SELECT_COUNT_READ_MESSAGE_BY_ID_SENDER = "select count(id) as nb FROM message m WHERE id_receiver = ? and read_date is not null";
+	private static final String MySQL_SELECT_COUNT_SENT_MESSAGE_BY_ID_SENDER = "select count(id) as nb FROM message m WHERE id_sender = ?";
 
 	private static final String MySQL_SELECT_MOYENNE_EVALUATION_BY_ID_PERSON = "SELECT (SUM(note)/COUNT(note)) as moy from evaluation e WHERE id_person = ?";
 
@@ -948,6 +952,22 @@ public class RequestRepository {
 
 	public static String getMysqlSelectMoyenneEvaluationByIdPerson() {
 		return MySQL_SELECT_MOYENNE_EVALUATION_BY_ID_PERSON;
+	}
+
+	public static String getMysqlSelectMessageById() {
+		return MySQL_SELECT_MESSAGE_BY_ID;
+	}
+
+	public static String getMysqlSelectCountUnreadMessageByIdSender() {
+		return MySQL_SELECT_COUNT_UNREAD_MESSAGE_BY_ID_SENDER;
+	}
+
+	public static String getMysqlSelectCountReadMessageByIdSender() {
+		return MySQL_SELECT_COUNT_READ_MESSAGE_BY_ID_SENDER;
+	}
+
+	public static String getMysqlSelectCountSentMessageByIdSender() {
+		return MySQL_SELECT_COUNT_SENT_MESSAGE_BY_ID_SENDER;
 	}
 
 }

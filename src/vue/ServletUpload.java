@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import beans.Fichier;
 import beans.Person;
 import dao.DaoPersonImpl;
@@ -26,10 +25,8 @@ public class ServletUpload extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	public static final String CHEMIN = "chemin";
-
 	public static final String ATT_FICHIER = "fichier";
-	public static final String ATT_FORM = "form";
-
+	public static final String ATT_FORM = "formfile";
 	public static final String VUE = "/WEB-INF/profile.jsp";
 	String chemin = null;
 
@@ -54,10 +51,8 @@ public class ServletUpload extends HttpServlet {
 		this.utilisateurDao = new DaoPersonImpl(new UsineDao(
 				"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true",
 				"root", "0000"));
-		form = new FormUpload(false);
-
-		fichier = form.enregistrerFichier(request, chemin);
-
+		form = new FormUpload();
+		fichier = form.writeFile(request);
 		utilisateur = (Person) session.getAttribute("sessionUtilisateur");
 		utilisateur.setAccountPicture(fichier.getNom(), false);
 		utilisateurDao.modifyPersonalInformation(utilisateur);

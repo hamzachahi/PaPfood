@@ -140,6 +140,10 @@
 		<servlet-name>ServletSearch</servlet-name>
 		<servlet-class>vue.ServletSearch</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ServletMessage</servlet-name>
+		<servlet-class>vue.ServletMessage</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>ServletAccueil</servlet-name>
 		<url-pattern>/accueil</url-pattern>
@@ -243,5 +247,9 @@
 	<servlet-mapping>
 		<servlet-name>ServletSearch</servlet-name>
 		<url-pattern>/search</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ServletMessage</servlet-name>
+		<url-pattern>/message</url-pattern>
 	</servlet-mapping>
 </web-app>
