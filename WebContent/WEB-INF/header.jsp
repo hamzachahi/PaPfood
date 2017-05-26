@@ -71,34 +71,34 @@
 									<li><a href="${pageContext.request.contextPath}/accueil">Accueil</a></li>
 									<li><a href="${pageContext.request.contextPath}/acheter">Commander</a></li>
 									<li><a href="${pageContext.request.contextPath}/proposer">Proposer</a></li>
-									<li class="mega-menu-active"><a href="#">CiboRelation</a>
-										<!-- Start Mega MEnu -->
-										<div class="mega-menu-container megamenu-area">
-											<div class="row">
-												<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-													<ul>
-														<li><h3 class="mega-menu-title">Parrainage</h3></li>
-														<li><a href="layout.html">Code promo</a></li>
-														<li><a href="boutons.html">Invitez vos amis !</a></li>
+									<!--  <li class="mega-menu-active"><a href="#">CiboRelation</a>
+									<div class="mega-menu-container megamenu-area">
+										<div class="row">
+											<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+												<ul>
+													<li><h3 class="mega-menu-title">Parrainage</h3></li>
+													<li><a href="layout.html">Code promo</a></li>
+													<li><a href="boutons.html">Invitez vos amis !</a></li>
 
-													</ul>
-												</div>
-												<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-													<ul>
-														<li><h3 class="mega-menu-title">Préférences</h3></li>
-														<li><a href="#">Plats favoris</a></li>
-														<li><a href="#">Cuistots favoris</a></li>
-														<li><a href="#">Notes attribuées</a></li>
-														<li><a href="#">Notes reçues</a></li>
-													</ul>
-												</div>
-												<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-													<div class="mega-menu-image">
-														<img src="assets/img/chef.png" alt="chef" />
-													</div>
+												</ul>
+											</div>
+											<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+												<ul>
+													<li><h3 class="mega-menu-title">Préférences</h3></li>
+													<li><a href="#">Plats favoris</a></li>
+													<li><a href="#">Cuistots favoris</a></li>
+													<li><a href="#">Notes attribuées</a></li>
+													<li><a href="#">Notes reçues</a></li>
+												</ul>
+											</div>
+											<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+												<div class="mega-menu-image">
+													<img src="assets/img/chef.png" alt="chef" />
 												</div>
 											</div>
-										</div> <!-- End Mega Menu --></li>
+										</div>
+									</div>
+									</li>-->
 									<li><a href="#">Naviguer</a> <!-- Start Sub Menu -->
 										<ul>
 											<li><a href="${pageContext.request.contextPath}/account">Mon
@@ -134,9 +134,14 @@
 										test="${not empty sessionScope.sessionUtilisateur &&  sessionScope.sessionUtilisateur.function == 'admin'}">
 										<li><a href="#">Administration</a>
 											<ul>
-												<li><a href="#">Toutes les factures</a></li>
-												<li><a href="#">Toutes les commandes</a></li>
-												<li><a href="#">Tous les utilisateurs</a></li>
+												<li><a
+													href="${pageContext.request.contextPath}/allinvoices">Toutes
+														les factures</a></li>
+												<li><a href="${pageContext.request.contextPath}/orders">Toutes
+														les commandes</a></li>
+												<li><a
+													href="${pageContext.request.contextPath}/allusers">Tous
+														les utilisateurs</a></li>
 
 											</ul></li>
 

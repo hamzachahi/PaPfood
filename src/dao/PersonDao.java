@@ -28,4 +28,6 @@ public interface PersonDao {
 	public Boolean Invite(Person utilisateur, String e_mailAddress);
 
 	public Person trouverParId(Long id, boolean succeed) throws ExceptionDao;
+
+	public ArrayList<Person> findAllUsers();
 }

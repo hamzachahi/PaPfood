@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
 import beans.Commande;
+import beans.Invoice;
 import beans.Person;
 import beans.ResultConnexion;
 import config.UseMail;
@@ -297,7 +298,7 @@ public class DaoPersonImpl implements PersonDao {
 	public Boolean Claim(Person pers, String claiming, String subject, String emailDest) {
 		// TODO Auto-generated method stub
 		return Invitation(pers, subject, claiming, emailDest, "maildereclamation");
-	}	
+	}
 
 	@Override
 	public Map<ArrayList<String>, ArrayList<String>> Historique(Person utilisateur, Boolean isSucceed,
@@ -364,4 +365,42 @@ public class DaoPersonImpl implements PersonDao {
 		boolean isSucceed = UseMail.sendMessage(utilisateur.getEmail(), subject, content, e_mailAddress, copyDest);
 		return isSucceed;
 	}
+
+	@Override
+	public ArrayList<Person> findAllUsers() {
+
+		boolean isSucceed = false;
+		return findAllUsers(RequestRepository.getMysqlSelectAllPerson(), isSucceed);
+
+	}
+
+	private ArrayList<Person> findAllUsers(String sql, Boolean isSucceed, Object... objets) {
+
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<Person> utilisateurs = new ArrayList<>();
+
+		try {
+			/* Récupération d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			/*
+			 * Préparation de la requête avec les objets passés en arguments
+			 * (ici, uniquement une adresse email) et exécution.
+			 */
+			preparedStatement = initialisationRequetePreparee(connexion, sql, false, objets);
+			resultSet = preparedStatement.executeQuery();
+			/* Parcours de la ligne de données retournée dans le ResultSet */
+			while (resultSet.next()) {
+				isSucceed = true;
+				utilisateurs.add(map(resultSet));
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return utilisateurs;
+	}
+
 }
