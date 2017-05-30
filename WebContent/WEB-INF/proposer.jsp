@@ -6,7 +6,11 @@
 <%@include file="liens.jsp"%>
 <title>Proposer un produit/service</title>
 </head>
-<body class="home1">
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?sensor=false">
+	
+</script>
+<body class="home1" onload="initialize()">
 	<%@include file="header.jsp"%>
 	<section id="page-title-area">
 	<div class="container">
@@ -26,56 +30,106 @@
 				<div class="page-inner padding-top-xlg">
 					<hr />
 					<div class="booking-form">
-						<h1>Informations</h1>
+						<h1>Informations / Votre adresse compl&egrave;te ne sera pas
+							communiqu&eacute;e</h1>
 						<div>
-							<a href="proposer?action=afficherSousVendables&begin=0&end=10">
+							<!--  	<a href="proposer?action=afficherSousVendables&begin=0&end=10">
 								<li class="btn btn-style-4">Afficher/raffraichir la liste
 									de tous les sous-&Eacute;l&Eacute;ments possibles</li>
-							</a>
+							</a>-->
 						</div>
 						<br />
-
-						<div class="col-md-11">
-							<div class="row">
-								<form action="proposer" method="POST"
-									enctype="multipart/form-data">
-									<div class="form-group">
-										<label for="nom">Nom :</label> <input class="form-control"
-											type="text" id="nom" name="nom" placeholder="Exp : pizza" />
-									</div>
-									<div class="form-group">
-										<label for="type">Type :</label><select class="form-control"
-											name="type" id="type">
-											<option value="product">Produit</option>
-											<option value="service">Service</option>
-										</select>
-									</div>
-									<div class="form-group">
-										<label for="prix">Prix</label> <input type="text"
-											class="form-control" id="prix" name="prix"
-											placeholder="Exp : 7.00  &euro;" /><br />
-									</div>
-									<div class="form-group">
-										<label for="photo">Uploader une photo :</label> <input
-											class="form-control" type="file" id="fichier" name="fichier"
-											value="<c:out value="${fichier.nom}"/>" /> <span
-											class="erreur">${formfile.erreurs['fichier']}</span>
-										<p class="${empty formfile.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
-									</div>
-									<div class="form-group">
-										<label for="prix"> Description/Remarques </label>
-										<textarea rows="5" class="form-control" id="description"
-											name="description"
-											placeholder="D&eacute;crivez bri&egrave;vement votre produit. D&Icirc;tes s'il contient des allerg&Egrave;nes par exemple"></textarea>
-									</div>
-									<c:if test="${!empty requestScope.success}">
-										<%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
-										<p class="succes">${requestScope.success}</p>
-									</c:if>
-									<input type="hidden" name="action"
-										value="proposerProductService" />
-									<button type="submit" class="btn btn-style-4">Valider</button>
-								</form>
+						<div class="row padding-top-lg padding-bottom-lg">
+							<div class="col-md-4">
+								<!--Map area start -->
+								<div id="map"></div>
+								<!--Map area end -->
+							</div>
+							<div class="col-md-8">
+								<div class="row">
+									<form action="proposer" method="POST"
+										enctype="multipart/form-data">
+										<div class="form-group col-md-6">
+											<label for="nom">Nom :</label> <input class="form-control"
+												type="text" id="nom" name="nom" value="${nom}"
+												placeholder="Exp : pizza" />
+										</div>
+										<div class="form-group col-md-6">
+											<label for="type">Type :</label><select class="form-control"
+												name="type" id="type">
+												<option value="product"
+													<c:if test="${requestScope.typep == 'produit'}" >selected</c:if>>Produit</option>
+												<option value="service"
+													<c:if test="${requestScope.typep == 'service'}" >selected</c:if>>Service</option>
+											</select>
+										</div>
+										<div class="form-group col-md-6">
+											<label for="prix">Prix</label> <input type="text"
+												class="form-control" id="prix" name="prix" value="${prix}"
+												placeholder="Exp : 7.00  &euro;" /><br />
+										</div>
+										<div class="form-group col-md-6">
+											<label for="photo">Uploader une photo :</label> <input
+												class="form-control" type="file" id="fichier" name="fichier"
+												value="<c:out value="${fichier.nom}"/>" /> <span
+												class="erreur">${formfile.erreurs['fichier']}</span>
+											<p class="${empty formfile.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
+										</div>
+										<div class="form-group col-md-12">
+											<label for="prix"> Description/Remarques </label>
+											<textarea rows="5" class="form-control" id="description"
+												name="description"
+												placeholder="D&eacute;crivez bri&egrave;vement votre produit. D&Icirc;tes s'il contient des allerg&Egrave;nes par exemple"><c:out
+													value="${requestScope.description}" /></textarea>
+										</div>
+										<input id="latlng" name="latlng" type="hidden"
+											value="<c:if test = "${latlngt != null}"><c:out value = "${latlngt}"/></c:if><c:if test = "${latlngt == null}"> 48.3906042,-4.4869013</c:if>">
+										<div class="form-group col-md-6">
+											<label for="num"> N&deg; :</label><input class="form-control"
+												id="num" name="num" type="text" value="${streetnum}">
+										</div>
+										<div class="form-group col-md-6">
+											<label for="rue"> Rue :</label><input class="form-control"
+												id="rue" name="rue" type="text" value="${streetname}">
+										</div>
+										<div class="form-group col-md-6">
+											<label for="adr">Ville / adresse :</label> <input
+												class="form-control" id="adr" name="adr" type="text"
+												value="${city}">
+										</div>
+										<div class="form-group col-md-6">
+											<label for="cp"> Code postal :</label> <input
+												class="form-control" id="cp" name="cp" type="text"
+												value="${postcod}">
+										</div>
+										<div class="form-group col-md-6">
+											<label for="dpt"> D&eacute;partement :</label><input
+												class="form-control" id="dpt" name="dpt" type="text"
+												value="${depart}">
+										</div>
+										<div class="form-group col-md-6">
+											<label for="pays"> Pays :</label><input class="form-control"
+												id="pays" name="pays" type="text" value="${country}">
+										</div>
+										<div class="form-group col-md-6">
+											<label for="but"> Localiser :</label> <input id="but"
+												class="form-control" type="button" value="Se localiser..."
+												onclick="retrieve()">
+										</div>
+										<c:if test="${!empty requestScope.success}">
+											<%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
+											<p class="succes">${requestScope.success}</p>
+										</c:if>
+										<div class="form-group col-md-12">
+											<input type="hidden" name="action"
+												value="${requestScope.actionvalue}" /> <input type="hidden"
+												name="tomodify" value="${requestScope.tomodify}" />
+											<button type="submit" class="btn btn-style-4">
+												<c:out value="${requestScope.buttonvalue}" />
+											</button>
+										</div>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -140,6 +194,19 @@
 													<c:set var="total" value="${total+1}" />
 													<c:set var="i" value="${i+1}" />
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 												</tr>
 											</c:forEach>
 
@@ -148,10 +215,11 @@
 												<tr>
 													<td><b>TOTAL</b></td>
 													<td></td>
-													<td><b>${requestScope['total']}</b></td>
+													<td><b>${requestScope['total']}
 												</tr>
 
 											</tfoot>
+
 										</table>
 										${requestScope['pagination']}
 									</div>

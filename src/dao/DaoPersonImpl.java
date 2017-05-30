@@ -10,7 +10,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
 import beans.Commande;
-import beans.Invoice;
 import beans.Person;
 import beans.ResultConnexion;
 import config.UseMail;
@@ -249,7 +248,8 @@ public class DaoPersonImpl implements PersonDao {
 					utilisateur.getTwitterId(), utilisateur.getInstagramId(), utilisateur.getLinkedinId(),
 					utilisateur.getAccountPicture(), utilisateur.getStreetNumber(), utilisateur.getStreetName(),
 					utilisateur.getCityName(), utilisateur.getCountryName(), utilisateur.getPostalCode(),
-					utilisateur.getFunction(), utilisateur.getId());
+					utilisateur.getFunction(), utilisateur.getDepartement(), utilisateur.getLatLng(),
+					utilisateur.getId());
 			int statut = preparedStatement.executeUpdate();
 			if (statut == 0) {
 				throw new ExceptionDao(

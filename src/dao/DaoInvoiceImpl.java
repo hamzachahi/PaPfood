@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import beans.Invoice;
-import beans.Product;
 
 public class DaoInvoiceImpl implements InvoiceDao {
 

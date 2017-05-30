@@ -13,14 +13,9 @@ import dao.PersonDao;
 import dao.UsineDao;
 import forms.FormulaireConnexion;
 
-/**
- * Servlet implementation class Connect
- */
 @WebServlet("/Connect")
 public class ServletConnect extends HttpServlet {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -823867703158698451L;
 	public static final String ATT_USER = "utilisateur";
 	public static final String ATT_FORM = "form";
@@ -30,44 +25,32 @@ public class ServletConnect extends HttpServlet {
 	private PersonDao utilisateurDao;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/* Affichage de la page de connexion */
 		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 	}
 
-
-    public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-		this.utilisateurDao = new DaoPersonImpl(new UsineDao("jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root", "0000"));
-
-
-		/* Préparation de l'objet formulaire */
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		this.utilisateurDao = new DaoPersonImpl(new UsineDao(
+				"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true",
+				"root", "0000"));
 		FormulaireConnexion form = new FormulaireConnexion(utilisateurDao);
-
-		/* Traitement de la requête et récupération du bean en résultant */
+		System.out.println("Rue et numéro " + request.getParameter("num") + " " + request.getParameter("rue") + " "
+				+ request.getParameter("cp")+ " "+request.getParameter("adr") +" " + request.getParameter("dpt") + " "+ request.getParameter("pays"));
 		Person utilisateur = null;
 		try {
 			utilisateur = form.connecterUtilisateur(request);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		/* Récupération de la session depuis la requête */
 		HttpSession session = request.getSession();
-
-
-        /**
-         * Si aucune erreur de validation n'a eu lieu, alors ajout du bean
-         * Utilisateur à la session, sinon suppression du bean de la session.
-         */
-        if (form.getErreurs().isEmpty()) {
+		if (form.getErreurs().isEmpty()) {
 			session.setAttribute(ATT_SESSION_USER, utilisateur);
 			request.setAttribute(ATT_FORM, form);
 			request.setAttribute(ATT_USER, utilisateur);
 			if (utilisateur != null) {
-				response.sendRedirect(request.getContextPath()+"/accueil");
+				response.sendRedirect(request.getContextPath() + "/accueil");
 				session.setAttribute("loggedIn", isConnected);
 
-			}else{
+			} else {
 				form.setResultat("Echec de la connexion!");
 				this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
 
@@ -79,8 +62,7 @@ public class ServletConnect extends HttpServlet {
 			this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
 
 		}
-		/* Stockage du formulaire et du bean dans l'objet request */
 		request.setAttribute(ATT_FORM, form);
-		request.setAttribute(ATT_USER, utilisateur);		
+		request.setAttribute(ATT_USER, utilisateur);
 	}
 }

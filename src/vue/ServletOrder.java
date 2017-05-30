@@ -16,7 +16,6 @@ import beans.Commande;
 import beans.ElementCommand;
 import beans.Invoice;
 import beans.Person;
-import beans.Salable;
 import dao.DaoCommandeImpl;
 import dao.DaoInvoiceImpl;
 import dao.UsineDao;
@@ -34,12 +33,17 @@ public class ServletOrder extends HttpServlet {
 	public static final String VUE = "/WEB-INF/order.jsp";
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		processRequest(request, response);
 
 	}
 
-	@SuppressWarnings("unchecked")
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		processRequest(request, response);
+	}
 
+	@SuppressWarnings({ "unused", "unchecked" })
+	private void processRequest(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Person utilisateur = (Person) session.getAttribute("sessionUtilisateur");
 		ArrayList<ElementCommand> elements = new ArrayList<>();
@@ -94,37 +98,56 @@ public class ServletOrder extends HttpServlet {
 				String code = utilisateur.getName().substring(0, 0) + "" + utilisateur.getSurname().substring(0, 0) + ""
 						+ now;
 				order.setCode(code);
-				order.setElements(elements);
-				boolean orderDone = commandeDao.Commander(order);
+				ArrayList<ElementCommand> sort = removeDoublons(elements);
+				order.setElements(sort);
+				commandeDao.Commander(order);
 
 				// Construction de la facture
 
-				ArrayList<Salable> listeArticles = new ArrayList<>();
-
-				for (int i = 0; i < elements.size(); i++) {
-
-					listeArticles.add(elements.get(i).getmProduct());
-
-				}
-
-				String codeFacture = utilisateur.getCityName() + code + session.getAttribute("prixtotal").toString()
-						+ elements.get(0).toString().substring(0, 2);
-
-				facture.setPersonName(utilisateur.getName(), false);
-				facture.setTotalPrice(Double.parseDouble(session.getAttribute("prixtotal").toString()), false);
-				facture.setListProduct(listeArticles, false);
-				facture.setCodeInvoice(codeFacture, false);
-				facture.setPhoneNumber(utilisateur.getPhoneNumber(), false);
-				facture.setDestinatorAddress(adresseComplete, false);
+				/*
+				 * ArrayList<Salable> listeArticles = new ArrayList<>();
+				 * 
+				 * for (int i = 0; i < elements.size(); i++) {
+				 * 
+				 * listeArticles.add(elements.get(i).getmProduct());
+				 * 
+				 * }
+				 * 
+				 * String codeFacture = utilisateur.getCityName() + code +
+				 * session.getAttribute("prixtotal").toString() +
+				 * elements.get(0).toString().substring(0, 2);
+				 * 
+				 * facture.setPersonName(utilisateur.getName(), false);
+				 * facture.setTotalPrice(Double.parseDouble(session.getAttribute
+				 * ("prixtotal").toString()), false);
+				 * facture.setListProduct(listeArticles, false);
+				 * facture.setCodeInvoice(codeFacture, false);
+				 * facture.setPhoneNumber(utilisateur.getPhoneNumber(), false);
+				 * facture.setDestinatorAddress(adresseComplete, false);
+				 */
 
 				// boolean invoiceDone = invoiceDao.addInvoice(facture);
 
-				this.getServletContext().getRequestDispatcher("/facture").forward(request, response);
-
+				this.getServletContext().getRequestDispatcher("/WEB-INF/panier.jsp").forward(request, response);
 			}
-
 		}
 
+	}
+
+	public ArrayList<ElementCommand> removeDoublons(ArrayList<ElementCommand> membA) {
+		for (int i = 0; i < membA.size(); i++) {
+			ElementCommand o = membA.get(i);
+			for (int i1 = i + 1; i1 < membA.size(); i1++) {
+				ElementCommand r = membA.get(i1);
+				if (o.getmProduct().getId() == r.getmProduct().getId()) {
+					membA.remove(r);
+					System.out.println("ServletOrder.removeDoublons() effectué!");
+					membA.get(i).setQuantity(membA.get(i).getQuantity() + 1);
+				}
+			}
+		}
+
+		return membA;
 	}
 
 }

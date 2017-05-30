@@ -6,7 +6,12 @@
 <%@include file="liens.jsp"%>
 <title>Compléter votre profil</title>
 </head>
-<body class="home1">
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?sensor=false">
+	
+</script>
+
+<body class="home1" onload="initialize()">
 	<%@include file="header.jsp"%>
 	<!-- Menu title -->
 	<section id="page-title-area">
@@ -113,44 +118,60 @@
 												<option value="perculiar">Particulier</option>
 											</select>
 										</div>
+										<div class="col-md-12">
+											<!--Map area start -->
+											<div id="map"></div>
+											<!--Map area end -->
+										</div>
 									</div>
 									<div class="col-md-6">
-
+										<input id="latlng" name="latlng" type="hidden"
+											value="48.3906042,-4.4869013">
 										<fieldset>
 											<legend>Votre adresse</legend>
 											<div class="form-group">
+												<label for="but"> Localiser :</label> <input id="but"
+													class="form-control" type="button" value="Se localiser..."
+													onclick="retrieve()">
+											</div>
+											<div class="form-group">
 												<label for="streetnb">Numéro de voie :</label> <input
-													type="text" id="streetnb" name="streetnb"
-													class="form-control"
+													type="text" id="num" name="streetnb" class="form-control"
 													value="${sessionUtilisateur.streetNumber}"
 													placeholder="Numéro..">
 											</div>
 											<div class="form-group">
 												<label for="streetname">Nom de voie :</label> <input
-													type="text" id="streetname" name="streetname"
-													class="form-control"
+													type="text" id="rue" name="streetname" class="form-control"
 													value="${sessionUtilisateur.streetName}"
 													placeholder=" Exp :Avenue des Fleurs" />
 											</div>
 
 											<div class="form-group">
 												<label for="city">Ville :</label> <input type="text"
-													id="city" class="form-control" name="city"
+													id="adr" class="form-control" name="city"
 													value="${sessionUtilisateur.cityName}"
 													placeholder="Exp : Nice" />
 											</div>
 
 											<div class="form-group">
 												<label for="zipcode">Code postal :</label> <input
-													type="number" id="zipcode" name="zipcode"
-													class="form-control" class="form-control"
+													type="number" id="cp" name="zipcode" class="form-control"
+													class="form-control"
 													value="${sessionUtilisateur.postalCode}"
 													placeholder="Exp : 06000" />
+											</div>
+											<div class="form-group">
+												<label for="departement">D&eacute;partement :</label> <input
+													type="text" id="dpt" name="departement"
+													class="form-control"
+													value="${sessionUtilisateur.countryName}"
+													placeholder="Exp : France" />
 											</div>
 
 											<div class="form-group">
 												<label for="country">Pays :</label> <input type="text"
-													id="country" name="country" class="form-control"
+													id="pays" name="country" class="form-control"
 													value="${sessionUtilisateur.countryName}"
 													placeholder="Exp : France" />
 											</div>
@@ -179,7 +200,9 @@
 													value="${sessionUtilisateur.linkedinId}" name="linkedid" />
 											</div>
 										</fieldset>
-										<input type="hidden" name="action" value="completeProfile" /><br />
+										<input type="hidden" name="accountPicture"
+											value="${sessionUtilisateur.accountPicture}" /><br /> <input
+											type="hidden" name="action" value="completeProfile" /><br />
 										<input class="btn btn-style-4 btn-block" type="submit"
 											value="Enregistrer" />
 									</div>
@@ -188,7 +211,6 @@
 						</div>
 					</div>
 					<%@include file="upload.jsp"%>
-
 				</div>
 			</div>
 		</div>

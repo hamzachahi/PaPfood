@@ -9,11 +9,9 @@
 </head>
 <body class="home1">
 	<%@include file="header.jsp"%>
-
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-
 				<div class="restaurent-menu-title">
 					<h2 class="primery-title">Espace Administrateur</h2>
 					<h3 class="secondery-title">Tous les utilisateurs</h3>
@@ -21,9 +19,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
@@ -31,41 +26,40 @@
 					<div class="booking-form" align="center">
 						<div class="table-responsive">
 							<table class="table table-hover">
-								<thead>
+								<tr>
+									<th>ID</th>
+									<th>Pr&eacute;nom</th>
+									<th>Nom</th>
+									<th>E-mail</th>
+									<th>Num&eacute;ro de t&eacute;l&eacute;phone</th>
+									<th>Date d'Inscription</th>
+									<th>Profession</th>
+									<th>Fonction</th>
+									<th>Adresse</th>
+								</tr>
+
+								<c:forEach var="user" items="${requestScope['allUsers']}">
+
 									<tr>
-										<th>ID</th>
-										<th>Pr&eacute;nom</th>
-										<th>Nom</th>
-										<th>E-mail</th>
-										<th>Num&eacute;ro de t&eacute;l&eacute;phone</th>
-										<th>Date d'Inscription</th>
-										<th>Profession</th>
-										<th>Fonction</th>
-										<th>Adresse</th>
+										<td><a href="account?cible=${user.id}">${user.id }</a></td>
+										<td><a href="account?cible=${user.id}">${user.surname }</a></td>
+										<td><a href="account?cible=${user.id}">${user.name }</a></td>
+										<td>${user.email }</td>
+										<td>${user.phoneNumber }</td>
+										<td>${user.dateInscription }</td>
+										<td>${user.profession }</td>
+										<td>${user.function }</td>
+										<td><p>${user.streetNumber }${user.streetName },
+												${user.postalCode } ${user.cityName }, ${user.countryName }</p></td>
 									</tr>
-								</thead>
-
-								<tbody>
-									<c:forEach var="user" items="${requestScope['allUsers']}">
-
-										<tr>
-											<td>${user.id }</td>
-											<td>${user.surname }</td>
-											<td>${user.name }</td>
-											<td>${user.email }</td>
-											<td>${user.phoneNumber }</td>
-											<td>${user.dateInscription }</td>
-											<td>${user.profession }</td>
-											<td>${user.function }</td>
-											<td><p>${user.streetNumber }${user.streetName },
-													${user.postalCode } ${user.cityName }, ${user.countryName }</p></td>
-										</tr>
-
-									</c:forEach>
-
-								</tbody>
-
+								</c:forEach>
 							</table>
+							<div class="product-pagination">
+								<nav>
+								<ul class="pagination">${requestScope['pagination']}
+								</ul>
+								</nav>
+							</div>
 						</div>
 					</div>
 				</div>

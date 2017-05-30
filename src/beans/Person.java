@@ -13,33 +13,34 @@ public class Person implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -2973296045996724571L;
-	private String Name = "";
-	private String secondName = "";
-	private String Surname = "";
-	private String secondSurname = "";
-	private String Profession = "";
+	private String Name = null;
+	private String secondName = null;
+	private String Surname = null;
+	private String secondSurname = null;
+	private String Profession = null;
 	private Timestamp dateInscription = null;
 	private Long Id;
-	private String Password = "";
-	private String email = "";
-	private String phoneNumber = "";
-	private String telNumber = "";
-	private String facebookId = "";
-	private String twitterId = "";
-	private String instagramId = "";
-	private String linkedinId = "";
+	private String Password = null;
+	private String email = null;
+	private String phoneNumber = null;
+	private String telNumber = null;
+	private String facebookId = null;
+	private String twitterId = null;
+	private String instagramId = null;
+	private String linkedinId = null;
 	private String accountPicture = null;
-	private String streetNumber = "";
-	private String streetName = "";
-	private String cityName = "";
-	private String countryName = "";
-	private String postalCode = "";
+	private String streetNumber = null;
+	private String streetName = null;
+	private String cityName = null;
+	private String countryName = null;
+	private String postalCode = null;
+	private String Departement = null;
+	private String latLng = null;
 	private Integer lastConnexion = null;
-	private String function = "";
+	private String function = null;
 	private Connection maConnexion = null;
 	private ResultConnexion resultConnexion = null;
 	private DaoPersonImpl daopi = new DaoPersonImpl(UsineDao.getInstance());
-
 
 	protected Boolean Connexion(String Id, String Password) {
 		return null;
@@ -229,6 +230,7 @@ public class Person implements Serializable {
 	public void setFunction(String function) {
 		this.function = function;
 	}
+
 	public DaoPersonImpl getDaopi() {
 		return daopi;
 	}
@@ -236,6 +238,7 @@ public class Person implements Serializable {
 	public void setDaopi(DaoPersonImpl daopi) {
 		this.daopi = daopi;
 	}
+
 	public Connection getMaConnexion() {
 		return maConnexion;
 	}
@@ -251,18 +254,23 @@ public class Person implements Serializable {
 	public void setResultConnexion(ResultConnexion resultConnexion) {
 		this.resultConnexion = resultConnexion;
 	}
-	
-	
-	@Override
-	public String toString() {
-		return "Person [Name=" + Name + ", secondName=" + secondName + ", Surname=" + Surname + ", secondSurname="
-				+ secondSurname + ", Profession=" + Profession + ", dateInscription=" + dateInscription + ", Id=" + Id
-				+ ", Password=" + Password + ", email=" + email + ", phoneNumber=" + phoneNumber + ", telNumber="
-				+ telNumber + ", facebookId=" + facebookId + ", twitterId=" + twitterId + ", instagramId=" + instagramId
-				+ ", linkedinId=" + linkedinId + ", accountPicture=" + accountPicture + ", streetNumber=" + streetNumber
-				+ ", streetName=" + streetName + ", cityName=" + cityName + ", countryName=" + countryName
-				+ ", postalCode=" + postalCode + ", lastConnexion=" + lastConnexion + ", function=" + function
-				+ ", maConnexion=" + maConnexion + ", resultConnexion=" + resultConnexion + "]";
+
+	public String getDepartement() {
+		return Departement;
 	}
+
+	public void setDepartement(String departement) {
+		Departement = departement;
+	}
+
+	public String getLatLng() {
+		return latLng;
+	}
+
+	public void setLatLng(String latLng) {
+		this.latLng = latLng;
+	}
+
+	
 
 }

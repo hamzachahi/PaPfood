@@ -39,7 +39,11 @@ public class ServletPanier extends HttpServlet {
 		} else if (action != null) {
 			if (action.equals("removeSalable")) {
 				int i = Integer.parseInt(request.getParameter("indice"));
-				monPanier.remove(i);
+				if (monPanier.get(i).getQuantity() > 1) {
+					monPanier.get(i).setQuantity(monPanier.get(i).getQuantity() - 1);
+				} else {
+					monPanier.remove(i);
+				}
 				request.setAttribute("articlesPanier", monPanier);
 				session.setAttribute("monPanier", monPanier);
 				session.setAttribute("nbrelementspanier", monPanier.size());
@@ -74,4 +78,5 @@ public class ServletPanier extends HttpServlet {
 		}
 
 	}
+	
 }

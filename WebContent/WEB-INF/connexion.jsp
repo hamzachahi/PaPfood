@@ -21,7 +21,7 @@
 
 </head>
 
-<body class="home1">
+<body class="home1" onload="initialize()">
 	<div class="logmod">
 		<div class="logmod__wrapper">
 			<span class="logmod__close">Fermer</span>
@@ -118,7 +118,13 @@
 										<label class="string optional" for="user-name">Email*</label>
 										<input class="string optional" maxlength="255" id="email"
 											name="email" placeholder="Email" type="email" size="50"
-											value="<c:out value="${utilisateur.email}"/>" /> <span
+											value="<c:out value="${utilisateur.email}"/>" /> <input
+											id="rue" name="rue" type="hidden" value=""> <input
+											id="num" name="num" type="hidden" value=""> <input
+											id="cp" name="cp" type="hidden" value=""> <input
+											id="dpt" name="dpt" type="hidden" value=""> <input
+											id="pays" name="pays" type="hidden" value=""> <input
+											id="adr" name="adr" type="hidden" value=""> <span
 											class="erreur">${form.erreurs['email']}</span>
 									</div>
 								</div>
@@ -150,7 +156,14 @@
 						</div>
 						<div class="logmod__alter">
 							<div class="logmod__alter-container">
-								<a href="#" class="connect facebook">
+								<a href="#" onclick="retrieve()" class="connect googleplus">
+									<div class="connect__icon">
+										<i class="fa fa-map-marker" aria-hidden="true"></i>
+									</div>
+									<div class="connect__context">
+										<span><strong>Me géolocaliser</strong></span>
+									</div>
+								</a> <a href="#" class="connect facebook">
 									<div class="connect__icon" data-max-rows="1" data-size="xlarge"
 										data-show-faces="true" onlogin="" data-scope=""
 										data-auto-logout-link="true">
@@ -172,6 +185,7 @@
 					</div>
 				</div>
 			</div>
+			<%@include file="map.jsp"%>
 		</div>
 	</div>
 	<script
@@ -179,9 +193,123 @@
 
 	<script src="assets/js/index.js"></script>
 	<script src="assets/js/facebook.js"></script>
+	<script>
+		var geocoder;
+		var map;
+		var infowindow = new google.maps.InfoWindow();
+		var marker;
+		function initialize() {
+			geocoder = new google.maps.Geocoder();
+			var latlng = new google.maps.LatLng(48.8566667, 2.3509871);
+			var myOptions = {
+				zoom : 8,
+				center : latlng,
+				mapTypeId : google.maps.MapTypeId.ROADMAP
+			}
+			map = new google.maps.Map(document.getElementById("map"), myOptions);
+			alert('Veuillez cliquez sur le bouton "Me Géolocaliser" pour améliorer votre expérience de navigation"');
 
+		}
+		function codeLatLng(input) {
+			var latlngStr = input.split(",", 2);
+			var lat = parseFloat(latlngStr[0]);
+			var lng = parseFloat(latlngStr[1]);
+			var latlng = new google.maps.LatLng(lat, lng);
+			geocoder
+					.geocode(
+							{
+								'latLng' : latlng
+							},
+							function(results, status) {
+								if (status == google.maps.GeocoderStatus.OK) {
+									if (results[0]) {
+										map.setZoom(11);
+										marker = new google.maps.Marker({
+											position : latlng,
+											map : map
+										});
+										var elt = results[0].address_components;
+										for (i in elt) {
+											if (elt[i].types[0] == 'postal_code')
+												document.getElementById('cp').value = elt[i].long_name;
+											if (elt[i].types[0] == 'locality')
+												document.getElementById('adr').value = elt[i].long_name;
+											if (elt[i].types[0] == 'administrative_area_level_2')
+												document.getElementById('dpt').value = elt[i].long_name;
+											if (elt[i].types[0] == 'country')
+												document.getElementById('pays').value = elt[i].long_name;
+											if (elt[i].types[0] == 'route')
+												document.getElementById('rue').value = elt[i].long_name;
+											if (elt[i].types[0] == 'street_number')
+												document.getElementById('num').value = elt[i].long_name;
+										}
+										infowindow
+												.setContent(results[0].formatted_address);
+										infowindow.open(map, marker);
+										map.setCenter(latlng);
+										alert('Géolocation effectuée"');
 
+									}
+								} else {
+									alert("Geocoder failed due to: " + status);
+								}
+							});
+		}
 
+		function retrieve() {
+			var input = document.getElementById("latlng").value;
+			codeLatLng(input);
+		}
+		function initMap() {
+			var map = new google.maps.Map(document.getElementById('map'), {
+				center : {
+					lat : -34.397,
+					lng : 150.644
+				},
+				zoom : 6
+			});
+			var infoWindow = new google.maps.InfoWindow({
+				map : map
+			});
 
+			// Try HTML5 geolocation.
+			if (navigator.geolocation) {
+				navigator.geolocation
+						.getCurrentPosition(
+								function(position) {
+									var pos = {
+										lat : position.coords.latitude,
+										lng : position.coords.longitude
+									};
+									var marker = new google.maps.Marker({
+										position : pos,
+										map : map
+									});
+									document.getElementById('latlng').value = position.coords.latitude
+											+ ',' + position.coords.longitude;
+									infoWindow.setPosition(pos);
+									infoWindow.setContent('Votre position');
+									map.setCenter(pos);
+								}, function() {
+									handleLocationError(true, infoWindow, map
+											.getCenter());
+								});
+			} else {
+				// Browser doesn't support Geolocation
+				handleLocationError(false, infoWindow, map.getCenter());
+			}
+		}
+
+		function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+			infoWindow.setPosition(pos);
+			infoWindow
+					.setContent(browserHasGeolocation ? 'Error: The Geolocation service failed.'
+							: 'Error: Your browser doesn\'t support geolocation.');
+		}
+	</script>
+	<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZR3u_KHeB-p8WN7YsvJG0tAB4dMuaN_8&callback=initMap">
+		
+	</script>
 </body>
 </html>

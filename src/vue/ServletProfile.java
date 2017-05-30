@@ -52,7 +52,6 @@ public class ServletProfile extends HttpServlet {
 				String numfix = "";
 				String profession = "";
 				String profil = "";
-				@SuppressWarnings("unused")
 				String account_picture = "";
 				String numVoie = "";
 				String nomVoie = "";
@@ -63,6 +62,8 @@ public class ServletProfile extends HttpServlet {
 				String twitterId = "";
 				String instaId = "";
 				String linkedId = "";
+				String departement = "";
+				String latLng = "";
 				name = request.getParameter("sname");
 				name2 = request.getParameter("sname2");
 				prenom = request.getParameter("surname");
@@ -74,6 +75,7 @@ public class ServletProfile extends HttpServlet {
 				profil = request.getParameter("profil");
 				numVoie = request.getParameter("streetnb");
 				nomVoie = request.getParameter("streetname");
+				account_picture = request.getParameter("accountPicture");
 				ville = request.getParameter("city");
 				country = request.getParameter("country");
 				codePostal = request.getParameter("zipcode");
@@ -81,7 +83,8 @@ public class ServletProfile extends HttpServlet {
 				twitterId = request.getParameter("twitterid");
 				instaId = request.getParameter("instaid");
 				linkedId = request.getParameter("linkedid");
-
+				departement = request.getParameter("departement");
+				latLng = request.getParameter("latlng");
 				utilisateur.setName(name, false);
 				utilisateur.setSecondName(name2, false);
 				utilisateur.setSurname(prenom, false);
@@ -95,6 +98,9 @@ public class ServletProfile extends HttpServlet {
 				utilisateur.setStreetName(nomVoie, false);
 				utilisateur.setCityName(ville, false);
 				utilisateur.setCountryName(country, false);
+				utilisateur.setDepartement(departement);
+				utilisateur.setLatLng(latLng);
+				utilisateur.setAccountPicture(account_picture, false);
 				utilisateur.setPostalCode(codePostal, false);
 				utilisateur.setFacebookId(fbId, false);
 				utilisateur.setTwitterId(twitterId, false);

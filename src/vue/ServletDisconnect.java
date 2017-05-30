@@ -9,16 +9,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class ServletDisconnect extends HttpServlet {
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 161810466362514525L;
 	public static final String URL_REDIRECTION = "http://localhost:2020/PaPfood/connexion";
 
-    public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        session.invalidate();
-
-		response.sendRedirect(request.getContextPath()+"/connexion");
-    }
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			session.invalidate();
+		}
+		response.sendRedirect(request.getContextPath() + "/connexion");
+	}
 }

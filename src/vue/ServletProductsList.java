@@ -24,6 +24,8 @@ public class ServletProductsList extends HttpServlet {
 			"0000"));
 	private ArrayList<ElementCommand> elements = new ArrayList<>();
 	private ArrayList<ElementCommand> monPanier = new ArrayList<>();
+	private ArrayList<ElementCommand> monPanier2 = new ArrayList<>();
+
 	private ArrayList<Salable> tousLesProduits;
 	String pagination = "";
 	Long begin = null;
@@ -73,15 +75,16 @@ public class ServletProductsList extends HttpServlet {
 				Double totalpanier = 0.0;
 				HttpSession session = request.getSession(false);
 				if (session.getAttribute("monPanier") != null) {
-					monPanier=((ArrayList<ElementCommand>) session.getAttribute("monPanier"));
+					monPanier = ((ArrayList<ElementCommand>) session.getAttribute("monPanier"));
 				}
 				int i = Integer.parseInt(request.getParameter("idarticle"));
 				ElementCommand article = elements.get(i);
 				article.setQuantity(1);
 				monPanier.add(article);
+				monPanier2 = removeDoublons(monPanier);
 				session.setAttribute("nbrelementspanier", monPanier.size());
-				request.setAttribute("articlesPanier", monPanier);
-				session.setAttribute("monPanier", monPanier);
+				request.setAttribute("articlesPanier", monPanier2);
+				session.setAttribute("monPanier", monPanier2);
 
 				for (int i1 = 0; i1 < monPanier.size(); i1++) {
 					totalpanier += monPanier.get(i1).getmProduct().getPrice();
@@ -130,4 +133,22 @@ public class ServletProductsList extends HttpServlet {
 		doGet(request, response);
 	}
 
+	public ArrayList<ElementCommand> removeDoublons(ArrayList<ElementCommand> memb) {
+		ArrayList<ElementCommand> membA = new ArrayList<>();
+		membA.addAll(memb);
+		for (int i = 0; i < membA.size(); i++) {
+			ElementCommand o = membA.get(i);
+			for (int i1 = i + 1; i1 < membA.size(); i1++) {
+				ElementCommand r = membA.get(i1);
+				if (o.getmProduct().getId() == r.getmProduct().getId()
+						&& o.getmProduct().getType().equals(r.getmProduct().getType())) {
+					membA.remove(r);
+					System.out.println("ServletOrder.removeDoublons() effectué!");
+					membA.get(i).setQuantity(membA.get(i).getQuantity() + 1);
+				}
+			}
+		}
+
+		return membA;
+	}
 }

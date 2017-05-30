@@ -18,27 +18,35 @@ html, body {
 }
 </style>
 </head>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"> </script>
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?sensor=false">
+	
+</script>
 <body onload="initialize()">
 	<div id="map"></div>
 	<div>
-		latitude, longitude : <input id="latlng" type="text"
-			value="48.3906042,-4.4869013"> <input type="button"
-			value="Obtenir la ville..." onclick="retrieve()"> Ville /
-		adresse : <input id="adr" type="text" value=""> <input
+		<!--	latitude, longitude :-->
+		<input id="latlng" type="hidden" value="48.3906042,-4.4869013">
+		<!-- <input type="button"
+			value="Obtenir la ville..." onclick="retrieve()">  Ville /
+		adresse :-->
+		<input id="adr" type="hidden" value="">
+		<!-- <input
 			type="button" value="Obtenir le code postal..."
-			onclick="codeAddress()"> code postal : <input id="cp"
-			type="text" value=""> département : <input id="dpt"
-			type="text" value=""> pays : <input id="pays" type="text"
-			value="">
-			 rue : <input id="rue"
-			type="text" value=""> 
-			n° : <input id="num"
-			type="text" value=""> 
+			onclick="codeAddress()"> code postal :-->
+		<input id="cp" type="hidden" value="">
+		<!-- département :-->
+		<input id="dpt" type="hidden" value="">
+		<!--pays : -->
+		<input id="pays" type="hidden" value="">
+		<!-- rue :-->
+		<input id="rue" name="rue" type="hidden" value="">
+		<!--n° :-->
+		<input id="num" name="num" type="hidden" value="">
 	</div>
 
 	<div id="map_canvas"></div>
-	<script>		
+	<script>
 		var geocoder;
 		var map;
 		var infowindow = new google.maps.InfoWindow();
@@ -51,8 +59,7 @@ html, body {
 				center : latlng,
 				mapTypeId : google.maps.MapTypeId.ROADMAP
 			}
-			map = new google.maps.Map(document.getElementById("map"),
-					myOptions);
+			map = new google.maps.Map(document.getElementById("map"), myOptions);
 		}
 		function codeLatLng(input) {
 			var latlngStr = input.split(",", 2);
@@ -87,6 +94,7 @@ html, body {
 											if (elt[i].types[0] == 'street_number')
 												document.getElementById('num').value = elt[i].long_name;
 										}
+										alert('Géolocation effectuée"');
 										infowindow
 												.setContent(results[0].formatted_address);
 										infowindow.open(map, marker);

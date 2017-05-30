@@ -34,7 +34,8 @@
 										<tr>
 											<th>N°</th>
 											<th>Nom</th>
-											<th>Prix</th>
+											<th>Prix U</th>
+											<th>Quantité</th>
 											<th>Supprimer</th>
 
 										</tr>
@@ -48,6 +49,7 @@
 												<td>${i+1}</td>
 												<td>${article.mProduct.name }</td>
 												<td><span class='cart-price'>${article.mProduct.price }</span></td>
+												<td><span class='cart-price'>${article.quantity }</span></td>
 												<td><a href="panier?action=removeSalable&indice=${i}"><button
 															class="btn btn-primary btn-	s">-1</button></a></td>
 											</tr>
@@ -349,7 +351,8 @@
 												placeholder="Code postal et Ville..">
 										</div>
 										<input type="hidden" name="action" value="changerAdresse" />
-										<button type="submit" class="btn btn-style-4">Changer l'adresse</button>
+										<button type="submit" class="btn btn-style-4">Changer
+											l'adresse</button>
 									</form>
 								</div>
 							</div>

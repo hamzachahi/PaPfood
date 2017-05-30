@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body class="home1">
-<%@include file="header.jsp"%>
-<!-- Menu title -->
+	<%@include file="header.jsp"%>
+	<!-- Menu title -->
 	<section id="page-title-area">
 	<div class="container">
 		<div class="row">
@@ -45,8 +45,8 @@
 											<h3>${article.name }</h3>
 											<p>${article.description }.</p>
 											<a class="btn btn-rooms-book-now"
-												href="acheter?action=chargerPanier&idarticle=${i}">Ajouter
-												au panier</a> <a class="btn btn-rooms-book-now"
+												href="proposer?action=modify&target=${article.id}&gender=${article.type}">Modifier</a>
+											<a class="btn btn-rooms-book-now"
 												href="details?type=Service&cible=${article.id}">+
 												D&eacute;tails</a>
 										</div>
@@ -70,6 +70,6 @@
 		</div>
 	</div>
 	</section>
-<%@include file="footer.jsp"%>
+	<%@include file="footer.jsp"%>
 </body>
 </html>

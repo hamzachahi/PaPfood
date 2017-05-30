@@ -26,6 +26,8 @@ public class ServletAcheter extends HttpServlet {
 	ArrayList<Salable> tousLesArticles = null;
 	private ArrayList<ElementCommand> monPanier = null;
 	ArrayList<ElementCommand> elements = null;
+	ArrayList<ElementCommand> elementsSort = null;
+
 	Long begin = null;
 	Long end = null;
 	Long total = null;
@@ -67,12 +69,12 @@ public class ServletAcheter extends HttpServlet {
 				elements = (ArrayList<ElementCommand>) session.getAttribute("searchResults");
 				if (total <= 0 || total == null) {
 					message = "Aucun sous-éléments à afficher!!";
-				} else {					
+				} else {
 					message = "Liste des éléments trouvés";
 					tousLesArticles = new ArrayList<>();
 					tousLesArticles.addAll(productDao.findAllProduct(end, begin));
 					tousLesArticles.addAll(serviceDao.findAllService(end, begin));
-					elements=new ArrayList<>();
+					elements = new ArrayList<>();
 					for (int i = 0; i < tousLesArticles.size(); i++) {
 						ElementCommand elementCom = new ElementCommand();
 						elementCom.setmProduct(tousLesArticles.get(i));
@@ -114,26 +116,12 @@ public class ServletAcheter extends HttpServlet {
 				}
 				ElementCommand article = new ElementCommand();
 				article.setmProduct(salable);
-				article.setQuantity(article.getQuantity() + 1);
-				/*
-				 * if (monPanier.size() < 1) { for (int i1 = 0; i1 <
-				 * monPanier.size(); i1++) { if
-				 * (monPanier.get(i1).getmProduct().getId() ==
-				 * article.getmProduct().getId() &&
-				 * monPanier.get(i1).getmProduct().getType().equals(article.
-				 * getmProduct().getType())) {
-				 * 
-				 * monPanier.get(i1).setQuantity(monPanier.get(i1).getQuantity()
-				 * + 1); } else { monPanier.add(article); }
-				 * 
-				 * } } else { monPanier.add(article);
-				 * 
-				 * }
-				 */
+				article.setQuantity(article.getQuantity() + 1);				
 				monPanier.add(article);
+				elementsSort=removeDoublons(monPanier);
 				session.setAttribute("nbrelementspanier", monPanier.size());
-				request.setAttribute("articlesPanier", monPanier);
-				session.setAttribute("monPanier", monPanier);
+				request.setAttribute("articlesPanier", elementsSort);
+				session.setAttribute("monPanier", elementsSort);
 				for (int i1 = 0; i1 < monPanier.size(); i1++) {
 					totalpanier += monPanier.get(i1).getmProduct().getPrice();
 				}
@@ -205,4 +193,22 @@ public class ServletAcheter extends HttpServlet {
 		}
 	}
 
+	public ArrayList<ElementCommand> removeDoublons(ArrayList<ElementCommand> memb) {
+		ArrayList<ElementCommand> membA = new ArrayList<>();
+		membA.addAll(memb);
+		for (int i = 0; i < membA.size(); i++) {
+			ElementCommand o = membA.get(i);
+			for (int i1 = i + 1; i1 < membA.size(); i1++) {
+				ElementCommand r = membA.get(i1);
+				if (o.getmProduct().getId() == r.getmProduct().getId()
+						&& o.getmProduct().getType().equals(r.getmProduct().getType())) {
+					membA.remove(r);
+					System.out.println("ServletOrder.removeDoublons() effectué!");
+					membA.get(i).setQuantity(membA.get(i).getQuantity() + 1);
+				}
+			}
+		}
+
+		return membA;
+	}
 }

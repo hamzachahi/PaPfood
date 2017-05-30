@@ -10,11 +10,18 @@ public abstract class MotherProduct {
 	protected String Description;
 	protected Double Price;
 	protected String mainImage;
-	protected ArrayList<String> listImage= new ArrayList<>();
-	protected ArrayList<Salable> listSubProduct= new ArrayList<Salable>();
-	protected ArrayList<Comment> Comments= new ArrayList<Comment>();
+	protected ArrayList<String> listImage = new ArrayList<>();
+	protected ArrayList<Salable> listSubProduct = new ArrayList<Salable>();
+	protected ArrayList<Comment> Comments = new ArrayList<Comment>();
 	protected Long idProvider;
 	protected Date addDate;
+	private String streetNumber;
+	private String StreetName;
+	private String City;
+	private String postalCode;
+	private String Departement;
+	private String Country;
+	private String latLng;
 
 	public Long getId() {
 		return Id;
@@ -104,14 +111,69 @@ public abstract class MotherProduct {
 		this.addDate = add_date;
 	}
 
+	public String getStreetNumber() {
+		return streetNumber;
+	}
+
+	public void setStreetNumber(String streetNumber) {
+		this.streetNumber = streetNumber;
+	}
+
+	public String getStreetName() {
+		return StreetName;
+	}
+
+	public void setStreetName(String streetName) {
+		StreetName = streetName;
+	}
+
+	public String getCity() {
+		return City;
+	}
+
+	public void setCity(String city) {
+		City = city;
+	}
+
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+
+	public String getDepartement() {
+		return Departement;
+	}
+
+	public void setDepartement(String departement) {
+		Departement = departement;
+	}
+
+	public String getCountry() {
+		return Country;
+	}
+
+	public void setCountry(String country) {
+		Country = country;
+	}
+
+	public String getLatLng() {
+		return latLng;
+	}
+
+	public void setLatLng(String latLng) {
+		this.latLng = latLng;
+	}
+
 	@Override
 	public String toString() {
 		return "MotherProduct [Id=" + Id + ", Code=" + Code + ", Name=" + Name + ", Description=" + Description
 				+ ", Price=" + Price + ", mainImage=" + mainImage + ", listImage=" + listImage + ", listSubProduct="
-				+ listSubProduct + ", Comments=" + Comments + ", idProvider=" + idProvider + ", add_date=" + addDate
-				+ "]";
+				+ listSubProduct + ", Comments=" + Comments + ", idProvider=" + idProvider + ", addDate=" + addDate
+				+ ", streetNumber=" + streetNumber + ", StreetName=" + StreetName + ", City=" + City + ", postalCode="
+				+ postalCode + ", Departement=" + Departement + ", Country=" + Country + ", latLng=" + latLng + "]";
 	}
-
-	
 
 }

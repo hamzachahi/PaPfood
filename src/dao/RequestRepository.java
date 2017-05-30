@@ -77,13 +77,11 @@ public class RequestRepository {
 	private static final String MySQL_INSERT_EVALUATION = "INSERT INTO evaluation (id_person, id_jury, note, comments, date_posted) VALUES (?, ?, ?, ?, NOW())";
 
 	private static final String MySQL_INSERT_COMMANDE = "INSERT INTO commande (code,id_customer,date_ordering) VALUES(?,?,NOW())";
-	private static final String OracleSQL_INSERT_COMMANDE = "INSERT INTO commande (code,id_customer,date_ordering) VALUES(?,?,SYSTIMESTAMP)";
 
 	private static final String MySQL_INSERT_CONNECTION = "INSERT INTO connexion (login_time, person_id, person_id_ip_address, person_type) VALUES (?, ?, ?, ?)";
 	private static final String OracleSQL_INSERT_CONNECTION = "INSERT INTO connexion (login_time, person_id, person_id_ip_address, person_type) VALUES (?, ?, ?, ?)";
 
-	private static final String MySQL_INSERT_PRODUCT = "INSERT INTO product (code, name, description, price, id_provider) VALUES (?, ?, ?, ?, ?)";
-	private static final String OracleSQL_INSERT_PRODUCT = "INSERT INTO product (code, name, description, price, id_provider) VALUES (?, ?, ?, ?, ?)";
+	private static final String MySQL_INSERT_PRODUCT = "INSERT INTO product (code, name, description, price, main_image, id_provider, street_number, street_name, city_name, postal_code, departement, country, latlng) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	private static final String MySQL_INSERT_INVOICE = "INSERT INTO invoice (code_invoice, creation_date, delivered_date, type, total_price, header_message, footer_message, legal_message) VALUES (?, NOW(), ?, ?, ?, ?, ?, ?)";
 	private static final String OracleSQL_INSERT_INVOICE = "INSERT INTO invoice (code_invoice, creation_date, delivered_date, type, total_price, header_message, footer_message, legal_message) VALUES (?, SYSTIMESTAMP, ?, ?, ?, ?, ?, ?)";
@@ -103,8 +101,7 @@ public class RequestRepository {
 	private static final String MySQL_INSERT_INVOICE_SERVICE = "INSERT INTO invoice_service (id_invoice, id_service) VALUES (?, ?)";
 	private static final String OracleSQL_INSERT_INVOICE_SERVICE = "INSERT INTO invoice_service (id_invoice, id_service) VALUES (?, ?)";
 
-	private static final String MySQL_INSERT_SERVICE = "INSERT INTO service (code, name, description, price, main_image, id_provider) VALUES (?, ?, ?, ?, ?, ?)";
-	private static final String OracleSQL_INSERT_SERVICE = "INSERT INTO service (code, name, description, price, main_image, id_provider) VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String MySQL_INSERT_SERVICE = "INSERT INTO service (code, name, description, price, main_image, id_provider, street_number, street_name, city_name, postal_code, departement, country, latlng) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	private static final String MySQL_INSERT_SERVICE_PRODUCT = "INSERT INTO service_product (id_service, id_product) VALUES (?, ?)";
 	private static final String OracleSQL_INSERT_SERVICE_PRODUCT = "INSERT INTO service_product (id_service, id_product) VALUES (?, ?)";
@@ -112,11 +109,9 @@ public class RequestRepository {
 	private static final String MySQL_INSERT_SERVICE_COMPONENT = "INSERT INTO service_component (id_service, id_component) VALUES (?, ?)";
 	private static final String OracleSQL_INSERT_SERVICE_COMPONENT = "INSERT INTO service_component (id_service, id_component) VALUES (?, ?)";
 
-	private static final String MySQL_INSERT_COMMANDE_PRODUCT = "INSERT INTO commande_product (id_commande,id_product,quantity) VALUES(?,?,?))";
-	private static final String OracleSQL_INSERT_COMMANDE_PRODUCT = "INSERT INTO commande_product (id_commande,id_product,quantity) VALUES(?,?,?))";
+	private static final String MySQL_INSERT_COMMANDE_PRODUCT = "INSERT INTO commande_product (id_commande,id_product,quantity) VALUES(?,?,?)";
 
-	private static final String MySQL_INSERT_COMMANDE_SERVICE = "INSERT INTO commande_service (id_commande,id_service,quantity) VALUES(?,?,?))";
-	private static final String OracleSQL_INSERT_COMMANDE_SERVICE = "INSERT INTO commande_service (id_commande,id_service,quantity) VALUES(?,?,?))";
+	private static final String MySQL_INSERT_COMMANDE_SERVICE = "INSERT INTO commande_service (id_commande,id_service,quantity) VALUES(?,?,?)";
 
 	private static final String MySQL_INSERT_MESSAGE = "INSERT INTO message (id_sender, id_receiver, content, sent_date) VALUES ( ?, ?, ?, NOW())";
 	private static final String MySQL_INSERT_POST = "INSERT INTO posts (id_author, date_posted, content, title) VALUES (?, NOW(), ?, ?)";
@@ -130,10 +125,9 @@ public class RequestRepository {
 
 	// fin insert
 	// début update
-	private static final String MySQL_UPDATE_PERSON = "UPDATE person SET name = ?, second_name=?, surname=?, second_surname=?, profession=?, email=?, phone_number=?, tel_number=?, facebook_id=?, twitter_id=?, instagram_id=?, linkedin_id=?, account_picture=?, street_number=?, street_name=?, city_name=?, country_name=?, postal_code=?, function=?  WHERE ID = ?";
+	private static final String MySQL_UPDATE_PERSON = "UPDATE person SET name = ?, second_name=?, surname=?, second_surname=?, profession=?, email=?, phone_number=?, tel_number=?, facebook_id=?, twitter_id=?, instagram_id=?, linkedin_id=?, account_picture=?, street_number=?, street_name=?, city_name=?, country_name=?, postal_code=?, function=?, departement=?, latlng=?  WHERE ID = ?";
 
 	private static final String MySQL_UPDATE_COMMANDE = "UPDATE commande SET code=?, id_customer = ?, date_ordering=?, date_livraison=? WHERE ID = ?";
-	private static final String OracleSQL_UPDATE_COMMANDE = "UPDATE commande SET code=?, id_customer = ?, date_ordering=?, date_livraison=? WHERE ID = ?";
 
 	private static final String MySQL_UPDATE_EVALUATION = "UPDATE evaluation SET  note=?, comments=?, date_posted=NOW() WHERE ID = ?";
 
@@ -152,8 +146,7 @@ public class RequestRepository {
 	private static final String MySQL_UPDATE_CONNECTION = "UPDATE connection SET logout_time = ? WHERE ID = ?";
 	private static final String OracleSQL_UPDATE_CONNECTION = "UPDATE connection SET logout_time = ? WHERE ID = ?";
 
-	private static final String MySQL_UPDATE_PRODUCT = "UPDATE product SET code = ?, name=?, description=?, price=?, main_image=?, id_provider= ? WHERE ID = ?";
-	private static final String OracleSQL_UPDATE_PRODUCT = "UPDATE product SET code = ?, name=?, description=?, price=?, main_image=?, id_provider= ? WHERE ID = ?";
+	private static final String MySQL_UPDATE_PRODUCT = "UPDATE product SET code = ?, name=?, description=?, price=?, main_image=?, id_provider= ?, street_number=?, street_name=?, city_name=?, postal_code=?, departement=?, country=?, latlng=?  WHERE ID = ?";
 
 	private static final String MySQL_UPDATE_INVOICE = "UPDATE invoice SET code_invoice = ?, date_ordering=?, delivered_date=?, type=?, total_price=?, header_message=?, footer_message=?, legal_message=? WHERE ID = ?";
 	private static final String OracleSQL_UPDATE_INVOICE = "UPDATE invoice SET code_invoice = ?, date_ordering=?, delivered_date=?, type=?, total_price=?, header_message=?, footer_message=?, legal_message=? WHERE ID = ?";
@@ -164,8 +157,7 @@ public class RequestRepository {
 	private static final String MySQL_UPDATE_PRODUCT_SERVICE = "UPDATE product_service SET id_product = ?, id_service=? WHERE id_product = ? and id_service = ?";
 	private static final String OracleSQL_UPDATE_PRODUCT_SERVICE = "UPDATE product_service SET id_product = ?, id_service=? WHERE id_product = ? and id_service = ?";
 
-	private static final String MySQL_UPDATE_SERVICE = "UPDATE service SET code = ?, name=?, description=?, price=?, main_image=?, id_provider= ? WHERE ID = ?";
-	private static final String OracleSQL_UPDATE_SERVICE = "UPDATE service SET code = ?, name=?, description=?, price=?, main_image=?, id_provider = ? WHERE ID = ?";
+	private static final String MySQL_UPDATE_SERVICE = "UPDATE service SET code = ?, name=?, description=?, price=?, main_image=?, id_provider= ?, street_number=?, street_name=?, city_name=?, postal_code=?, departement=?, country=?, latlng=?  WHERE ID = ?";
 
 	private static final String MySQL_UPDATE_INVOICE_PERSON = "UPDATE invoice_person SET id_invoice = ?, id_person=?, person_name=?, person_address=?, person_surname=? WHERE ID = ?";
 	private static final String OracleSQL_UPDATE_INVOICE_PERSON = "UPDATE invoice_person SET id_invoice = ?, id_person=?, person_name=?, person_address=?, person_surname=? WHERE ID = ?";
@@ -212,7 +204,6 @@ public class RequestRepository {
 	private static final String OracleSQL_DELETE_PRODUCT_SERVICE = "DELETE FROM product_service WHERE id_product = ? and id_service = ?";
 
 	private static final String MySQL_DELETE_COMMANDE_PRODUCT = "DELETE FROM commande_product WHERE id_commande = ? and id_product= ?";
-	private static final String OracleSQL_DELETE_COMMANDE_PRODUCT = "DELETE FROM commande_product WHERE id_commande = ? and id_product= ?";
 
 	private static final String MySQL_DELETE_SERVICE_PRODUCT = "DELETE FROM service_product WHERE id_service = ? and id_product = ?";
 	private static final String OracleSQL_DELETE_SERVICE_PRODUCT = "DELETE FROM service_product WHERE id_service = ? and id_product = ?";
@@ -221,7 +212,6 @@ public class RequestRepository {
 	private static final String OracleSQL_DELETE_SERVICE_COMPONENT = "DELETE FROM service_component WHERE id_service = ? and id_component = ?";
 
 	private static final String MySQL_DELETE_COMMANDE_SERVICE = "DELETE FROM commande_service WHERE id_commande = ? and id_service= ?";
-	private static final String OracleSQL_DELETE_COMMANDE_SERVICE = "DELETE FROM commande_service WHERE id_commande = ? and id_service= ?";
 
 	private static final String MySQL_DELETE_INVOICE_SERVICE = "DELETE FROM invoice_service WHERE ID = ?";
 	private static final String OracleSQL_DELETE_INVOICE_SERVICE = "DELETE FROM invoice_service WHERE ID = ?";
@@ -243,10 +233,10 @@ public class RequestRepository {
 	private static final String OracleSQL_DELETE_COMMENTS_SERVICE = "DELETE FROM comments_service WHERE ID = ?";
 	private static final String MySQL_DELETE_MESSAGE = "DELETE FROM message WHERE ID = ?";
 
-	private static final String OracleSQL_SELECT_FROM_COMMANDE_SERVICE = "SELECT * from commande_service where id_commande = ?";
-	private static final String OracleSQL_SELECT_FROM_COMMANDE_PRODUCT = " SELECT * from commande_product where id_commande = ?";
-	private static final String OracleSQL_SELECT_FROM_COMMANDE_BY_CUSTOMER = "SELECT * from commande WHERE id_customer = ?";
-	private static final String OracleSQL_SELECT_FROM_COMMANDE_BY_ID = "SELECT * from commande WHERE id = ?";
+	private static final String MySQL_SELECT_FROM_COMMANDE_SERVICE = "SELECT * from commande_service where id_commande = ?";
+	private static final String MySQL_SELECT_FROM_COMMANDE_PRODUCT = " SELECT * from commande_product where id_commande = ?";
+	private static final String MySQL_SELECT_FROM_COMMANDE_BY_CUSTOMER = "SELECT * from commande WHERE id_customer = ?";
+	private static final String MySQL_SELECT_FROM_COMMANDE_BY_ID = "SELECT * from commande WHERE id = ?";
 	private static final String OracleSQL_SELECT_FROM_PRODUCT_SERVICE = "SELECT * from product_service where id_product = ?";
 	private static final String OracleSQL_SELECT_FROM_SERVICE_COMPONENT = "SELECT * from service_component where id_service = ?";
 	private static final String OracleSQL_SELECT_FROM_SERVICE_PRODUCT = "SELECT * from service_product where id_service = ?";
@@ -294,10 +284,6 @@ public class RequestRepository {
 		return MySQL_INSERT_COMMANDE;
 	}
 
-	public static String getOraclesqlInsertCommande() {
-		return OracleSQL_INSERT_COMMANDE;
-	}
-
 	public static String getMysqlInsertConnection() {
 		return MySQL_INSERT_CONNECTION;
 	}
@@ -308,10 +294,6 @@ public class RequestRepository {
 
 	public static String getMysqlInsertProduct() {
 		return MySQL_INSERT_PRODUCT;
-	}
-
-	public static String getOraclesqlInsertProduct() {
-		return OracleSQL_INSERT_PRODUCT;
 	}
 
 	public static String getMysqlInsertInvoice() {
@@ -366,10 +348,6 @@ public class RequestRepository {
 		return MySQL_INSERT_SERVICE;
 	}
 
-	public static String getOraclesqlInsertService() {
-		return OracleSQL_INSERT_SERVICE;
-	}
-
 	public static String getMysqlInsertServiceProduct() {
 		return MySQL_INSERT_SERVICE_PRODUCT;
 	}
@@ -390,16 +368,8 @@ public class RequestRepository {
 		return MySQL_INSERT_COMMANDE_PRODUCT;
 	}
 
-	public static String getOraclesqlInsertCommandeProduct() {
-		return OracleSQL_INSERT_COMMANDE_PRODUCT;
-	}
-
 	public static String getMysqlInsertCommandeService() {
 		return MySQL_INSERT_COMMANDE_SERVICE;
-	}
-
-	public static String getOraclesqlInsertCommandeService() {
-		return OracleSQL_INSERT_COMMANDE_SERVICE;
 	}
 
 	public static String getMysqlUpdatePerson() {
@@ -408,10 +378,6 @@ public class RequestRepository {
 
 	public static String getMysqlUpdateCommande() {
 		return MySQL_UPDATE_COMMANDE;
-	}
-
-	public static String getOraclesqlUpdateCommande() {
-		return OracleSQL_UPDATE_COMMANDE;
 	}
 
 	public static String getMysqlUpdateEvaluation() {
@@ -462,10 +428,6 @@ public class RequestRepository {
 		return MySQL_UPDATE_PRODUCT;
 	}
 
-	public static String getOraclesqlUpdateProduct() {
-		return OracleSQL_UPDATE_PRODUCT;
-	}
-
 	public static String getMysqlUpdateInvoice() {
 		return MySQL_UPDATE_INVOICE;
 	}
@@ -492,10 +454,6 @@ public class RequestRepository {
 
 	public static String getMysqlUpdateService() {
 		return MySQL_UPDATE_SERVICE;
-	}
-
-	public static String getOraclesqlUpdateService() {
-		return OracleSQL_UPDATE_SERVICE;
 	}
 
 	public static String getMysqlUpdateInvoicePerson() {
@@ -582,10 +540,6 @@ public class RequestRepository {
 		return MySQL_DELETE_COMMANDE_PRODUCT;
 	}
 
-	public static String getOraclesqlDeleteCommandeProduct() {
-		return OracleSQL_DELETE_COMMANDE_PRODUCT;
-	}
-
 	public static String getMysqlDeleteServiceProduct() {
 		return MySQL_DELETE_SERVICE_PRODUCT;
 	}
@@ -604,10 +558,6 @@ public class RequestRepository {
 
 	public static String getMysqlDeleteCommandeService() {
 		return MySQL_DELETE_COMMANDE_SERVICE;
-	}
-
-	public static String getOraclesqlDeleteCommandeService() {
-		return OracleSQL_DELETE_COMMANDE_SERVICE;
 	}
 
 	public static String getMysqlDeleteInvoiceService() {
@@ -714,20 +664,20 @@ public class RequestRepository {
 		return Oracle_SE_TROUVER_PAR_ID;
 	}
 
-	public static String getOraclesqlSelectFromCommandeService() {
-		return OracleSQL_SELECT_FROM_COMMANDE_SERVICE;
+	public static String getMysqlSelectFromCommandeService() {
+		return MySQL_SELECT_FROM_COMMANDE_SERVICE;
 	}
 
-	public static String getOraclesqlSelectFromCommandeProduct() {
-		return OracleSQL_SELECT_FROM_COMMANDE_PRODUCT;
+	public static String getMysqlSelectFromCommandeProduct() {
+		return MySQL_SELECT_FROM_COMMANDE_PRODUCT;
 	}
 
-	public static String getOraclesqlSelectFromCommandeByCustomer() {
-		return OracleSQL_SELECT_FROM_COMMANDE_BY_CUSTOMER;
+	public static String getMysqlSelectFromCommandeByCustomer() {
+		return MySQL_SELECT_FROM_COMMANDE_BY_CUSTOMER;
 	}
 
-	public static String getOraclesqlSelectFromCommandeById() {
-		return OracleSQL_SELECT_FROM_COMMANDE_BY_ID;
+	public static String getMysqlSelectFromCommandeById() {
+		return MySQL_SELECT_FROM_COMMANDE_BY_ID;
 	}
 
 	public static String getOraclesqlSelectFromProductService() {

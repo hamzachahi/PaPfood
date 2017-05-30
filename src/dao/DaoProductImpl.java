@@ -9,16 +9,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import beans.Association;
 import beans.Product;
 
 public class DaoProductImpl implements ProductDao {
 	private UsineDao daoFactory;
-	private DaoServiceImpl servImpl;
 
 	public DaoProductImpl(UsineDao daoFactory) {
 		this.daoFactory = daoFactory;
-		this.servImpl = new DaoServiceImpl(daoFactory);
 	}
 
 	@Override
@@ -39,9 +36,11 @@ public class DaoProductImpl implements ProductDao {
 			 * Préparation de la requête avec les objets passés en arguments
 			 * (ici, uniquement une adresse email) et exécution.
 			 */
-			Statement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlInsertProduct(), false,
+			Statement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlInsertProduct(), false,
 					product.getCode(), product.getName(), product.getDescription(), product.getPrice(),
-					product.getIdProvider());
+					product.getMainImage(), product.getIdProvider(), product.getStreetNumber(), product.getStreetName(),
+					product.getCity(), product.getPostalCode(), product.getDepartement(), product.getCountry(),
+					product.getLatLng());
 			int statut = Statement.executeUpdate();
 			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
@@ -76,9 +75,11 @@ public class DaoProductImpl implements ProductDao {
 			 * Préparation de la requête avec les objets passés en arguments
 			 * (ici, uniquement une adresse email) et exécution.
 			 */
-			Statement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlUpdateProduct(), false,
+			Statement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlUpdateProduct(), false,
 					product.getCode(), product.getName(), product.getDescription(), product.getPrice(),
-					product.getMainImage(), product.getIdProvider(), product.getId());
+					product.getMainImage(), product.getIdProvider(), product.getStreetNumber(), product.getStreetName(),
+					product.getCity(), product.getPostalCode(), product.getDepartement(), product.getCountry(),
+					product.getLatLng(), product.getId());
 			int statut = Statement.executeUpdate();
 			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
@@ -133,14 +134,24 @@ public class DaoProductImpl implements ProductDao {
 	}
 
 	public Product map(ResultSet result) throws SQLException {
-		this.servImpl = new DaoServiceImpl(daoFactory);
+		// this.servImpl = new DaoServiceImpl(daoFactory);
 		Product product = new Product();
 		product.setId(result.getLong("id"), true);
 		product.setCode(result.getString("code"), true);
 		product.setDescription(result.getString("description"), true);
 		product.setIdProvider(result.getLong("id_provider"));
 		product.setAdd_date(result.getDate("add_date"));
-		ArrayList<Association> assoc = new ArrayList<>();
+		product.setMainImage(result.getString("main_image"));
+		product.setName(result.getString("name"), true);
+		product.setPrice(result.getDouble("price"), true);
+		product.setStreetName(result.getString("street_name"));
+		product.setStreetNumber(result.getString("street_number"));
+		product.setCity(result.getString("city_name"));
+		product.setPostalCode(result.getString("postal_code"));
+		product.setDepartement(result.getString("departement"));
+		product.setCountry(result.getString("country"));
+		product.setLatLng(result.getString("latlng"));
+		/*ArrayList<Association> assoc = new ArrayList<>();
 		assoc.addAll(ProductComponent.findProductComponentById(daoFactory, result.getLong("id")));
 		for (int i = 0; i < assoc.size(); i++) {
 			product.getListSubProduct().add(this.findProductById(assoc.get(i).getIdFirstKey()));
@@ -150,10 +161,7 @@ public class DaoProductImpl implements ProductDao {
 		for (int i = 0; i < assoc.size(); i++) {
 			product.getListSubProduct().add(servImpl.findServiceById(assoc.get(i).getIdFirstKey()));
 		}
-		// product.setMainImage(result.getBlob("main_image"), true);
-		product.setName(result.getString("name"), true);
-		product.setPrice(result.getDouble("price"), true);
-		// product.setProductListImage(listImage, true);
+		product.setProductListImage(listImage, true);*/
 		return product;
 	}
 

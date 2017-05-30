@@ -46,7 +46,7 @@ public class DaoCommandeImpl implements CommandeDao {
 		try {
 			connexion = daoFactory.getConnection();
 			System.out.println("connexion réussie. Création de la commande...");
-			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlInsertCommande(),
+			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlInsertCommande(),
 					true, commande.getCode(), commande.getCustomer().getId());
 			int statut = preparedStatement.executeUpdate();
 			if (statut == 0) {
@@ -94,7 +94,7 @@ public class DaoCommandeImpl implements CommandeDao {
 			 * (ici, uniquement une adresse email) et exécution.
 			 */
 			Statement = connexion.createStatement();
-			int statut = Statement.executeUpdate(RequestRepository.getOraclesqlUpdateCommande());
+			int statut = Statement.executeUpdate(RequestRepository.getMysqlUpdateCommande());
 			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
 				isSucceed = true;
@@ -129,7 +129,7 @@ public class DaoCommandeImpl implements CommandeDao {
 		try {
 			connexion = daoFactory.getConnection();
 			System.out.println("connexion réussie. suppression de la commande...");
-			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlDeleteCommande(),
+			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlDeleteCommande(),
 					true, commande.getId());
 			int statut = preparedStatement.executeUpdate();
 			if (statut == 0) {
@@ -164,9 +164,9 @@ public class DaoCommandeImpl implements CommandeDao {
 			 */
 			for (Iterator<ElementCommand> iterator = listProducts.iterator(); iterator.hasNext();) {
 				ElementCommand elementCommand = (ElementCommand) iterator.next();
-				if (elementCommand.getmProduct().getClass().getName().equals(Service.class.getName())) {
+				if (elementCommand.getmProduct().getType().equals("Service")) {
 					Statement = initialisationRequetePreparee(connexion,
-							RequestRepository.getOraclesqlInsertCommandeService(), false, Id,
+							RequestRepository.getMysqlInsertCommandeService(), false, Id,
 							elementCommand.getmProduct().getId(), elementCommand.getQuantity());
 					int statut = Statement.executeUpdate();
 					/*
@@ -180,10 +180,9 @@ public class DaoCommandeImpl implements CommandeDao {
 						throw new ExceptionDao("l'enregistrement est incomplet");
 
 					}
-				} else if (elementCommand.getmProduct().getClass().getSuperclass().getName()
-						.equals(Product.class.getName())) {
+				} else if (elementCommand.getmProduct().getType().equals("Produit")) {
 					Statement = initialisationRequetePreparee(connexion,
-							RequestRepository.getOraclesqlInsertCommandeProduct(), false, Id,
+							RequestRepository.getMysqlInsertCommandeProduct(), false, Id,
 							elementCommand.getmProduct().getId(), elementCommand.getQuantity());
 					int statut = Statement.executeUpdate();
 					/*
@@ -236,7 +235,7 @@ public class DaoCommandeImpl implements CommandeDao {
 					ElementCommand elementCommand = (ElementCommand) iterator.next();
 					if (elementCommand.getmProduct().getClass().getName().equals(Service.class.getName())) {
 						Statement = initialisationRequetePreparee(connexion,
-								RequestRepository.getOraclesqlDeleteCommandeService(), false, Id,
+								RequestRepository.getMysqlDeleteCommandeService(), false, Id,
 								elementCommand.getmProduct().getId());
 						int statut = Statement.executeUpdate();
 						/*
@@ -253,7 +252,7 @@ public class DaoCommandeImpl implements CommandeDao {
 					} else if (elementCommand.getmProduct().getClass().getSuperclass().getName()
 							.equals(Product.class.getName())) {
 						Statement = initialisationRequetePreparee(connexion,
-								RequestRepository.getOraclesqlDeleteCommandeProduct(), false, Id,
+								RequestRepository.getMysqlDeleteCommandeProduct(), false, Id,
 								elementCommand.getmProduct().getId());
 						int statut = Statement.executeUpdate();
 						/*
@@ -292,9 +291,9 @@ public class DaoCommandeImpl implements CommandeDao {
 		commande.setState(result.getInt("state"));
 		commande.setAdresseFacturation(result.getString("billing_address"));
 		commande.setAdresseExpedition(result.getString("shipping_address"));
-		listCommandeProduct = this.findCommande_ProductParId(RequestRepository.getOraclesqlSelectFromCommandeProduct(),
+		listCommandeProduct = this.findCommande_ProductParId(RequestRepository.getMysqlSelectFromCommandeProduct(),
 				false, result.getLong("id"));
-		listCommandeService = this.findCommande_ServiceParId(RequestRepository.getOraclesqlSelectFromCommandeService(),
+		listCommandeService = this.findCommande_ServiceParId(RequestRepository.getMysqlSelectFromCommandeService(),
 				false, result.getLong("id"));
 		for (int i = 0; i < listCommandeProduct.size(); i++) {
 
@@ -318,7 +317,7 @@ public class DaoCommandeImpl implements CommandeDao {
 	public Commande findCommandeParClient(Long id) {
 		// TODO Auto-generated method stub
 		Boolean isSucceed = false;
-		return findCommandeParClient(RequestRepository.getOraclesqlSelectFromCommandeByCustomer(), isSucceed, id);
+		return findCommandeParClient(RequestRepository.getMysqlSelectFromCommandeByCustomer(), isSucceed, id);
 	}
 
 	private Commande findCommandeParClient(String sql, Boolean isSucceed, Object... objets) {
@@ -354,7 +353,7 @@ public class DaoCommandeImpl implements CommandeDao {
 	public Commande findCommandeParId(Long id) {
 		// TODO Auto-generated method stub
 		Boolean isSucceed = false;
-		return findCommandeParId(RequestRepository.getOraclesqlSelectFromCommandeByCustomer(), isSucceed, id);
+		return findCommandeParId(RequestRepository.getMysqlSelectFromCommandeByCustomer(), isSucceed, id);
 	}
 
 	private Commande findCommandeParId(String sql, Boolean isSucceed, Object... objets) {
