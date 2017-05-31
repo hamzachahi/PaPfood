@@ -46,7 +46,10 @@
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 xs-border-right">
 							<div class="details-menu-image padding-sm-left">
-								<img src="assets/img/menu-details.png" alt="">
+								<img
+									src="
+									<c:if test="${not empty salable.mainImage}"><c:out value="${salable.mainImage}"/></c:if><c:if test="${empty salable.mainImage}">assets/img/menu-details.png</c:if>"
+									alt="">
 							</div>
 						</div>
 					</div>
@@ -66,7 +69,9 @@
 									<h5 class="title-counter pull-right">Par</h5>
 								</div>
 								<div class="content-text-area">
-									<p class="text-right"><a href="account?cible=${owner.id}">${owner.name}${owner.surname}</a></p>
+									<p class="text-right">
+										<a href="account?cible=${owner.id}">${owner.name}${owner.surname}</a>
+									</p>
 								</div>
 							</div>
 						</div>

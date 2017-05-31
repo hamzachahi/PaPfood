@@ -68,13 +68,6 @@
 												class="form-control" id="prix" name="prix" value="${prix}"
 												placeholder="Exp : 7.00  &euro;" /><br />
 										</div>
-										<div class="form-group col-md-6">
-											<label for="photo">Uploader une photo :</label> <input
-												class="form-control" type="file" id="fichier" name="fichier"
-												value="<c:out value="${fichier.nom}"/>" /> <span
-												class="erreur">${formfile.erreurs['fichier']}</span>
-											<p class="${empty formfile.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
-										</div>
 										<div class="form-group col-md-12">
 											<label for="prix"> Description/Remarques </label>
 											<textarea rows="5" class="form-control" id="description"
@@ -130,6 +123,9 @@
 										</div>
 									</form>
 								</div>
+								<c:if test="${requestScope.buttonvalue == 'Modifier'}">
+									<%@include file="uploadsalable.jsp"%>
+								</c:if>
 							</div>
 						</div>
 					</div>

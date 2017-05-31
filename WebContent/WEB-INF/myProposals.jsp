@@ -34,7 +34,8 @@
 								class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding-bottom-md">
 								<div class="rooms-container">
 									<div class="rooms-image">
-										<img src="${article.mainImage}" alt="">
+										<img src="<c:if test="${not empty article.mainImage}"><c:out value="${article.mainImage}"/></c:if><c:if test="${empty article.mainImage}">assets/img/menu-details.png</c:if>"
+									alt="">
 									</div>
 									<div class="rooms-footer">
 										<div class="price-area">
@@ -47,7 +48,7 @@
 											<a class="btn btn-rooms-book-now"
 												href="proposer?action=modify&target=${article.id}&gender=${article.type}">Modifier</a>
 											<a class="btn btn-rooms-book-now"
-												href="details?type=Service&cible=${article.id}">+
+												href="details?type=${article.type}&cible=${article.id}">+
 												D&eacute;tails</a>
 										</div>
 									</div>

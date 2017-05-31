@@ -16,9 +16,10 @@ public final class FormUpload {
 	private static final String CHAMP_FICHIER = "fichier";
 	private String resultat;
 	private Map<String, String> erreurs = new HashMap<String, String>();
-	private final String UPLOAD_DIRECTORY = "C:\\Users\\TOSHIBA PC\\Desktop\\eclipse2\\eclipse\\workspace\\PaPfood\\WebContent\\assets\\img\\accountpicture";
+	String webAppPath;
 
-	public FormUpload() {
+	public FormUpload(String Path) {
+		this.webAppPath=Path;
 	}
 
 	public String getResultat() {
@@ -46,7 +47,7 @@ public final class FormUpload {
 						String name = new File(item.getName()).getName();
 						fichier.setNom("assets\\img\\accountpicture"+ File.separator+ mediumDateFormat.format(aujourdhui).hashCode() + name);
 						fichier.setCourtNom(name);
-						item.write(new File(UPLOAD_DIRECTORY + File.separator+ mediumDateFormat.format(aujourdhui).hashCode() + name));
+						item.write(new File(webAppPath+"assets\\img\\accountpicture"+ File.separator+ mediumDateFormat.format(aujourdhui).hashCode() + name));
 					}
 				}
 
