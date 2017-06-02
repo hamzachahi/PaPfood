@@ -72,7 +72,7 @@
 											<label for="prix"> Description/Remarques </label>
 											<textarea rows="5" class="form-control" id="description"
 												name="description"
-												placeholder="D&eacute;crivez bri&egrave;vement votre produit. D&Icirc;tes s'il contient des allerg&Egrave;nes par exemple"><c:out
+												placeholder="D&eacute;crivez bri&egrave;vement votre produit. D&Icirc;tes s'il contient des allerg&egrave;nes par exemple"><c:out
 													value="${requestScope.description}" /></textarea>
 										</div>
 										<input id="latlng" name="latlng" type="hidden"

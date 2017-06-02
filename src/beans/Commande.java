@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Commande {
 	private Long Id;
 	private String Code;
-	private Person Customer;
+	private Person Customer = new Person();
 	private String idCart;
 	private String adresseFacturation;
 	private String adresseExpedition;
@@ -69,7 +69,7 @@ public class Commande {
 	public Double getPrice() {
 		Price = 0.0;
 		for (int i = 0; i < elements.size(); i++) {
-			Price=Price+(elements.get(i).getmProduct().getPrice()*elements.get(i).getQuantity());
+			Price = Price + (elements.get(i).getmProduct().getPrice() * elements.get(i).getQuantity());
 		}
 		return Price;
 	}
@@ -77,7 +77,7 @@ public class Commande {
 	public void setPrice() {
 		Price = 0.0;
 		for (int i = 0; i < elements.size(); i++) {
-			Price=Price+(elements.get(i).getmProduct().getPrice()*elements.get(i).getQuantity());
+			Price = Price + (elements.get(i).getmProduct().getPrice() * elements.get(i).getQuantity());
 		}
 	}
 
@@ -127,7 +127,7 @@ public class Commande {
 
 	public void setToDeleteElements(ArrayList<ElementCommand> toDeleteElements) {
 		this.toDeleteElements = toDeleteElements;
-	}	
+	}
 
 	public void setPrice(Double price) {
 		Price = price;
