@@ -132,7 +132,7 @@
 
 									<c:if
 										test="${not empty sessionScope.sessionUtilisateur &&  sessionScope.sessionUtilisateur.function == 'admin'}">
-										<li><a href="#">Administration</a>
+										<li><a href="#">Administrer</a>
 											<ul>
 												<li><a
 													href="${pageContext.request.contextPath}/allinvoices">Toutes
