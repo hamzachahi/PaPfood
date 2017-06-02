@@ -25,9 +25,9 @@
                             <div class="title-container s-tb-c title-compress">
                                 <div class="layear-1-1"> <img src="assets/img/slider/slide1.png" alt="slide1" /> </div>
                                 <div class="layear-1-2">
-                                    <h2>Il Cibo</h2>
+                                    <h2>Cibo's</h2>
                                     <h3>Envie d'un plat en particulier ?</h3>
-                                    <h3>Cibo vous le ram&egrave;ne &ccedil;a jusqu'&agrave; chez vous !</h3>
+                                    <h3>Cibo's vous le ram&egrave;ne &ccedil;a jusqu'&agrave; chez vous !</h3>
                                     <h3>Rapide et pratique</h3>
                                     <a class="btn-style-1" href="${pageContext.request.contextPath}/acheter">Commander maintenant !</a>
                                 </div>
@@ -40,7 +40,7 @@
                             <div class="title-container s-tb-c">
                                 <div class="layear-1-1"> <img class="slide-image" src="assets/img/slider/slide2.png" alt="slide2" /> </div>
                                 <div class="layear-1-2">
-                                    <h2 class="title1">Cibo</h2>
+                                    <h2 class="title1">Cibo's</h2>
                                     <h3 class="title2">La qualit&eacute;</h3>
                                     <p>Avant que chaque plat ne soit propos&eacute;, nous veillons &agrave; ce qu'il respecte notre charte de qualit&eacute; afin de vous proposer le meilleur &agrave; chacune de vos commandes. </p>
                                 </div>
@@ -52,7 +52,7 @@
                         <div class="slider-content t-lfr s-tb slider-3">
                             <div class="title-container s-tb-c">
                                 <div class="layear-1-1">
-                                    <h2 class="title1">Bienvenue sur Cibo !</h2>
+                                    <h2 class="title1">Bienvenue sur Cibo's !</h2>
                                     <h2 class="title2">Commandez sans plus attendre !</h2>
                                     <div class="image-border"></div>
                                     <div class="button-area">
@@ -73,7 +73,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <!-- Room promotion -->
-                    <div class="room-promotion">
+                    <!-- <div class="room-promotion">
                         <a href="#">
                             <img src="assets/img/room/room1.png" alt="room" />
                             <span class="discount">20% Off</span>
@@ -82,7 +82,7 @@
                             <h3 class="room-promotion-title">room promotion</h3>
                         </a>
                        <p>Maecenas dapibus dui felis, eu dapibus augue cursus eu. Lorem ipsum dolor.</p>
-                    </div>
+                    </div> -->
                     <!-- End Room Promotion -->
                 </div>
                 <div class="col-md-4">
@@ -94,7 +94,7 @@
                             <!-- Single Menu -->
                             <li>
                                 <a href="#">
-                                    <img class="alignleft" src="assets/img/menu/menu1.png" alt="menu" />
+                                    <img class="alignleft" src="assets/img/pizza.jpg" alt="menu" />
                                     <span class="restaurant-menu-title">Dimo's Pizza</span>
                                     <span class="item-price">12 &euro;</span>
                                     <p class="menu-description">Pizza avec une base de sauce tomate et les ingrédients qui suivent : fromage, thon, poivrons, olive, champignons</p>
@@ -103,7 +103,7 @@
                             <!-- Single Menu -->
                             <li>
                                 <a href="#">
-                                    <img class="alignleft" src="assets/img/menu/menu2.png" alt="menu" />
+                                    <img class="alignleft" src="assets/img/burger.jpg" alt="menu" />
                                     <span class="restaurant-menu-title">American Burger</span>
                                     <span class="item-price">7 &euro;</span>
                                     <p class="menu-description">Steak, fromage, salade, tomate, oignon, cornichons</p>
@@ -112,16 +112,16 @@
                             <!-- Single Menu -->
                             <li>
                                 <a href="#">
-                                    <img class="alignleft" src="assets/img/menu/menu3.png" alt="menu" />
+                                    <img class="alignleft" src="assets/img/lasagnes.jpg" alt="menu" />
                                     <span class="restaurant-menu-title">Lasagnes</span>
                                     <span class="item-price">8 &euro;</span>
-                                    <p class="menu-description">Gluten free !</p>
+                                    <p class="menu-description">Gluten free ! A base de sauce tomate, de viande hachee et de fromage</p>
                                 </a>
                             </li>
                             <!-- Single Menu -->
                             <li>
                                 <a href="#">
-                                    <img class="alignleft" src="assets/img/menu/menu1.png" alt="menu" />
+                                    <img class="alignleft" src="assets/img/salade.jpg" alt="menu" />
                                     <span class="restaurant-menu-title">Salade niçoise</span>
                                     <span class="item-price">6 &euro;</span>
                                     <p class="menu-description">salade, tomates, thon, pommes de terre, olive, oeuf</p>

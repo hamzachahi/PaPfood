@@ -5,7 +5,7 @@
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 					<!-- Start Social Icon -->
 					<div class="social-icon-top">
-						<a href="#" class="social-icon-top"><i class="fa fa-facebook"
+						<a href="https://www.facebook.com/Cibos-1838241976494981/" class="social-icon-top"><i class="fa fa-facebook"
 							aria-hidden="true"></i></a> <a href="#" class="social-icon-top"><i
 							class="fa fa-twitter" aria-hidden="true"></i></a> <a href="#"
 							class="social-icon-top"><i class="fa fa-instagram"
@@ -59,7 +59,7 @@
 		<div id="main-menu" class="container-fluid">
 			<!-- Header Logo -->
 			<div class="header-logo">
-				<!-- <a href="index.html"><img src="assets/img/logo.png" alt="logo" /></a> -->
+				 <a href="accueil"><img src="assets/img/logo.png" alt="logo" /></a> 
 			</div>
 			<div class="container">
 				<div class="row">
