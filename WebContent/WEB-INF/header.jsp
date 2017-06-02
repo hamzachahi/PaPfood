@@ -128,7 +128,7 @@
 											<!-- 	<li><a href="menu-details.html">Menu Details</a></li>
 											<li><a href="menu.html">Menu</a></li>  -->
 										</ul> <!-- End Sub Menu --></li>
-									<li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
+									<li><a href="${pageContext.request.contextPath}/contact">Nous Contacter</a></li>
 
 									<c:if
 										test="${not empty sessionScope.sessionUtilisateur &&  sessionScope.sessionUtilisateur.function == 'admin'}">

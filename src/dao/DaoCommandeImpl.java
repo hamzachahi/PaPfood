@@ -289,8 +289,8 @@ public class DaoCommandeImpl implements CommandeDao {
 		commande.setDateLivraison(result.getDate("date_delivered"));
 		commande.setDateCommande(result.getDate("date_ordering"));
 		commande.setState(result.getInt("state"));
-		commande.setAdresseFacturation(result.getString("billing_address"));
-		commande.setAdresseExpedition(result.getString("shipping_address"));
+		//commande.setAdresseFacturation(result.getString("billing_address"));
+		//commande.setAdresseExpedition(result.getString("shipping_address"));
 		listCommandeProduct = this.findCommande_ProductParId(RequestRepository.getMysqlSelectFromCommandeProduct(),
 				false, result.getLong("id"));
 		listCommandeService = this.findCommande_ServiceParId(RequestRepository.getMysqlSelectFromCommandeService(),
