@@ -41,7 +41,7 @@
 										<h2>Listes des partenaires principaux</h2>
 									</div>
 									<div class="title-3">
-										<h6>Contactez notre équipe commerciale par courriel : commercial@cibo.com</h6>
+										<h6>Pour plus de renseignement, contactez notre équipe commerciale par courriel : commercial@cibo.com</h6>
 									</div>
 									<div class="title-4">
 										<h6>

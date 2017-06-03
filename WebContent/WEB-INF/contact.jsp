@@ -14,7 +14,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="restaurent-menu-title">
-					<h2 class="primery-title">Yummy Shop</h2>
+					<h2 class="primery-title">Cibo's</h2>
 					<h3 class="secondery-title">Nous contacter</h3>
 				</div>
 			</div>
@@ -63,9 +63,8 @@
 										<div class="form-group col-md-6">
 											<label>N° de téléphone</label> <input type="text"
 												name="phonenumber" id="teleph" class="form-control"
-												value="${sessionUtilisateur.phoneNumber}
-												placeholder="
-												Numéro detéléphone"/>
+												value="${sessionUtilisateur.phoneNumber}"
+												placeholder="Numéro de téléphone" />
 										</div>
 										<div class="form-group col-md-6">
 											<label>email</label> <input type="text" class="form-control"

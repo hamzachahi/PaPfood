@@ -25,7 +25,7 @@
 						</div>
 						<div class="contact-title">Par courriel :</div>
 						<div class="contact-velue">
-							<a href="mailto:email@alfresco.com">contact@cibo.com</a>
+							<a href="mailto:email@alfresco.com">contact@cibos.com</a>
 						</div>
 					</div>
 					<!-- End email Contact -->
@@ -54,14 +54,14 @@
 			<div class="row">
 				<div class="col-md-6">
 					<p class="text-left">
-						<strong>Cibo</strong> - The Community Culinary Exchange Platform
+						<strong>Cibo's</strong> - The Community Culinary Exchange Platform
 					</p>
 				</div>
 				<div class="col-md-6">
 					<p class="text-right">
 						&copy; Copyright 2017 <a href="http://www.envalab.com/"
 							title="envalab" target="_blank"><strong>envalab</strong></a>. All
-						Right Reserved
+						Rights Reserved
 					</p>
 				</div>
 			</div>
