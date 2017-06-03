@@ -2,19 +2,17 @@ package vue;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import beans.Paginateur;
 import beans.Person;
 import beans.Salable;
-import dao.DaoProductImpl;
-import dao.DaoServiceImpl;
+import dao.ProductDao;
+import dao.ServiceDao;
 import dao.UsineDao;
 
 /**
@@ -23,17 +21,20 @@ import dao.UsineDao;
 @WebServlet("/ServletOwnProposals")
 public class ServletOwnProposals extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private DaoServiceImpl serviceDao = new DaoServiceImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
-	private DaoProductImpl productDao = new DaoProductImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
+	private ServiceDao serviceDao;
+	private ProductDao productDao;
 	private ArrayList<Salable> allMyOwnSalables;
 	String pagination = "";
 	Long begin = null;
 	Long end = null;
 	Long total = null;
+	public static final String CONF_DAO_FACTORY = "usinedao";
+
+	public void init() throws ServletException {
+		this.serviceDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getServiceDao();
+		this.productDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getProductDao();
+
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

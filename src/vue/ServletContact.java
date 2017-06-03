@@ -28,17 +28,16 @@ public class ServletContact extends HttpServlet {
 	private String erreur = "";
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Affichage de la page de contact
 		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			if (testValue(request)) {
-				UseMail.sendMessage(
-						request.getParameter("email"), request.getParameter("subject"), request.getParameter("message")
-								+ "\n Numéro de téléphone : " + request.getParameter("phonenumber"),
-						"", "");
+				UseMail.sendMessage(request.getParameter("email"), request.getParameter("subject"),
+						request.getParameter("message") + "\n Numéro de téléphone : "
+								+ request.getParameter("phonenumber"),
+						"noubijunior@gmail.com", "ferchichi.youssef94@gmail.com ");
 				request.setAttribute("erreur",
 						"Votre messge a bien été envoyé. Nous reviendrons vers vous au plus tot");
 				this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
@@ -61,7 +60,7 @@ public class ServletContact extends HttpServlet {
 			if (!email.matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)")) {
 				test = false;
 				throw new ValidExceptionForm("Merci de saisir une adresse mail valide.");
-			} else if(email.equals("")) {
+			} else if (email.equals("")) {
 				test = false;
 				throw new ValidExceptionForm("Merci de saisir une adresse mail.");
 			}

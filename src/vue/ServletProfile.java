@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import beans.Person;
-import dao.DaoPersonImpl;
 import dao.PersonDao;
 import dao.UsineDao;
 
@@ -20,6 +19,10 @@ public class ServletProfile extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private PersonDao utilisateurDao = null;
+	public static final String CONF_DAO_FACTORY = "usinedao";
+	public void init() throws ServletException {
+		this.utilisateurDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getUtilisateurDao();		
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -38,9 +41,7 @@ public class ServletProfile extends HttpServlet {
 
 		if (action != null) {
 			if (action.equals("completeProfile")) {
-				this.utilisateurDao = new DaoPersonImpl(new UsineDao(
-						"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true",
-						"root", "0000"));
+				
 				// Formulaire pour le contrôle des erreurs dans la modification
 				// d'informations
 				String name = "";

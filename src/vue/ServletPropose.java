@@ -15,26 +15,26 @@ import beans.Fichier;
 import beans.Person;
 import beans.Product;
 import beans.Service;
-import dao.DaoProductImpl;
-import dao.DaoServiceImpl;
+import dao.ProductDao;
+import dao.ServiceDao;
 import dao.UsineDao;
 import forms.FormUpload;
 
 @WebServlet("/ServletPropose")
 @MultipartConfig
 public class ServletPropose extends HttpServlet {
-	private DaoProductImpl productDao = new DaoProductImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
-	private DaoServiceImpl serviceDao = new DaoServiceImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
-	private Person utilisateur = null;
-	// private ArrayList<Salable> listProdSerFinal = new ArrayList<>();
-	// private ArrayList<Salable> listProdSer = null;
+	private ProductDao productDao ;
+	private ServiceDao serviceDao ;
+	private Person utilisateur = null;	
 	Long begin = null;
 	Long end = null;
 	private static final long serialVersionUID = 1L;
+	public static final String CONF_DAO_FACTORY = "usinedao";
+
+	public void init() throws ServletException {
+		this.serviceDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getServiceDao();
+		this.productDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getProductDao();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

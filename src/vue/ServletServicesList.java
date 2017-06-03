@@ -13,16 +13,14 @@ import javax.servlet.http.HttpSession;
 import beans.ElementCommand;
 import beans.Paginateur;
 import beans.Salable;
-import dao.DaoServiceImpl;
+import dao.ServiceDao;
 import dao.UsineDao;
 
 @WebServlet("/ServletServicesList")
 public class ServletServicesList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<ElementCommand> monPanier = new ArrayList<>();
-	private DaoServiceImpl serviceDao = new DaoServiceImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
+	private ServiceDao serviceDao;
 	private ArrayList<ElementCommand> elements = new ArrayList<>();
 	private ArrayList<ElementCommand> elementSort = null;
 
@@ -31,6 +29,13 @@ public class ServletServicesList extends HttpServlet {
 	Long begin = null;
 	Long end = null;
 	Long total = null;
+	public static final String CONF_DAO_FACTORY = "usinedao";
+
+	public void init() throws ServletException {
+		this.serviceDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getServiceDao();
+		
+
+	}
 
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

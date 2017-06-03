@@ -20,4 +20,9 @@ public class ElementCommand {
 		this.mProduct = mProduct;
 	}
 
+	@Override
+	public String toString() {
+		return "ElementCommand [Quantity=" + Quantity + ", mProduct=" + mProduct.toString() + "]";
+	}
+
 }

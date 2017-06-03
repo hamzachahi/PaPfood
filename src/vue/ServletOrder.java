@@ -4,33 +4,40 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import beans.Commande;
 import beans.ElementCommand;
 import beans.Invoice;
 import beans.Person;
-import dao.DaoCommandeImpl;
-import dao.DaoInvoiceImpl;
+import dao.CommandeDao;
+import dao.InvoiceDao;
+import dao.MessageDao;
 import dao.UsineDao;
 
 @WebServlet("/ServletOrder")
 
 public class ServletOrder extends HttpServlet {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2268529311014243749L;
 	public static final String ATT_USER = "utilisateur";
 	public static final String ATT_FORM = "form";
 	public static final String VUE = "/WEB-INF/order.jsp";
+	CommandeDao commandeDao;
+	MessageDao messageDao;
+	InvoiceDao invoiceDao;
+	public static final String CONF_DAO_FACTORY = "usinedao";
+
+	public void init() throws ServletException {
+		this.commandeDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getCommandeDao();
+		this.invoiceDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getInvoiceDao();
+		this.messageDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getMessageDao();
+
+	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processRequest(request, response);
@@ -50,14 +57,6 @@ public class ServletOrder extends HttpServlet {
 		elements = (ArrayList<ElementCommand>) session.getAttribute("monPanier");
 		String action = request.getParameter("action");
 		String adresseComplete = "";
-		DaoCommandeImpl commandeDao = new DaoCommandeImpl(new UsineDao(
-				"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true",
-				"root", "0000"));
-
-		DaoInvoiceImpl invoiceDao = new DaoInvoiceImpl(new UsineDao(
-				"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true",
-				"root", "0000"));
-
 		Commande order = new Commande();
 		Invoice facture = new Invoice();
 
@@ -101,7 +100,12 @@ public class ServletOrder extends HttpServlet {
 				ArrayList<ElementCommand> sort = removeDoublons(elements);
 				order.setElements(sort);
 				commandeDao.Commander(order);
-
+				for (int i = 0; i < sort.size(); i++) {
+					messageDao.sendMessage(utilisateur.getId(), sort.get(i).getmProduct().getIdProvider(),
+							utilisateur.getSurname() + " " + utilisateur.getName() + " souhaite obtenir de vous "
+									+ sort.get(i).toString());
+				}
+				session.setAttribute("monPanier", null);
 				// Construction de la facture
 
 				/*

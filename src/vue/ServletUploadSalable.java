@@ -13,8 +13,6 @@ import beans.Fichier;
 import beans.Person;
 import beans.Product;
 import beans.Service;
-import dao.DaoProductImpl;
-import dao.DaoServiceImpl;
 import dao.ProductDao;
 import dao.ServiceDao;
 import dao.UsineDao;
@@ -26,16 +24,21 @@ import forms.FormUpload;
 @WebServlet("/ServletUploadSalable")
 @MultipartConfig
 public class ServletUploadSalable extends HttpServlet {
-	private ServiceDao serviceDao = null;
-	private ProductDao productDao = null;
-
+	private ServiceDao serviceDao;
+	private ProductDao productDao;
 	private static final long serialVersionUID = 1L;
 	public static final String CHEMIN = "chemin";
 	public static final String ATT_FICHIER = "fichier";
 	public static final String ATT_FORM = "formfile";
 	public static final String VUE = "/WEB-INF/profile.jsp";
 	String chemin = null;
+	public static final String CONF_DAO_FACTORY = "usinedao";
 
+	public void init() throws ServletException {
+		this.serviceDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getServiceDao();
+		this.productDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getProductDao();
+
+	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -50,13 +53,7 @@ public class ServletUploadSalable extends HttpServlet {
 		FormUpload form = null;
 		Fichier fichier = null;
 		Person utilisateur = null;
-		HttpSession session = request.getSession(false);
-		this.productDao = new DaoProductImpl(new UsineDao(
-				"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true",
-				"root", "0000"));
-		this.serviceDao = new DaoServiceImpl(new UsineDao(
-				"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true",
-				"root", "0000"));
+		HttpSession session = request.getSession(false);		
 		form = new FormUpload(getServletContext().getRealPath("/"));
 		fichier = form.writeFile(request);
 		utilisateur = (Person) session.getAttribute("sessionUtilisateur");

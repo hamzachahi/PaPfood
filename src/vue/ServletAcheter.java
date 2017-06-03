@@ -12,9 +12,9 @@ import javax.servlet.http.HttpSession;
 import beans.ElementCommand;
 import beans.Paginateur;
 import beans.Salable;
-import dao.DaoProductImpl;
-import dao.DaoSearchImpl;
-import dao.DaoServiceImpl;
+import dao.ProductDao;
+import dao.SearchDao;
+import dao.ServiceDao;
 import dao.UsineDao;
 
 /**
@@ -27,20 +27,21 @@ public class ServletAcheter extends HttpServlet {
 	private ArrayList<ElementCommand> monPanier = null;
 	ArrayList<ElementCommand> elements = null;
 	ArrayList<ElementCommand> elementsSort = null;
-
 	Long begin = null;
 	Long end = null;
 	Long total = null;
-	DaoServiceImpl serviceDao = new DaoServiceImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
-	DaoProductImpl productDao = new DaoProductImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
-	DaoSearchImpl searchDao = new DaoSearchImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
+	ServiceDao serviceDao;
+	ProductDao productDao;
+	SearchDao searchDao;
 	String pagination = "";
+	public static final String CONF_DAO_FACTORY = "usinedao";
+
+	public void init() throws ServletException {
+		this.serviceDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getServiceDao();
+		this.productDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getProductDao();
+		this.searchDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getSearchDao();
+
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -116,9 +117,9 @@ public class ServletAcheter extends HttpServlet {
 				}
 				ElementCommand article = new ElementCommand();
 				article.setmProduct(salable);
-				article.setQuantity(article.getQuantity() + 1);				
+				article.setQuantity(article.getQuantity() + 1);
 				monPanier.add(article);
-				elementsSort=removeDoublons(monPanier);
+				elementsSort = removeDoublons(monPanier);
 				session.setAttribute("nbrelementspanier", monPanier.size());
 				request.setAttribute("articlesPanier", elementsSort);
 				session.setAttribute("monPanier", elementsSort);

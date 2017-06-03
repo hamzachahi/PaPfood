@@ -9,23 +9,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import beans.Message;
 import beans.Paginateur;
 import beans.Person;
-import dao.DaoMessageImpl;
-import dao.DaoPersonImpl;
+import dao.MessageDao;
+import dao.PersonDao;
 import dao.UsineDao;
 
 @WebServlet("/ServletMessage")
 public class ServletMessage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	DaoMessageImpl messageDao = new DaoMessageImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
-	DaoPersonImpl personDao = new DaoPersonImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
+	MessageDao messageDao;
+	PersonDao personDao;
+	public static final String CONF_DAO_FACTORY = "usinedao";
+
+	public void init() throws ServletException {
+		this.messageDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getMessageDao();
+		this.personDao=((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getUtilisateurDao();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -184,8 +185,8 @@ public class ServletMessage extends HttpServlet {
 					}
 					if (listSendMessages.size() > 0) {
 						for (int i = 0; i < listSendMessages.size(); i++) {
-							listSendMessages.get(i)
-									.setRealSender(personDao.trouverParId(listSendMessages.get(i).getReceiver(), false));
+							listSendMessages.get(i).setRealSender(
+									personDao.trouverParId(listSendMessages.get(i).getReceiver(), false));
 							if (listSendMessages.get(i).getReceiveDate() == null
 									&& listSendMessages.get(i).getReceiver() == utilisateur.getId()) {
 								messageDao.receiveMessage(listSendMessages.get(i));
