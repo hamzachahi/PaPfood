@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.DaoMessageImpl;
+import dao.MessageDao;
 import dao.UsineDao;
 
 /**
@@ -17,14 +17,15 @@ import dao.UsineDao;
 @WebServlet("/ServletAccueil")
 public class ServletAccueil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	DaoMessageImpl messageDao = new DaoMessageImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	Thread t = new Thread();
+	MessageDao messageDao ;
+		Thread t = new Thread();
+		public static final String CONF_DAO_FACTORY = "usinedao";
+
+		public void init() throws ServletException {
+			this.messageDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getMessageDao();
+			
+
+		}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

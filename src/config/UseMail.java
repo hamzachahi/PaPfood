@@ -17,6 +17,7 @@ public class UseMail {
 		properties.setProperty("mail.smtp.port", "587");
 		properties.setProperty("mail.smtp.starttls.enable", "true");
 
+
 		Session session = Session.getInstance(properties);
 		System.out.println(session.getProperties().toString());
 
@@ -28,6 +29,8 @@ public class UseMail {
 			message.setFrom(new InternetAddress(email));
 			message.addRecipients(Message.RecipientType.TO, destinataire);
 			message.addRecipients(Message.RecipientType.CC, copyDest);
+			System.out.println("J'ai préparé le message");
+
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
@@ -38,6 +41,7 @@ public class UseMail {
 			transport.sendMessage(message,
 					new Address[] { new InternetAddress(destinataire), new InternetAddress(copyDest) });
 			isSucceed=true;
+			System.out.println("J'ai envoyé le message");
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		} finally {

@@ -16,23 +16,25 @@ import beans.Person;
 import beans.Product;
 import beans.Salable;
 import beans.Service;
-import dao.DaoProductImpl;
-import dao.DaoSearchImpl;
-import dao.DaoServiceImpl;
+import dao.ProductDao;
+import dao.SearchDao;
+import dao.ServiceDao;
 import dao.UsineDao;
 
 @WebServlet("/ServletSearch")
 public class ServletSearch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private DaoSearchImpl searchDao = new DaoSearchImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
-	private DaoProductImpl productDao = new DaoProductImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
-	private DaoServiceImpl serviceDao = new DaoServiceImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
+	private SearchDao searchDao;
+	private ProductDao productDao;
+	private ServiceDao serviceDao;
+	public static final String CONF_DAO_FACTORY = "usinedao";
+
+	public void init() throws ServletException {
+		this.serviceDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getServiceDao();
+		this.productDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getProductDao();
+		this.searchDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getSearchDao();
+
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -58,7 +60,7 @@ public class ServletSearch extends HttpServlet {
 		Long nbreServices = null;
 		Long nbrePersons = null;
 		if (action != null) {
-			keyword=(String) session.getAttribute("savekeyword");
+			keyword = (String) session.getAttribute("savekeyword");
 			Long begins = (long) session.getAttribute("begins");
 			Long ends = (long) session.getAttribute("ends");
 			if (action.equals("afficherSousVendables")) {
@@ -150,14 +152,14 @@ public class ServletSearch extends HttpServlet {
 						messagePerson = "Liste des éléments trouvés";
 					}
 					paginationPerson = Paginateur.pagine(nbrePersons, listPersons, request, "search");
-					session.setAttribute("begins", (long)Paginateur.getBegin());
-					session.setAttribute("ends", (long)Paginateur.getEnd());
+					session.setAttribute("begins", (long) Paginateur.getBegin());
+					session.setAttribute("ends", (long) Paginateur.getEnd());
 					System.out.println("Pagination effectuée!");
 					request.setAttribute("paginationPerson", paginationPerson);
 					System.out.println("Pagination settée!");
 					request.setAttribute("totalPerson", nbrePersons);
 					request.setAttribute("messagePerson", messagePerson);
-				}				
+				}
 			}
 			if (action.equals("chargerPanier")) {
 				ArrayList<ElementCommand> monPanier = null;
@@ -272,8 +274,8 @@ public class ServletSearch extends HttpServlet {
 						messagePerson = "Liste des éléments trouvés";
 					}
 					paginationPerson = Paginateur.pagine(nbrePersons, listPersons, request, "search");
-					session.setAttribute("begins", (long)Paginateur.getBegin());
-					session.setAttribute("ends", (long)Paginateur.getEnd());
+					session.setAttribute("begins", (long) Paginateur.getBegin());
+					session.setAttribute("ends", (long) Paginateur.getEnd());
 					System.out.println("Pagination effectuée!");
 					request.setAttribute("paginationPerson", paginationPerson);
 					System.out.println("Pagination settée!");

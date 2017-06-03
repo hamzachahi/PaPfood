@@ -8,20 +8,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import beans.Person;
-import dao.DaoPersonImpl;
 import dao.PersonDao;
 import dao.UsineDao;
 import forms.FormulaireConnexion;
 
 @WebServlet("/Connect")
 public class ServletConnect extends HttpServlet {
-	
+
 	private static final long serialVersionUID = -823867703158698451L;
 	public static final String ATT_USER = "utilisateur";
 	public static final String ATT_FORM = "form";
 	public static final String ATT_SESSION_USER = "sessionUtilisateur";
 	public static final String VUE = "/WEB-INF/connexion.jsp";
 	public boolean isConnected = true;
+	public static final String CONF_DAO_FACTORY = "usinedao";
+
 	private PersonDao utilisateurDao;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,12 +30,10 @@ public class ServletConnect extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.utilisateurDao = new DaoPersonImpl(new UsineDao(
-				"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true",
-				"root", "0000"));
 		FormulaireConnexion form = new FormulaireConnexion(utilisateurDao);
 		System.out.println("Rue et numéro " + request.getParameter("num") + " " + request.getParameter("rue") + " "
-				+ request.getParameter("cp")+ " "+request.getParameter("adr") +" " + request.getParameter("dpt") + " "+ request.getParameter("pays"));
+				+ request.getParameter("cp") + " " + request.getParameter("adr") + " " + request.getParameter("dpt")
+				+ " " + request.getParameter("pays"));
 		Person utilisateur = null;
 		try {
 			utilisateur = form.connecterUtilisateur(request);
@@ -65,4 +64,9 @@ public class ServletConnect extends HttpServlet {
 		request.setAttribute(ATT_FORM, form);
 		request.setAttribute(ATT_USER, utilisateur);
 	}
+
+	public void init() throws ServletException {
+		this.utilisateurDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getUtilisateurDao();
+	}
+
 }

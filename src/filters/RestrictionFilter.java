@@ -32,7 +32,7 @@ public class RestrictionFilter implements Filter {
         }
 
         /* Récupération de la session depuis la requête */
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
 
         /**
          * Si l'objet utilisateur n'existe pas dans la session en cours, alors

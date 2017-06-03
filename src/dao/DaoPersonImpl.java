@@ -22,7 +22,6 @@ public class DaoPersonImpl implements PersonDao {
 		this.daoFactory = daoFactory;
 	}
 
-	/* Implémentation de la méthode définie dans l'interface UtilisateurDao */
 	@Override
 	public Person trouver(String email, boolean succeed) throws ExceptionDao {
 		return trouver(RequestRepository.getOraclesqlSeTrouverTotalementParEmail(), succeed, email);
@@ -165,7 +164,7 @@ public class DaoPersonImpl implements PersonDao {
 		return utilisateur;
 	}
 
-	@SuppressWarnings("static-access")
+	/*@SuppressWarnings("static-access")
 	@Override
 	public ResultConnexion seConnecter(String Id, String Password) {
 		// TODO Auto-generated method stub
@@ -183,7 +182,7 @@ public class DaoPersonImpl implements PersonDao {
 			e.printStackTrace();
 		}
 		return result;
-	}
+	}*/
 
 	@Override
 	public Boolean acceptCommand(ArrayList<Commande> listCommand) {
@@ -401,6 +400,12 @@ public class DaoPersonImpl implements PersonDao {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
 		return utilisateurs;
+	}
+
+	@Override
+	public ResultConnexion seConnecter(String Id, String Password) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

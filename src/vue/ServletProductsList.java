@@ -9,19 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import beans.ElementCommand;
 import beans.Paginateur;
 import beans.Salable;
-import dao.DaoProductImpl;
+import dao.ProductDao;
 import dao.UsineDao;
 
 @WebServlet("/ServletProductsList")
 public class ServletProductsList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private DaoProductImpl productDao = new DaoProductImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
+	private ProductDao productDao;
 	private ArrayList<ElementCommand> elements = new ArrayList<>();
 	private ArrayList<ElementCommand> monPanier = new ArrayList<>();
 	private ArrayList<ElementCommand> monPanier2 = new ArrayList<>();
@@ -31,7 +28,11 @@ public class ServletProductsList extends HttpServlet {
 	Long begin = null;
 	Long end = null;
 	Long total = null;
+	public static final String CONF_DAO_FACTORY = "usinedao";
 
+	public void init() throws ServletException {
+		this.productDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getProductDao();
+	}
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

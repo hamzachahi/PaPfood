@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import beans.Comment;
 import beans.ElementCommand;
 import beans.Paginateur;
@@ -18,33 +17,34 @@ import beans.Person;
 import beans.Product;
 import beans.Salable;
 import beans.Service;
-import dao.DaoCommentImpl;
-import dao.DaoPersonImpl;
-import dao.DaoProductImpl;
-import dao.DaoServiceImpl;
+import dao.CommentDao;
+import dao.PersonDao;
+import dao.ProductDao;
+import dao.ServiceDao;
 import dao.UsineDao;
 
 @WebServlet("/ServletSalableDetails")
 public class ServletSalableDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private DaoProductImpl productDao = new DaoProductImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
-	private DaoServiceImpl serviceDao = new DaoServiceImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
-	private DaoPersonImpl personDao = new DaoPersonImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
-	private DaoCommentImpl commentDao = new DaoCommentImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
+	private ProductDao productDao ;
+	private ServiceDao serviceDao;
+	private PersonDao personDao ;
+	private CommentDao commentDao;
 	Long total = null;
 	ArrayList<Comment> listComments = new ArrayList<>();
 	private ArrayList<ElementCommand> monPanier;
 	private String pagination;
 	private long begin;
 	private long end;
+	public static final String CONF_DAO_FACTORY = "usinedao";
+
+	public void init() throws ServletException {
+		this.serviceDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getServiceDao();
+		this.productDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getProductDao();
+		this.commentDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getCommentDao();
+		this.personDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getUtilisateurDao();
+
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

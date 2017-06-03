@@ -3,15 +3,15 @@ package vue;
 import javax.servlet.http.HttpSession;
 
 import beans.Person;
-import dao.DaoMessageImpl;
+import dao.MessageDao;
 
 public class RefreshMesages implements Runnable {
-	DaoMessageImpl messageDao;
+	MessageDao messageDao;
 	HttpSession session;
 
-	public RefreshMesages(DaoMessageImpl messageDao, HttpSession session) {
+	public RefreshMesages(MessageDao messageDao2, HttpSession session) {
 		super();
-		this.messageDao = messageDao;
+		this.messageDao = messageDao2;
 		this.session = session;
 	}
 

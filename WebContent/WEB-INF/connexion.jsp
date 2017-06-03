@@ -85,7 +85,7 @@
 						</div>
 						<div class="logmod__alter">
 							<div class="logmod__alter-container">
-								<a href="#" class="connect facebook">
+								 <a href="#" class="connect facebook">
 									<div class="connect__icon">
 										<i class="fa fa-facebook"></i>
 									</div>
@@ -97,7 +97,7 @@
 										<i class="fa fa-google-plus"></i>
 									</div>
 									<div class="connect__context">
-										<span>Créez un compte <strong>Google+</strong></span>
+										<span>Créez avec un compte <strong>Google+</strong></span>
 									</div>
 								</a>
 							</div>

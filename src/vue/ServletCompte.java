@@ -9,32 +9,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import beans.Evaluation;
 import beans.Paginateur;
 import beans.Person;
-import dao.DaoEvaluationImpl;
-import dao.DaoMessageImpl;
-import dao.DaoPersonImpl;
-import dao.DaoPostImpl;
+import dao.EvaluationDao;
+import dao.MessageDao;
+import dao.PersonDao;
+import dao.PostDao;
 import dao.UsineDao;
 
 @WebServlet("/ServletCompte")
 public class ServletCompte extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String VUE = "/WEB-INF/compte.jsp";
-	private DaoPersonImpl personDao = new DaoPersonImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
-	private DaoMessageImpl messageDao = new DaoMessageImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
-	private DaoEvaluationImpl evaluationDao = new DaoEvaluationImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
-	private DaoPostImpl postDao = new DaoPostImpl(new UsineDao(
-			"jdbc:mysql://localhost:3306/papfood?verifyServerCertificate=false&useSSL=true&autoReconnect=true", "root",
-			"0000"));
+	private PersonDao personDao;
+	private MessageDao messageDao;
+	private EvaluationDao evaluationDao;
+	private PostDao postDao;
+	public static final String CONF_DAO_FACTORY = "usinedao";
+
+	public void init() throws ServletException {
+		this.personDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getUtilisateurDao();
+		this.messageDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getMessageDao();
+		this.postDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getPostDao();
+		this.evaluationDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getEvaluationDao();
+
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
