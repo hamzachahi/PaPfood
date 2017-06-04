@@ -53,6 +53,12 @@
 												${user.postalCode } ${user.cityName }, ${user.countryName }</p></td>
 									</tr>
 								</c:forEach>
+								<tr>
+									<td><b>TOTAL</b></td>
+									<td></td>
+									<td></td>
+									<td><b>${requestScope['total']}</b></td>
+								</tr>
 							</table>
 							<div class="product-pagination">
 								<nav>

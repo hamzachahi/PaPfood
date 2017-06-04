@@ -54,7 +54,7 @@
 								<table class="table shop-cart">
 									<thead>
 										<tr>
-											<th>N°</th>
+											<th>N&deg;</th>
 											<th>Nom du produit</th>
 											<th>Description</th>
 											<th>Prix</th>

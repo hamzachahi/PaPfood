@@ -30,19 +30,13 @@ public class DaoProductImpl implements ProductDao {
 		Connection connexion = null;
 		PreparedStatement Statement = null;
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			Statement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlInsertProduct(), false,
 					product.getCode(), product.getName(), product.getDescription(), product.getPrice(),
 					product.getMainImage(), product.getIdProvider(), product.getStreetNumber(), product.getStreetName(),
 					product.getCity(), product.getPostalCode(), product.getDepartement(), product.getCountry(),
 					product.getLatLng());
 			int statut = Statement.executeUpdate();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
 				isSucceed = true;
 			} else {
@@ -69,19 +63,13 @@ public class DaoProductImpl implements ProductDao {
 		Connection connexion = null;
 		PreparedStatement Statement = null;
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			Statement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlUpdateProduct(), false,
 					product.getCode(), product.getName(), product.getDescription(), product.getPrice(),
 					product.getMainImage(), product.getIdProvider(), product.getStreetNumber(), product.getStreetName(),
 					product.getCity(), product.getPostalCode(), product.getDepartement(), product.getCountry(),
 					product.getLatLng(), product.getId());
 			int statut = Statement.executeUpdate();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
 				isSucceed = true;
 			} else {
@@ -108,16 +96,10 @@ public class DaoProductImpl implements ProductDao {
 		Connection connexion = null;
 		PreparedStatement Statement = null;
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			Statement = initialisationRequetePreparee(connexion, RequestRepository.getOraclesqlDeleteProduct(), false,
 					product.getId());
 			int statut = Statement.executeUpdate();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
 				isSucceed = true;
 			} else {
@@ -151,17 +133,18 @@ public class DaoProductImpl implements ProductDao {
 		product.setDepartement(result.getString("departement"));
 		product.setCountry(result.getString("country"));
 		product.setLatLng(result.getString("latlng"));
-		/*ArrayList<Association> assoc = new ArrayList<>();
-		assoc.addAll(ProductComponent.findProductComponentById(daoFactory, result.getLong("id")));
-		for (int i = 0; i < assoc.size(); i++) {
-			product.getListSubProduct().add(this.findProductById(assoc.get(i).getIdFirstKey()));
-		}
-		assoc.removeAll(assoc);
-		assoc.addAll(ProductService.findProductServiceById(daoFactory, result.getLong("id")));
-		for (int i = 0; i < assoc.size(); i++) {
-			product.getListSubProduct().add(servImpl.findServiceById(assoc.get(i).getIdFirstKey()));
-		}
-		product.setProductListImage(listImage, true);*/
+		product.setStatut(result.getInt("statut"));
+		/*
+		 * ArrayList<Association> assoc = new ArrayList<>(');
+		 * assoc.addAll(ProductComponent.findProductComponentById(daoFactory,
+		 * result.getLong("id"))); for (int i = 0; i < assoc.size(); i++) {
+		 * product.getListSubProduct().add(this.findProductById(assoc.get(i).
+		 * getIdFirstKey())); } assoc.removeAll(assoc);
+		 * assoc.addAll(ProductService.findProductServiceById(daoFactory,
+		 * result.getLong("id"))); for (int i = 0; i < assoc.size(); i++) {
+		 * product.getListSubProduct().add(servImpl.findServiceById(assoc.get(i)
+		 * .getIdFirstKey())); } product.setProductListImage(listImage, true);
+		 */
 		return product;
 	}
 
@@ -180,15 +163,9 @@ public class DaoProductImpl implements ProductDao {
 		Product product = null;
 
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			preparedStatement = initialisationRequetePreparee(connexion, sql, false, objets);
 			resultSet = preparedStatement.executeQuery();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (resultSet.next()) {
 				isSucceed = true;
 				product = map(resultSet);
@@ -202,10 +179,10 @@ public class DaoProductImpl implements ProductDao {
 	}
 
 	@Override
-	public ArrayList<Product> findAllProduct(Long limit, Long offset) {
+	public ArrayList<Product> findAllProduct(Long Id, Long limit, Long offset) {
 		// TODO Auto-generated method stub
 		Boolean isSucceed = false;
-		return findAllProduct(RequestRepository.getMysqlSelectAllProduct(), isSucceed, limit, offset);
+		return findAllProduct(RequestRepository.getMysqlSelectAllProduct(), isSucceed, Id, limit, offset);
 	}
 
 	private ArrayList<Product> findAllProduct(String sql, Boolean isSucceed, Object... objets) {
@@ -216,15 +193,9 @@ public class DaoProductImpl implements ProductDao {
 		ArrayList<Product> product = new ArrayList<>();
 
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			preparedStatement = initialisationRequetePreparee(connexion, sql, false, objets);
 			resultSet = preparedStatement.executeQuery();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			while (resultSet.next()) {
 				isSucceed = true;
 				product.add(map(resultSet));
@@ -252,15 +223,9 @@ public class DaoProductImpl implements ProductDao {
 		ArrayList<Product> produitResults = new ArrayList<Product>();
 
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			preparedStatement = initialisationRequetePreparee(connexion, sql, false, Id, limit, offset);
 			resultSet = preparedStatement.executeQuery();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			while (resultSet.next()) {
 				isSucceed = true;
 				produitResults.add(map(resultSet));
@@ -274,28 +239,22 @@ public class DaoProductImpl implements ProductDao {
 	}
 
 	@Override
-	public Long countElements() {
+	public Long countElements(Long Id) {
 		// TODO Auto-generated method stub
 		Boolean isSucceed = false;
-		Long nbre = countElements(isSucceed);
+		Long nbre = countElements(Id, isSucceed);
 		return nbre;
 	}
 
-	private Long countElements(Boolean isSucceed) {
+	private Long countElements(Long Id, Boolean isSucceed) {
 		Connection connexion = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
 		Long nbre = (long) 0;
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			statement = connexion.createStatement();
-			resultSet = statement.executeQuery("select count(id) as nb from product p");
-			/* Parcours de la ligne de données retournée dans le ResultSet */
+			resultSet = statement.executeQuery("select count(id) as nb from product p where id_provider != " + Id);
 			if (resultSet.next()) {
 				isSucceed = true;
 				nbre = resultSet.getLong("nb");
@@ -321,16 +280,10 @@ public class DaoProductImpl implements ProductDao {
 		ResultSet resultSet = null;
 		Long nbre = (long) 0;
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			preparedStatement = initialisationRequetePreparee(connexion,
 					RequestRepository.getMysqlSelectCountProductByIdProvider(), false, Id);
 			resultSet = preparedStatement.executeQuery();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (resultSet.next()) {
 				isSucceed = true;
 				nbre = resultSet.getLong("nb");
@@ -341,6 +294,36 @@ public class DaoProductImpl implements ProductDao {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
 		return nbre;
+	}
+
+	@Override
+	public Boolean changeStatut(Long Id, Integer statut) {
+		// TODO Auto-generated method stub
+		Boolean isSucceed = false;
+		return changeStatut(Id, statut, isSucceed);
+	}
+
+	public Boolean changeStatut(Long Id, Integer statut1, Boolean isSucceed) {
+		// TODO Auto-generated method stub
+		Connection connexion = null;
+		PreparedStatement Statement = null;
+		try {
+			connexion = daoFactory.getConnection();
+			Statement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlUpdateProductStatut(), false,
+					statut1, Id);
+			int statut = Statement.executeUpdate();
+			if (statut != 0) {
+				isSucceed = true;
+			} else {
+				throw new ExceptionDao("échec de la modification du product!");
+
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(Statement, connexion);
+		}
+		return isSucceed;
 	}
 
 }

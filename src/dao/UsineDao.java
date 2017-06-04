@@ -99,4 +99,7 @@ public class UsineDao {
 	public EvaluationDao getEvaluationDao(){
 		return new DaoEvaluationImpl(this);
 	}
+	public ConnectionDao getConnectiontionDao(){
+		return new DaoConnectionImpl(this);
+	}
 }

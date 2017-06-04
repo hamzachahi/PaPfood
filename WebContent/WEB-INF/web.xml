@@ -34,20 +34,12 @@
 		<servlet-class>vue.ServletDisconnect</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>ServletRestriction</servlet-name>
-		<servlet-class>vue.ServletRestriction</servlet-class>
-	</servlet>
-	<servlet>
 		<servlet-name>ServletContact</servlet-name>
 		<servlet-class>vue.ServletContact</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>ServletOrder</servlet-name>
 		<servlet-class>vue.ServletOrder</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>ServletMap</servlet-name>
-		<servlet-class>vue.ServletMap</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>ServletLayout</servlet-name>
@@ -144,11 +136,7 @@
 	<servlet>
 		<servlet-name>ServletSalableDetails</servlet-name>
 		<servlet-class>vue.ServletSalableDetails</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>ServletUsers</servlet-name>
-		<servlet-class>vue.ServletUsers</servlet-class>
-	</servlet>
+	</servlet>	
 	<servlet>
 		<servlet-name>ServletFacture</servlet-name>
 		<servlet-class>vue.ServletFacture</servlet-class>
@@ -198,20 +186,12 @@
 		<url-pattern>/deconnexion</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>ServletRestriction</servlet-name>
-		<url-pattern>/restriction</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
 		<servlet-name>ServletContact</servlet-name>
 		<url-pattern>/contact</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ServletOrder</servlet-name>
 		<url-pattern>/order</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>ServletMap</servlet-name>
-		<url-pattern>/map</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ServletLayout</servlet-name>
@@ -268,11 +248,7 @@
 	<servlet-mapping>
 		<servlet-name>ServletSalableDetails</servlet-name>
 		<url-pattern>/details</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>ServletUsers</servlet-name>
-		<url-pattern>/users</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping>	
 	<servlet-mapping>
 		<servlet-name>ServletFacture</servlet-name>
 		<url-pattern>/facture</url-pattern>

@@ -27,7 +27,6 @@
 				<div class="page-inner padding-top-xlg">
 					<div class="row">
 						<!-- Single Room -->
-						<c:set var="total" value="0" />
 						<c:set var="i" value="0" />
 						<c:forEach var="article" items="${requestScope['listProduits']}">
 							<div
@@ -54,9 +53,16 @@
 									</div>
 								</div>
 							</div>
-							<c:set var="total" value="${total+1}" />
 							<c:set var="i" value="${i+1}" />
 						</c:forEach>
+						<div>
+							<div>
+								<b>TOTAL</b>
+							</div>
+							<div>
+								<b>${requestScope['total']}</b>
+							</div>
+						</div>
 						<!-- end single rooms -->
 						<!-- end single rooms -->
 						<div class="product-pagination">

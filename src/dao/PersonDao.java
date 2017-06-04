@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.Map;
 import beans.Commande;
 import beans.Person;
-import beans.ResultConnexion;
 
 public interface PersonDao {
 
 	public void creer(Person utilisateur) throws ExceptionDao;
 
 	public Person trouver(String email, boolean succeed) throws ExceptionDao;
-
-	public ResultConnexion seConnecter(String Id, String Password);
 
 	public Boolean acceptCommand(ArrayList<Commande> listCommand);
 
@@ -29,5 +26,7 @@ public interface PersonDao {
 
 	public Person trouverParId(Long id, boolean succeed) throws ExceptionDao;
 
-	public ArrayList<Person> findAllUsers();
+	public ArrayList<Person> findAllUsers(Long limit, Long offset);
+
+	public Long countAllUsers();
 }

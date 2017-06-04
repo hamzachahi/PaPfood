@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Commande {
 	private Long Id;
 	private String Code;
-	private Person Customer = new Person();
+	private Person Customer;
 	private String idCart;
 	private String adresseFacturation;
 	private String adresseExpedition;

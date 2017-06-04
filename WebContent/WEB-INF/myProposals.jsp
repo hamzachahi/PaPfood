@@ -27,15 +27,15 @@
 				<div class="page-inner padding-top-xlg">
 					<div class="row">
 						<!-- Single Room -->
-						<c:set var="total" value="0" />
 						<c:set var="i" value="0" />
 						<c:forEach var="article" items="${requestScope['listSalables']}">
 							<div
 								class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding-bottom-md">
 								<div class="rooms-container">
 									<div class="rooms-image">
-										<img src="<c:if test="${not empty article.mainImage}"><c:out value="${article.mainImage}"/></c:if><c:if test="${empty article.mainImage}">assets/img/menu-details.png</c:if>"
-									alt="">
+										<img
+											src="<c:if test="${not empty article.mainImage}"><c:out value="${article.mainImage}"/></c:if><c:if test="${empty article.mainImage}">assets/img/menu-details.png</c:if>"
+											width="200" height="200" alt="">
 									</div>
 									<div class="rooms-footer">
 										<div class="price-area">
@@ -45,18 +45,35 @@
 										<div class="rooms-content-area">
 											<h3>${article.name }</h3>
 											<p>${article.description }.</p>
-											<a class="btn btn-rooms-book-now"
-												href="proposer?action=modify&target=${article.id}&gender=${article.type}">Modifier</a>
-											<a class="btn btn-rooms-book-now"
-												href="details?type=${article.type}&cible=${article.id}">+
-												D&eacute;tails</a>
+											<div align="left">
+												<a class="btn btn-rooms-book-now"
+													href="proposer?action=modify&target=${article.id}&gender=${article.type}">Modifier</a>
+											</div>
+											<div align="center">
+												<a class="btn btn-rooms-book-now"
+													href="details?type=${article.type}&cible=${article.id}">+
+													D&eacute;tails</a>
+											</div>
+											<div align="right">
+												<a class="btn btn-rooms-book-now"
+													href="mespropositions?type=${article.type}&cible=${article.id}&statut=${article.statut}"><c:if
+														test="${article.statut eq '0'}">Masquer</c:if><c:if
+														test="${article.statut eq '1'}">Activer</c:if></a>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<c:set var="total" value="${total+1}" />
 							<c:set var="i" value="${i+1}" />
 						</c:forEach>
+						<div>
+							<div>
+								<b>TOTAL</b>
+							</div>
+							<div>
+								<b>${requestScope['total']}</b>
+							</div>
+						</div>
 						<!-- end single rooms -->
 						<!-- end single rooms -->
 						<div class="product-pagination">

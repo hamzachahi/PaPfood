@@ -13,12 +13,14 @@ public interface ServiceDao {
 
 	public Service findServiceById(Long Id);
 
-	public ArrayList<Service> findAllService(Long limit, Long offset);
+	public ArrayList<Service> findAllService(Long Id, Long limit, Long offset);
 
 	public ArrayList<Service> findAllServiceByIdProvider(Long Id, Long limit, Long offset);
 
-	public Long countElements();
+	public Long countElements(Long Id);
 
 	public Long countElementsByIdProvider(Long Id);
+
+	public Boolean changeStatut(Long Id, Integer statut);
 
 }

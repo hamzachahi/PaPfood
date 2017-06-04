@@ -20,12 +20,13 @@ public class DaoSearchImpl implements SearchDao {
 	}
 
 	@Override
-	public ArrayList<Product> findProductByKeyWord(String keyword, Long limit, Long offset) {
+	public ArrayList<Product> findProductByKeyWord(String keyword, Long Id, Long limit, Long offset) {
 		Boolean isSucceed = false;
-		return findProductByKeyWord("%"+keyword+"%", limit, offset, isSucceed);
+		return findProductByKeyWord("%" + keyword + "%", Id, limit, offset, isSucceed);
 	}
 
-	private ArrayList<Product> findProductByKeyWord(String keyWord, Long limit, Long offset, Boolean isSucceed) {
+	private ArrayList<Product> findProductByKeyWord(String keyWord, Long Id, Long limit, Long offset,
+			Boolean isSucceed) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -34,7 +35,8 @@ public class DaoSearchImpl implements SearchDao {
 		try {
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					RequestRepository.getMysqlSelectProductByKeyword(), false, keyWord, keyWord, limit, offset);
+					RequestRepository.getMysqlSelectProductByKeyword(), false, Id, keyWord, keyWord, keyWord, limit,
+					offset);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				isSucceed = true;
@@ -49,12 +51,13 @@ public class DaoSearchImpl implements SearchDao {
 	}
 
 	@Override
-	public ArrayList<Service> findServiceByKeyWord(String keyWord, Long limit, Long offset) {
+	public ArrayList<Service> findServiceByKeyWord(String keyWord, Long Id, Long limit, Long offset) {
 		Boolean isSucceed = false;
-		return findServiceByKeyWord("%"+keyWord+"%", limit, offset, isSucceed);
+		return findServiceByKeyWord(Id, "%" + keyWord + "%", limit, offset, isSucceed);
 	}
 
-	public ArrayList<Service> findServiceByKeyWord(String keyWord, Long limit, Long offset, Boolean isSucceed) {
+	public ArrayList<Service> findServiceByKeyWord(Long Id, String keyWord, Long limit, Long offset,
+			Boolean isSucceed) {
 
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -64,7 +67,8 @@ public class DaoSearchImpl implements SearchDao {
 		try {
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					RequestRepository.getMysqlSelectServiceByKeyword(), false, keyWord, keyWord, limit, offset);
+					RequestRepository.getMysqlSelectServiceByKeyword(), false, Id, keyWord, keyWord, keyWord, limit,
+					offset);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				isSucceed = true;
@@ -80,13 +84,13 @@ public class DaoSearchImpl implements SearchDao {
 	}
 
 	@Override
-	public ArrayList<Person> findPersonByKeyWord(String keyWord, Long limit, Long offset) {
+	public ArrayList<Person> findPersonByKeyWord(String keyWord, Long Id, Long limit, Long offset) {
 		Boolean isSucceed = false;
 
-		return findPersonByKeyWord("%"+keyWord+"%", limit, offset, isSucceed);
+		return findPersonByKeyWord(Id, "%" + keyWord + "%", limit, offset, isSucceed);
 	}
 
-	private ArrayList<Person> findPersonByKeyWord(String keyWord, Long limit, Long offset, Boolean isSucceed) {
+	private ArrayList<Person> findPersonByKeyWord(Long Id, String keyWord, Long limit, Long offset, Boolean isSucceed) {
 
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -96,8 +100,8 @@ public class DaoSearchImpl implements SearchDao {
 		try {
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					RequestRepository.getMysqlSelectPersonByKeyword(), false, keyWord, keyWord, keyWord, keyWord, keyWord, limit,
-					offset);
+					RequestRepository.getMysqlSelectPersonByKeyword(), false, keyWord, keyWord, keyWord, keyWord,
+					keyWord, limit, offset);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				isSucceed = true;
@@ -179,19 +183,19 @@ public class DaoSearchImpl implements SearchDao {
 		utilisateur.setCityName(result.getString("city_name"), false);
 		utilisateur.setCountryName(result.getString("country_name"), false);
 		utilisateur.setPostalCode(result.getString("postal_code"), false);
-		utilisateur.setLastConnexion(result.getInt("last_connection"));
+		utilisateur.setLastConnexion(result.getLong("last_connection"));
 		utilisateur.setFunction(result.getString("function"));
 		utilisateur.setAccountPicture(result.getString("account_picture"), false);
 		return utilisateur;
 	}
 
 	@Override
-	public Long countProductByKeyWord(String keyWord) {
+	public Long countProductByKeyWord(Long Id, String keyWord) {
 		Boolean isSucceed = false;
-		return countProductByKeyWord("%"+keyWord+"%", isSucceed);
+		return countProductByKeyWord(Id, "%" + keyWord + "%", isSucceed);
 	}
 
-	private Long countProductByKeyWord(String keyWord, Boolean isSucceed) {
+	private Long countProductByKeyWord(Long Id, String keyWord, Boolean isSucceed) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -199,7 +203,7 @@ public class DaoSearchImpl implements SearchDao {
 		try {
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					RequestRepository.getMysqlSelectCountProductByKeyword(), false, keyWord, keyWord);
+					RequestRepository.getMysqlSelectCountProductByKeyword(), false, Id, keyWord, keyWord, keyWord);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				isSucceed = true;
@@ -214,12 +218,12 @@ public class DaoSearchImpl implements SearchDao {
 	}
 
 	@Override
-	public Long countServiceByKeyWord(String keyWord) {
+	public Long countServiceByKeyWord(Long Id, String keyWord) {
 		Boolean isSucceed = false;
-		return countServiceByKeyWord("%"+keyWord+"%", isSucceed);
+		return countServiceByKeyWord(Id, "%" + keyWord + "%", isSucceed);
 	}
 
-	private Long countServiceByKeyWord(String keyWord, Boolean isSucceed) {
+	private Long countServiceByKeyWord(Long Id, String keyWord, Boolean isSucceed) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -227,7 +231,7 @@ public class DaoSearchImpl implements SearchDao {
 		try {
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					RequestRepository.getMysqlSelectCountServiceByKeyword(), false, keyWord, keyWord);
+					RequestRepository.getMysqlSelectCountServiceByKeyword(), false, Id, keyWord, keyWord, keyWord);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				isSucceed = true;
@@ -242,12 +246,12 @@ public class DaoSearchImpl implements SearchDao {
 	}
 
 	@Override
-	public Long countPersonByKeyWord(String keyWord) {
+	public Long countPersonByKeyWord(Long Id, String keyWord) {
 		Boolean isSucceed = false;
-		return countPersonByKeyWord("%"+keyWord+"%", isSucceed);
+		return countPersonByKeyWord(Id, "%" + keyWord + "%", isSucceed);
 	}
 
-	private Long countPersonByKeyWord(String keyWord, Boolean isSucceed) {
+	private Long countPersonByKeyWord(Long Id, String keyWord, Boolean isSucceed) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -255,8 +259,8 @@ public class DaoSearchImpl implements SearchDao {
 		try {
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					RequestRepository.getMysqlSelectCountPersonByKeyword(), false, keyWord, keyWord, keyWord, keyWord,
-					keyWord);
+					RequestRepository.getMysqlSelectCountPersonByKeyword(), false, Id, keyWord, keyWord, keyWord,
+					keyWord, keyWord);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				isSucceed = true;

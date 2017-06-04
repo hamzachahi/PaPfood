@@ -16,9 +16,13 @@ public interface CommandeDao {
 
 	public Boolean removeToCommand(ArrayList<ElementCommand> listProducts, Boolean allornot, Long Id);
 
-	public Commande findCommandeParClient(Long id);
+	public ArrayList<Commande> findCommandeParClient(Long id, Long limit, Long offset);
 
 	public Commande findCommandeParId(Long id);
+
+	public Long countNbreCommandeByIdCustomer(Long Id);
+
+	public Long countAllCommande();
 
 	public ArrayList<Commande> findAllCommande(Long limit, Long offset);
 

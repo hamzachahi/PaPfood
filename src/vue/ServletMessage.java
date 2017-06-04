@@ -343,7 +343,7 @@ public class ServletMessage extends HttpServlet {
 			request.setAttribute("totalSendMessages", nbreSentMessage);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/message.jsp").forward(request, response);
 		} else {
-			response.sendRedirect(request.getContextPath() + "PaPfood/connexion");
+			response.sendRedirect(request.getContextPath() + "/connexion");
 		}
 	}
 }

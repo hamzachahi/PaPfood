@@ -9,11 +9,11 @@ public class RequestRepository {
 	private static final String OracleSQL_SE_TROUVER_TOTALEMENT_PAR_EMAIL = "SELECT * FROM person WHERE email = ?";
 
 	private static final String MySQL_SELECT_ALL = "SELECT * FROM ?";
-	private static final String MySQL_SELECT_ALL_PRODUCT = "SELECT * FROM product p Limit ? offset ?";
-	private static final String MySQL_SELECT_ALL_SERVICE = "SELECT * FROM service s Limit ? offset ?";
-	private static final String MySQL_SELECT_ALL_COMMANDE = "SELECT * FROM commande c Limit ? offset ?";
+	private static final String MySQL_SELECT_ALL_PRODUCT = "SELECT * FROM product p where id_provider != ? and statut=0 ORDER BY `add_date` DESC Limit ? offset ?";
+	private static final String MySQL_SELECT_ALL_SERVICE = "SELECT * FROM service s where id_provider != ? and statut=0 ORDER BY `add_date` DESC Limit ? offset ?";
+	private static final String MySQL_SELECT_ALL_COMMANDE = "SELECT * FROM commande c ORDER BY `date_ordering` DESC Limit ? offset ?";
 	private static final String MySQL_SELECT_ALL_INVOICE = "SELECT * FROM invoice i Limit ? offset ?";
-	private static final String MySQL_SELECT_ALL_PERSON = "SELECT * FROM person p";
+	private static final String MySQL_SELECT_ALL_PERSON = "SELECT * FROM person p ORDER BY `date_inscription` DESC Limit ? offset ?";
 
 	private static final String MySQL_SELECT_ALL_SERVICE_IMAGE_LINKS = "SELECT link FROM images_links_service WHERE id_service = ?";
 	private static final String MySQL_SELECT_ALL_PRODUCT_IMAGE_LINKS = "SELECT link FROM images_links_product WHERE id_product = ?";
@@ -21,15 +21,12 @@ public class RequestRepository {
 
 	private static final String OracleSQL_LAST_ELEMENT = "SELECT *  FROM person where id=(select Max(id) person ?)";
 
-	private static final String MySQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id = ?";
-	private static final String OracleSQL_SELECT_ALL_IMPORTANT = "SELECT ?,?,?,? FROM ? WHERE Id = ?";
-
-	private static final String MySQL_SELECT_PRODUCT_BY_KEYWORD = "SELECT * FROM product WHERE name LIKE ? or description like ? limit ? offset ?";
-	private static final String MySQL_SELECT_SERVICE_BY_KEYWORD = "SELECT * FROM service WHERE name LIKE ? or description like ? limit ? offset ?";
+	private static final String MySQL_SELECT_PRODUCT_BY_KEYWORD = "SELECT * FROM product WHERE id_provider != ? and statut=0 and (name LIKE ? or description like ? or city_name like ?) ORDER BY `add_date` DESC limit ? offset ?";
+	private static final String MySQL_SELECT_SERVICE_BY_KEYWORD = "SELECT * FROM service WHERE id_provider != ? and statut=0 and (name LIKE ? or description like ? or city_name like ?) ORDER BY `add_date` DESC limit ? offset ?";
 	private static final String MySQL_SELECT_PERSON_BY_KEYWORD = "SELECT * FROM person WHERE name LIKE ? or second_name like ? or surname like ? or second_surname like ? or profession like ? limit ? offset ?";
-	private static final String MySQL_SELECT_COUNT_PRODUCT_BY_KEYWORD = "SELECT count(distinct(id)) as nb FROM papfood.product p where name like ? or description like ?";
-	private static final String MySQL_SELECT_COUNT_SERVICE_BY_KEYWORD = "SELECT count(distinct(id)) as nb FROM papfood.service p where name like ? or description like ?";
-	private static final String MySQL_SELECT_COUNT_PERSON_BY_KEYWORD = "SELECT count(distinct(id)) as nb FROM papfood.person p where name like ? or second_name like ? or surname like ? or second_surname like ? or profession like ?";
+	private static final String MySQL_SELECT_COUNT_PRODUCT_BY_KEYWORD = "SELECT count(distinct(id)) as nb FROM papfood.product p where id_provider != ? and statut=0 and (name like ? or description like ? or city_name like ?)";
+	private static final String MySQL_SELECT_COUNT_SERVICE_BY_KEYWORD = "SELECT count(distinct(id)) as nb FROM papfood.service p where id_provider != ? and statut=0 and (name like ? or description like ? or city_name like ?)";
+	private static final String MySQL_SELECT_COUNT_PERSON_BY_KEYWORD = "SELECT count(distinct(id)) as nb FROM papfood.person p where id != ? and (name like ? or second_name like ? or surname like ? or second_surname like ? or profession like ?)";
 
 	private static final String MySQL_SELECT_PRODUCT_BY_ID = "SELECT * FROM product p WHERE Id = ?";
 	private static final String MySQL_SELECT_SERVICE_BY_ID = "SELECT * FROM service s WHERE Id = ?";
@@ -37,15 +34,16 @@ public class RequestRepository {
 	private static final String MySQL_SELECT_POST_BY_ID = "SELECT * from posts p WHERE Id = ?";
 	private static final String MySQL_SELECT_COMMENT_BY_ID = "SELECT * FROM comments c WHERE Id = ?";
 	private static final String MySQL_SELECT_MESSAGE_BY_ID = "SELECT * FROM message m WHERE Id = ?";
+	private static final String MySQL_SELECT_CONNEXION_BY_ID = "SELECT * FROM connection c WHERE Id = ?";
 
-	private static final String MySQL_SELECT_PRODUCT_BY_ID_PROVIDER = "SELECT * FROM product p WHERE id_provider = ? limit ? offset ?";
-	private static final String MySQL_SELECT_SERVICE_BY_ID_PROVIDER = "SELECT * FROM service s WHERE id_provider = ? limit ? offset ?";
-	private static final String MySQL_SELECT_MY_EVALUATION_BY_ID_PERSON = "SELECT * FROM evaluation e WHERE id_person = ? limit ? offset ?";
-	private static final String MySQL_SELECT_POSTS_BY_ID_AUTHOR = "SELECT * FROM posts p WHERE id_author = ? limit ? offset ?";
+	private static final String MySQL_SELECT_PRODUCT_BY_ID_PROVIDER = "SELECT * FROM product p WHERE id_provider = ? ORDER BY `add_date` DESC limit ? offset ?";
+	private static final String MySQL_SELECT_SERVICE_BY_ID_PROVIDER = "SELECT * FROM service s WHERE id_provider = ? ORDER BY `add_date` DESC limit ? offset ?";
+	private static final String MySQL_SELECT_MY_EVALUATION_BY_ID_PERSON = "SELECT * FROM evaluation e WHERE id_person = ? ORDER BY `date_posted` DESC limit ? offset ?";
+	private static final String MySQL_SELECT_POSTS_BY_ID_AUTHOR = "SELECT * FROM posts p WHERE id_author = ? ORDER BY `date_posted` DESC limit ? offset ?";
 
-	private static final String MySQL_SELECT_MY_SEND_MESSAGE = "SELECT * FROM message m WHERE id_sender = ? limit ? offset ?";
-	private static final String MySQL_SELECT_MY_MESSAGE = "SELECT * FROM message m WHERE id_receiver = ? and read_date is not null limit ? offset ?";
-	private static final String MySQL_SELECT_MY_UNREAD_MESSAGE = "SELECT * FROM message m WHERE read_date is null and id_receiver= ? and id_sender != ? limit ? offset ?";
+	private static final String MySQL_SELECT_MY_SEND_MESSAGE = "SELECT * FROM message m WHERE id_sender = ? ORDER BY `sent_date` DESC limit ? offset ?";
+	private static final String MySQL_SELECT_MY_MESSAGE = "SELECT * FROM message m WHERE id_receiver = ? and read_date is not null ORDER BY `read_date` DESC limit ? offset ?";
+	private static final String MySQL_SELECT_MY_UNREAD_MESSAGE = "SELECT * FROM message m WHERE read_date is null and id_receiver= ? and id_sender != ? ORDER BY `receive_date` DESC limit ? offset ?";
 
 	private static final String MySQL_SELECT_COMMENT_PRODUCT = "SELECT id_comment FROM comments_product cp WHERE id_product = ? limit ? offset ?";
 	private static final String MySQL_SELECT_COMMENT_SERVICE = "SELECT id_comment FROM comments_service cs WHERE id_service = ? limit ? offset ?";
@@ -55,6 +53,7 @@ public class RequestRepository {
 	private static final String MySQL_SELECT_COUNT_PRODUCT = "select count(id) as nb from product p";
 	private static final String MySQL_SELECT_COUNT_SERVICE = "select count(id) as nb from service s";
 
+	private static final String MySQL_SELECT_COUNT_COMMANDE_BY_ID_CUSTOMER = "select count(id) as nb from commande c WHERE id_customer = ?";
 	private static final String MySQL_SELECT_COUNT_PRODUCT_BY_ID_PROVIDER = "select count(id) as nb from product p WHERE id_provider = ?";
 	private static final String MySQL_SELECT_COUNT_SERVICE_BY_ID_PROVIDER = "select count(id) as nb from service s WHERE id_provider = ?";
 	private static final String MySQL_SELECT_COUNT_COMMENTS_BY_ID_SERVICE = "select count(id) as nb from comments_service cs WHERE id_service = ?";
@@ -78,8 +77,7 @@ public class RequestRepository {
 
 	private static final String MySQL_INSERT_COMMANDE = "INSERT INTO commande (code,id_customer,date_ordering) VALUES(?,?,NOW())";
 
-	private static final String MySQL_INSERT_CONNECTION = "INSERT INTO connexion (login_time, person_id, person_id_ip_address, person_type) VALUES (?, ?, ?, ?)";
-	private static final String OracleSQL_INSERT_CONNECTION = "INSERT INTO connexion (login_time, person_id, person_id_ip_address, person_type) VALUES (?, ?, ?, ?)";
+	private static final String MySQL_INSERT_CONNECTION = "INSERT INTO connection (login_time, person_id, person_id_ip_address, person_type) VALUES (NOW(), ?, ?, ?)";
 
 	private static final String MySQL_INSERT_PRODUCT = "INSERT INTO product (code, name, description, price, main_image, id_provider, street_number, street_name, city_name, postal_code, departement, country, latlng) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -125,7 +123,7 @@ public class RequestRepository {
 
 	// fin insert
 	// début update
-	private static final String MySQL_UPDATE_PERSON = "UPDATE person SET name = ?, second_name=?, surname=?, second_surname=?, profession=?, email=?, phone_number=?, tel_number=?, facebook_id=?, twitter_id=?, instagram_id=?, linkedin_id=?, account_picture=?, street_number=?, street_name=?, city_name=?, country_name=?, postal_code=?, function=?, departement=?, latlng=?  WHERE ID = ?";
+	private static final String MySQL_UPDATE_PERSON = "UPDATE person SET name = ?, second_name=?, surname=?, second_surname=?, profession=?, email=?, phone_number=?, tel_number=?, facebook_id=?, twitter_id=?, instagram_id=?, linkedin_id=?, account_picture=?, street_number=?, street_name=?, city_name=?, country_name=?, postal_code=?, function=?, departement=?, latlng=?, last_connection= ?  WHERE ID = ?";
 
 	private static final String MySQL_UPDATE_COMMANDE = "UPDATE commande SET code=?, id_customer = ?, date_ordering=?, date_livraison=? WHERE ID = ?";
 
@@ -143,8 +141,7 @@ public class RequestRepository {
 	private static final String MySQL_UPDATE_SERVICE_COMPONENT = "UPDATE service_component SET id_service = ?, id_component=? WHERE id_service = ? and id_component = ?";
 	private static final String OracleSQL_UPDATE_SERVICE_COMPONENT = "UPDATE service_component SET id_service = ?, id_component=? WHERE id_service = ? and id_component = ?";
 
-	private static final String MySQL_UPDATE_CONNECTION = "UPDATE connection SET logout_time = ? WHERE ID = ?";
-	private static final String OracleSQL_UPDATE_CONNECTION = "UPDATE connection SET logout_time = ? WHERE ID = ?";
+	private static final String MySQL_UPDATE_CONNECTION = "UPDATE connection SET logout_time = NOW() WHERE ID = ?";
 
 	private static final String MySQL_UPDATE_PRODUCT = "UPDATE product SET code = ?, name=?, description=?, price=?, main_image=?, id_provider= ?, street_number=?, street_name=?, city_name=?, postal_code=?, departement=?, country=?, latlng=?  WHERE ID = ?";
 
@@ -170,6 +167,8 @@ public class RequestRepository {
 
 	private static final String MySQL_UPDATE_MESSAGE_RECEIVE_DATE = "UPDATE message set receive_date=NOW() WHERE ID = ?";
 	private static final String MySQL_UPDATE_MESSAGE_READ_DATE = "UPDATE message set read_date=NOW() WHERE ID = ?";
+	private static final String MySQL_UPDATE_PRODUCT_STATUT = "UPDATE product p set statut = ? WHERE ID = ?";
+	private static final String MySQL_UPDATE_SERVICE_STATUT = "UPDATE service s set statut = ? WHERE ID = ?";
 
 	private static final String OracleSQL_UPDATE_COMMANDE_STATE = "UPDATE commande SET state=1 WHERE ID= ?";
 	private static final String OracleSQL_UPDATE_COMMENTS = "UPDATE comments SET content = ?, date_posted = NOW() WHERE ID= ?";
@@ -235,7 +234,7 @@ public class RequestRepository {
 
 	private static final String MySQL_SELECT_FROM_COMMANDE_SERVICE = "SELECT * from commande_service where id_commande = ?";
 	private static final String MySQL_SELECT_FROM_COMMANDE_PRODUCT = " SELECT * from commande_product where id_commande = ?";
-	private static final String MySQL_SELECT_FROM_COMMANDE_BY_CUSTOMER = "SELECT * from commande WHERE id_customer = ?";
+	private static final String MySQL_SELECT_FROM_COMMANDE_BY_CUSTOMER = "SELECT * from commande WHERE id_customer = ? ORDER BY `date_ordering` DESC limit ? offset ?";
 	private static final String MySQL_SELECT_FROM_COMMANDE_BY_ID = "SELECT * from commande WHERE id = ?";
 	private static final String OracleSQL_SELECT_FROM_PRODUCT_SERVICE = "SELECT * from product_service where id_product = ?";
 	private static final String OracleSQL_SELECT_FROM_SERVICE_COMPONENT = "SELECT * from service_component where id_service = ?";
@@ -260,14 +259,6 @@ public class RequestRepository {
 		return MySQL_SELECT_ALL;
 	}
 
-	public static String getMysqlSelectAllImportant() {
-		return MySQL_SELECT_ALL_IMPORTANT;
-	}
-
-	public static String getOraclesqlSelectAllImportant() {
-		return OracleSQL_SELECT_ALL_IMPORTANT;
-	}
-
 	public static String getMysqlInsertPerson() {
 		return MySQL_INSERT_PERSON;
 	}
@@ -286,10 +277,6 @@ public class RequestRepository {
 
 	public static String getMysqlInsertConnection() {
 		return MySQL_INSERT_CONNECTION;
-	}
-
-	public static String getOraclesqlInsertConnection() {
-		return OracleSQL_INSERT_CONNECTION;
 	}
 
 	public static String getMysqlInsertProduct() {
@@ -418,10 +405,6 @@ public class RequestRepository {
 
 	public static String getMysqlUpdateConnection() {
 		return MySQL_UPDATE_CONNECTION;
-	}
-
-	public static String getOraclesqlUpdateConnection() {
-		return OracleSQL_UPDATE_CONNECTION;
 	}
 
 	public static String getMysqlUpdateProduct() {
@@ -925,4 +908,19 @@ public class RequestRepository {
 		return MySQL_SELECT_COUNT_SENT_MESSAGE_BY_ID_SENDER;
 	}
 
+	public static String getMysqlSelectCountCommandeByIdCustomer() {
+		return MySQL_SELECT_COUNT_COMMANDE_BY_ID_CUSTOMER;
+	}
+
+	public static String getMysqlSelectConnexionById() {
+		return MySQL_SELECT_CONNEXION_BY_ID;
+	}
+
+	public static String getMysqlUpdateProductStatut() {
+		return MySQL_UPDATE_PRODUCT_STATUT;
+	}
+
+	public static String getMysqlUpdateServiceStatut() {
+		return MySQL_UPDATE_SERVICE_STATUT;
+	}
 }

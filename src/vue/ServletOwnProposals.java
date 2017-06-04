@@ -59,6 +59,7 @@ public class ServletOwnProposals extends HttpServlet {
 
 					String message = "";
 					String pagination = "";
+					total = null;
 					total = serviceDao.countElementsByIdProvider(person.getId());
 					total = total + productDao.countElementsByIdProvider(person.getId());
 
@@ -82,11 +83,60 @@ public class ServletOwnProposals extends HttpServlet {
 					request.setAttribute("total", total);
 					request.setAttribute("listSalables", allMyOwnSalables);
 					request.setAttribute("message", message);
+					session.setAttribute("propbegin", begin);
+					session.setAttribute("propend", end);
 				}
+
+			} else if (request.getParameter("statut") != null) {
+				begin = (long) session.getAttribute("propbegin");
+				end = (long) session.getAttribute("propend");
+				Integer statut = Integer.parseInt(request.getParameter("statut"));
+				Long cible = Long.parseLong(request.getParameter("cible"));
+				String type = request.getParameter("type");
+				Integer newStatut;
+				if (statut == 0) {
+					newStatut = 1;
+				} else {
+					newStatut = 0;
+				}
+				if (type.equals("Service")) {
+					serviceDao.changeStatut(cible, newStatut);
+				} else {
+					productDao.changeStatut(cible, newStatut);
+				}
+				String message = "";
+				String pagination = "";
+				total = null;
+				total = serviceDao.countElementsByIdProvider(person.getId());
+				total = total + productDao.countElementsByIdProvider(person.getId());
+
+				if (total <= 0 || total == null) {
+					message = "Aucun sous-éléments à afficher!!";
+				} else {
+					allMyOwnSalables = new ArrayList<>();
+					message = "Liste des éléments trouvés";
+					allMyOwnSalables.addAll(serviceDao.findAllServiceByIdProvider(person.getId(), end, begin));
+					allMyOwnSalables.addAll(productDao.findAllProductByIdProvider(person.getId(), end, begin));
+
+					request.setAttribute("listSalables", allMyOwnSalables);
+					request.setAttribute("total", total);
+					request.setAttribute("message", message);
+				}
+				System.out.println("Nombre d'utilisateurs dans la base : " + total);
+				pagination = Paginateur.pagine(total, allMyOwnSalables, request, "mespropositions");
+				System.out.println("Pagination effectuée!");
+				request.setAttribute("pagination", pagination);
+				System.out.println("Pagination settée!");
+				request.setAttribute("total", total);
+				request.setAttribute("listSalables", allMyOwnSalables);
+				request.setAttribute("message", message);
+				session.setAttribute("propbegin", begin);
+				session.setAttribute("propend", end);
 
 			} else {
 				if (allMyOwnSalables == null) {
 					allMyOwnSalables = new ArrayList<>();
+					total = null;
 					total = serviceDao.countElementsByIdProvider(person.getId());
 					total = total + productDao.countElementsByIdProvider(person.getId());
 					allMyOwnSalables.addAll(serviceDao.findAllServiceByIdProvider(person.getId(), (long) 10, (long) 0));
@@ -97,12 +147,16 @@ public class ServletOwnProposals extends HttpServlet {
 					request.setAttribute("pagination", pagination);
 				} else {
 					request.setAttribute("listSalables", allMyOwnSalables);
+					total = null;
 					total = serviceDao.countElementsByIdProvider(person.getId());
 					total = total + productDao.countElementsByIdProvider(person.getId());
 					request.setAttribute("total", total);
 					pagination = Paginateur.pagine(total, allMyOwnSalables, request, "mespropositions");
 					request.setAttribute("pagination", pagination);
 				}
+				session.setAttribute("propbegin", (long) 0);
+				session.setAttribute("propend", (long) 10);
+
 			}
 			this.getServletContext().getRequestDispatcher("/WEB-INF/myProposals.jsp").forward(request, response);
 		} else {

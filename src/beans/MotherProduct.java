@@ -22,6 +22,7 @@ public abstract class MotherProduct {
 	private String Departement;
 	private String Country;
 	private String latLng;
+	private int statut;
 
 	public Long getId() {
 		return Id;
@@ -167,13 +168,23 @@ public abstract class MotherProduct {
 		this.latLng = latLng;
 	}
 
+	public int getStatut() {
+		return statut;
+	}
+
+	public void setStatut(int statut) {
+		this.statut = statut;
+	}
+
 	@Override
 	public String toString() {
 		return "MotherProduct [Id=" + Id + ", Code=" + Code + ", Name=" + Name + ", Description=" + Description
 				+ ", Price=" + Price + ", mainImage=" + mainImage + ", listImage=" + listImage + ", listSubProduct="
 				+ listSubProduct + ", Comments=" + Comments + ", idProvider=" + idProvider + ", addDate=" + addDate
 				+ ", streetNumber=" + streetNumber + ", StreetName=" + StreetName + ", City=" + City + ", postalCode="
-				+ postalCode + ", Departement=" + Departement + ", Country=" + Country + ", latLng=" + latLng + "]";
+				+ postalCode + ", Departement=" + Departement + ", Country=" + Country + ", latLng=" + latLng
+				+ ", statut=" + statut + "]";
 	}
 
+	
 }

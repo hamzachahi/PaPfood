@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import beans.ElementCommand;
 import beans.Paginateur;
+import beans.Person;
 import beans.Salable;
 import dao.ProductDao;
 import dao.UsineDao;
@@ -33,24 +34,77 @@ public class ServletProductsList extends HttpServlet {
 	public void init() throws ServletException {
 		this.productDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getProductDao();
 	}
+
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		if (request.getParameter("action") != null) {
-			String action = request.getParameter("action");
-			if (action.equals("afficherSousVendables")) {
-				begin = Long.parseLong(request.getParameter("begin"));
-				end = Long.parseLong(request.getParameter("end"));
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			Person person = (Person) session.getAttribute("sessionUtilisateur");
+			if (request.getParameter("action") != null) {
+				String action = request.getParameter("action");
+				if (action.equals("afficherSousVendables")) {
+					begin = Long.parseLong(request.getParameter("begin"));
+					end = Long.parseLong(request.getParameter("end"));
 
-				String message = "";
-				String pagination = "";
-				total = productDao.countElements();
-				if (total <= 0 || total == null) {
-					message = "Aucun sous-éléments à afficher!!";
-				} else {
-					message = "Liste des éléments trouvés";
-					tousLesProduits.addAll(productDao.findAllProduct(begin, end));
+					String message = "";
+					String pagination = "";
+					total = productDao.countElements(person.getId());
+					if (total <= 0 || total == null) {
+						message = "Aucun sous-éléments à afficher!!";
+					} else {
+						message = "Liste des éléments trouvés";
+						tousLesProduits.addAll(productDao.findAllProduct(person.getId(), begin, end));
+						for (int i = 0; i < elements.size(); i++) {
+							elements.remove(i);
+						}
+						for (int i = 0; i < tousLesProduits.size(); i++) {
+							ElementCommand elementCom = new ElementCommand();
+							elementCom.setmProduct(tousLesProduits.get(i));
+							elementCom.setQuantity(0);
+							elements.add(elementCom);
+						}
+						request.setAttribute("listProduits", tousLesProduits);
+						request.setAttribute("total", total);
+					}
+					System.out.println("Nombre d'utilisateurs dans la base : " + total);
+					pagination = Paginateur.pagine(total, tousLesProduits, request, "produits");
+					System.out.println("Pagination effectuée!");
+					request.setAttribute("pagination", pagination);
+					System.out.println("Pagination settée!");
+					request.setAttribute("total", total);
+					request.setAttribute("listProduits", tousLesProduits);
+					request.setAttribute("message", message);
+				}
+				if (action.equals("chargerPanier")) {
+					Double totalpanier = 0.0;
+					if (session.getAttribute("monPanier") != null) {
+						monPanier = ((ArrayList<ElementCommand>) session.getAttribute("monPanier"));
+					}
+					int i = Integer.parseInt(request.getParameter("idarticle"));
+					ElementCommand article = elements.get(i);
+					article.setQuantity(1);
+					monPanier.add(article);
+					monPanier2 = removeDoublons(monPanier);
+					session.setAttribute("nbrelementspanier", monPanier.size());
+					request.setAttribute("articlesPanier", monPanier2);
+					session.setAttribute("monPanier", monPanier2);
+
+					for (int i1 = 0; i1 < monPanier.size(); i1++) {
+						totalpanier += monPanier.get(i1).getmProduct().getPrice();
+					}
+					request.setAttribute("listProduits", tousLesProduits);
+					request.setAttribute("total", totalpanier);
+					session.setAttribute("tousLesProduits", elements);
+					pagination = Paginateur.pagine(total, tousLesProduits, request, "services");
+					request.setAttribute("pagination", pagination);
+				}
+
+			} else {
+				if (tousLesProduits == null) {
+					tousLesProduits = new ArrayList<>();
+					total = productDao.countElements(person.getId());
+					tousLesProduits.addAll(productDao.findAllProduct(person.getId(), (long) 10, (long) 0));
 					for (int i = 0; i < elements.size(); i++) {
 						elements.remove(i);
 					}
@@ -62,70 +116,22 @@ public class ServletProductsList extends HttpServlet {
 					}
 					request.setAttribute("listProduits", tousLesProduits);
 					request.setAttribute("total", total);
+					session.setAttribute("tousLesProduits", elements);
+					pagination = Paginateur.pagine(total, tousLesProduits, request, "produits");
+					request.setAttribute("pagination", pagination);
+				} else {
+					request.setAttribute("listProduits", tousLesProduits);
+					total = productDao.countElements(person.getId());
+					request.setAttribute("total", total);
+					pagination = Paginateur.pagine(total, tousLesProduits, request, "produits");
+					request.setAttribute("pagination", pagination);
 				}
-				System.out.println("Nombre d'utilisateurs dans la base : " + total);
-				pagination = Paginateur.pagine(total, tousLesProduits, request, "produits");
-				System.out.println("Pagination effectuée!");
-				request.setAttribute("pagination", pagination);
-				System.out.println("Pagination settée!");
-				request.setAttribute("total", total);
-				request.setAttribute("listProduits", tousLesProduits);
-				request.setAttribute("message", message);
 			}
-			if (action.equals("chargerPanier")) {
-				Double totalpanier = 0.0;
-				HttpSession session = request.getSession(false);
-				if (session.getAttribute("monPanier") != null) {
-					monPanier = ((ArrayList<ElementCommand>) session.getAttribute("monPanier"));
-				}
-				int i = Integer.parseInt(request.getParameter("idarticle"));
-				ElementCommand article = elements.get(i);
-				article.setQuantity(1);
-				monPanier.add(article);
-				monPanier2 = removeDoublons(monPanier);
-				session.setAttribute("nbrelementspanier", monPanier.size());
-				request.setAttribute("articlesPanier", monPanier2);
-				session.setAttribute("monPanier", monPanier2);
-
-				for (int i1 = 0; i1 < monPanier.size(); i1++) {
-					totalpanier += monPanier.get(i1).getmProduct().getPrice();
-				}
-				request.setAttribute("listProduits", tousLesProduits);
-				request.setAttribute("total", totalpanier);
-				session.setAttribute("tousLesProduits", elements);
-				pagination = Paginateur.pagine(total, tousLesProduits, request, "services");
-				request.setAttribute("pagination", pagination);
-			}
-
+			this.getServletContext().getRequestDispatcher("/WEB-INF/listProduits.jsp").forward(request, response);
 		} else {
-			if (tousLesProduits == null) {
-				tousLesProduits = new ArrayList<>();
-				HttpSession session = request.getSession();
-				total = productDao.countElements();
-				tousLesProduits.addAll(productDao.findAllProduct((long) 10, (long) 0));
-				for (int i = 0; i < elements.size(); i++) {
-					elements.remove(i);
-				}
-				for (int i = 0; i < tousLesProduits.size(); i++) {
-					ElementCommand elementCom = new ElementCommand();
-					elementCom.setmProduct(tousLesProduits.get(i));
-					elementCom.setQuantity(0);
-					elements.add(elementCom);
-				}
-				request.setAttribute("listProduits", tousLesProduits);
-				request.setAttribute("total", total);
-				session.setAttribute("tousLesProduits", elements);
-				pagination = Paginateur.pagine(total, tousLesProduits, request, "produits");
-				request.setAttribute("pagination", pagination);
-			} else {
-				request.setAttribute("listProduits", tousLesProduits);
-				total = productDao.countElements();
-				request.setAttribute("total", total);
-				pagination = Paginateur.pagine(total, tousLesProduits, request, "produits");
-				request.setAttribute("pagination", pagination);
-			}
+			response.sendRedirect(request.getContextPath() + "/connexion");
+
 		}
-		this.getServletContext().getRequestDispatcher("/WEB-INF/listProduits.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

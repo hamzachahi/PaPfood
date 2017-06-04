@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import beans.Evaluation;
 import beans.Paginateur;
 import beans.Person;
+import dao.ConnectionDao;
 import dao.EvaluationDao;
 import dao.MessageDao;
 import dao.PersonDao;
@@ -26,6 +27,7 @@ public class ServletCompte extends HttpServlet {
 	private MessageDao messageDao;
 	private EvaluationDao evaluationDao;
 	private PostDao postDao;
+	private ConnectionDao connexionDao;
 	public static final String CONF_DAO_FACTORY = "usinedao";
 
 	public void init() throws ServletException {
@@ -33,6 +35,7 @@ public class ServletCompte extends HttpServlet {
 		this.messageDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getMessageDao();
 		this.postDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getPostDao();
 		this.evaluationDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getEvaluationDao();
+		this.connexionDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getConnectiontionDao();
 
 	}
 
@@ -100,6 +103,10 @@ public class ServletCompte extends HttpServlet {
 							evaluationDao.selectMoyenneEvaluationByIdPerson(owner.getId()));
 					messageDao.sendMessage(utilisateur.getId(), owner.getId(), content);
 					request.setAttribute("numberpost", postDao.selectNbrePostsByIdAuthor(owner.getId()));
+					request.setAttribute("lastconnexion",
+							connexionDao
+									.getConnexionById(personDao.trouverParId(owner.getId(), false).getLastConnexion())
+									.getLoginTime());
 					totalEval = evaluationDao.selectNbreEvaluationByIdPerson(owner.getId());
 					request.setAttribute("nbrenotes", totalEval);
 					request.setAttribute("totalEval", totalEval);
@@ -158,6 +165,10 @@ public class ServletCompte extends HttpServlet {
 					request.setAttribute("nbrenotes", totalEval);
 					request.setAttribute("totalEval", totalEval);
 					request.setAttribute("owner", owner);
+					request.setAttribute("lastconnexion",
+							connexionDao
+									.getConnexionById(personDao.trouverParId(owner.getId(), false).getLastConnexion())
+									.getLoginTime());
 					listEvaluations = evaluationDao.getMyEvaluation(owner.getId(), (long) 10, (long) 0);
 					for (int i = 0; i < listEvaluations.size(); i++) {
 						listEvaluations.get(i)
@@ -211,6 +222,10 @@ public class ServletCompte extends HttpServlet {
 					request.setAttribute("nbrenotes", totalEval);
 					request.setAttribute("totalEval", totalEval);
 					request.setAttribute("owner", owner);
+					request.setAttribute("lastconnexion",
+							connexionDao
+									.getConnexionById(personDao.trouverParId(owner.getId(), false).getLastConnexion())
+									.getLoginTime());
 					listEvaluations = evaluationDao.getMyEvaluation(owner.getId(), (long) 10, (long) 0);
 					for (int i = 0; i < listEvaluations.size(); i++) {
 						listEvaluations.get(i)
@@ -261,6 +276,10 @@ public class ServletCompte extends HttpServlet {
 					request.setAttribute("moyennenotes",
 							evaluationDao.selectMoyenneEvaluationByIdPerson(owner.getId()));
 					totalEval = evaluationDao.selectNbreEvaluationByIdPerson(owner.getId());
+					request.setAttribute("lastconnexion",
+							connexionDao
+									.getConnexionById(personDao.trouverParId(owner.getId(), false).getLastConnexion())
+									.getLoginTime());
 					request.setAttribute("nbrenotes", totalEval);
 					request.setAttribute("totalEval", totalEval);
 					request.setAttribute("owner", owner);
@@ -313,6 +332,10 @@ public class ServletCompte extends HttpServlet {
 					session.setAttribute("finalf", 1);
 					session.setAttribute("startf", startf - (Integer) 1);
 					request.setAttribute("owner", owner);
+					request.setAttribute("lastconnexion",
+							connexionDao
+									.getConnexionById(personDao.trouverParId(owner.getId(), false).getLastConnexion())
+									.getLoginTime());
 					request.setAttribute("numberpost", postDao.selectNbrePostsByIdAuthor(owner.getId()));
 					totalEval = evaluationDao.selectNbreEvaluationByIdPerson(owner.getId());
 					request.setAttribute("totalEval", totalEval);
@@ -362,6 +385,10 @@ public class ServletCompte extends HttpServlet {
 					session.setAttribute("finalf", 1);
 					session.setAttribute("startf", startf + (Integer) 1);
 					request.setAttribute("owner", owner);
+					request.setAttribute("lastconnexion",
+							connexionDao
+									.getConnexionById(personDao.trouverParId(owner.getId(), false).getLastConnexion())
+									.getLoginTime());
 					request.setAttribute("numberpost", postDao.selectNbrePostsByIdAuthor(owner.getId()));
 					totalEval = evaluationDao.selectNbreEvaluationByIdPerson(owner.getId());
 					request.setAttribute("totalEval", totalEval);
@@ -397,6 +424,10 @@ public class ServletCompte extends HttpServlet {
 					request.setAttribute("postReal", postDao.selectPostsByIdAuthor(owner.getId(), 1, 0));
 					request.setAttribute("moyennenotes",
 							evaluationDao.selectMoyenneEvaluationByIdPerson(owner.getId()));
+					request.setAttribute("lastconnexion",
+							connexionDao
+									.getConnexionById(personDao.trouverParId(owner.getId(), false).getLastConnexion())
+									.getLoginTime());
 					request.setAttribute("owner", owner);
 					totalEval = evaluationDao.selectNbreEvaluationByIdPerson(owner.getId());
 					request.setAttribute("totalEval", totalEval);
@@ -428,6 +459,11 @@ public class ServletCompte extends HttpServlet {
 					session.setAttribute("ownerid", utilisateur.getId());
 					request.setAttribute("postReal", postDao.selectPostsByIdAuthor(utilisateur.getId(), 1, 0));
 					request.setAttribute("numberpost", postDao.selectNbrePostsByIdAuthor(utilisateur.getId()));
+					request.setAttribute("lastconnexion",
+							connexionDao
+									.getConnexionById(
+											personDao.trouverParId(utilisateur.getId(), false).getLastConnexion())
+									.getLoginTime());
 					request.setAttribute("moyennenotes",
 							evaluationDao.selectMoyenneEvaluationByIdPerson(utilisateur.getId()));
 					totalEval = evaluationDao.selectNbreEvaluationByIdPerson(utilisateur.getId());

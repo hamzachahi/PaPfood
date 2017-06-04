@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,8 +7,8 @@
 <title>Liste des services</title>
 </head>
 <body class="home1">
-<%@include file="header.jsp"%>
-<!-- Menu title -->
+	<%@include file="header.jsp"%>
+	<!-- Menu title -->
 	<section id="page-title-area">
 	<div class="container">
 		<div class="row">
@@ -27,15 +27,15 @@
 				<div class="page-inner padding-top-xlg">
 					<div class="row">
 						<!-- Single Room -->
-						<c:set var="total" value="0" />
 						<c:set var="i" value="0" />
 						<c:forEach var="article" items="${requestScope['listProduits']}">
 							<div
 								class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding-bottom-md">
 								<div class="rooms-container">
 									<div class="rooms-image">
-										<img src="<c:if test="${not empty article.mainImage}"><c:out value="${article.mainImage}"/></c:if><c:if test="${empty article.mainImage}">assets/img/menu-details.png</c:if>"
-									alt="">
+										<img
+											src="<c:if test="${not empty article.mainImage}"><c:out value="${article.mainImage}"/></c:if><c:if test="${empty article.mainImage}">assets/img/menu-details.png</c:if>"
+											alt="">
 									</div>
 									<div class="rooms-footer">
 										<div class="price-area">
@@ -54,9 +54,16 @@
 									</div>
 								</div>
 							</div>
-							<c:set var="total" value="${total+1}" />
 							<c:set var="i" value="${i+1}" />
 						</c:forEach>
+						<div>
+							<div>
+								<b>TOTAL</b>
+							</div>
+							<div>
+								<b>${requestScope['total']}</b>
+							</div>
+						</div>
 						<!-- end single rooms -->
 						<!-- end single rooms -->
 						<div class="product-pagination">
@@ -71,6 +78,6 @@
 		</div>
 	</div>
 	</section>
-<%@include file="footer.jsp"%>
+	<%@include file="footer.jsp"%>
 </body>
 </html>

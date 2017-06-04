@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import beans.Commande;
 import beans.ElementCommand;
 import beans.Product;
@@ -18,15 +17,15 @@ import beans.Service;
 
 public class DaoCommandeImpl implements CommandeDao {
 	private UsineDao daoFactory;
-	private DaoPersonImpl persImpl;
-	private DaoServiceImpl servImpl;
-	private DaoProductImpl prodImpl;
+	private PersonDao persImpl;
+	private ServiceDao servImpl;
+	private ProductDao prodImpl;
 
 	public DaoCommandeImpl(UsineDao daoFactory) {
 		this.daoFactory = daoFactory;
-		this.persImpl = new DaoPersonImpl(daoFactory);
-		this.servImpl = new DaoServiceImpl(daoFactory);
-		this.prodImpl = new DaoProductImpl(daoFactory);
+		this.persImpl = daoFactory.getUtilisateurDao();
+		this.servImpl = daoFactory.getServiceDao();
+		this.prodImpl = daoFactory.getProductDao();
 
 	}
 
@@ -87,15 +86,9 @@ public class DaoCommandeImpl implements CommandeDao {
 		Connection connexion = null;
 		Statement Statement = null;
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			Statement = connexion.createStatement();
 			int statut = Statement.executeUpdate(RequestRepository.getMysqlUpdateCommande());
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
 				isSucceed = true;
 				addToCommand(commande.getToAddElements(), isSucceed, commande.getId());
@@ -156,12 +149,7 @@ public class DaoCommandeImpl implements CommandeDao {
 		Connection connexion = null;
 		PreparedStatement Statement = null;
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			for (Iterator<ElementCommand> iterator = listProducts.iterator(); iterator.hasNext();) {
 				ElementCommand elementCommand = (ElementCommand) iterator.next();
 				if (elementCommand.getmProduct().getType().equals("Service")) {
@@ -169,10 +157,6 @@ public class DaoCommandeImpl implements CommandeDao {
 							RequestRepository.getMysqlInsertCommandeService(), false, Id,
 							elementCommand.getmProduct().getId(), elementCommand.getQuantity());
 					int statut = Statement.executeUpdate();
-					/*
-					 * Parcours de la ligne de données retournée dans le
-					 * ResultSet
-					 */
 					if (statut != 0) {
 						isSucceed = true;
 					} else {
@@ -185,10 +169,6 @@ public class DaoCommandeImpl implements CommandeDao {
 							RequestRepository.getMysqlInsertCommandeProduct(), false, Id,
 							elementCommand.getmProduct().getId(), elementCommand.getQuantity());
 					int statut = Statement.executeUpdate();
-					/*
-					 * Parcours de la ligne de données retournée dans le
-					 * ResultSet
-					 */
 					if (statut != 0) {
 						isSucceed = true;
 					} else {
@@ -222,12 +202,7 @@ public class DaoCommandeImpl implements CommandeDao {
 		Connection connexion = null;
 		PreparedStatement Statement = null;
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			if (allornot == true) {
 
 			} else {
@@ -238,10 +213,6 @@ public class DaoCommandeImpl implements CommandeDao {
 								RequestRepository.getMysqlDeleteCommandeService(), false, Id,
 								elementCommand.getmProduct().getId());
 						int statut = Statement.executeUpdate();
-						/*
-						 * Parcours de la ligne de données retournée dans le
-						 * ResultSet
-						 */
 						if (statut != 0) {
 							isSucceed = true;
 						} else {
@@ -255,10 +226,6 @@ public class DaoCommandeImpl implements CommandeDao {
 								RequestRepository.getMysqlDeleteCommandeProduct(), false, Id,
 								elementCommand.getmProduct().getId());
 						int statut = Statement.executeUpdate();
-						/*
-						 * Parcours de la ligne de données retournée dans le
-						 * ResultSet
-						 */
 						if (statut != 0) {
 							isSucceed = true;
 						} else {
@@ -285,61 +252,40 @@ public class DaoCommandeImpl implements CommandeDao {
 		Commande commande = new Commande();
 		commande.setId(result.getLong("id"));
 		commande.setCode(result.getString("code"));
-		commande.getCustomer().setId(result.getLong("id_customer"), true);
+		commande.setCustomer(persImpl.trouverParId(result.getLong("id_customer"), false));
 		commande.setDateLivraison(result.getDate("date_delivered"));
 		commande.setDateCommande(result.getDate("date_ordering"));
 		commande.setState(result.getInt("state"));
-		//commande.setAdresseFacturation(result.getString("billing_address"));
-		//commande.setAdresseExpedition(result.getString("shipping_address"));
 		listCommandeProduct = this.findCommande_ProductParId(RequestRepository.getMysqlSelectFromCommandeProduct(),
 				false, result.getLong("id"));
 		listCommandeService = this.findCommande_ServiceParId(RequestRepository.getMysqlSelectFromCommandeService(),
 				false, result.getLong("id"));
-		for (int i = 0; i < listCommandeProduct.size(); i++) {
-
-			ElementCommand long1 = listCommandeProduct.get(i);
-			commande.getElements().add(long1);
-			commande.getElements().get(i).setmProduct(prodImpl.findProductById(long1.getmProduct().getId()));
-		}
-
-		for (int i = 0; i < listCommandeService.size(); i++) {
-
-			ElementCommand long1 = listCommandeProduct.get(i);
-
-			commande.getElements().add(long1);
-			commande.getElements().get(i).setmProduct(servImpl.findServiceById(long1.getmProduct().getId()));
-		}
-		commande.setCustomer(persImpl.trouverParId(result.getLong("id"), false));
+		commande.setElements(listCommandeProduct);
+		commande.getElements().addAll(listCommandeService);
 		return commande;
 	}
 
 	@Override
-	public Commande findCommandeParClient(Long id) {
+	public ArrayList<Commande> findCommandeParClient(Long id, Long limit, Long offset) {
 		// TODO Auto-generated method stub
 		Boolean isSucceed = false;
-		return findCommandeParClient(RequestRepository.getMysqlSelectFromCommandeByCustomer(), isSucceed, id);
+		return findCommandeParClient(RequestRepository.getMysqlSelectFromCommandeByCustomer(), isSucceed, id, limit,
+				offset);
 	}
 
-	private Commande findCommandeParClient(String sql, Boolean isSucceed, Object... objets) {
-		// TODO Auto-generated method stub
+	private ArrayList<Commande> findCommandeParClient(String sql, Boolean isSucceed, Object... objets) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		Commande commande = null;
+		ArrayList<Commande> commande = new ArrayList<Commande>();
 
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			preparedStatement = initialisationRequetePreparee(connexion, sql, false, objets);
 			resultSet = preparedStatement.executeQuery();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
-			if (resultSet.next()) {
+			while (resultSet.next()) {
 				isSucceed = true;
-				commande = map(resultSet);
+				commande.add(map(resultSet));
 			}
 		} catch (SQLException e) {
 			throw new ExceptionDao(e);
@@ -353,7 +299,7 @@ public class DaoCommandeImpl implements CommandeDao {
 	public Commande findCommandeParId(Long id) {
 		// TODO Auto-generated method stub
 		Boolean isSucceed = false;
-		return findCommandeParId(RequestRepository.getMysqlSelectFromCommandeByCustomer(), isSucceed, id);
+		return findCommandeParId(RequestRepository.getMysqlSelectFromCommandeById(), isSucceed, id);
 	}
 
 	private Commande findCommandeParId(String sql, Boolean isSucceed, Object... objets) {
@@ -364,15 +310,9 @@ public class DaoCommandeImpl implements CommandeDao {
 		Commande commande = null;
 
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			preparedStatement = initialisationRequetePreparee(connexion, sql, false, objets);
 			resultSet = preparedStatement.executeQuery();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (resultSet.next()) {
 				isSucceed = true;
 				commande = map(resultSet);
@@ -400,15 +340,9 @@ public class DaoCommandeImpl implements CommandeDao {
 		ArrayList<Commande> commande = new ArrayList<>();
 
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			preparedStatement = initialisationRequetePreparee(connexion, sql, false, objets);
 			resultSet = preparedStatement.executeQuery();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			while (resultSet.next()) {
 				isSucceed = true;
 				commande.add(map(resultSet));
@@ -429,20 +363,17 @@ public class DaoCommandeImpl implements CommandeDao {
 		ArrayList<ElementCommand> commandeProduct = new ArrayList<>();
 
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			preparedStatement = initialisationRequetePreparee(connexion, sql, false, objets);
 			resultSet = preparedStatement.executeQuery();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			int i = 0;
 			while (resultSet.next()) {
 				isSucceed = true;
-				commandeProduct.get(i).getmProduct().setId((resultSet.getLong("id_product")), true);
-				commandeProduct.get(i).setQuantity(resultSet.getInt("quantity"));
+				ElementCommand el = new ElementCommand();
+				Product p = prodImpl.findProductById(resultSet.getLong("id_product"));
+				el.setmProduct(p);
+				el.setQuantity(resultSet.getInt("quantity"));
+				commandeProduct.add(el);
 				i = i + 1;
 			}
 		} catch (SQLException e) {
@@ -461,20 +392,17 @@ public class DaoCommandeImpl implements CommandeDao {
 		ArrayList<ElementCommand> commandeProduct = new ArrayList<>();
 
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			preparedStatement = initialisationRequetePreparee(connexion, sql, false, objets);
 			resultSet = preparedStatement.executeQuery();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			int i = 0;
 			while (resultSet.next()) {
 				isSucceed = true;
-				commandeProduct.get(i).getmProduct().setId((resultSet.getLong("id_service")), true);
-				commandeProduct.get(i).setQuantity(resultSet.getInt("quantity"));
+				ElementCommand el = new ElementCommand();
+				Service p = servImpl.findServiceById(resultSet.getLong("id_service"));
+				el.setmProduct(p);
+				el.setQuantity(resultSet.getInt("quantity"));
+				commandeProduct.add(el);
 				i = i + 1;
 			}
 		} catch (SQLException e) {
@@ -484,4 +412,63 @@ public class DaoCommandeImpl implements CommandeDao {
 		}
 		return commandeProduct;
 	}
+
+	@Override
+	public Long countNbreCommandeByIdCustomer(Long Id) {
+		// TODO Auto-generated method stub
+		Boolean isSucceed = false;
+		return countNbreCommandeByIdCustomer(Id, isSucceed);
+	}
+
+	private Long countNbreCommandeByIdCustomer(Long Id, Boolean isSucceed) {
+		// TODO Auto-generated method stub
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Long nbre = (long) 0;
+		try {
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					RequestRepository.getMysqlSelectCountCommandeByIdCustomer(), false, Id);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				isSucceed = true;
+				nbre = resultSet.getLong("nb");
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return nbre;
+	}
+
+	@Override
+	public Long countAllCommande() {
+		// TODO Auto-generated method stub
+		Boolean isSucceed = false;
+		return countAllCommande(isSucceed);
+	}
+
+	private Long countAllCommande(Boolean isSucceed) {
+		// TODO Auto-generated method stub
+		Connection connexion = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		Long nbre = (long) 0;
+		try {
+			connexion = daoFactory.getConnection();
+			statement = connexion.createStatement();
+			resultSet = statement.executeQuery("select count(id) as nb from commande m");
+			if (resultSet.next()) {
+				isSucceed = true;
+				nbre = resultSet.getLong("nb");
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, statement, connexion);
+		}
+		return nbre;
+	}	
 }

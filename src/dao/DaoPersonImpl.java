@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Map;
 import beans.Commande;
 import beans.Person;
-import beans.ResultConnexion;
 import config.UseMail;
 
 public class DaoPersonImpl implements PersonDao {
@@ -31,8 +30,6 @@ public class DaoPersonImpl implements PersonDao {
 	public Person trouverParId(Long id, boolean succeed) throws ExceptionDao {
 		return trouverParId(RequestRepository.getMysqlSeTrouverParId(), succeed, id);
 	}
-
-	/* Implémentation de la méthode définie dans l'interface UtilisateurDao */
 
 	@Override
 	public void creer(Person utilisateur) throws ExceptionDao {
@@ -70,11 +67,6 @@ public class DaoPersonImpl implements PersonDao {
 		}
 	}
 
-	/*
-	 * Méthode générique utilisée pour retourner un utilisateur depuis la base
-	 * de données, correspondant à la requête SQL donnée prenant en paramètres
-	 * les objets passés en argument.
-	 */
 	private Person trouver(String sql, boolean succeed, Object... objets) throws ExceptionDao {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -82,18 +74,11 @@ public class DaoPersonImpl implements PersonDao {
 		Person utilisateur = null;
 
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			System.out.println("Connexion récupérée!");
-
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			preparedStatement = initialisationRequetePreparee(connexion, sql, false, objets);
 			resultSet = preparedStatement.executeQuery();
 			System.out.println("Requête executée!");
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (resultSet.next()) {
 				succeed = true;
 				utilisateur = map(resultSet);
@@ -114,15 +99,9 @@ public class DaoPersonImpl implements PersonDao {
 		Person utilisateur = null;
 
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			preparedStatement = initialisationRequetePreparee(connexion, sql, false, objets);
 			resultSet = preparedStatement.executeQuery();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (resultSet.next()) {
 				succeed = true;
 				utilisateur = map(resultSet);
@@ -158,31 +137,23 @@ public class DaoPersonImpl implements PersonDao {
 		utilisateur.setCityName(resultSet.getString("city_name"), false);
 		utilisateur.setCountryName(resultSet.getString("country_name"), false);
 		utilisateur.setPostalCode(resultSet.getString("postal_code"), false);
-		utilisateur.setLastConnexion(resultSet.getInt("last_connection"));
+		utilisateur.setLastConnexion(resultSet.getLong("last_connection"));
 		utilisateur.setFunction(resultSet.getString("function"));
 		utilisateur.setAccountPicture(resultSet.getString("account_picture"), false);
 		return utilisateur;
 	}
 
-	/*@SuppressWarnings("static-access")
-	@Override
-	public ResultConnexion seConnecter(String Id, String Password) {
-		// TODO Auto-generated method stub
-		ResultConnexion result = null;
-		result.setConnection(null);
-		result.setSucceed(false);
-		try {
-			daoFactory.setUsername(Id);
-			daoFactory.setPassword(Password);
-			Connection connect = daoFactory.getConnection();
-			result.setConnection(connect);
-			result.setSucceed(true);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return result;
-	}*/
+	/*
+	 * @SuppressWarnings("static-access")
+	 * 
+	 * @Override public ResultConnexion seConnecter(String Id, String Password)
+	 * { // TODO Auto-generated method stub ResultConnexion result = null;
+	 * result.setConnection(null); result.setSucceed(false); try {
+	 * daoFactory.setUsername(Id); daoFactory.setPassword(Password); Connection
+	 * connect = daoFactory.getConnection(); result.setConnection(connect);
+	 * result.setSucceed(true); } catch (SQLException e) { // TODO
+	 * Auto-generated catch block e.printStackTrace(); } return result; }
+	 */
 
 	@Override
 	public Boolean acceptCommand(ArrayList<Commande> listCommand) {
@@ -203,15 +174,9 @@ public class DaoPersonImpl implements PersonDao {
 		Connection connexion = null;
 		Statement Statement = null;
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			Statement = connexion.createStatement();
 			int statut = Statement.executeUpdate(RequestRepository.getOraclesqlUpdateCommandeState());
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (statut != 0) {
 				isSucceed = true;
 			} else {
@@ -248,7 +213,7 @@ public class DaoPersonImpl implements PersonDao {
 					utilisateur.getAccountPicture(), utilisateur.getStreetNumber(), utilisateur.getStreetName(),
 					utilisateur.getCityName(), utilisateur.getCountryName(), utilisateur.getPostalCode(),
 					utilisateur.getFunction(), utilisateur.getDepartement(), utilisateur.getLatLng(),
-					utilisateur.getId());
+					utilisateur.getLastConnexion(), utilisateur.getId());
 			int statut = preparedStatement.executeUpdate();
 			if (statut == 0) {
 				throw new ExceptionDao(
@@ -318,16 +283,10 @@ public class DaoPersonImpl implements PersonDao {
 		ArrayList<String> listeDeconnexion = new ArrayList<String>();
 
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			Statement = connexion.createStatement();
 			resultSet = Statement.executeQuery(
 					"SELECT login_time, logout_time from connection where person_id=" + utilisateur.getId() + " ");
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			if (resultSet != null) {
 				while (resultSet.next()) {
 					isSucceed = true;
@@ -366,10 +325,10 @@ public class DaoPersonImpl implements PersonDao {
 	}
 
 	@Override
-	public ArrayList<Person> findAllUsers() {
+	public ArrayList<Person> findAllUsers(Long limit, Long offset) {
 
 		boolean isSucceed = false;
-		return findAllUsers(RequestRepository.getMysqlSelectAllPerson(), isSucceed);
+		return findAllUsers(RequestRepository.getMysqlSelectAllPerson(), isSucceed, limit, offset);
 
 	}
 
@@ -381,15 +340,9 @@ public class DaoPersonImpl implements PersonDao {
 		ArrayList<Person> utilisateurs = new ArrayList<>();
 
 		try {
-			/* Récupération d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			/*
-			 * Préparation de la requête avec les objets passés en arguments
-			 * (ici, uniquement une adresse email) et exécution.
-			 */
 			preparedStatement = initialisationRequetePreparee(connexion, sql, false, objets);
 			resultSet = preparedStatement.executeQuery();
-			/* Parcours de la ligne de données retournée dans le ResultSet */
 			while (resultSet.next()) {
 				isSucceed = true;
 				utilisateurs.add(map(resultSet));
@@ -403,9 +356,30 @@ public class DaoPersonImpl implements PersonDao {
 	}
 
 	@Override
-	public ResultConnexion seConnecter(String Id, String Password) {
+	public Long countAllUsers() {
 		// TODO Auto-generated method stub
-		return null;
+		Boolean isSucceed = false;
+		return countAllUsers(isSucceed);
 	}
 
+	private Long countAllUsers(Boolean isSucceed) {
+		Connection connexion = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		Long nbre = (long) 0;
+		try {
+			connexion = daoFactory.getConnection();
+			statement = connexion.createStatement();
+			resultSet = statement.executeQuery("select count(id) as nb from person p");
+			if (resultSet.next()) {
+				isSucceed = true;
+				nbre = resultSet.getLong("nb");
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, statement, connexion);
+		}
+		return nbre;
+	}
 }

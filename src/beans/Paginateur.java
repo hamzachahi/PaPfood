@@ -34,14 +34,15 @@ public class Paginateur {
 
 		} else {
 			listem = liste;
-			pagination = "<li class=\"preview hidden\"><a href=\"" + path
-					+ "?action=afficherSousVendables&begin=1&end=10&pagenum=1\" aria-label=\"Previous`\"><span aria-hidden=\"true\"><i class=\"fa fa-angle-left\" aria-hidden=\"true\"></i></span></a></li>";
+			pagination = "<li class=\"preview hidden\"><a href=\"" + path + "?action=afficherSousVendables&begin="
+					+ (total - 10)
+					+ "&end=10&pagenum=1\" aria-label=\"Previous`\"><span aria-hidden=\"true\"><i class=\"fa fa-angle-left\" aria-hidden=\"true\"></i></span></a></li>";
 			int i = 0;
 			int count = 0;
-			int start = 0;
+			int start = (int) (total - 10);
+			int origine = total.intValue();
 			int fin = 10;
 			Integer page = 1;
-			int finalStart = 0;
 			int lastpage = 1;
 			pagenum = request.getParameter("pagenum");
 			while (i <= total) {
@@ -50,15 +51,15 @@ public class Paginateur {
 				if (count == 10 || i == total - 1) {
 					if (page.toString().equals(pagenum)) {
 						pagination = pagination + "<li><a class=\"active\" href=\"" + path
-								+ "?action=afficherSousVendables&begin=" + start + "&end=" + (start + count - 1)
-								+ "&pagenum=" + page + "\">" + page + "</a></li>";
+								+ "?action=afficherSousVendables&begin="+ (origine - count) +"&end=10&pagenum=" + page
+								+ "\">" + page + "</a></li>";
 
 					} else {
-						pagination = pagination + "<a href=\"" + path + "?action=afficherSousVendables&begin=" + start
-								+ "&end=" + (start + count) + "&pagenum=" + page + "\">" + page + "</a></li>";
+						pagination = pagination + "<a href=\"" + path + "?action=afficherSousVendables&begin="
+								+ (origine - count) + "&end=10" +"&pagenum="+ page + "\">"+ page + "</a></li>";
 					}
-					fin = start + count - 1;
-					finalStart = start;
+					origine = origine - count;
+					fin = origine;
 					lastpage = page;
 					page++;
 					start = start + 10;
@@ -66,8 +67,7 @@ public class Paginateur {
 				}
 				i++;
 			}
-			pagination = pagination + "<li class=\"next\"><a href=\"" + path + "?action=afficherSousVendables&begin="
-					+ finalStart + "&end=" + fin + "&pagenum=" + lastpage
+			pagination = pagination + "<li class=\"next\"><a href=\"" + path + "?action=afficherSousVendables&begin="+ fin + "&end=10&pagenum=" + lastpage
 					+ "\" aria-label=\"Next\"><span aria-hidden=\"true\"><i class=\"fa fa-angle-right\" aria-hidden=\"true\"></i></span></a></li>";
 		}
 		return pagination;

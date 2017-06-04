@@ -133,7 +133,7 @@ public class DaoServiceImpl implements ServiceDao {
 	}
 
 	public Service map(ResultSet result) throws SQLException {
-	//	this.prodImpl = new DaoProductImpl(daoFactory);
+		// this.prodImpl = new DaoProductImpl(daoFactory);
 		Service service = new Service();
 		service.setId(result.getLong("id"), true);
 		service.setCode(result.getString("code"), true);
@@ -150,17 +150,20 @@ public class DaoServiceImpl implements ServiceDao {
 		service.setDepartement(result.getString("departement"));
 		service.setCountry(result.getString("country"));
 		service.setLatLng(result.getString("latlng"));
-		/*ArrayList<Association> assoc = new ArrayList<>();
-		assoc.addAll(ProductComponent.findProductComponentById(daoFactory, result.getLong("id")));
-		for (int i = 0; i < assoc.size(); i++) {
-			service.getListSubProduct().add(this.findServiceById(assoc.get(i).getIdFirstKey()));
-		}
-		assoc.removeAll(assoc);
-		assoc.addAll(ProductService.findProductServiceById(daoFactory, result.getLong("id")));
-		for (int i = 0; i < assoc.size(); i++) {
-			service.getListSubProduct().add(prodImpl.findProductById(assoc.get(i).getIdFirstKey()));
-		}*/
-		
+		service.setStatut(result.getInt("statut"));
+
+		/*
+		 * ArrayList<Association> assoc = new ArrayList<>();
+		 * assoc.addAll(ProductComponent.findProductComponentById(daoFactory,
+		 * result.getLong("id"))); for (int i = 0; i < assoc.size(); i++) {
+		 * service.getListSubProduct().add(this.findServiceById(assoc.get(i).
+		 * getIdFirstKey())); } assoc.removeAll(assoc);
+		 * assoc.addAll(ProductService.findProductServiceById(daoFactory,
+		 * result.getLong("id"))); for (int i = 0; i < assoc.size(); i++) {
+		 * service.getListSubProduct().add(prodImpl.findProductById(assoc.get(i)
+		 * .getIdFirstKey())); }
+		 */
+
 		// service.setServiceListImage(listImage, true);
 		return service;
 	}
@@ -195,9 +198,9 @@ public class DaoServiceImpl implements ServiceDao {
 	}
 
 	@Override
-	public ArrayList<Service> findAllService(Long limit, Long offset) {
+	public ArrayList<Service> findAllService(Long Id, Long limit, Long offset) {
 		Boolean isSucceed = false;
-		return findAllService(RequestRepository.getMysqlSelectAllService(), isSucceed, limit, offset);
+		return findAllService(RequestRepository.getMysqlSelectAllService(), isSucceed, Id, limit, offset);
 	}
 
 	private ArrayList<Service> findAllService(String sql, Boolean isSucceed, Object... objets) {
@@ -253,14 +256,14 @@ public class DaoServiceImpl implements ServiceDao {
 	}
 
 	@Override
-	public Long countElements() {
+	public Long countElements(Long Id) {
 		// TODO Auto-generated method stub
 		Boolean isSucceed = false;
-		Long nbre = countElements(isSucceed);
+		Long nbre = countElements(Id, isSucceed);
 		return nbre;
 	}
 
-	private Long countElements(Boolean isSucceed) {
+	private Long countElements(Long Id, Boolean isSucceed) {
 		Connection connexion = null;
 		Statement statement = null;
 		ResultSet resultSet = null;
@@ -268,7 +271,7 @@ public class DaoServiceImpl implements ServiceDao {
 		try {
 			connexion = daoFactory.getConnection();
 			statement = connexion.createStatement();
-			resultSet = statement.executeQuery("select count(id) as nb from product p");
+			resultSet = statement.executeQuery("select count(id) as nb from service p where id_provider !=" + Id);
 			if (resultSet.next()) {
 				isSucceed = true;
 				nbre = resultSet.getLong("nb");
@@ -311,4 +314,33 @@ public class DaoServiceImpl implements ServiceDao {
 		return nbre;
 	}
 
+	@Override
+	public Boolean changeStatut(Long Id, Integer statut) {
+		// TODO Auto-generated method stub
+		Boolean isSucceed = false;
+		return changeStatut(Id, statut, isSucceed);
+	}
+
+	public Boolean changeStatut(Long Id, Integer statut1, Boolean isSucceed) {
+		// TODO Auto-generated method stub
+		Connection connexion = null;
+		PreparedStatement Statement = null;
+		try {
+			connexion = daoFactory.getConnection();
+			Statement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlUpdateServiceStatut(), false,
+					statut1, Id);
+			int statut = Statement.executeUpdate();
+			if (statut != 0) {
+				isSucceed = true;
+			} else {
+				throw new ExceptionDao("échec de la modification du service!");
+
+			}
+		} catch (SQLException e) {
+			throw new ExceptionDao(e);
+		} finally {
+			fermeturesSilencieuses(Statement, connexion);
+		}
+		return isSucceed;
+	}
 }

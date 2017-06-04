@@ -10,7 +10,6 @@
 </head>
 <body class="home1">
 	<%@include file="header.jsp"%>
-
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
@@ -22,47 +21,74 @@
 			</div>
 		</div>
 	</div>
-
-
-
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="page-inner padding-top-xlg">
 					<div class="booking-form" align="center">
-						<div class="table-responsive"></div>
-						<table class="table table-bordered">
+						<div class="table-responsive">
+							<table class="table table-bordered">
 
-							<thead>
-								<tr>
-									<th>ID Commande</th>
-									<th>Code</th>
-									<th>Par</th>
-									<th>Prix</th>
-									<th>Date de commande</th>
-								</tr>
-							</thead>
-
-							<tbody>
-								<c:forEach var="order" items="${requestScope['allOrders'] }">
-									<tr>
-										<td>${order.id }</td>
-										<td>${order.code}</td>
-										<td><a href="users?id=${order.costumer.id }">${order.costumer.name }</a></td>
-										<td>${order.price }&euro;</td>
-										<td>${order.dateCommande }</td>
+								<thead>
+									<tr BGCOLOR="grey">
+										<th>ID Commande</th>
+										<th>Code</th>
+										<th>Par</th>
+										<th>Prix</th>
+										<th>Date de commande</th>
 									</tr>
-								</c:forEach>
-							</tbody>
+								</thead>
 
-						</table>
+								<tbody>
+									<c:forEach var="order" items="${requestScope['allOrders'] }">
+										<tr BGCOLOR="orange">
+											<td>${order.id }</td>
+											<td>${order.code}</td>
+											<td><a href="account?cible=${order.customer.id }">${order.customer.name }</a></td>
+											<td>${order.price }&euro;</td>
+											<td>${order.dateCommande }</td>
+										</tr>
+										<tr>
+											<th></th>
+											<th>N&deg;</th>
+											<th>D&eacute;signation</th>
+											<th>Quantit&eacute;</th>
+										</tr>
+										<c:set var="j" value="0" />
+										<c:forEach var="elem" items="${order.elements }">
+											<tr>
+												<td></td>
+
+												<td>${j+1}</td>
+												<td><a
+													href="details?type=${elem.mProduct.type}&cible=${elem.mProduct.id}">${elem.mProduct.name}</a></td>
+												<td>${elem.quantity}</td>
+											</tr>
+											<c:set var="j" value="${j+1}" />
+										</c:forEach>
+									</c:forEach>
+								</tbody>
+								<tfoot>
+									<tr>
+										<td><b>TOTAL</b></td>
+										<td></td>
+										<td></td>
+										<td><b>${requestScope['total']}</b></td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+					<div class="product-pagination">
+						<nav>
+						<ul class="pagination">${requestScope['pagination']}
+						</ul>
+						</nav>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
 	<%@include file="footer.jsp"%>
 </body>
 </html>

@@ -13,12 +13,14 @@ public interface ProductDao {
 
 	public Product findProductById(Long Id);
 
-	public ArrayList<Product> findAllProduct(Long limit, Long offset);
+	public ArrayList<Product> findAllProduct(Long Id, Long limit, Long offset);
 
 	public ArrayList<Product> findAllProductByIdProvider(Long Id, Long limit, Long offset);
 
-	public Long countElements();
+	public Long countElements(Long Id);
 
 	public Long countElementsByIdProvider(Long Id);
+
+	public Boolean changeStatut(Long Id, Integer statut);
 
 }

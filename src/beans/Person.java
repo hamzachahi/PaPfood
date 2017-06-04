@@ -2,10 +2,6 @@ package beans;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-
-import dao.DaoPersonImpl;
-import dao.UsineDao;
-
 import java.sql.Connection;
 
 public class Person implements Serializable {
@@ -36,11 +32,9 @@ public class Person implements Serializable {
 	private String postalCode = null;
 	private String Departement = null;
 	private String latLng = null;
-	private Integer lastConnexion = null;
+	private Long lastConnexion = null;
 	private String function = null;
 	private Connection maConnexion = null;
-	private ResultConnexion resultConnexion = null;
-	private DaoPersonImpl daopi = new DaoPersonImpl(UsineDao.getInstance());
 
 	protected Boolean Connexion(String Id, String Password) {
 		return null;
@@ -207,12 +201,12 @@ public class Person implements Serializable {
 		this.postalCode = postalCode;
 	}
 
-	public Integer getLastConnexion() {
+	public Long getLastConnexion() {
 		return lastConnexion;
 	}
 
-	public void setLastConnexion(int i) {
-		this.lastConnexion = i;
+	public void setLastConnexion(Long idConnexion) {
+		this.lastConnexion = idConnexion;
 	}
 
 	public Timestamp getDateInscription() {
@@ -231,28 +225,12 @@ public class Person implements Serializable {
 		this.function = function;
 	}
 
-	public DaoPersonImpl getDaopi() {
-		return daopi;
-	}
-
-	public void setDaopi(DaoPersonImpl daopi) {
-		this.daopi = daopi;
-	}
-
 	public Connection getMaConnexion() {
 		return maConnexion;
 	}
 
 	public void setMaConnexion(Connection maConnexion) {
 		this.maConnexion = maConnexion;
-	}
-
-	public ResultConnexion getResultConnexion() {
-		return resultConnexion;
-	}
-
-	public void setResultConnexion(ResultConnexion resultConnexion) {
-		this.resultConnexion = resultConnexion;
 	}
 
 	public String getDepartement() {
@@ -270,7 +248,5 @@ public class Person implements Serializable {
 	public void setLatLng(String latLng) {
 		this.latLng = latLng;
 	}
-
-	
 
 }
