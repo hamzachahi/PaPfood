@@ -132,8 +132,7 @@
 									<li><a href="${pageContext.request.contextPath}/contact">Nous
 											Contacter</a></li>
 
-									<c:if
-										test="${not empty sessionScope.sessionUtilisateur &&  sessionScope.sessionUtilisateur.function == 'admin'}">
+									<c:if test="${not empty sessionScope.sessionUtilisateur &&  sessionScope.sessionUtilisateur.function == 'admin'}">
 										<li><a href="#">Administrer</a>
 											<ul>
 												<!--  <li><a
