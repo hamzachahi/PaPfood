@@ -25,7 +25,7 @@ public class ServletMessage extends HttpServlet {
 
 	public void init() throws ServletException {
 		this.messageDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getMessageDao();
-		this.personDao=((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getUtilisateurDao();
+		this.personDao = ((UsineDao) getServletContext().getAttribute(CONF_DAO_FACTORY)).getUtilisateurDao();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -59,8 +59,8 @@ public class ServletMessage extends HttpServlet {
 		}
 		String readOrNot = request.getParameter("readornot");
 		String statut = request.getParameter("statut");
-		if (request.getSession(false) != null) {
-			HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("sessionUtilisateur") != null) {
 			Person utilisateur = (Person) session.getAttribute("sessionUtilisateur");
 			if (action != null) {
 				if (action.equals("afficherSousVendables")) {

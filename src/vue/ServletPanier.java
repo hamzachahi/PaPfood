@@ -34,9 +34,9 @@ public class ServletPanier extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		String action = request.getParameter("action");
 		Double total = 0.0;
-		if (request.getSession(false) == null) {
+		if (request.getSession(false) == null || session.getAttribute("sessionUtilisateur") == null) {
 			response.sendRedirect(request.getContextPath() + "/connexion");
-		} else if (action != null) {
+		} else if (action != null && session.getAttribute("sessionUtilisateur") != null) {
 			if (action.equals("removeSalable")) {
 				int i = Integer.parseInt(request.getParameter("indice"));
 				if (monPanier.get(i).getQuantity() > 1) {
@@ -78,5 +78,5 @@ public class ServletPanier extends HttpServlet {
 		}
 
 	}
-	
+
 }

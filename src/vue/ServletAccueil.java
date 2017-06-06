@@ -61,7 +61,7 @@ public class ServletAccueil extends HttpServlet {
 			t = new Thread(new RefreshMesages(messageDao, session));
 			t.start();
 		}
-		if (session != null) {
+		if (session != null && session.getAttribute("sessionUtilisateur") != null) {
 			Person person = (Person) session.getAttribute("sessionUtilisateur");
 			if (session.getAttribute("sessionAdr") != null) {
 				String adr = (String) session.getAttribute("sessionAdr");

@@ -23,9 +23,9 @@ import forms.FormUpload;
 @WebServlet("/ServletPropose")
 @MultipartConfig
 public class ServletPropose extends HttpServlet {
-	private ProductDao productDao ;
-	private ServiceDao serviceDao ;
-	private Person utilisateur = null;	
+	private ProductDao productDao;
+	private ServiceDao serviceDao;
+	private Person utilisateur = null;
 	Long begin = null;
 	Long end = null;
 	private static final long serialVersionUID = 1L;
@@ -52,9 +52,10 @@ public class ServletPropose extends HttpServlet {
 		Fichier fichier = null;
 		HttpSession session = request.getSession(false);
 		String action = request.getParameter("action");
-		if (request.getSession(false) == null) {
+		if (request.getSession(false) == null || session.getAttribute("sessionUtilisateur") == null) {
 			response.sendRedirect(request.getContextPath() + "/connexion");
-		} else if (request.getSession(false) != null && action == null) {
+		} else if (request.getSession(false) != null && action == null
+				&& session.getAttribute("sessionUtilisateur") != null) {
 			utilisateur = (Person) session.getAttribute("sessionUtilisateur");
 			/*
 			 * listProdSer = new ArrayList<>();
@@ -69,7 +70,7 @@ public class ServletPropose extends HttpServlet {
 			this.getServletContext().getRequestDispatcher("/WEB-INF/proposer.jsp").forward(request, response);
 
 		} else {
-			if (action != null) {
+			if (action != null && session.getAttribute("sessionUtilisateur") != null) {
 				utilisateur = (Person) session.getAttribute("sessionUtilisateur");
 				if (action.equals("proposerProductService") && session != null) {
 					String nom = null;

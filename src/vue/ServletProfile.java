@@ -30,7 +30,12 @@ public class ServletProfile extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("sessionUtilisateur") != null) {
+			this.getServletContext().getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
+		} else {
+			response.sendRedirect(request.getContextPath() + "/connexion");
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -38,7 +43,7 @@ public class ServletProfile extends HttpServlet {
 
 		HttpSession session = request.getSession(false);
 		Person utilisateur = null;
-		if (session != null) {
+		if (session != null && session.getAttribute("sessionUtilisateur") != null) {
 			utilisateur = (Person) session.getAttribute("sessionUtilisateur");
 			String function = utilisateur.getFunction();
 			String realChemin = utilisateur.getAccountPicture();

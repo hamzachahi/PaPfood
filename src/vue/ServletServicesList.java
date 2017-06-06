@@ -106,8 +106,13 @@ public class ServletServicesList extends HttpServlet {
 			} else {
 				if (tousLesServices == null) {
 					tousLesServices = new ArrayList<>();
-					total = serviceDao.countElements(person.getId());
-					tousLesServices.addAll(serviceDao.findAllService(person.getId(), (long) 10, (long) 0));
+					if (session.getAttribute("sessionUtilisateur") != null) {
+						total = serviceDao.countElements(person.getId());
+						tousLesServices.addAll(serviceDao.findAllService(person.getId(), (long) 10, (long) 0));
+					} else {
+						total = serviceDao.countElements(Long.valueOf(0));
+						tousLesServices.addAll(serviceDao.findAllService(Long.valueOf(0), (long) 10, (long) 0));
+					}
 					for (int i = 0; i < elements.size(); i++) {
 						elements.remove(i);
 					}
@@ -124,7 +129,11 @@ public class ServletServicesList extends HttpServlet {
 					request.setAttribute("pagination", pagination);
 				} else {
 					request.setAttribute("listProduits", tousLesServices);
-					total = serviceDao.countElements(person.getId());
+					if (session.getAttribute("sessionUtilisateur") != null) {
+						total = serviceDao.countElements(person.getId());
+					} else {
+						total = serviceDao.countElements(Long.valueOf(0));
+					}
 					request.setAttribute("total", total);
 					pagination = Paginateur.pagine(total, tousLesServices, request, "services");
 					request.setAttribute("pagination", pagination);

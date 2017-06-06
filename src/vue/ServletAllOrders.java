@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import beans.Commande;
 import beans.Paginateur;
 import dao.CommandeDao;
@@ -29,7 +31,8 @@ public class ServletAllOrders extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (request.getSession(false) != null) {
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("sessionUtilisateur") != null) {
 			if (request.getParameter("action") != null) {
 				String action = request.getParameter("action");
 				if (action.equals("afficherSousVendables")) {

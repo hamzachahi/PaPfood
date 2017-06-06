@@ -57,7 +57,6 @@ public class ServletCompte extends HttpServlet {
 		String pagination;
 		Long begin = null;
 		Long end = null;
-		HttpSession session = request.getSession(false);
 		String action = request.getParameter("action");
 		Long cible = null;
 		Double note = null;
@@ -66,7 +65,8 @@ public class ServletCompte extends HttpServlet {
 		String content = null;
 		Long totalEval = null;
 		Long ownerId = null;
-		if (session != null) {
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("sessionUtilisateur") != null) {
 			Person utilisateur = (Person) session.getAttribute("sessionUtilisateur");
 
 			if (action != null && session != null) {
@@ -491,7 +491,7 @@ public class ServletCompte extends HttpServlet {
 			}
 			this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 		} else {
-			response.sendRedirect("/connexion");
+			response.sendRedirect(request.getContextPath() + "/connexion");
 		}
 	}
 }

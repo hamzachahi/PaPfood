@@ -46,9 +46,9 @@ public class ServletOwnOrders extends HttpServlet {
 
 	private void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (request.getSession(false) != null) {
-			HttpSession session=request.getSession(false);
-			Person person=(Person) session.getAttribute("sessionUtilisateur");
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("sessionUtilisateur") != null) {
+			Person person = (Person) session.getAttribute("sessionUtilisateur");
 			if (request.getParameter("action") != null) {
 				String action = request.getParameter("action");
 				if (action.equals("afficherSousVendables")) {

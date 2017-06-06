@@ -103,8 +103,14 @@ public class ServletProductsList extends HttpServlet {
 			} else {
 				if (tousLesProduits == null) {
 					tousLesProduits = new ArrayList<>();
-					total = productDao.countElements(person.getId());
-					tousLesProduits.addAll(productDao.findAllProduct(person.getId(), (long) 10, (long) 0));
+					if (session.getAttribute("sessionUtilisateur") != null) {
+						total = productDao.countElements(person.getId());
+						tousLesProduits.addAll(productDao.findAllProduct(person.getId(), (long) 10, (long) 0));
+
+					} else {
+						total = productDao.countElements(Long.valueOf(0));
+						tousLesProduits.addAll(productDao.findAllProduct(Long.valueOf(0), (long) 10, (long) 0));
+					}
 					for (int i = 0; i < elements.size(); i++) {
 						elements.remove(i);
 					}
@@ -121,7 +127,11 @@ public class ServletProductsList extends HttpServlet {
 					request.setAttribute("pagination", pagination);
 				} else {
 					request.setAttribute("listProduits", tousLesProduits);
-					total = productDao.countElements(person.getId());
+					if (session.getAttribute("sessionUtilisateur") != null) {
+						total = productDao.countElements(person.getId());
+					} else {
+						total = productDao.countElements(Long.valueOf(0));
+					}
 					request.setAttribute("total", total);
 					pagination = Paginateur.pagine(total, tousLesProduits, request, "produits");
 					request.setAttribute("pagination", pagination);

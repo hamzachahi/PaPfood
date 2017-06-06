@@ -59,7 +59,7 @@ public class ServletAcheter extends HttpServlet {
 	private void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		if (session != null) {
+		if (session != null && session.getAttribute("sessionUtilisateur") != null) {
 			Person person = (Person) session.getAttribute("sessionUtilisateur");
 			String action = request.getParameter("action");
 			if (action != null) {
@@ -87,7 +87,7 @@ public class ServletAcheter extends HttpServlet {
 						message = "Liste des éléments trouvés";
 						tousLesArticles = new ArrayList<>();
 						tousLesArticles.addAll(productDao.findAllProduct(person.getId(), end, beginp));
-						tousLesArticles.addAll(serviceDao.findAllService(person.getId(),end, begins));
+						tousLesArticles.addAll(serviceDao.findAllService(person.getId(), end, begins));
 						elements = new ArrayList<>();
 						for (int i = 0; i < tousLesArticles.size(); i++) {
 							ElementCommand elementCom = new ElementCommand();
@@ -176,8 +176,8 @@ public class ServletAcheter extends HttpServlet {
 					Long total1 = productDao.countElements(person.getId());
 					Long total2 = serviceDao.countElements(person.getId());
 					total = total1 + total2;
-					tousLesArticles.addAll(productDao.findAllProduct(person.getId(),(long) 10, total1 - 5));
-					tousLesArticles.addAll(serviceDao.findAllService(person.getId(),(long) 10, total2 - 5));
+					tousLesArticles.addAll(productDao.findAllProduct(person.getId(), (long) 10, total1 - 5));
+					tousLesArticles.addAll(serviceDao.findAllService(person.getId(), (long) 10, total2 - 5));
 					for (int i = 0; i < elements.size(); i++) {
 						elements.remove(i);
 					}

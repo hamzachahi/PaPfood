@@ -52,11 +52,11 @@ public class ServletOrder extends HttpServlet {
 	@SuppressWarnings({ "unused", "unchecked" })
 	private void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
 		String adresseComplete = "";
 		Commande order = new Commande();
 		Invoice facture = new Invoice();
-		if (session != null) {
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("sessionUtilisateur") != null) {
 			Person utilisateur = (Person) session.getAttribute("sessionUtilisateur");
 			elements = (ArrayList<ElementCommand>) session.getAttribute("monPanier");
 			String action = request.getParameter("action");
