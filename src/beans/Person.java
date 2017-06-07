@@ -27,7 +27,7 @@ public class Person implements Serializable {
 	private String accountPicture = null;
 	private String streetNumber = null;
 	private String streetName = null;
-	private String cityName = null;
+	private String cityName = "";
 	private String countryName = null;
 	private String postalCode = null;
 	private String Departement = null;

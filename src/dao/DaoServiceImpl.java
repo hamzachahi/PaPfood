@@ -43,7 +43,7 @@ public class DaoServiceImpl implements ServiceDao {
 					service.getLatLng());
 			int statut = Statement.executeUpdate();
 			/* Parcours de la ligne de données retournée dans le ResultSet */
-			if (statut == 0) {
+			if (statut != 0) {
 				isSucceed = true;
 			} else {
 				throw new ExceptionDao("échec de l'enregistrement du service!");
@@ -82,7 +82,7 @@ public class DaoServiceImpl implements ServiceDao {
 					service.getLatLng(), service.getId());
 			int statut = Statement.executeUpdate();
 			/* Parcours de la ligne de données retournée dans le ResultSet */
-			if (statut == 0) {
+			if (statut != 0) {
 				isSucceed = true;
 			} else {
 				throw new ExceptionDao("échec de la modification du service!");
@@ -118,7 +118,7 @@ public class DaoServiceImpl implements ServiceDao {
 					service.getId());
 			int statut = Statement.executeUpdate();
 			/* Parcours de la ligne de données retournée dans le ResultSet */
-			if (statut == 0) {
+			if (statut != 0) {
 				isSucceed = true;
 			} else {
 				throw new ExceptionDao("échec de la suppression du service!");

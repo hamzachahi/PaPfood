@@ -124,9 +124,11 @@ public class ServletProfile extends HttpServlet {
 					System.out.println(utilisateur.toString());
 
 					utilisateurDao.modifyPersonalInformation(utilisateur);
-					if (function == null && profil != null && profil.equals("pro")) {
-						messageDao.sendMessage(utilisateur.getId(), (long) 4,
-								"Je déclare, moi " + utilisateur.toString() + " être un professionnel!");
+					if (function == null && profil != null) {
+						if (profil.equals("pro")) {
+							messageDao.sendMessage(utilisateur.getId(), (long) 4,
+									"Je déclare, moi " + utilisateur.toString() + " être un professionnel!");
+						}
 					}
 					response.sendRedirect(request.getContextPath() + "/account");
 

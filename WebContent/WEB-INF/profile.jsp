@@ -165,7 +165,7 @@
 												<label for="departement">D&eacute;partement :</label> <input
 													type="text" id="dpt" name="departement"
 													class="form-control"
-													value="${sessionUtilisateur.countryName}"
+													value="${sessionUtilisateur.departement}"
 													placeholder="Exp : France" />
 											</div>
 

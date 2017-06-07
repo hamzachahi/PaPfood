@@ -35,7 +35,7 @@ public class DaoPostImpl implements PostDao {
 			preparedStatement = initialisationRequetePreparee(connexion, RequestRepository.getMysqlInsertPost(), true,
 					IdAuthor, content, Title);
 			int statut = preparedStatement.executeUpdate();
-			if (statut == 0) {
+			if (statut != 0) {
 				isSucceed = false;
 				throw new ExceptionDao("Échec de l'ajout du postaire, aucune ligne ajoutée dans la table.");
 			}

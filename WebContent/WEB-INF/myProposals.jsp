@@ -57,8 +57,8 @@
 											<div align="right">
 												<a class="btn btn-rooms-book-now"
 													href="mespropositions?type=${article.type}&cible=${article.id}&statut=${article.statut}"><c:if
-														test="${article.statut eq '0'}">Masquer</c:if><c:if
-														test="${article.statut eq '1'}">Activer</c:if></a>
+														test="${article.statut eq '0'}">Masquer</c:if>
+													<c:if test="${article.statut eq '1'}">Activer</c:if></a>
 											</div>
 										</div>
 									</div>

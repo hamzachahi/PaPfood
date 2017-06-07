@@ -42,7 +42,7 @@
 											<div class="price">${article.price }</div>
 										</div>
 										<div class="rooms-content-area">
-											<h3>${article.name }</h3>
+											<h3>${article.name } <br/><b>Où : </b> ${article.city }, ${article.country }</h3>
 											<p>${article.description }.</p>
 											<a class="btn btn-rooms-book-now"
 												href="produits?action=chargerPanier&idarticle=${i}">Ajouter

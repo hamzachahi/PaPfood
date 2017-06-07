@@ -34,13 +34,18 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="single-blog">
-								<img src="${owner.accountPicture}" alt="">
+								<img
+									src="<c:if test="${not empty owner.accountPicture}"><c:out value="${owner.accountPicture}"/></c:if><c:if test="${empty owner.accountPicture}">assets/img/defaultpicture.jpg</c:if>"
+									alt="">
 							</div>
 						</div>
 					</div>
 					<div class="row padding-top-md">
 						<div class="col-md-4">
 							<div class="blog-single-left">
+							<div class="blog-date-time">
+									<label>Localisation :</label> <span>${owner.cityName}, ${owner.countryName}</span>
+								</div>
 								<div class="blog-date-time">
 									<label>Dernière connexion:</label> <span>${lastconnexion}</span>
 								</div>
@@ -89,7 +94,8 @@
 									<ul>
 										<li>
 											<div class="avatar">
-												<img src="${evaluation.author.accountPicture}"
+												<img
+													src="<c:if test="${not empty evaluation.author.accountPicture}"><c:out value="${evaluation.author.accountPicture}"/></c:if><c:if test="${empty evaluation.author.accountPicture}">assets/img/defaultpicture.jpg</c:if>"
 													class="assets/img-circle" alt="">
 											</div>
 											<div class="comment-content">

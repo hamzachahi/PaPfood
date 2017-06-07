@@ -146,6 +146,17 @@ public class ServletOwnProposals extends HttpServlet {
 					pagination = Paginateur.pagine(total, allMyOwnSalables, request, "mespropositions");
 					request.setAttribute("pagination", pagination);
 				} else {
+					begin = Long.valueOf(0);
+					end = Long.valueOf(0);
+					if (session.getAttribute("propbegin") != null) {
+						begin = (long) session.getAttribute("propbegin");
+						end = (long) session.getAttribute("propend");
+					}
+					;
+					end = (long) session.getAttribute("propend");
+					allMyOwnSalables = new ArrayList<>();
+					allMyOwnSalables.addAll(serviceDao.findAllServiceByIdProvider(person.getId(), end, begin));
+					allMyOwnSalables.addAll(productDao.findAllProductByIdProvider(person.getId(), end, begin));
 					request.setAttribute("listSalables", allMyOwnSalables);
 					total = null;
 					total = serviceDao.countElementsByIdProvider(person.getId());

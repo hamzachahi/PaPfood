@@ -31,7 +31,7 @@
 							<div class="single-menu-title">
 								<h3 class="title-style-10 text-right color-1">Prix :
 									${salable.price}</h3>
-								<h4 class="title-style-11 color-2 text-right">${salable.name}</h4>
+								<h4 class="title-style-11 color-2 text-right">${salable.name}<br/>Lieu : ${salable.city}, ${salable.country}</h4>
 								<hr class="hr-border-bottom">
 							</div>
 							<div class="div-disctiption">

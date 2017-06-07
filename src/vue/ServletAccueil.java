@@ -62,8 +62,15 @@ public class ServletAccueil extends HttpServlet {
 			t.start();
 		}
 		if (session != null && session.getAttribute("sessionUtilisateur") != null) {
+			String test;
 			Person person = (Person) session.getAttribute("sessionUtilisateur");
-			if (session.getAttribute("sessionAdr") != null) {
+			if (person.getCityName() != null) {
+				test = person.getCityName();
+			} else {
+				test = "";
+			}
+			if (session.getAttribute("sessionAdr") != null
+					&& !((String) session.getAttribute("sessionAdr")).equals("")) {
 				String adr = (String) session.getAttribute("sessionAdr");
 				listProducts = searchDao.findProductByKeyWord(adr, person.getId(), (long) 4, (long) 0);
 				listServices = searchDao.findServiceByKeyWord(adr, person.getId(), (long) 4, (long) 0);
@@ -72,7 +79,7 @@ public class ServletAccueil extends HttpServlet {
 				request.setAttribute("titleSer", titleSer);
 				request.setAttribute("titlePro", titlePro);
 
-			} else if (!person.getCityName().equals("") && person.getCityName() != null) {
+			} else if (!test.equals("") && person.getCityName() != null) {
 				String adr = person.getCityName();
 				listProducts = searchDao.findProductByKeyWord(adr, person.getId(), (long) 4, (long) 0);
 				listServices = searchDao.findServiceByKeyWord(adr, person.getId(), (long) 4, (long) 0);

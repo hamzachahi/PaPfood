@@ -69,7 +69,7 @@
 											items="${requestScope['searchResults']}">
 											<tr>
 												<td>${i+1}</td>
-												<td>${article.mProduct.name }</td>
+												<td>${article.mProduct.name }, <br/> <b>Où :</b> ${article.mProduct.city }, ${article.mProduct.country }</td>
 												<td>${article.mProduct.description }</td>
 												<td>${article.mProduct.price}</td>
 												<td><a class="btn btn-rooms-book-now"
